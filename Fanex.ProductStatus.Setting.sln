@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A75E06D1-6B89-4CB6-BAF0-CC5F1DE44280}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3CE3755B-C46C-40F2-B7D6-0637B4403780}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ProductStatus.Setting", "src\Fanex.ProductStatus.Setting\Fanex.ProductStatus.Setting.csproj", "{40E4C3A8-036F-4908-9B31-25D221F4D28F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ProductStatus.Setting.Tests", "tests\Fanex.ProductStatus.Setting.Tests\Fanex.ProductStatus.Setting.Tests.csproj", "{AF6716CF-7C68-473E-B890-DD31B0AD1696}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40E4C3A8-036F-4908-9B31-25D221F4D28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40E4C3A8-036F-4908-9B31-25D221F4D28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40E4C3A8-036F-4908-9B31-25D221F4D28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40E4C3A8-036F-4908-9B31-25D221F4D28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF6716CF-7C68-473E-B890-DD31B0AD1696}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF6716CF-7C68-473E-B890-DD31B0AD1696}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF6716CF-7C68-473E-B890-DD31B0AD1696}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF6716CF-7C68-473E-B890-DD31B0AD1696}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{40E4C3A8-036F-4908-9B31-25D221F4D28F} = {A75E06D1-6B89-4CB6-BAF0-CC5F1DE44280}
+		{AF6716CF-7C68-473E-B890-DD31B0AD1696} = {3CE3755B-C46C-40F2-B7D6-0637B4403780}
+	EndGlobalSection
+EndGlobal
