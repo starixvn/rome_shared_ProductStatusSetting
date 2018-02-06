@@ -20,13 +20,20 @@ namespace Fanex.ProductStatus.Setting.Models
             => new Result(0, message);
 
         public static Result CreateErrorResult(int code, string message)
-            => new Result(code, message);
+        {
+            if (code == 0)
+            {
+                throw new ArgumentException("code of result error cannot be 0");
+            }
+
+            return new Result(code, message);
+        }
 
         public static Result CreateResult(Hashtable outputParams)
         {
-            if (outputParams == null ||
-                !outputParams.ContainsKey("errcode") ||
-                !outputParams.ContainsKey("errmsg"))
+            if (outputParams == null
+                || !outputParams.ContainsKey("errcode")
+                || !outputParams.ContainsKey("errmsg"))
             {
                 return CreateErrorResult(500, Resources.InternalServerError);
             }

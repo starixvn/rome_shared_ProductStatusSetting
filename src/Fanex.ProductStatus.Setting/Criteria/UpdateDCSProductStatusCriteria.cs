@@ -16,16 +16,13 @@ namespace Fanex.ProductStatus.Setting.Criteria
 
         public override string GetSettingKey() => "Acc_Admin_DisableNewProductStatusUpd";
 
-        public override Hashtable GetSpParams()
+        public override Hashtable GetSpParams() => new Hashtable
         {
-            return new Hashtable
-            {
-                ["custid"] = CustId,
-                ["isdisabled"] = GetIsDisabledXmlParam(),
-                ["userid"] = UserId,
-                ["ip"] = IP
-            };
-        }
+            ["custid"] = CustId,
+            ["isdisabled"] = GetIsDisabledXmlParam(),
+            ["userid"] = UserId,
+            ["ip"] = IP
+        };
 
         private string GetIsDisabledXmlParam()
         {

@@ -6,12 +6,13 @@ namespace Fanex.ProductStatus.Setting.Services
 {
     internal class RefDataService : IRefDataService
     {
+        private const int FirstBetTypeIdOfAllbets = 2401;
         private const string DefaultLanguage = "en";
         private const string ProductRefId = "Product";
 
         public string GetBetTypeName(int betTypeId)
         {
-            if (betTypeId == (int)BetTypeIdentity.AllbetStartRange)
+            if (betTypeId == FirstBetTypeIdOfAllbets)
             {
                 return Resources.BetType_2401;
             }

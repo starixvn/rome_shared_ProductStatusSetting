@@ -103,9 +103,7 @@
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\IProductStatusDataAccess.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
-    <Compile Include="Enumerations\BetTypeIdentity.cs" />
     <Compile Include="Enumerations\ProductIdentity.cs" />
-    <Compile Include="Enumerations\RoleIdentity.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
