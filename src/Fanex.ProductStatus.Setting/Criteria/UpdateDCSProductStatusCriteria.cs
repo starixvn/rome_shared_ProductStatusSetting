@@ -7,12 +7,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
 {
     internal class UpdateDCSProductStatusCriteria : UpdateBaseProductStatusCriteria
     {
-        public UpdateDCSProductStatusCriteria(
-            int custId,
-            int userId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands)
-            : base(custId, userId, ip)
+        public UpdateDCSProductStatusCriteria(IEnumerable<ProductStatusCommand> commands)
         {
             ProductStatusCommands = commands;
         }
@@ -62,9 +57,6 @@ namespace Fanex.ProductStatus.Setting.Criteria
                 BooleanToSQLBit(command.DisableAllMembers));
         }
 
-        private static int BooleanToSQLBit(bool value)
-        {
-            return value ? 1 : 0;
-        }
+        private static int BooleanToSQLBit(bool value) => value? 1 : 0;
     }
 }

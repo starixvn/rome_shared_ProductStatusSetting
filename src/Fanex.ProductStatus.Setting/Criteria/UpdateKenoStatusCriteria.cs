@@ -4,17 +4,12 @@ namespace Fanex.ProductStatus.Setting.Criteria
 {
     internal class UpdateKenoStatusCriteria : UpdateBaseProductStatusCriteria
     {
-        public UpdateKenoStatusCriteria(
-            int custId,
-            int userId,
-            int uplineId,
-            string ip,
-            ProductStatusCommand command)
+        public UpdateKenoStatusCriteria(ProductStatusCommand command)
             : base(
-                  custId,
+                  command.CustId,
                   command.Disable,
-                  userId,
-                  ip,
+                  command.UserId,
+                  command.IP,
                   command.UpdateAllMasters,
                   command.DisableAllMasters,
                   command.UpdateAllAgents,
@@ -23,7 +18,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
                   command.DisableAllMembers)
         {
             BetType = command.BetType;
-            UplineId = uplineId;
+            UplineId = command.UplineId;
         }
 
         public int BetType { get; }
@@ -32,6 +27,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
 
         public override string GetSettingKey() => "Acc_AdminUpdDisableKeno";
 
-        public override bool IsValid() => base.IsValid() && BetType > 0 && UplineId > 0;
+        public override bool IsValid()
+            => base.IsValid() && BetType > 0 && UplineId > 0;
     }
 }

@@ -31,99 +31,46 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        public ICriteria CreateUpdateCriteria(UpdateProductStatusCommand updateCommand)
+        public ICriteria CreateUpdateCriteria(IEnumerable<ProductStatusCommand> commands)
         {
-            var isValidCommand = updateCommand?.ProductStatuses?.Any();
-
-            if (isValidCommand != true)
+            if (commands == null || !commands.Any())
             {
                 return null;
             }
 
-            var id = (ProductIdentity)updateCommand.ProductId;
+            var firstCommand = commands.First();
+            var id = (ProductIdentity)firstCommand.ProductId;
 
             switch (id)
             {
                 case ProductIdentity.Casino:
-                    return CreateUpdateCasinoStatusCriteria(updateCommand);
+                    return new UpdateCasinoStatusCriteria(firstCommand);
 
                 case ProductIdentity.GoldDeluxe:
-                    return CreateUpdateGoldDeluxeStatusCriteria(updateCommand);
+                    return new UpdateGoldDeluxeStatusCriteria(firstCommand);
 
                 case ProductIdentity.ColossusBets:
-                    return CreateUpdateColossusBetsStatusCriteria(updateCommand);
+                    return new UpdateColossusBetsStatusCriteria(firstCommand);
 
                 case ProductIdentity.NG2:
-                    return CreateUpdateNG2StatusCriteria(updateCommand);
+                    return new UpdateNG2StatusCriteria(commands);
 
                 default:
-                    return CreateUpdateDCSProductStatusCriteria(updateCommand);
+                    return new UpdateDCSProductStatusCriteria(commands);
             }
         }
 
-        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(UpdateProductStatusCommand updateCommand)
+        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands)
         {
-            var productStatuses = updateCommand?.ProductStatuses;
-
-            if (productStatuses == null || !productStatuses.Any())
+            if (commands == null || !commands.Any())
             {
                 yield break;
             }
 
-            foreach (var item in productStatuses)
+            foreach (var item in commands)
             {
-                yield return new UpdateKenoStatusCriteria(
-                    updateCommand.CustId,
-                    updateCommand.UserId,
-                    updateCommand.UplineId,
-                    updateCommand.IP,
-                    item);
+                yield return new UpdateKenoStatusCriteria(item);
             }
-        }
-
-        private static ICriteria CreateUpdateCasinoStatusCriteria(UpdateProductStatusCommand updateCommand)
-        {
-            return new UpdateCasinoStatusCriteria(
-                updateCommand.CustId,
-                updateCommand.UserId,
-                updateCommand.IP,
-                updateCommand.ProductStatuses.First());
-        }
-
-        private static ICriteria CreateUpdateGoldDeluxeStatusCriteria(UpdateProductStatusCommand updateCommand)
-        {
-            return new UpdateGoldDeluxeStatusCriteria(
-                updateCommand.CustId,
-                updateCommand.UserId,
-                updateCommand.IP,
-                updateCommand.ProductStatuses.First());
-        }
-
-        private static ICriteria CreateUpdateColossusBetsStatusCriteria(UpdateProductStatusCommand updateCommand)
-        {
-            return new UpdateColossusBetsStatusCriteria(
-                updateCommand.CustId,
-                updateCommand.UserId,
-                updateCommand.IP,
-                updateCommand.ProductStatuses.First());
-        }
-
-        private static ICriteria CreateUpdateNG2StatusCriteria(UpdateProductStatusCommand updateCommand)
-        {
-            return new UpdateNG2StatusCriteria(
-                updateCommand.CustId,
-                updateCommand.UserId,
-                updateCommand.IP,
-                updateCommand.ProductStatuses);
-        }
-
-        private static ICriteria CreateUpdateDCSProductStatusCriteria(UpdateProductStatusCommand updateCommand)
-        {
-            return new UpdateDCSProductStatusCriteria(
-                updateCommand.CustId,
-                updateCommand.UserId,
-                updateCommand.IP,
-                updateCommand.ProductStatuses);
         }
     }
 }

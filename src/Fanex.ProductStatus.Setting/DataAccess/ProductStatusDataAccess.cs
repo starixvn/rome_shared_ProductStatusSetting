@@ -39,8 +39,7 @@ namespace Fanex.ProductStatus.Setting.DataAccess
         }
 
         private static ProductStatusModel ToProductStatusModel(IDataReader reader)
-        {
-            return new ProductStatusModel(
+            => new ProductStatusModel(
                 Convert.ToInt32(reader["sporttype"]),
                 Convert.ToInt32(reader["bettype"]),
                 Convert.ToBoolean(reader["isdisabled"]),
@@ -50,8 +49,6 @@ namespace Fanex.ProductStatus.Setting.DataAccess
                 Convert.ToInt32(reader["totaldisabledagents"]),
                 Convert.ToInt32(reader["totalenabledagents"]),
                 Convert.ToInt32(reader["totaldisabledmembers"]),
-                Convert.ToInt32(reader["totalenabledmembers"])
-            );
-        }
+                Convert.ToInt32(reader["totalenabledmembers"]));
     }
 }

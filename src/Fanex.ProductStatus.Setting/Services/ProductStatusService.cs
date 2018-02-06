@@ -38,11 +38,13 @@ namespace Fanex.ProductStatus.Setting.Services
             return GetProductStatusBetTypeName(productId, rawData);
         }
 
-        public Result UpdateProductStatus(UpdateProductStatusCommand updateCommand)
+        public Result UpdateProductStatus(IEnumerable<ProductStatusCommand> commands)
         {
-            return updateCommand.ProductId == (int)ProductIdentity.Keno ?
-                UpdateKenoStatus(updateCommand) :
-                UpdateStatus(updateCommand);
+            var firstCommand = commands.First();
+
+            return firstCommand.ProductId == (int)ProductIdentity.Keno ?
+                UpdateKenoStatus(commands) :
+                UpdateStatus(commands);
         }
 
         private static Result ParseKenoErrorResults(IEnumerable<Result> errors)
@@ -80,29 +82,17 @@ namespace Fanex.ProductStatus.Setting.Services
             foreach (var item in entities)
             {
                 item.ProductId = productId;
-                item.BetTypeName = GetBetTypeName(item.BetType);
+                item.BetTypeName = refDataService.GetBetTypeName(item.BetType);
 
                 yield return item;
             }
         }
 
-        private string GetBetTypeName(int betTypeId)
-        {
-            var betType = (BetTypeIdentity)betTypeId;
-
-            if (betType == BetTypeIdentity.AllbetStartRange)
-            {
-                return Resources.BetType_2401;
-            }
-
-            return refDataService.GetBetTypeName(betTypeId);
-        }
-
-        private Result UpdateKenoStatus(UpdateProductStatusCommand updateCommand)
+        private Result UpdateKenoStatus(IEnumerable<ProductStatusCommand> commands)
         {
             Result result;
             IList<Result> errors = new List<Result>();
-            var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(updateCommand);
+            var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(commands);
 
             foreach (var item in criteria)
             {
@@ -119,9 +109,9 @@ namespace Fanex.ProductStatus.Setting.Services
                 ParseKenoErrorResults(errors);
         }
 
-        private Result UpdateStatus(UpdateProductStatusCommand updateCommand)
+        private Result UpdateStatus(IEnumerable<ProductStatusCommand> commands)
         {
-            var criteria = criteriaFactory.CreateUpdateCriteria(updateCommand);
+            var criteria = criteriaFactory.CreateUpdateCriteria(commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
 
             if (result.IsSuccess())

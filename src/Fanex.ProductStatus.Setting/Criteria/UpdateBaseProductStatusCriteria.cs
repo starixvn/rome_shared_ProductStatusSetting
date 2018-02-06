@@ -4,14 +4,8 @@ namespace Fanex.ProductStatus.Setting.Criteria
 {
     internal abstract class UpdateBaseProductStatusCriteria : CriteriaBase
     {
-        protected UpdateBaseProductStatusCriteria(
-            int custId,
-            int userId,
-            string ip)
+        protected UpdateBaseProductStatusCriteria()
         {
-            CustId = custId;
-            UserId = userId;
-            IP = ip;
         }
 
         protected UpdateBaseProductStatusCriteria(
@@ -61,6 +55,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
 
         public string IP { get; }
 
-        public override bool IsValid() => CustId > 0 && UserId > 0 && !string.IsNullOrEmpty(IP);
+        public override bool IsValid()
+            => CustId > 0 && UserId > 0 && !string.IsNullOrEmpty(IP);
     }
 }

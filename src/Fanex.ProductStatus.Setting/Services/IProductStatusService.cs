@@ -7,6 +7,6 @@ namespace Fanex.ProductStatus.Setting.Services
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
 
-        Result UpdateProductStatus(UpdateProductStatusCommand updateCommand);
+        Result UpdateProductStatus(IEnumerable<ProductStatusCommand> commands);
     }
 }

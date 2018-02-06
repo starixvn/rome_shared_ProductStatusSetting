@@ -5,12 +5,8 @@ namespace Fanex.ProductStatus.Setting.Criteria
 {
     internal class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
     {
-        public UpdateNG2StatusCriteria(
-            int custId,
-            int userId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands)
-            : base(custId, userId, ip, commands)
+        public UpdateNG2StatusCriteria(IEnumerable<ProductStatusCommand> commands)
+            : base(commands)
         {
         }
 

@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using Fanex.ProductStatus.Setting.Models;
-using Fanex.ProductStatus.Setting.Services;
 
-namespace Fanex.ProductStatus.Setting
+namespace Fanex.ProductStatus.Setting.Services
 {
-    public static class ProductStatusSettingHelper
+    public static class ProductStatusSettingManager
     {
         public static IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
         {

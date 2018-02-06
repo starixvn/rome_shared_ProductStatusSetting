@@ -27,6 +27,10 @@
             DisableAllMembers = disableAllMembers;
         }
 
+        public int ProductId { get; }
+
+        public int CustId { get; }
+
         public int SportType { get; }
 
         public int BetType { get; }
@@ -45,45 +49,44 @@
 
         public bool DisableAllMembers { get; }
 
+        public int UserId { get; }
+
+        public string IP { get; }
+
+        public int UplineId { get; }
+
         public static ProductStatusCommand UpdateMember(
             int sportType,
             int betType,
             bool disable)
-        {
-            return new ProductStatusCommand(sportType, betType, disable);
-        }
+            => new ProductStatusCommand(sportType, betType, disable);
 
         public static ProductStatusCommand DisableAgent(
             int sportType,
             int betType)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                 sportType,
                 betType,
                 true,
                 updateAllMembers: true,
                 disableAllMembers: true);
-        }
 
         public static ProductStatusCommand EnableAgent(
             int sportType,
             int betType,
             bool updateAllMembers,
             bool disableAllMembers)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                 sportType,
                 betType,
                 false,
                 updateAllMembers,
                 disableAllMembers);
-        }
 
         public static ProductStatusCommand DisableMaster(
             int sportType,
             int betType)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                    sportType,
                    betType,
                    true,
@@ -91,7 +94,6 @@
                    disableAllAgents: true,
                    updateAllMembers: true,
                    disableAllMembers: true);
-        }
 
         public static ProductStatusCommand EnableMaster(
             int sportType,
@@ -100,8 +102,7 @@
             bool disableAllAgents,
             bool updateAllMembers,
             bool disableAllMembers)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                 sportType,
                 betType,
                 false,
@@ -109,13 +110,11 @@
                 disableAllAgents: disableAllAgents,
                 updateAllMembers: updateAllMembers,
                 disableAllMembers: disableAllMembers);
-        }
 
         public static ProductStatusCommand DisableSuper(
             int sportType,
             int betType)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                    sportType,
                    betType,
                    true,
@@ -125,7 +124,6 @@
                    disableAllAgents: true,
                    updateAllMembers: true,
                    disableAllMembers: true);
-        }
 
         public static ProductStatusCommand EnableSuper(
             int sportType,
@@ -136,8 +134,7 @@
             bool disableAllAgents,
             bool updateAllMembers,
             bool disableAllMembers)
-        {
-            return new ProductStatusCommand(
+            => new ProductStatusCommand(
                    sportType,
                    betType,
                    false,
@@ -147,6 +144,5 @@
                    disableAllAgents: disableAllAgents,
                    updateAllMembers: updateAllMembers,
                    disableAllMembers: disableAllMembers);
-        }
     }
 }

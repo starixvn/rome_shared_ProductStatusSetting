@@ -17,14 +17,10 @@ namespace Fanex.ProductStatus.Setting.Models
         public string Message { get; set; }
 
         public static Result CreateSuccessResult(string message = null)
-        {
-            return new Result(0, message);
-        }
+            => new Result(0, message);
 
         public static Result CreateErrorResult(int code, string message)
-        {
-            return new Result(code, message);
-        }
+            => new Result(code, message);
 
         public static Result CreateResult(Hashtable outputParams)
         {
@@ -38,9 +34,6 @@ namespace Fanex.ProductStatus.Setting.Models
             return CreateErrorResult(Convert.ToInt32(outputParams["errcode"]), outputParams["errmsg"].ToString());
         }
 
-        public bool IsSuccess()
-        {
-            return Code == 0;
-        }
+        public bool IsSuccess() => Code == 0;
     }
 }
