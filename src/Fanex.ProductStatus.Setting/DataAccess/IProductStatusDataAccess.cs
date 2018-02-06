@@ -4,7 +4,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.DataAccess
 {
-    internal interface IProductStatusDataAccess
+    public interface IProductStatusDataAccess
     {
         IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
 

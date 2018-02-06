@@ -1,6 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Enumerations
 {
-    internal enum ProductIdentity : byte
+    public enum ProductIdentity : byte
     {
         Casino = 6,
         Keno = 8,

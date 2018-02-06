@@ -3,7 +3,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
+    public class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
     {
         public UpdateNG2StatusCriteria(IEnumerable<ProductStatusCommand> commands)
             : base(commands)

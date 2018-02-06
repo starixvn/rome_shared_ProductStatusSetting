@@ -1,6 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    internal interface IRefDataService
+    public interface IRefDataService
     {
         string GetBetTypeName(int betTypeId);
 

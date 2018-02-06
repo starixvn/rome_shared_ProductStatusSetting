@@ -2,7 +2,7 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateGoldDeluxeStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateGoldDeluxeStatusCriteria : UpdateBaseProductStatusCriteria
     {
         public UpdateGoldDeluxeStatusCriteria(ProductStatusCommand command)
             : base(

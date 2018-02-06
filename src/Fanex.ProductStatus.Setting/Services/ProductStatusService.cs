@@ -7,7 +7,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Services
 {
-    internal class ProductStatusService : IProductStatusService
+    public class ProductStatusService : IProductStatusService
     {
         private readonly IProductStatusDataAccess statusDataAccess;
         private readonly IProductStatusCriteriaFactory criteriaFactory;
@@ -27,8 +27,8 @@ namespace Fanex.ProductStatus.Setting.Services
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
 
-            var rawData = statusDataAccess.GetProductStatus(criteria);
-            var rawDataCount = rawData.Count();
+            var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
+            var rawDataCount = rawData.Count;
 
             if (rawDataCount == 1)
             {
@@ -38,7 +38,7 @@ namespace Fanex.ProductStatus.Setting.Services
             return GetProductStatusBetTypeName(productId, rawData);
         }
 
-        public Result UpdateProductStatus(IEnumerable<ProductStatusCommand> commands)
+        public virtual Result UpdateProductStatus(IEnumerable<ProductStatusCommand> commands)
         {
             var firstCommand = commands.First();
 

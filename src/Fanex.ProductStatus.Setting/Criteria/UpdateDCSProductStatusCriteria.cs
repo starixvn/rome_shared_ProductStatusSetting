@@ -5,7 +5,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateDCSProductStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateDCSProductStatusCriteria : UpdateBaseProductStatusCriteria
     {
         public UpdateDCSProductStatusCriteria(IEnumerable<ProductStatusCommand> commands)
         {

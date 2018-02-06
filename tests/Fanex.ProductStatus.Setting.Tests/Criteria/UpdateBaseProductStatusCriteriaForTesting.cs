@@ -3,7 +3,7 @@ using Fanex.ProductStatus.Setting.Criteria;
 
 namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
-    internal class UpdateBaseProductStatusCriteriaForTesting : UpdateBaseProductStatusCriteria
+    public class UpdateBaseProductStatusCriteriaForTesting : UpdateBaseProductStatusCriteria
     {
         public UpdateBaseProductStatusCriteriaForTesting()
         {

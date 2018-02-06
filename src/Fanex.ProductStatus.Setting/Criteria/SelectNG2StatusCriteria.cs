@@ -1,6 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class SelectNG2StatusCriteria : SelectProductStatusCriteria
+    public class SelectNG2StatusCriteria : SelectProductStatusCriteria
     {
         public SelectNG2StatusCriteria(int productId, int custId)
             : base(productId, custId)

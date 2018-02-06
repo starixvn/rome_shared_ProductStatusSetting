@@ -2,7 +2,7 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal abstract class UpdateBaseProductStatusCriteria : CriteriaBase
+    public abstract class UpdateBaseProductStatusCriteria : CriteriaBase
     {
         protected UpdateBaseProductStatusCriteria()
         {

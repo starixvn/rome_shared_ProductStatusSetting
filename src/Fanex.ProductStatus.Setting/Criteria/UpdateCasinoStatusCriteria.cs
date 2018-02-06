@@ -4,7 +4,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateCasinoStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateCasinoStatusCriteria : UpdateBaseProductStatusCriteria
     {
         public UpdateCasinoStatusCriteria(ProductStatusCommand command)
             : base(

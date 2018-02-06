@@ -4,7 +4,7 @@ using RemotingRef;
 
 namespace Fanex.ProductStatus.Setting.Services
 {
-    internal class RefDataService : IRefDataService
+    public class RefDataService : IRefDataService
     {
         private const int FirstBetTypeIdOfAllbets = 2401;
         private const string DefaultLanguage = "en";

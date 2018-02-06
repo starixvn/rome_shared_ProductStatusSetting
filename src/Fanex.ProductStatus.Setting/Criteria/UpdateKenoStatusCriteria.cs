@@ -2,7 +2,7 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateKenoStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateKenoStatusCriteria : UpdateBaseProductStatusCriteria
     {
         public UpdateKenoStatusCriteria(ProductStatusCommand command)
             : base(

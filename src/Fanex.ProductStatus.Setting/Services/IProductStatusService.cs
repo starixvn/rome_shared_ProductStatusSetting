@@ -3,7 +3,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Services
 {
-    internal interface IProductStatusService
+    public interface IProductStatusService
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
 

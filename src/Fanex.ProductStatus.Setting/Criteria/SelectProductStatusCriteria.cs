@@ -2,7 +2,7 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class SelectProductStatusCriteria : CriteriaBase
+    public class SelectProductStatusCriteria : CriteriaBase
     {
         public SelectProductStatusCriteria(int productId, int custId)
         {

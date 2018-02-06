@@ -7,7 +7,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Services
 {
-    internal class ProductStatusCriteriaFactory : IProductStatusCriteriaFactory
+    public class ProductStatusCriteriaFactory : IProductStatusCriteriaFactory
     {
         public ICriteria CreateSelectCriteria(int productId, int custId)
         {

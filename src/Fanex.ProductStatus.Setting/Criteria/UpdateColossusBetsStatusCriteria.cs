@@ -2,7 +2,7 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    internal class UpdateColossusBetsStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateColossusBetsStatusCriteria : UpdateBaseProductStatusCriteria
     {
         public UpdateColossusBetsStatusCriteria(ProductStatusCommand command)
             : base(
