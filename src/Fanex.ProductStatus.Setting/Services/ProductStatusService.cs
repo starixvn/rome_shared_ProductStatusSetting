@@ -71,7 +71,7 @@ namespace Fanex.ProductStatus.Setting.Services
             foreach (var item in entities)
             {
                 item.ProductId = productId;
-                item.BetTypeName = refDataService.GetProductName(productId);
+                item.Name = refDataService.GetProductName(productId);
 
                 yield return item;
             }
@@ -84,7 +84,7 @@ namespace Fanex.ProductStatus.Setting.Services
             foreach (var item in entities)
             {
                 item.ProductId = productId;
-                item.BetTypeName = refDataService.GetBetTypeName(item.BetType);
+                item.Name = refDataService.GetBetTypeName(item.BetType);
 
                 yield return item;
             }

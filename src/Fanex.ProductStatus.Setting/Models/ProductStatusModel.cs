@@ -40,6 +40,6 @@
 
         public int ProductId { get; set; }
 
-        public string BetTypeName { get; set; }
+        public string Name { get; set; }
     }
 }
