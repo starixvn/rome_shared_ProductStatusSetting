@@ -2,23 +2,13 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    public class UpdateKenoStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateKenoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateKenoStatusCriteria(ProductStatusCommand command)
-            : base(
-                  command.CustId,
-                  command.Disable,
-                  command.UserId,
-                  command.IP,
-                  command.UpdateAllMasters,
-                  command.DisableAllMasters,
-                  command.UpdateAllAgents,
-                  command.DisableAllAgents,
-                  command.UpdateAllMembers,
-                  command.DisableAllMembers)
+        public UpdateKenoStatusCriteria(UpdateProductStatusParam statusParam)
+            : base(statusParam)
         {
-            BetType = command.BetType;
-            UplineId = command.UplineId;
+            BetType = statusParam.BetType;
+            UplineId = statusParam.UplineId;
         }
 
         public int BetType { get; }

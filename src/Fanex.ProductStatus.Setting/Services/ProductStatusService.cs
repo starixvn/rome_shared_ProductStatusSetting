@@ -40,13 +40,11 @@ namespace Fanex.ProductStatus.Setting.Services
             return GetProductStatusBetTypeName(productId, rawData);
         }
 
-        public virtual Result UpdateProductStatus(IEnumerable<ProductStatusCommand> commands)
+        public Result UpdateProductStatus(int productId, IEnumerable<UpdateProductStatusParam> commands)
         {
-            var firstCommand = commands.First();
-
-            return firstCommand.ProductId == (int)ProductIdentity.Keno ?
+            return productId == (int)ProductIdentity.Keno ?
                 UpdateKenoStatus(commands) :
-                UpdateStatus(commands);
+                UpdateStatus(productId, commands);
         }
 
         private static Result ParseKenoErrorResults(IEnumerable<Result> errors)
@@ -90,7 +88,7 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        private Result UpdateKenoStatus(IEnumerable<ProductStatusCommand> commands)
+        private Result UpdateKenoStatus(IEnumerable<UpdateProductStatusParam> commands)
         {
             Result result;
             IList<Result> errors = new List<Result>();
@@ -111,9 +109,9 @@ namespace Fanex.ProductStatus.Setting.Services
                 ParseKenoErrorResults(errors);
         }
 
-        private Result UpdateStatus(IEnumerable<ProductStatusCommand> commands)
+        private Result UpdateStatus(int productId, IEnumerable<UpdateProductStatusParam> commands)
         {
-            var criteria = criteriaFactory.CreateUpdateCriteria(commands);
+            var criteria = criteriaFactory.CreateUpdateCriteria(productId, commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
 
             if (result.IsSuccess())

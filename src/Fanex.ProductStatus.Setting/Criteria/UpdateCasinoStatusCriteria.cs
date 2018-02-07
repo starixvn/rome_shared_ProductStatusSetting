@@ -4,20 +4,10 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    public class UpdateCasinoStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateCasinoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateCasinoStatusCriteria(ProductStatusCommand command)
-            : base(
-                  command.CustId,
-                  command.Disable,
-                  command.UserId,
-                  command.IP,
-                  command.UpdateAllMasters,
-                  command.DisableAllMasters,
-                  command.UpdateAllAgents,
-                  command.DisableAllAgents,
-                  command.UpdateAllMembers,
-                  command.DisableAllMembers)
+        public UpdateCasinoStatusCriteria(UpdateProductStatusParam statusParam)
+            : base(statusParam)
         {
         }
 

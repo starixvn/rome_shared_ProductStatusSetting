@@ -2,20 +2,10 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    public class UpdateGoldDeluxeStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateGoldDeluxeStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateGoldDeluxeStatusCriteria(ProductStatusCommand command)
-            : base(
-                  command.CustId,
-                  command.Disable,
-                  command.UserId,
-                  command.IP,
-                  command.UpdateAllMasters,
-                  command.DisableAllMasters,
-                  command.UpdateAllAgents,
-                  command.DisableAllAgents,
-                  command.UpdateAllMembers,
-                  command.DisableAllMembers)
+        public UpdateGoldDeluxeStatusCriteria(UpdateProductStatusParam statusParam)
+            : base(statusParam)
         {
         }
 

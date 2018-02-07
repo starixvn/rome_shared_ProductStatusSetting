@@ -105,13 +105,14 @@
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateGoldDeluxeStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
-    <Compile Include="Criteria\UpdateBaseProductStatusCriteria.cs" />
+    <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\IProductStatusDataAccess.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="Enumerations\ProductIdentity.cs" />
     <Compile Include="Filters\ProductStatusAuthorizationAttribute.cs" />
-    <Compile Include="Models\ProductStatusCommand.cs" />
+    <Compile Include="Helpers\IPHelper.cs" />
+    <Compile Include="Models\UpdateProductStatusParam.cs" />
     <Compile Include="Models\DownlineStatus.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
@@ -123,7 +124,8 @@
     <Compile Include="Services\ProductStatusCriteriaFactory.cs" />
     <Compile Include="Services\ProductStatusService.cs" />
     <Compile Include="Services\RefDataService.cs" />
-    <Compile Include="ViewModels\ProductStatusViewModel.cs" />
+    <Compile Include="ViewModels\QueryViewModel.cs" />
+    <Compile Include="ViewModels\UpdateViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

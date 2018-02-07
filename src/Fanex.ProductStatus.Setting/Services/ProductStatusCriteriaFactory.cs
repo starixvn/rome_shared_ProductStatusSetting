@@ -31,26 +31,25 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        public ICriteria CreateUpdateCriteria(IEnumerable<ProductStatusCommand> commands)
+        public ICriteria CreateUpdateCriteria(int productId, IEnumerable<UpdateProductStatusParam> commands)
         {
             if (commands == null || !commands.Any())
             {
                 return null;
             }
 
-            var firstCommand = commands.First();
-            var id = (ProductIdentity)firstCommand.ProductId;
+            var id = (ProductIdentity)productId;
 
             switch (id)
             {
                 case ProductIdentity.Casino:
-                    return new UpdateCasinoStatusCriteria(firstCommand);
+                    return new UpdateCasinoStatusCriteria(commands.First());
 
                 case ProductIdentity.GoldDeluxe:
-                    return new UpdateGoldDeluxeStatusCriteria(firstCommand);
+                    return new UpdateGoldDeluxeStatusCriteria(commands.First());
 
                 case ProductIdentity.ColossusBets:
-                    return new UpdateColossusBetsStatusCriteria(firstCommand);
+                    return new UpdateColossusBetsStatusCriteria(commands.First());
 
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(commands);
@@ -60,7 +59,7 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands)
+        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<UpdateProductStatusParam> commands)
         {
             if (commands == null || !commands.Any())
             {

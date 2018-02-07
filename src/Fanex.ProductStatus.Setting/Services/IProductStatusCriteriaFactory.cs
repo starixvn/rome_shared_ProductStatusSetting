@@ -8,8 +8,8 @@ namespace Fanex.ProductStatus.Setting.Services
     {
         ICriteria CreateSelectCriteria(int productId, int custId);
 
-        ICriteria CreateUpdateCriteria(IEnumerable<ProductStatusCommand> commands);
+        ICriteria CreateUpdateCriteria(int productId, IEnumerable<UpdateProductStatusParam> commands);
 
-        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands);
+        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<UpdateProductStatusParam> commands);
     }
 }

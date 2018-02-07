@@ -1,0 +1,23 @@
+﻿namespace Fanex.ProductStatus.Setting.ViewModels
+{
+    public class UpdateViewModel
+    {
+        public int SportType { get; set; }
+
+        public int BetType { get; set; }
+
+        public bool Disable { get; set; }
+
+        public bool UpdateAllMasters { get; set; }
+
+        public bool? DisableAllMasters { get; set; }
+
+        public bool UpdateAllAgents { get; set; }
+
+        public bool? DisableAllAgents { get; set; }
+
+        public bool UpdateAllMembers { get; set; }
+
+        public bool? DisableAllMembers { get; set; }
+    }
+}

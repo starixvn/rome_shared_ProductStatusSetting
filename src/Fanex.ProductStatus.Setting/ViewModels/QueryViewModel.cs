@@ -4,7 +4,7 @@ using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.ViewModels
 {
-    public class ProductStatusViewModel
+    public class QueryViewModel
     {
         private readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
         {

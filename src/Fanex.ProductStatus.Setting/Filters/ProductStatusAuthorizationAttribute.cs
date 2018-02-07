@@ -10,10 +10,10 @@ namespace Fanex.ProductStatus.Setting.Filters
 {
     public class ProductStatusAuthorizationAttribute : AuthorizeAttribute
     {
-        private const string PostMethod = "post";
-        private const string UpdateAction = "update";
         private const string AntiForgeryFormTokenName = "__RequestVerificationToken";
         private IProductStatusAuthorizationService authorizationService;
+
+        public bool IsHost { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
@@ -27,12 +27,11 @@ namespace Fanex.ProductStatus.Setting.Filters
 
                 if (authorizationService != null)
                 {
-                    var isHostUrl = IsHostUrl(filterContext);
-                    isAuthorized = isHostUrl
+                    isAuthorized = IsHost
                         ? authorizationService.CanUpdate(filterContext)
                         : authorizationService.CanView(filterContext);
 
-                    if (isHostUrl && isAuthorized)
+                    if (IsHost && isAuthorized)
                     {
                         isAuthorized = ValidateAntiXSRF();
                     }
@@ -43,12 +42,6 @@ namespace Fanex.ProductStatus.Setting.Filters
             {
                 UnAuthorizedAction(filterContext);
             }
-        }
-
-        private bool IsHostUrl(AuthorizationContext filterContext)
-        {
-            return filterContext.HttpContext.Request.HttpMethod.Equals(PostMethod, StringComparison.OrdinalIgnoreCase)
-                && filterContext.ActionDescriptor.ActionName.Equals(UpdateAction, StringComparison.OrdinalIgnoreCase);
         }
 
         private bool ValidateAntiXSRF()

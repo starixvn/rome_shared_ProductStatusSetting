@@ -2,20 +2,10 @@
 
 namespace Fanex.ProductStatus.Setting.Criteria
 {
-    public class UpdateColossusBetsStatusCriteria : UpdateBaseProductStatusCriteria
+    public class UpdateColossusBetsStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateColossusBetsStatusCriteria(ProductStatusCommand command)
-            : base(
-                  command.CustId,
-                  command.Disable,
-                  command.UserId,
-                  command.IP,
-                  command.UpdateAllMasters,
-                  command.DisableAllMasters,
-                  command.UpdateAllAgents,
-                  command.DisableAllAgents,
-                  command.UpdateAllMembers,
-                  command.DisableAllMembers)
+        public UpdateColossusBetsStatusCriteria(UpdateProductStatusParam statusParam)
+            : base(statusParam)
         {
         }
 
