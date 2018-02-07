@@ -157,6 +157,8 @@
     <Content Include="typings\globals\jquery\typings.json" />
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
+    <Content Include="Views\ProductStatusSetting\Scripts\ProductStatusSetting.js" />
+    <Content Include="Views\ProductStatusSetting\Styles\productstatussetting.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -185,7 +187,9 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
+    <Content Include="Views\ProductStatusSetting\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Code\" />
@@ -220,6 +224,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\scripts\tests\chutzpah.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.ProductStatus.Setting\Fanex.ProductStatus.Setting.csproj">
+      <Project>{40e4c3a8-036f-4908-9b31-25d221f4d28f}</Project>
+      <Name>Fanex.ProductStatus.Setting</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
