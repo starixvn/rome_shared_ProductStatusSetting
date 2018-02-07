@@ -27,11 +27,57 @@
         [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
-            viewModel.ProductStatus = viewModel.IsValid()
-                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-                : Enumerable.Empty<ProductStatusModel>();
+            var productStatuses = new List<ProductStatusModel>
+            {
+                new ProductStatusModel(
+                    sportType: 5,
+                    betType: 12,
+                    isDisabled: true,
+                    isDisabledUpline: false,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 78,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 37,
+                    totalDisabledMembers: 36,
+                    totalEnabledMembers: 46
+                    ),
+                new ProductStatusModel(
+                    sportType: 5,
+                    betType: 13,
+                    isDisabled: true,
+                    isDisabledUpline: false,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 78,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 37,
+                    totalDisabledMembers: 36,
+                    totalEnabledMembers: 46
+                    ),
+                  new ProductStatusModel(
+                    sportType: 5,
+                    betType: 14,
+                    isDisabled: true,
+                    isDisabledUpline: false,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 78,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 37,
+                    totalDisabledMembers: 36,
+                    totalEnabledMembers: 46
+                    )
+            };
 
-            return View(viewModel);
+            var fakeViewModel = new QueryViewModel
+            {
+                ProductId = 5,
+                CustId = 123,
+                CustName = "supertest1",
+                CustRole = 4,
+                ProductStatuses = productStatuses
+            };
+
+
+            return View(fakeViewModel);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true), ValidateAntiForgeryToken]
