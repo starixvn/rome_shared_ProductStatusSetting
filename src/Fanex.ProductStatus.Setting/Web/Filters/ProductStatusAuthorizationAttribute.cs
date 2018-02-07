@@ -6,7 +6,7 @@ using Fanex.ProductStatus.Setting.AppResources;
 using Fanex.ProductStatus.Setting.Configuration;
 using Fanex.ProductStatus.Setting.Services;
 
-namespace Fanex.ProductStatus.Setting.Filters
+namespace Fanex.ProductStatus.Setting.Web.Filters
 {
     public class ProductStatusAuthorizationAttribute : AuthorizeAttribute
     {

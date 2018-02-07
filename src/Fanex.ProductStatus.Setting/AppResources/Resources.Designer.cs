@@ -70,6 +70,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot submit the action due to a validation error..
+        /// </summary>
+        public static string BadRequest {
+            get {
+                return ResourceManager.GetString("BadRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Baccarat, Roulette, Sic Bo, Dragon Tiger.
         /// </summary>
         public static string BetType_2401 {

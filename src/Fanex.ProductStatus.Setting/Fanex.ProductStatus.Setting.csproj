@@ -110,8 +110,8 @@
     <Compile Include="DataAccess\IProductStatusDataAccess.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="Enumerations\ProductIdentity.cs" />
-    <Compile Include="Filters\ProductStatusAuthorizationAttribute.cs" />
-    <Compile Include="Helpers\IPHelper.cs" />
+    <Compile Include="Web\Filters\ProductStatusAuthorizationAttribute.cs" />
+    <Compile Include="Web\Helpers\IPHelper.cs" />
     <Compile Include="Models\UpdateProductStatusParam.cs" />
     <Compile Include="Models\DownlineStatus.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />

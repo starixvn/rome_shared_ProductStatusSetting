@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using Fanex.Data;
 using Fanex.NAP.Framework.Data;
+using Fanex.ProductStatus.Setting.AppResources;
 using Fanex.ProductStatus.Setting.Models;
 
 namespace Fanex.ProductStatus.Setting.DataAccess
@@ -27,14 +28,14 @@ namespace Fanex.ProductStatus.Setting.DataAccess
         {
             if (!criteria.IsValid())
             {
-                return Result.CreateSuccessResult();
+                return new Result(400, Resources.BadRequest);
             }
 
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
                 db.ExecuteNonQuery(criteria.GetSpParams());
 
-                return Result.CreateResult(db.GetOuputParams());
+                return new Result(db.GetOuputParams());
             }
         }
 

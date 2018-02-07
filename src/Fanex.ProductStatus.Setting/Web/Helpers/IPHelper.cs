@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Web;
 
-namespace Fanex.ProductStatus.Setting.Helpers
+namespace Fanex.ProductStatus.Setting.Web.Helpers
 {
     public static class IPHelper
     {

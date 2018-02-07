@@ -11,13 +11,7 @@ namespace Fanex.ProductStatus.Setting.Configuration
         private static ProductStatusSettings _settings =
             ConfigurationManager.GetSection(ProductStatusSettingsKey) as ProductStatusSettings;
 
-        public static ProductStatusSettings Settings
-        {
-            get
-            {
-                return _settings;
-            }
-        }
+        public static ProductStatusSettings Settings => _settings;
 
         [ConfigurationProperty(UnAuthorizedPathKey, IsRequired = true)]
         public string UnAuthorizedPath

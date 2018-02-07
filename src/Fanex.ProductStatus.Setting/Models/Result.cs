@@ -1,46 +1,76 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
+using System.Xml.Linq;
 using Fanex.ProductStatus.Setting.AppResources;
 
 namespace Fanex.ProductStatus.Setting.Models
 {
     public class Result
     {
-        private Result(int code, string message)
+        public Result(int code, string message)
         {
             Code = code;
             Message = message;
         }
 
-        public int Code { get; }
-
-        public string Message { get; set; }
-
-        public static Result CreateSuccessResult(string message = null)
-            => new Result(0, message);
-
-        public static Result CreateErrorResult(int code, string message)
+        public Result(Hashtable outputParams)
         {
-            if (code == 0)
-            {
-                throw new ArgumentException("code of result error cannot be 0");
-            }
-
-            return new Result(code, message);
+            CreateResult(outputParams);
         }
 
-        public static Result CreateResult(Hashtable outputParams)
+        public int Code { get; private set; }
+
+        public string Message { get; private set; }
+
+        public bool IsSuccess() => Code == 0;
+
+        private void CreateResult(Hashtable outputParams)
         {
             if (outputParams == null
                 || !outputParams.ContainsKey("errcode")
                 || !outputParams.ContainsKey("errmsg"))
             {
-                return CreateErrorResult(500, Resources.InternalServerError);
+                Code = 500;
+                Message = Resources.InternalServerError;
             }
-
-            return CreateErrorResult(Convert.ToInt32(outputParams["errcode"]), outputParams["errmsg"].ToString());
+            else
+            {
+                Code = Convert.ToInt32(outputParams["errcode"]);
+                Message = IsSuccess()
+                    ? Resources.StatusUpdatedSuccessfully
+                    : ParseDCSProductMessage(outputParams["errmsg"].ToString());
+            }
         }
 
-        public bool IsSuccess() => Code == 0;
+        private static string ParseDCSProductMessage(string errorMessage)
+        {
+            if (IsValidXml(errorMessage))
+            {
+                var xmlRoot = XElement.Parse(errorMessage);
+                var attributes = xmlRoot.Attributes("Msg");
+
+                return string.Join("<br/>", attributes.Select(a => a.Value));
+            }
+
+            return errorMessage;
+        }
+
+        private static bool IsValidXml(string xml)
+        {
+            if (!string.IsNullOrEmpty(xml) && xml.TrimStart().StartsWith("<"))
+            {
+                try
+                {
+                    XDocument.Parse(xml);
+                    return true;
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            return false;
+        }
     }
 }

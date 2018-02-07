@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Fanex.ProductStatus.Setting.AppResources;
 using Fanex.ProductStatus.Setting.DataAccess;
 using Fanex.ProductStatus.Setting.Enumerations;
 using Fanex.ProductStatus.Setting.Models;
@@ -47,21 +46,6 @@ namespace Fanex.ProductStatus.Setting.Services
                 UpdateStatus(productId, commands);
         }
 
-        private static Result ParseKenoErrorResults(IEnumerable<Result> errors)
-        {
-            IList<Result> flattenErrors = new List<Result>();
-            var groupErrorCode = errors.ToLookup(err => err.Code);
-
-            foreach (var group in groupErrorCode)
-            {
-                flattenErrors.Add(Result.CreateErrorResult(group.Key, group.First().Message));
-            }
-
-            return Result.CreateErrorResult(
-                flattenErrors[0].Code,
-                string.Join("<br/>", flattenErrors.Select(err => err.Message)));
-        }
-
         private IEnumerable<ProductStatusModel> GetProductStatusProductName(
             int productId,
             IEnumerable<ProductStatusModel> entities)
@@ -90,36 +74,24 @@ namespace Fanex.ProductStatus.Setting.Services
 
         private Result UpdateKenoStatus(IEnumerable<UpdateProductStatusParam> commands)
         {
-            Result result;
-            IList<Result> errors = new List<Result>();
+            IList<Result> results = new List<Result>();
             var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(commands);
 
             foreach (var item in criteria)
             {
-                result = statusDataAccess.ExecuteNonQuery(item);
-
-                if (!result.IsSuccess())
-                {
-                    errors.Add(result);
-                }
+                results.Add(statusDataAccess.ExecuteNonQuery(item));
             }
 
-            return errors.Count == 0 ?
-                Result.CreateSuccessResult(Resources.StatusUpdatedSuccessfully) :
-                ParseKenoErrorResults(errors);
+            var errorResult = results.FirstOrDefault(r => !r.IsSuccess());
+
+            return errorResult ?? results[0];
         }
 
         private Result UpdateStatus(int productId, IEnumerable<UpdateProductStatusParam> commands)
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, commands);
-            var result = statusDataAccess.ExecuteNonQuery(criteria);
 
-            if (result.IsSuccess())
-            {
-                result.Message = Resources.StatusUpdatedSuccessfully;
-            }
-
-            return result;
+            return statusDataAccess.ExecuteNonQuery(criteria);
         }
     }
 }

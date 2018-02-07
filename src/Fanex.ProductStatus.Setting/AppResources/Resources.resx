@@ -120,6 +120,9 @@
   <data name="Agent" xml:space="preserve">
     <value>Agent</value>
   </data>
+  <data name="BadRequest" xml:space="preserve">
+    <value>You cannot submit the action due to a validation error.</value>
+  </data>
   <data name="BetType_2401" xml:space="preserve">
     <value>Baccarat, Roulette, Sic Bo, Dragon Tiger</value>
   </data>
