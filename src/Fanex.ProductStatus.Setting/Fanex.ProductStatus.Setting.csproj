@@ -77,6 +77,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -90,6 +92,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectGoldDeluxeStatusCriteria.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="Enumerations\ProductIdentity.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
+    <Compile Include="Models\DownlineStatus.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Services\ProductStatusCriteriaFactory.cs" />
     <Compile Include="Services\ProductStatusService.cs" />
     <Compile Include="Services\RefDataService.cs" />
+    <Compile Include="ViewModels\ProductStatusViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

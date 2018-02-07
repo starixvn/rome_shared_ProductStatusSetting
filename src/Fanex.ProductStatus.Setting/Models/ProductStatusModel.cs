@@ -19,14 +19,9 @@
             IsDisabled = isDisabled;
             IsDisabledUpline = isDisabledUpline;
 
-            TotalDisabledMasters = totalDisabledMasters;
-            TotalEnabledMasters = totalEnabledMasters;
-
-            TotalDisabledAgents = totalDisabledAgents;
-            TotalEnabledAgents = totalEnabledAgents;
-
-            TotalDisabledMembers = totalDisabledMembers;
-            TotalEnabledMembers = totalEnabledMembers;
+            Master = new DownlineStatus(isDisabledUpline, totalDisabledMasters, totalEnabledMasters);
+            Agent = new DownlineStatus(isDisabledUpline, totalDisabledAgents, totalEnabledAgents);
+            Member = new DownlineStatus(isDisabledUpline, totalDisabledMembers, totalEnabledMembers);
         }
 
         public int SportType { get; }
@@ -37,17 +32,11 @@
 
         public bool IsDisabledUpline { get; }
 
-        public int TotalDisabledMasters { get; }
+        public DownlineStatus Master { get; }
 
-        public int TotalEnabledMasters { get; }
+        public DownlineStatus Agent { get; }
 
-        public int TotalDisabledAgents { get; }
-
-        public int TotalEnabledAgents { get; }
-
-        public int TotalDisabledMembers { get; }
-
-        public int TotalEnabledMembers { get; }
+        public DownlineStatus Member { get; }
 
         public int ProductId { get; set; }
 

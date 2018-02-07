@@ -1,5 +1,4 @@
 ﻿using Fanex.ProductStatus.Setting.AppResources;
-using Fanex.ProductStatus.Setting.Enumerations;
 using RemotingRef;
 
 namespace Fanex.ProductStatus.Setting.Services

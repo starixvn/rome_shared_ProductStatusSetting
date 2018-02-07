@@ -26,8 +26,10 @@ namespace Fanex.ProductStatus.Setting.Services
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
+            var rawData = statusDataAccess
+                .GetProductStatus(criteria)
+                .ToList();
 
-            var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
             var rawDataCount = rawData.Count;
 
             if (rawDataCount == 1)
