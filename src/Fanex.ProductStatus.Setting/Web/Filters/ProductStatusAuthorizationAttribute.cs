@@ -20,9 +20,9 @@ namespace Fanex.ProductStatus.Setting.Web.Filters
             bool isAuthorized = false;
             base.OnAuthorization(filterContext);
 
-            if (!string.IsNullOrEmpty(ProductStatusSettings.Settings.AuthorizationServiceType))
+            if (!string.IsNullOrEmpty(AppSettings.Settings.AuthorizationServiceType))
             {
-                var authorizationType = Type.GetType(ProductStatusSettings.Settings.AuthorizationServiceType);
+                var authorizationType = Type.GetType(AppSettings.Settings.AuthorizationServiceType);
                 authorizationService = Activator.CreateInstance(authorizationType) as IProductStatusAuthorizationService;
 
                 if (authorizationService != null)
@@ -85,7 +85,7 @@ namespace Fanex.ProductStatus.Setting.Web.Filters
             }
             else
             {
-                filterContext.Result = new RedirectResult(ProductStatusSettings.Settings.UnAuthorizedPath);
+                filterContext.Result = new RedirectResult(AppSettings.Settings.UnAuthorizedPath);
             }
         }
     }

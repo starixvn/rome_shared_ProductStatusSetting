@@ -22,7 +22,7 @@ namespace Fanex.ProductStatus.Setting.ViewModels
 
         public byte CustRole { get; set; }
 
-        public IEnumerable<ProductStatusModel> ProductStatuses { get; set; }
+        public IEnumerable<ProductStatusModel> ProductStatus { get; set; }
 
         public string GetRoleName(byte roleId)
         {
@@ -32,7 +32,7 @@ namespace Fanex.ProductStatus.Setting.ViewModels
             return roleName;
         }
 
-        public bool IsInvalid()
-            => ProductId <= 0 || CustId <= 0 || string.IsNullOrEmpty(CustName) || !roleDictionary.ContainsKey(CustRole);
+        public bool IsValid()
+            => ProductId > 0 && CustId > 0 && !string.IsNullOrEmpty(CustName) && roleDictionary.ContainsKey(CustRole);
     }
 }

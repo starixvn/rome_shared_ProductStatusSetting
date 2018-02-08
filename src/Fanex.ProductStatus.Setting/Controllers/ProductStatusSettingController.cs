@@ -28,9 +28,9 @@ namespace Fanex.ProductStatus.Setting.Controllers
         [ProductStatusAuthorization(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
-            viewModel.ProductStatuses = viewModel.IsInvalid()
-                ? Enumerable.Empty<ProductStatusModel>()
-                : productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId);
+            viewModel.ProductStatus = viewModel.IsValid()
+                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                : Enumerable.Empty<ProductStatusModel>();
 
             return View(viewModel);
         }
@@ -40,9 +40,9 @@ namespace Fanex.ProductStatus.Setting.Controllers
             int productId,
             int custId,
             int uplineId,
-            UpdateViewModel[] productStatuses)
+            UpdateViewModel[] productStatus)
         {
-            var updateProductStatusParams = ToUpdateProductStatusParams(custId, uplineId, productStatuses);
+            var updateProductStatusParams = ToUpdateProductStatusParams(custId, uplineId, productStatus);
 
             var result = productStatusService.UpdateProductStatus(productId, updateProductStatusParams);
 
@@ -52,12 +52,12 @@ namespace Fanex.ProductStatus.Setting.Controllers
         private static IEnumerable<UpdateProductStatusParam> ToUpdateProductStatusParams(
             int custId,
             int uplineId,
-            UpdateViewModel[] productStatuses)
+            UpdateViewModel[] productStatus)
         {
             int userId = 0; // Todo: get from external service here ...
             var ip = IPHelper.GetClientIP();
 
-            return productStatuses.Select(status => new UpdateProductStatusParam(
+            return productStatus.Select(status => new UpdateProductStatusParam(
                 custId,
                 status.SportType,
                 status.BetType,

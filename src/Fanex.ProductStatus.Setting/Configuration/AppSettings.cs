@@ -2,16 +2,16 @@
 
 namespace Fanex.ProductStatus.Setting.Configuration
 {
-    public class ProductStatusSettings : ConfigurationSection
+    public class AppSettings : ConfigurationSection
     {
         private const string ProductStatusSettingsKey = "ProductStatusSettings";
         private const string UnAuthorizedPathKey = "UnAuthorizedPath";
         private const string AuthorizationServiceTypeKey = "AuthorizationServiceType";
 
-        private static ProductStatusSettings _settings =
-            ConfigurationManager.GetSection(ProductStatusSettingsKey) as ProductStatusSettings;
+        private static AppSettings _settings =
+            ConfigurationManager.GetSection(ProductStatusSettingsKey) as AppSettings;
 
-        public static ProductStatusSettings Settings => _settings;
+        public static AppSettings Settings => _settings;
 
         [ConfigurationProperty(UnAuthorizedPathKey, IsRequired = true)]
         public string UnAuthorizedPath

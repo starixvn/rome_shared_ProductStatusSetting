@@ -17,7 +17,7 @@ namespace Fanex.ProductStatus.Setting.Services
             IProductStatusCriteriaFactory criteriaFactory = null,
             IRefDataService refDataService = null)
         {
-            this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccess();
+            this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new ProductStatusCriteriaFactory();
             this.refDataService = refDataService ?? new RefDataService();
         }
