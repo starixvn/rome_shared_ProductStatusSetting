@@ -110,7 +110,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -133,8 +132,8 @@
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
-    <Compile Include="DataAccess\ProductStatusDataAccessImpl.cs" />
-    <Compile Include="Enumerations\ProductIdentity.cs" />
+    <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
+    <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUserService.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />

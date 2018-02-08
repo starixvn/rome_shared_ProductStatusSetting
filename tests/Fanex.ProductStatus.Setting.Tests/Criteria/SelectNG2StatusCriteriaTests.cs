@@ -1,9 +1,9 @@
-﻿using Fanex.ProductStatus.Setting.Criteria;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Xunit;
-
-namespace Fanex.ProductStatus.Setting.Tests.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
+    using Setting.Criteria;
+    using Shared;
+    using Xunit;
+
     [Trait("Category", "ProductStatus")]
     public class SelectNG2StatusCriteriaTests
     {
@@ -13,7 +13,7 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new SelectNG2StatusCriteria((int)ProductIdentity.NG2, CustIdTest);
+            var criteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest);
             var expectedSettingKey = "Acc_Admin_DisableGameStatusSelect";
 
             // Act
@@ -27,7 +27,7 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         public void IsValid_ValidCriteria_ReturnsTrue()
         {
             // Arrange
-            var criteria = new SelectGoldDeluxeStatusCriteria((int)ProductIdentity.NG2, CustIdTest);
+            var criteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.NG2, CustIdTest);
             var expectedResult = true;
 
             // Act

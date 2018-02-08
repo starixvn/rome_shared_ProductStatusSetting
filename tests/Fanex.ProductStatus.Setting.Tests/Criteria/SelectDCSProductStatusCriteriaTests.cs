@@ -1,8 +1,8 @@
-﻿using Fanex.ProductStatus.Setting.Criteria;
-using Xunit;
-
-namespace Fanex.ProductStatus.Setting.Tests.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
+    using Setting.Criteria;
+    using Xunit;
+
     [Trait("Category", "ProductStatus")]
     public class SelectDCSProductStatusCriteriaTests
     {

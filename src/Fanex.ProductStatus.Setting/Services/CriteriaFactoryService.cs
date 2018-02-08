@@ -1,11 +1,12 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Criteria;
-    using Enumerations;
     using Models;
     using NAP.Framework.Data;
+    using Shared;
 
     public interface CriteriaFactoryService
     {
@@ -20,9 +21,7 @@
     {
         public ICriteria CreateSelectCriteria(int productId, int custId)
         {
-            var id = (ProductIdentity)productId;
-
-            switch (id)
+            switch (productId)
             {
                 case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
@@ -44,12 +43,10 @@
         {
             if (commands == null || !commands.Any())
             {
-                return null;
+                throw new ArgumentNullException(nameof(commands));
             }
 
-            var id = (ProductIdentity)productId;
-
-            switch (id)
+            switch (productId)
             {
                 case ProductIdentity.Casino:
                     return new UpdateCasinoStatusCriteria(commands.First());

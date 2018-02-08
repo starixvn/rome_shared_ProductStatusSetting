@@ -1,9 +1,9 @@
-﻿using Fanex.ProductStatus.Setting.Criteria;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Xunit;
-
-namespace Fanex.ProductStatus.Setting.Tests.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
+    using Setting.Criteria;
+    using Shared;
+    using Xunit;
+
     [Trait("Category", "ProductStatus")]
     public class SelectGoldDeluxeStatusCriteriaTests
     {
@@ -13,7 +13,7 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new SelectGoldDeluxeStatusCriteria((int)ProductIdentity.GoldDeluxe, CustIdTest);
+            var criteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
             var expectedSettingKey = "Acc_CustomerSelStatusGoldDeluxe";
 
             // Act
@@ -27,7 +27,7 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         public void IsValid_ValidCriteria_ReturnsTrue()
         {
             // Arrange
-            var criteria = new SelectGoldDeluxeStatusCriteria((int)ProductIdentity.GoldDeluxe, CustIdTest);
+            var criteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
             var expectedResult = true;
 
             // Act

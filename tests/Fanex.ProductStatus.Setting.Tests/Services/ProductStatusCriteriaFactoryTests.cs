@@ -1,10 +1,10 @@
-﻿using Fanex.ProductStatus.Setting.Criteria;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Fanex.ProductStatus.Setting.Services;
-using Xunit;
-
-namespace Fanex.ProductStatus.Setting.Tests.Services
+﻿namespace Fanex.ProductStatus.Setting.Tests.Services
 {
+    using Setting.Criteria;
+    using Setting.Services;
+    using Shared;
+    using Xunit;
+
     [Trait("Category", "ProductStatus")]
     public class ProductStatusCriteriaFactoryTests
     {
@@ -17,9 +17,9 @@ namespace Fanex.ProductStatus.Setting.Tests.Services
         }
 
         [Theory]
-        [InlineData((int)ProductIdentity.Casino)]
-        [InlineData((int)ProductIdentity.Keno)]
-        [InlineData((int)ProductIdentity.ColossusBets)]
+        [InlineData(ProductIdentity.Casino)]
+        [InlineData(ProductIdentity.Keno)]
+        [InlineData(ProductIdentity.ColossusBets)]
         public void CreateSelectCriteria_ValidProductId_ReturnsSelectProductStatusCriteria(int productId)
         {
             // Arrange
@@ -36,10 +36,10 @@ namespace Fanex.ProductStatus.Setting.Tests.Services
         public void CreateSelectCriteria_GoldDeluxe_ReturnsSelectGoldDeluxeStatusCriteria()
         {
             // Arrange
-            var expectedCriteria = new SelectGoldDeluxeStatusCriteria((int)ProductIdentity.GoldDeluxe, CustIdTest);
+            var expectedCriteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria((int)ProductIdentity.GoldDeluxe, CustIdTest);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -49,10 +49,10 @@ namespace Fanex.ProductStatus.Setting.Tests.Services
         public void CreateSelectCriteria_NG2_ReturnsSelectNG2StatusCriteria()
         {
             // Arrange
-            var expectedCriteria = new SelectNG2StatusCriteria((int)ProductIdentity.NG2, CustIdTest);
+            var expectedCriteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria((int)ProductIdentity.NG2, CustIdTest);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());

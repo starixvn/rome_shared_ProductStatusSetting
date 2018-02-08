@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess;
-    using Enumerations;
     using Models;
+    using Shared;
 
     public interface ProductStatusService
     {
@@ -48,7 +48,7 @@
 
         public Result UpdateProductStatus(int productId, IEnumerable<ProductStatusCommand> commands)
         {
-            return productId == (int)ProductIdentity.Keno ?
+            return productId == ProductIdentity.Keno ?
                 UpdateKenoStatus(commands) :
                 UpdateStatus(productId, commands);
         }

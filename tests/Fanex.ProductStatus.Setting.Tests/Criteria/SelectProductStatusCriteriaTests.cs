@@ -1,18 +1,18 @@
-﻿using Fanex.ProductStatus.Setting.Criteria;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Xunit;
-
-namespace Fanex.ProductStatus.Setting.Tests.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
+    using Setting.Criteria;
+    using Shared;
+    using Xunit;
+
     [Trait("Category", "ProductStatus")]
     public class SelectProductStatusCriteriaTests
     {
         private const int CustIdTest = 1176083;
 
         [Theory]
-        [InlineData((int)ProductIdentity.Casino)]
-        [InlineData((int)ProductIdentity.Keno)]
-        [InlineData((int)ProductIdentity.ColossusBets)]
+        [InlineData(ProductIdentity.Casino)]
+        [InlineData(ProductIdentity.Keno)]
+        [InlineData(ProductIdentity.ColossusBets)]
         public void GetSettingKey_Always_ReturnsValidSettingKey(int productId)
         {
             // Arrange
@@ -27,9 +27,9 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         }
 
         [Theory]
-        [InlineData((int)ProductIdentity.Casino)]
-        [InlineData((int)ProductIdentity.Keno)]
-        [InlineData((int)ProductIdentity.ColossusBets)]
+        [InlineData(ProductIdentity.Casino)]
+        [InlineData(ProductIdentity.Keno)]
+        [InlineData(ProductIdentity.ColossusBets)]
         public void IsValid_ValidCriteria_ReturnsTrue(int productId)
         {
             // Arrange
@@ -66,7 +66,7 @@ namespace Fanex.ProductStatus.Setting.Tests.Criteria
         public void IsValid_CustId_ReturnsExpectedResult(int custId, bool expectedResult)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria((int)ProductIdentity.Casino, custId);
+            var criteria = new SelectProductStatusCriteria(ProductIdentity.Casino, custId);
 
             // Act
             var actualResult = criteria.IsValid();
