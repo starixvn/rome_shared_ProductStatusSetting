@@ -26,7 +26,7 @@
         public void IsValid_ValidCriteria_ReturnsTrue()
         {
             // Arrange
-            var criteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.NG2, CustIdTest);
+            var criteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest);
             var expectedResult = true;
 
             // Act

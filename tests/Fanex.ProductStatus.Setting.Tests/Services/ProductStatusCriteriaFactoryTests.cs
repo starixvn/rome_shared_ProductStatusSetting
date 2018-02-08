@@ -32,19 +32,6 @@
         }
 
         [Fact]
-        public void CreateSelectCriteria_GoldDeluxe_ReturnsSelectGoldDeluxeStatusCriteria()
-        {
-            // Arrange
-            var expectedCriteria = new SelectGoldDeluxeStatusCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.GoldDeluxe, CustIdTest);
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
         public void CreateSelectCriteria_NG2_ReturnsSelectNG2StatusCriteria()
         {
             // Arrange
