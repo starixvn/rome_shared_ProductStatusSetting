@@ -24,7 +24,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        [ProductStatusAuthorize(IsHost = false)]
+       // [ProductStatusAuthorization(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatuses = new List<ProductStatusModel>
@@ -73,14 +73,14 @@
                 CustId = 123,
                 CustName = "supertest1",
                 CustRole = 4,
-                ProductStatuses = productStatuses
+                ProductStatus = productStatuses
             };
 
 
             return View(fakeViewModel);
         }
 
-        [HttpPost, ProductStatusAuthorize(IsHost = true), ValidateAntiForgeryToken]
+        //[HttpPost, ProductStatusAuthorization(IsHost = true)]
         public ActionResult Update(UpdateViewModel viewModel)
         {
             Result result;

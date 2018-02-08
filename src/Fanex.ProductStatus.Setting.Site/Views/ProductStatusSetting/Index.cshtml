@@ -2,27 +2,29 @@
 
 @{
     Layout = null;
-    var isMultipleBetTypes = Model.ProductStatuses.Count() > 1;
+    var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
 }
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Views/ProductStatusSetting/Styles/productstatussetting.css")" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <div id="sectionMessage" class="hide"></div>
     <table class="tbl-product margin-top10" id="tbl-product">
         <thead>
             <tr>
-                <th class="title" colspan="@Model.ProductStatuses.Count() * 2"> Role Name: @Model.CustName)</th>
+                <th class="title" colspan="@Model.ProductStatus.Count() * 2"> @Model.GetRoleName(Model.CustRole): @Model.CustName</th>
             </tr>
             <tr>
                 <th rowspan="2"></th>
                 <th rowspan="2">
                     @if (isMultipleBetTypes)
                     {
-                        <div class="current-role">@Model.GetRoleNameById(Model.CustRoleId)</div>
+                        <div class="current-role">@Model.GetRoleName(Model.CustRole)</div>
                         <div class="all-status">
                             <span class="enabled" data-roleid="@Model.CustRole">Enable</span>
                             <span class="disabled" data-roleid="@Model.CustRole">Disable</span>
@@ -30,21 +32,21 @@
                     }
                     else
                     {
-                        @Model.GetRoleNameById(Model.CustRole)
+                        @Model.GetRoleName(Model.CustRole)
                     }
                 </th>
                 @{ var roleId = Model.CustRole; }
                 @while (--roleId > 0)
                 {
                     <th colspan="2">
-                        @Model.GetRoleNameById(roleId)
+                        @Model.GetRoleName(roleId)
                     </th>
                 }
             </tr>
             <tr>
-                @if (!Model.IsMember(Model.CustRoleId))
+                @if (Model.CustRole > 1)
                 {
-                    roleId = Model.CustRoleId;
+                    roleId = Model.CustRole;
                     while (--roleId > 0)
                     {
                         if (isMultipleBetTypes)
@@ -66,31 +68,31 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.ProductStatuses)
+            @foreach (var item in Model.ProductStatus)
             {
                 <tr>
-                    <td class="bettype-name">@item.BetTypeName</td>
-                    <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRoleId)</td>
+                    <td class="bettype-name">@item.BetType</td>
+                    <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
                     @{
                         roleId = Model.CustRole;
                         int totalEnabled, totalDisabled;
                     }
                     @while (--roleId > 0)
                     {
-                        if (Model.IsMaster(roleId))
+                        if (item.Master != null)
                         {
-                            totalEnabled = item.TotalEnabledMasters;
-                            totalDisabled = item.TotalDisabledMasters;
+                            totalEnabled = item.Master.TotalEnabled;
+                            totalDisabled = item.Master.TotalDisabled;
                         }
-                        else if (Model.IsAgent(roleId))
+                        else if (item.Agent != null)
                         {
-                            totalEnabled = item.TotalEnabledAgents;
-                            totalDisabled = item.TotalDisabledAgents;
+                            totalEnabled = item.Agent.TotalEnabled;
+                            totalDisabled = item.Agent.TotalDisabled;
                         }
-                        else if (Model.IsMember(roleId))
+                        else if (item.Member != null)
                         {
-                            totalEnabled = item.TotalEnabledMembers;
-                            totalDisabled = item.TotalDisabledMembers;
+                            totalEnabled = item.Member.TotalEnabled;
+                            totalDisabled = item.Member.TotalDisabled;
                         }
                         else
                         {
@@ -119,8 +121,8 @@
             "disabled": "Disabled"
         };
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/_Libs/jQuery/jquery-1.8.2.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Views/ProductStatusSetting/Scripts/ProductStatusSetting.js?v=)")"></script>
+    <script type="text/javascript" src="@Url.Content("~/assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Views/ProductStatusSetting/Scripts/ProductStatusSetting.js")"></script>
 </body>
 </html>
 

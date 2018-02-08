@@ -1,18 +1,15 @@
-﻿namespace Alpha.MemberInfo.Site
+﻿namespace Fanex.ProductStatus.Setting.Site
 {
-    using System.Diagnostics;
-    using System.Reflection;
-    using System.Web;
+    using System.Web.Http;
     using System.Web.Mvc;
+    using System.Web.Routing;
 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
-            ViewEngines.Engines.Clear();
-            ViewEngines.Engines.Add(new RazorViewEngine());
-            MvcHandler.DisableMvcResponseHeader = true;
-
             AreaRegistration.RegisterAllAreas();
 
             //ProductStatusSettings settings = new ProductStatusSettings()
@@ -22,26 +19,10 @@
 
             //ProductStatusSettingsHandler.UseSettings(settings);
             //ProductStatusSettingsHandler.Verify();
-        }
 
-        protected void Application_Error()
-        {
-            var ex = Server.GetLastError().GetBaseException();
-            var isIgnoreError = Request.IsLocal ||
-                ex is HttpException ||
-                ex.Message.Contains("Extend Token Error UserID");
-
-            if (!isIgnoreError)
-            {
-            }
-        }
-
-        private static string GetBuildVersion()
-        {
-            Assembly assembly = Assembly.GetCallingAssembly();
-            FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-
-            return versionInfo.FileVersion;
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
         }
     }
 }
