@@ -1,41 +1,32 @@
-﻿using System;
-using System.Web;
-using System.Web.Helpers;
-using System.Web.Mvc;
-using Fanex.ProductStatus.Setting.AppResources;
-using Fanex.ProductStatus.Setting.Configuration;
-using Fanex.ProductStatus.Setting.Services;
-
-namespace Fanex.ProductStatus.Setting.Web.Filters
+﻿namespace Fanex.ProductStatus.Setting.Web
 {
-    public class ProductStatusAuthorizationAttribute : AuthorizeAttribute
+    using System;
+    using System.Web;
+    using System.Web.Helpers;
+    using System.Web.Mvc;
+    using AppResources;
+    using Configuration;
+    using Services;
+
+    public class ProductStatusAuthorizeAttribute : AuthorizeAttribute
     {
         private const string AntiForgeryFormTokenName = "__RequestVerificationToken";
-        private IProductStatusAuthorizationService authorizationService;
 
         public bool IsHost { get; set; }
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            bool isAuthorized = false;
             base.OnAuthorization(filterContext);
 
-            if (!string.IsNullOrEmpty(AppSettings.Settings.AuthorizationServiceType))
+            IProductStatusAuthorizeService authorizationService = ProductStatusSettingsHandler.CreateAuthorizeService();
+
+            bool isAuthorized = IsHost
+                ? authorizationService.CanUpdate(filterContext)
+                : authorizationService.CanView(filterContext);
+
+            if (IsHost && isAuthorized)
             {
-                var authorizationType = Type.GetType(AppSettings.Settings.AuthorizationServiceType);
-                authorizationService = Activator.CreateInstance(authorizationType) as IProductStatusAuthorizationService;
-
-                if (authorizationService != null)
-                {
-                    isAuthorized = IsHost
-                        ? authorizationService.CanUpdate(filterContext)
-                        : authorizationService.CanView(filterContext);
-
-                    if (IsHost && isAuthorized)
-                    {
-                        isAuthorized = ValidateAntiXSRF();
-                    }
-                }
+                isAuthorized = ValidateAntiXSRF();
             }
 
             if (!isAuthorized)
@@ -85,7 +76,7 @@ namespace Fanex.ProductStatus.Setting.Web.Filters
             }
             else
             {
-                filterContext.Result = new RedirectResult(AppSettings.Settings.UnAuthorizedPath);
+                filterContext.Result = new RedirectResult(ProductStatusSettingsHandler.GetUnAuthorizedUrl());
             }
         }
     }

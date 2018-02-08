@@ -1,11 +1,11 @@
-﻿using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using Models;
+
     public class UpdateGoldDeluxeStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateGoldDeluxeStatusCriteria(UpdateProductStatusParam statusParam)
-            : base(statusParam)
+        public UpdateGoldDeluxeStatusCriteria(ProductStatusCommand command)
+            : base(command)
         {
         }
 

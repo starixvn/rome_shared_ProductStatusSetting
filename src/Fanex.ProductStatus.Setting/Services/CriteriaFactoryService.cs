@@ -1,13 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Fanex.NAP.Framework.Data;
-using Fanex.ProductStatus.Setting.Criteria;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Services
+﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    public class ProductStatusCriteriaFactory : IProductStatusCriteriaFactory
+    using System.Collections.Generic;
+    using System.Linq;
+    using Criteria;
+    using Enumerations;
+    using Models;
+    using NAP.Framework.Data;
+
+    public interface CriteriaFactoryService
+    {
+        ICriteria CreateSelectCriteria(int productId, int custId);
+
+        ICriteria CreateUpdateCriteria(int productId, IEnumerable<ProductStatusCommand> commands);
+
+        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands);
+    }
+
+    public class CriteriaFactoryServiceImpl : CriteriaFactoryService
     {
         public ICriteria CreateSelectCriteria(int productId, int custId)
         {
@@ -31,7 +40,7 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        public ICriteria CreateUpdateCriteria(int productId, IEnumerable<UpdateProductStatusParam> commands)
+        public ICriteria CreateUpdateCriteria(int productId, IEnumerable<ProductStatusCommand> commands)
         {
             if (commands == null || !commands.Any())
             {
@@ -59,7 +68,7 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<UpdateProductStatusParam> commands)
+        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands)
         {
             if (commands == null || !commands.Any())
             {

@@ -1,31 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.SessionState;
-using Fanex.ProductStatus.Setting.Models;
-using Fanex.ProductStatus.Setting.Services;
-using Fanex.ProductStatus.Setting.ViewModels;
-using Fanex.ProductStatus.Setting.Web.Filters;
-using Fanex.ProductStatus.Setting.Web.Helpers;
-
-namespace Fanex.ProductStatus.Setting.Controllers
+﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.SessionState;
+    using AppResources;
+    using Models;
+    using Services;
+    using ViewModels;
+    using Web;
+
     [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
     {
-        private readonly IProductStatusService productStatusService;
+        private readonly ProductStatusService productStatusService;
 
         public ProductStatusSettingController()
             : this(null)
         {
         }
 
-        public ProductStatusSettingController(IProductStatusService productStatusService)
+        public ProductStatusSettingController(ProductStatusService productStatusService)
         {
-            this.productStatusService = productStatusService ?? new ProductStatusService();
+            this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        [ProductStatusAuthorization(IsHost = false)]
+        [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             viewModel.ProductStatus = viewModel.IsValid()
@@ -35,42 +34,37 @@ namespace Fanex.ProductStatus.Setting.Controllers
             return View(viewModel);
         }
 
-        [HttpPost, ProductStatusAuthorization(IsHost = true)]
-        public ActionResult Update(
-            int productId,
-            int custId,
-            int uplineId,
-            UpdateViewModel[] productStatus)
+        [HttpPost, ProductStatusAuthorize(IsHost = true), ValidateAntiForgeryToken]
+        public ActionResult Update(UpdateViewModel viewModel)
         {
-            var updateProductStatusParams = ToUpdateProductStatusParams(custId, uplineId, productStatus);
+            Result result;
 
-            var result = productStatusService.UpdateProductStatus(productId, updateProductStatusParams);
+            if (viewModel.IsValid())
+            {
+                viewModel = UpdateProductStatusCommands(viewModel);
+
+                result = productStatusService.UpdateProductStatus(
+                    viewModel.ProductId,
+                    viewModel.ProductStatus);
+            }
+            else
+            {
+                result = new Result(400, Resources.BadRequest);
+            }
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }
 
-        private static IEnumerable<UpdateProductStatusParam> ToUpdateProductStatusParams(
-            int custId,
-            int uplineId,
-            UpdateViewModel[] productStatus)
+        private static UpdateViewModel UpdateProductStatusCommands(UpdateViewModel viewModel)
         {
-            int userId = 0; // Todo: get from external service here ...
-            var ip = IPHelper.GetClientIP();
+            foreach (var item in viewModel.ProductStatus)
+            {
+                item.CustId = viewModel.CustId;
+                item.ActorId = viewModel.ActorId;
+                item.IP = viewModel.IP;
+            }
 
-            return productStatus.Select(status => new UpdateProductStatusParam(
-                custId,
-                status.SportType,
-                status.BetType,
-                status.Disable,
-                status.UpdateAllMasters,
-                status.DisableAllMasters,
-                status.UpdateAllAgents,
-                status.DisableAllAgents,
-                status.UpdateAllMembers,
-                status.DisableAllMembers,
-                uplineId,
-                userId,
-                ip));
+            return viewModel;
         }
     }
 }

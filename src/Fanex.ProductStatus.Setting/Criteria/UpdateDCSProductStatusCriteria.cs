@@ -1,40 +1,42 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Fanex.NAP.Framework.Data;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Models;
+    using NAP.Framework.Data;
+
     public class UpdateDCSProductStatusCriteria : CriteriaBase
     {
         private readonly int custId;
-        private readonly int userId;
+        private readonly int actorId;
         private readonly string ip;
-        private readonly IEnumerable<UpdateProductStatusParam> updateProductStatusParams;
+        private readonly IEnumerable<ProductStatusCommand> productStatusCommand;
 
-        public UpdateDCSProductStatusCriteria(IEnumerable<UpdateProductStatusParam> statusParams)
+        public UpdateDCSProductStatusCriteria(IEnumerable<ProductStatusCommand> commands)
         {
-            var firstParam = updateProductStatusParams.First();
+            var firstParam = productStatusCommand.First();
             custId = firstParam.CustId;
-            userId = firstParam.UserId;
+            actorId = firstParam.ActorId;
             ip = firstParam.IP;
 
-            updateProductStatusParams = statusParams;
+            productStatusCommand = commands;
         }
 
         public override string GetSettingKey() => "Acc_Admin_DisableNewProductStatusUpd";
 
         public override bool IsValid()
-            => custId > 0 && userId > 0 && !string.IsNullOrEmpty(ip);
+            => custId > 0
+            && actorId > 0
+            && !string.IsNullOrEmpty(ip);
 
         public override Hashtable GetSpParams() => new Hashtable
         {
             ["custid"] = custId,
             ["isdisabled"] = GetIsDisabledXmlParam(),
-            ["userid"] = userId,
+            ["userid"] = actorId,
             ["ip"] = ip
         };
 
@@ -43,7 +45,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
             var builder = new StringBuilder();
             builder.Append("<ROOT>");
 
-            foreach (var item in updateProductStatusParams)
+            foreach (var item in productStatusCommand)
             {
                 builder.Append(BuildProductStatusElement(item));
             }
@@ -53,7 +55,7 @@ namespace Fanex.ProductStatus.Setting.Criteria
             return builder.ToString();
         }
 
-        private static string BuildProductStatusElement(UpdateProductStatusParam command)
+        private static string BuildProductStatusElement(ProductStatusCommand command)
         {
             return string.Format(
                 "<ProductStatus SportType=\"{0}\" BetType=\"{1}\" IsDisabled=\"{2}\" UpdateAllMasters=\"{3}\" UpdateAllAgents=\"{4}\" UpdateAllMembers=\"{5}\" DisableAllMasters=\"{6}\" DisableAllAgents=\"{7}\" DisableAllMembers=\"{8}\"/>",

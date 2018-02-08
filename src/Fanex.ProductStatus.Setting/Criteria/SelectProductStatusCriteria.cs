@@ -1,7 +1,7 @@
-﻿using Fanex.NAP.Framework.Data;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using NAP.Framework.Data;
+
     public class SelectProductStatusCriteria : CriteriaBase
     {
         public SelectProductStatusCriteria(int productId, int custId)

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using System;
+    using System.Collections;
+    using Models;
+
     public class UpdateCasinoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateCasinoStatusCriteria(UpdateProductStatusParam statusParam)
-            : base(statusParam)
+        public UpdateCasinoStatusCriteria(ProductStatusCommand command)
+            : base(command)
         {
         }
 

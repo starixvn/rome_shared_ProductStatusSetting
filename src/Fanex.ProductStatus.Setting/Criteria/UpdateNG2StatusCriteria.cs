@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using System.Collections.Generic;
+    using Models;
+
     public class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
     {
-        public UpdateNG2StatusCriteria(IEnumerable<UpdateProductStatusParam> statusParams)
-            : base(statusParams)
+        public UpdateNG2StatusCriteria(IEnumerable<ProductStatusCommand> command)
+            : base(command)
         {
         }
 

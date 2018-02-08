@@ -7,7 +7,7 @@
 //    public class UpdateBaseProductStatusCriteriaTests
 //    {
 //        private const int CustIdTest = 1176083;
-//        private const int UserIdTest = 8;
+//        private const int ActorIdTest = 8;
 //        private const string IPTest = "127.0.0.1";
 
 //        [Fact]
@@ -24,7 +24,7 @@
 //        public void IsValid_ValidCriteria_ReturnsTrue()
 //        {
 //            // Arrange
-//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, UserIdTest, IPTest);
+//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, ActorIdTest, IPTest);
 //            var expectedResult = true;
 
 //            // Act
@@ -41,7 +41,7 @@
 //        public void IsValid_CustId_ReturnsExpectedResult(int custId, bool expectedResult)
 //        {
 //            // Arrange
-//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(custId, UserIdTest, IPTest);
+//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(custId, ActorIdTest, IPTest);
 
 //            // Act
 //            var actualResult = nonQueryCriteria.IsValid();
@@ -54,10 +54,10 @@
 //        [InlineData(int.MinValue, false)]
 //        [InlineData(0, false)]
 //        [InlineData(int.MaxValue, true)]
-//        public void IsValid_UserId_ReturnsExpectedResult(int userId, bool expectedResult)
+//        public void IsValid_ActorId_ReturnsExpectedResult(int actorId, bool expectedResult)
 //        {
 //            // Arrange
-//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, userId, IPTest);
+//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, actorId, IPTest);
 
 //            // Act
 //            var actualResult = nonQueryCriteria.IsValid();
@@ -74,7 +74,7 @@
 //        public void IsValid_IP_ReturnsExpectedResult(string ip, bool expectedResult)
 //        {
 //            // Arrange
-//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, UserIdTest, ip);
+//            var nonQueryCriteria = new UpdateBaseProductStatusCriteriaForTesting(CustIdTest, ActorIdTest, ip);
 
 //            // Act
 //            var actualResult = nonQueryCriteria.IsValid();

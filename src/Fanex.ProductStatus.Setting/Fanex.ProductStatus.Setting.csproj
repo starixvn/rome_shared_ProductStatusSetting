@@ -80,7 +80,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -120,7 +119,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Configuration\AppSettings.cs" />
+    <Compile Include="Configuration\ProductStatusSettings.cs" />
+    <Compile Include="Configuration\ProductStatusSettingsHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectGoldDeluxeStatusCriteria.cs" />
@@ -133,21 +133,17 @@
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
-    <Compile Include="DataAccess\IProductStatusDataAccess.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccessImpl.cs" />
     <Compile Include="Enumerations\ProductIdentity.cs" />
-    <Compile Include="Web\Filters\ProductStatusAuthorizationAttribute.cs" />
-    <Compile Include="Web\Helpers\IPHelper.cs" />
-    <Compile Include="Models\UpdateProductStatusParam.cs" />
+    <Compile Include="Services\IProductStatusUserService.cs" />
+    <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
+    <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\DownlineStatus.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IProductStatusAuthorizationService.cs" />
-    <Compile Include="Services\IProductStatusCriteriaFactory.cs" />
-    <Compile Include="Services\IProductStatusService.cs" />
-    <Compile Include="Services\IRefDataService.cs" />
-    <Compile Include="Services\ProductStatusCriteriaFactory.cs" />
+    <Compile Include="Services\IProductStatusAuthorizeService.cs" />
+    <Compile Include="Services\CriteriaFactoryService.cs" />
     <Compile Include="Services\ProductStatusService.cs" />
     <Compile Include="Services\RefDataService.cs" />
     <Compile Include="ViewModels\QueryViewModel.cs" />
@@ -162,7 +158,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

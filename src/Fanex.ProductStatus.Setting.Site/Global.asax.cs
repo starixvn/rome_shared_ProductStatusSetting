@@ -4,6 +4,7 @@
     using System.Reflection;
     using System.Web;
     using System.Web.Mvc;
+
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
@@ -13,6 +14,14 @@
             MvcHandler.DisableMvcResponseHeader = true;
 
             AreaRegistration.RegisterAllAreas();
+
+            //ProductStatusSettings settings = new ProductStatusSettings()
+            //    .UseAuthorizeService(typeof(A))
+            //    .UseUserService(typeof(B))
+            //    .SetUnAuthorizedUrl("/a/b/c");
+
+            //ProductStatusSettingsHandler.UseSettings(settings);
+            //ProductStatusSettingsHandler.Verify();
         }
 
         protected void Application_Error()

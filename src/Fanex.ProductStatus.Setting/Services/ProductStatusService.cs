@@ -1,25 +1,32 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Fanex.ProductStatus.Setting.DataAccess;
-using Fanex.ProductStatus.Setting.Enumerations;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Services
+﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    public class ProductStatusService : IProductStatusService
-    {
-        private readonly IProductStatusDataAccess statusDataAccess;
-        private readonly IProductStatusCriteriaFactory criteriaFactory;
-        private readonly IRefDataService refDataService;
+    using System.Collections.Generic;
+    using System.Linq;
+    using DataAccess;
+    using Enumerations;
+    using Models;
 
-        public ProductStatusService(
-            IProductStatusDataAccess statusDataAccess = null,
-            IProductStatusCriteriaFactory criteriaFactory = null,
-            IRefDataService refDataService = null)
+    public interface ProductStatusService
+    {
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
+
+        Result UpdateProductStatus(int productId, IEnumerable<ProductStatusCommand> commands);
+    }
+
+    public class ProductStatusServiceImpl : ProductStatusService
+    {
+        private readonly ProductStatusDataAccess statusDataAccess;
+        private readonly CriteriaFactoryService criteriaFactory;
+        private readonly RefDataService refDataService;
+
+        public ProductStatusServiceImpl(
+            ProductStatusDataAccess statusDataAccess = null,
+            CriteriaFactoryService criteriaFactory = null,
+            RefDataService refDataService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
-            this.criteriaFactory = criteriaFactory ?? new ProductStatusCriteriaFactory();
-            this.refDataService = refDataService ?? new RefDataService();
+            this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
+            this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
@@ -39,7 +46,7 @@ namespace Fanex.ProductStatus.Setting.Services
             return GetProductStatusBetTypeName(productId, rawData);
         }
 
-        public Result UpdateProductStatus(int productId, IEnumerable<UpdateProductStatusParam> commands)
+        public Result UpdateProductStatus(int productId, IEnumerable<ProductStatusCommand> commands)
         {
             return productId == (int)ProductIdentity.Keno ?
                 UpdateKenoStatus(commands) :
@@ -72,7 +79,7 @@ namespace Fanex.ProductStatus.Setting.Services
             }
         }
 
-        private Result UpdateKenoStatus(IEnumerable<UpdateProductStatusParam> commands)
+        private Result UpdateKenoStatus(IEnumerable<ProductStatusCommand> commands)
         {
             IList<Result> results = new List<Result>();
             var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(commands);
@@ -87,7 +94,7 @@ namespace Fanex.ProductStatus.Setting.Services
             return errorResult ?? results[0];
         }
 
-        private Result UpdateStatus(int productId, IEnumerable<UpdateProductStatusParam> commands)
+        private Result UpdateStatus(int productId, IEnumerable<ProductStatusCommand> commands)
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, commands);
 

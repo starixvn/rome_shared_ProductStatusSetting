@@ -9,11 +9,11 @@ namespace Fanex.ProductStatus.Setting.Tests.Services
     public class ProductStatusCriteriaFactoryTests
     {
         private const int CustIdTest = 1176083;
-        private readonly ProductStatusCriteriaFactory criteriaFactory;
+        private readonly CriteriaFactoryService criteriaFactory;
 
         public ProductStatusCriteriaFactoryTests()
         {
-            criteriaFactory = new ProductStatusCriteriaFactory();
+            criteriaFactory = new CriteriaFactoryServiceImpl();
         }
 
         [Theory]

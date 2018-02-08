@@ -1,23 +1,19 @@
-﻿using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using Models;
+
     public class UpdateKenoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateKenoStatusCriteria(UpdateProductStatusParam statusParam)
-            : base(statusParam)
+        public UpdateKenoStatusCriteria(ProductStatusCommand command)
+            : base(command)
         {
-            BetType = statusParam.BetType;
-            UplineId = statusParam.UplineId;
+            BetType = command.BetType;
         }
 
         public int BetType { get; }
 
-        public int UplineId { get; }
-
         public override string GetSettingKey() => "Acc_AdminUpdDisableKeno";
 
-        public override bool IsValid()
-            => base.IsValid() && BetType > 0 && UplineId > 0;
+        public override bool IsValid() => base.IsValid() && BetType > 0;
     }
 }

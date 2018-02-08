@@ -1,9 +1,18 @@
-﻿using Fanex.ProductStatus.Setting.AppResources;
-using RemotingRef;
-
-namespace Fanex.ProductStatus.Setting.Services
+﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    public class RefDataService : IRefDataService
+    using AppResources;
+    using RemotingRef;
+
+    public interface RefDataService
+    {
+        string GetBetTypeName(int betTypeId);
+
+        string GetSportName(int sportTypeId);
+
+        string GetProductName(int productId);
+    }
+
+    public class RefDataServiceImpl : RefDataService
     {
         private const int FirstBetTypeIdOfAllbets = 2401;
         private const string DefaultLanguage = "en";

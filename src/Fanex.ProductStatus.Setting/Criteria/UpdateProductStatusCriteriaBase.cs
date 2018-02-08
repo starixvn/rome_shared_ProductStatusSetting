@@ -1,26 +1,26 @@
-﻿using Fanex.NAP.Framework.Data;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using Models;
+    using NAP.Framework.Data;
+
     public abstract class UpdateProductStatusCriteriaBase : CriteriaBase
     {
-        protected UpdateProductStatusCriteriaBase(UpdateProductStatusParam statusParam)
+        protected UpdateProductStatusCriteriaBase(ProductStatusCommand command)
         {
-            CustId = statusParam.CustId;
-            UserId = statusParam.UserId;
-            IP = statusParam.IP;
+            CustId = command.CustId;
+            ActorId = command.ActorId;
+            IP = command.IP;
 
-            Disable = statusParam.Disable;
+            Disable = command.Disable;
 
-            UpdateAllMasters = statusParam.UpdateAllMasters;
-            DisableAllMasters = statusParam.DisableAllMasters;
+            UpdateAllMasters = command.UpdateAllMasters;
+            DisableAllMasters = command.DisableAllMasters;
 
-            UpdateAllAgents = statusParam.UpdateAllAgents;
-            DisableAllAgents = statusParam.DisableAllAgents;
+            UpdateAllAgents = command.UpdateAllAgents;
+            DisableAllAgents = command.DisableAllAgents;
 
-            UpdateAllMembers = statusParam.UpdateAllMembers;
-            DisableAllMembers = statusParam.DisableAllMembers;
+            UpdateAllMembers = command.UpdateAllMembers;
+            DisableAllMembers = command.DisableAllMembers;
         }
 
         public int CustId { get; }
@@ -39,11 +39,14 @@ namespace Fanex.ProductStatus.Setting.Criteria
 
         public bool? DisableAllMembers { get; }
 
-        public int UserId { get; }
+        [SpParam(SqlParamName = "UserId")]
+        public int ActorId { get; }
 
         public string IP { get; }
 
         public override bool IsValid()
-            => CustId > 0 && UserId > 0 && !string.IsNullOrEmpty(IP);
+            => CustId > 0
+            && ActorId > 0
+            && !string.IsNullOrEmpty(IP);
     }
 }

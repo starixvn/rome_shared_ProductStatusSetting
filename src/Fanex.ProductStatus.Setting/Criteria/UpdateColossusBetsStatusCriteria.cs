@@ -1,11 +1,11 @@
-﻿using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.Criteria
+﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
+    using Fanex.ProductStatus.Setting.Models;
+
     public class UpdateColossusBetsStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateColossusBetsStatusCriteria(UpdateProductStatusParam statusParam)
-            : base(statusParam)
+        public UpdateColossusBetsStatusCriteria(ProductStatusCommand command)
+            : base(command)
         {
         }
 

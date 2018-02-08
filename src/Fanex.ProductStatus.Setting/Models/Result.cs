@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Xml.Linq;
-using Fanex.ProductStatus.Setting.AppResources;
-
-namespace Fanex.ProductStatus.Setting.Models
+﻿namespace Fanex.ProductStatus.Setting.Models
 {
+    using System;
+    using System.Collections;
+    using System.Linq;
+    using System.Xml.Linq;
+    using AppResources;
+
     public class Result
     {
         public Result(int code, string message)

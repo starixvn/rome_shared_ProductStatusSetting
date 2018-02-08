@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using Fanex.Data;
-using Fanex.NAP.Framework.Data;
-using Fanex.ProductStatus.Setting.AppResources;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.DataAccess
+﻿namespace Fanex.ProductStatus.Setting.DataAccess
 {
-    public class ProductStatusDataAccessImpl : IProductStatusDataAccess
+    using System;
+    using System.Collections.Generic;
+    using System.Data;
+    using AppResources;
+    using Data;
+    using Models;
+    using NAP.Framework.Data;
+
+    public interface ProductStatusDataAccess
+    {
+        IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
+
+        Result ExecuteNonQuery(ICriteria criteria);
+    }
+
+    public class ProductStatusDataAccessImpl : ProductStatusDataAccess
     {
         public IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria)
         {

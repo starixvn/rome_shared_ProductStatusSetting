@@ -1,23 +1,33 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
+    using Configuration;
+    using Models;
+
     public class UpdateViewModel
     {
-        public int SportType { get; set; }
+        public UpdateViewModel()
+        {
+            var userService = ProductStatusSettingsHandler.CreateUserService();
 
-        public int BetType { get; set; }
+            ActorId = userService.ActorId;
+            IP = userService.IP;
+        }
 
-        public bool Disable { get; set; }
+        public int ProductId { get; set; }
 
-        public bool UpdateAllMasters { get; set; }
+        public int CustId { get; set; }
 
-        public bool? DisableAllMasters { get; set; }
+        public ProductStatusCommand[] ProductStatus { get; set; }
 
-        public bool UpdateAllAgents { get; set; }
+        public int ActorId { get; }
 
-        public bool? DisableAllAgents { get; set; }
+        public string IP { get; }
 
-        public bool UpdateAllMembers { get; set; }
-
-        public bool? DisableAllMembers { get; set; }
+        public bool IsValid()
+            => ProductId > 0
+            && CustId > 0
+            && ProductStatus?.Length > 0
+            && ActorId > 0
+            && !string.IsNullOrEmpty(IP);
     }
 }

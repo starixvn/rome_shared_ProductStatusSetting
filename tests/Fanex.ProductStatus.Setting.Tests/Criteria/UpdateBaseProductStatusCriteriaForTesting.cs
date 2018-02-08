@@ -8,7 +8,7 @@
 //        public UpdateBaseProductStatusCriteriaForTesting(
 //            int custId,
 //            bool disable,
-//            int userId,
+//            int actorId,
 //            string ip,
 //            bool updateAllMasters = false,
 //            bool disableAllMasters = true,
@@ -19,7 +19,7 @@
 //            : base(
 //                  custId,
 //                  disable,
-//                  userId,
+//                  actorId,
 //                  ip,
 //                  updateAllMasters,
 //                  disableAllMasters,

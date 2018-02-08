@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Fanex.ProductStatus.Setting.AppResources;
-using Fanex.ProductStatus.Setting.Models;
-
-namespace Fanex.ProductStatus.Setting.ViewModels
+﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
+    using System.Collections.Generic;
+    using AppResources;
+    using Models;
+
     public class QueryViewModel
     {
         private readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
@@ -33,6 +33,9 @@ namespace Fanex.ProductStatus.Setting.ViewModels
         }
 
         public bool IsValid()
-            => ProductId > 0 && CustId > 0 && !string.IsNullOrEmpty(CustName) && roleDictionary.ContainsKey(CustRole);
+            => ProductId > 0
+            && CustId > 0
+            && !string.IsNullOrEmpty(CustName)
+            && roleDictionary.ContainsKey(CustRole);
     }
 }
