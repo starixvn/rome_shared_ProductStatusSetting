@@ -1,13 +1,12 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
-    using System.Linq;
+    using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using AppResources;
     using Models;
     using Services;
     using ViewModels;
-    using Web;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
