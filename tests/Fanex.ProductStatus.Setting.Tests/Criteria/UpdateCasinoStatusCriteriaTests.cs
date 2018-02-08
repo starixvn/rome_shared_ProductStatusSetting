@@ -3,7 +3,6 @@
 
 //namespace Fanex.ProductStatus.Setting.Tests.Criteria
 //{
-//    [Trait("Category", "ProductStatus")]
 //    public class UpdateCasinoStatusCriteriaTests
 //    {
 //        private const int CustIdTest = 1176083;

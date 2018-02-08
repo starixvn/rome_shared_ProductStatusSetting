@@ -4,7 +4,6 @@
     using Shared;
     using Xunit;
 
-    [Trait("Category", "ProductStatus")]
     public class SelectGoldDeluxeStatusCriteriaTests
     {
         private const int CustIdTest = 1176083;

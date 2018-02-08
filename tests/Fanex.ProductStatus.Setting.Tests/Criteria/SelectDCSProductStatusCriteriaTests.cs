@@ -3,7 +3,6 @@
     using Setting.Criteria;
     using Xunit;
 
-    [Trait("Category", "ProductStatus")]
     public class SelectDCSProductStatusCriteriaTests
     {
         private const int ProductIdTest = 21;

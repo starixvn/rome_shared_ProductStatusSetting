@@ -5,7 +5,6 @@
 
 //namespace Fanex.ProductStatus.Setting.Tests.Models
 //{
-//    [Trait("Category", "BaseFunction")]
 //    public class ResultTests
 //    {
 //        [Fact]
