@@ -23,7 +23,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-       // [ProductStatusAuthorization(IsHost = false)]
+        // [ProductStatusAuthorization(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatuses = new List<ProductStatusModel>
@@ -74,7 +74,6 @@
                 CustRole = 4,
                 ProductStatus = productStatuses
             };
-
 
             return View(fakeViewModel);
         }
