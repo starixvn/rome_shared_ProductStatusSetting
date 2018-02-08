@@ -23,6 +23,7 @@
         {
             switch (productId)
             {
+                case ProductIdentity.NumberGame:
                 case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
                 case ProductIdentity.ColossusBets:
@@ -48,6 +49,9 @@
 
             switch (productId)
             {
+                case ProductIdentity.NumberGame:
+                    return new UpdateNumberGameStatusCriteria(commands.First());
+
                 case ProductIdentity.Casino:
                     return new UpdateCasinoStatusCriteria(commands.First());
 

@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Functions>
-  <Function Name="Get Setting">
-    <Setting Key="Acc_CustomerSelEditSuperGoldDeluxe" SpName="Acc_CustomerSelEditSuperGoldDeluxe" DbName="DBCUST.CustDB.BODBDownlineNet"/>
-  </Function>
-  <Function Name="Update Setting">
-    <Setting Key="Acc_CustomerUpdDisableGoldDeluxe" SpName="Acc_CustomerUpdDisableGoldDeluxe" DbName="DBCust.CustDB.BODBDownlineNet"/>
-  </Function>
-</Functions>

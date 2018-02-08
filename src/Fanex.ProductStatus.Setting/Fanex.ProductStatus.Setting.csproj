@@ -130,6 +130,7 @@
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateGoldDeluxeStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
+    <Compile Include="Criteria\UpdateNumberGameStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />

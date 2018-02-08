@@ -149,7 +149,7 @@
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="App_Data\SPNames\ProductStatusSetting.xml" />
+    <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
     <Content Include="assets\scripts\libs\bootstrap\dropdown.js" />
     <Content Include="assets\scripts\libs\bootstrap\modal.js" />
     <Content Include="assets\scripts\libs\bootstrap\multiselect.js" />
