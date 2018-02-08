@@ -1,8 +1,8 @@
 ﻿namespace Fanex.ProductStatus.Setting.Site
 {
-    using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Routing;
+    using Configuration;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -12,13 +12,11 @@
         {
             AreaRegistration.RegisterAllAreas();
 
-            //ProductStatusSettings settings = new ProductStatusSettings()
+            //ProductStatusConfigurationHandler.UseConfig(
+            //    new ProductStatusConfiguration()
             //    .UseAuthorizeService(typeof(A))
             //    .UseUserService(typeof(B))
-            //    .SetUnAuthorizedUrl("/a/b/c");
-
-            //ProductStatusSettingsHandler.UseSettings(settings);
-            //ProductStatusSettingsHandler.Verify();
+            //    .SetUnAuthorizedUrl("/a/b/c"));
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -18,7 +18,7 @@
         {
             base.OnAuthorization(filterContext);
 
-            IProductStatusAuthorizeService authorizationService = ProductStatusSettingsHandler.CreateAuthorizeService();
+            IProductStatusAuthorizeService authorizationService = ProductStatusConfigurationHandler.CreateAuthorizeService();
 
             bool isAuthorized = IsHost
                 ? authorizationService.CanUpdate(filterContext)
@@ -76,7 +76,7 @@
             }
             else
             {
-                filterContext.Result = new RedirectResult(ProductStatusSettingsHandler.GetUnAuthorizedUrl());
+                filterContext.Result = new RedirectResult(ProductStatusConfigurationHandler.GetUnAuthorizedUrl());
             }
         }
     }

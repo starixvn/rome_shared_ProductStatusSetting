@@ -3,24 +3,15 @@
     using System;
     using Services;
 
-    public static class ProductStatusSettingsHandler
+    public static class ProductStatusConfigurationHandler
     {
-        private static ProductStatusSettings statusSettings;
+        private static ProductStatusConfiguration statusSettings;
 
-        public static void UseSettings(ProductStatusSettings settings)
+        public static void UseConfig(ProductStatusConfiguration settings)
         {
             statusSettings = settings;
-        }
 
-        public static void Verify()
-        {
-            RequireProductStatusSettings();
-
-            RequireAuthorizeServiceType();
-
-            RequireUserServiceType();
-
-            RequireUnAuthorizedUrl();
+            Verify();
         }
 
         internal static IProductStatusAuthorizeService CreateAuthorizeService()
@@ -50,6 +41,17 @@
         internal static string GetUnAuthorizedUrl()
         {
             return statusSettings.UnAuthorizedUrl;
+        }
+
+        private static void Verify()
+        {
+            RequireProductStatusSettings();
+
+            RequireAuthorizeServiceType();
+
+            RequireUserServiceType();
+
+            RequireUnAuthorizedUrl();
         }
 
         private static void RequireProductStatusSettings()

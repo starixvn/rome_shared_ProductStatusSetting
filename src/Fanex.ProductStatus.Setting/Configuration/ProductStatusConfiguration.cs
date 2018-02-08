@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class ProductStatusSettings
+    public class ProductStatusConfiguration
     {
         internal Type AuthorizeServiceType { get; private set; }
 
@@ -10,19 +10,19 @@
 
         internal string UnAuthorizedUrl { get; private set; }
 
-        public ProductStatusSettings UseAuthorizeService(Type authorizeType)
+        public ProductStatusConfiguration UseAuthorizeService(Type authorizeType)
         {
             AuthorizeServiceType = authorizeType;
             return this;
         }
 
-        public ProductStatusSettings UseUserService(Type userType)
+        public ProductStatusConfiguration UseUserService(Type userType)
         {
             UserServiceType = userType;
             return this;
         }
 
-        public ProductStatusSettings SetUnAuthorizedUrl(string url)
+        public ProductStatusConfiguration SetUnAuthorizedUrl(string url)
         {
             UnAuthorizedUrl = url;
             return this;

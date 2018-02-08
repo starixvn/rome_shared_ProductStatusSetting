@@ -7,7 +7,7 @@
     {
         public UpdateViewModel()
         {
-            var userService = ProductStatusSettingsHandler.CreateUserService();
+            var userService = ProductStatusConfigurationHandler.CreateUserService();
 
             ActorId = userService.ActorId;
             IP = userService.IP;
