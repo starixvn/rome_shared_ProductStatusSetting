@@ -12,9 +12,18 @@
     {
         ICriteria CreateSelectCriteria(int productId, int custId);
 
-        ICriteria CreateUpdateCriteria(int productId, IEnumerable<ProductStatusCommand> commands);
+        ICriteria CreateUpdateCriteria(
+            int productId,
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands);
 
-        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands);
+        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands);
     }
 
     public class CriteriaFactoryServiceImpl : CriteriaFactoryService
@@ -38,7 +47,12 @@
             }
         }
 
-        public ICriteria CreateUpdateCriteria(int productId, IEnumerable<ProductStatusCommand> commands)
+        public ICriteria CreateUpdateCriteria(
+            int productId,
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
             if (commands == null || !commands.Any())
             {
@@ -48,35 +62,39 @@
             switch (productId)
             {
                 case ProductIdentity.NumberGame:
-                    return new UpdateNumberGameStatusCriteria(commands.First());
+                    return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
 
                 case ProductIdentity.Casino:
-                    return new UpdateCasinoStatusCriteria(commands.First());
+                    return new UpdateCasinoStatusCriteria(custId, actorId, ip, commands.First());
 
                 case ProductIdentity.GoldDeluxe:
-                    return new UpdateGoldDeluxeStatusCriteria(commands.First());
+                    return new UpdateGoldDeluxeStatusCriteria(custId, actorId, ip, commands.First());
 
                 case ProductIdentity.ColossusBets:
-                    return new UpdateColossusBetsStatusCriteria(commands.First());
+                    return new UpdateColossusBetsStatusCriteria(custId, actorId, ip, commands.First());
 
                 case ProductIdentity.NG2:
-                    return new UpdateNG2StatusCriteria(commands);
+                    return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
 
                 default:
-                    return new UpdateDCSProductStatusCriteria(commands);
+                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands);
             }
         }
 
-        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(IEnumerable<ProductStatusCommand> commands)
+        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
             if (commands == null || !commands.Any())
             {
                 yield break;
             }
 
-            foreach (var item in commands)
+            foreach (var status in commands)
             {
-                yield return new UpdateKenoStatusCriteria(item);
+                yield return new UpdateKenoStatusCriteria(custId, actorId, ip, status);
             }
         }
     }

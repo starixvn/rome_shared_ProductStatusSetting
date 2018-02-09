@@ -4,8 +4,12 @@
 
     public class UpdateColossusBetsStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateColossusBetsStatusCriteria(ProductStatusCommand command)
-            : base(command)
+        public UpdateColossusBetsStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
+            : base(custId, actorId, ip, command)
         {
         }
 

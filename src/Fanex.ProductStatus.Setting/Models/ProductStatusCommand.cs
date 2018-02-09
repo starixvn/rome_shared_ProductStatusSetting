@@ -19,11 +19,5 @@
         public bool UpdateAllMembers { get; set; }
 
         public bool? DisableAllMembers { get; set; }
-
-        public int CustId { get; set; }
-
-        public int ActorId { get; set; }
-
-        public string IP { get; set; }
     }
 }

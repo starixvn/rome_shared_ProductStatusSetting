@@ -6,8 +6,12 @@
 
     public class UpdateCasinoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateCasinoStatusCriteria(ProductStatusCommand command)
-            : base(command)
+        public UpdateCasinoStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
+            : base(custId, actorId, ip, command)
         {
         }
 

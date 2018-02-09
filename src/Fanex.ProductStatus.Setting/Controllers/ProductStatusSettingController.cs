@@ -76,39 +76,52 @@
             };
 
             return View(fakeViewModel);
+
+            //viewModel.ProductStatus = viewModel.IsValid()
+            //    ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+            //    : Enumerable.Empty<ProductStatusModel>();
+
+            //return View(viewModel);
         }
 
         //[HttpPost, ProductStatusAuthorization(IsHost = true)]
         public ActionResult Update(UpdateViewModel viewModel)
         {
-            Result result;
+            var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
 
             if (viewModel.IsValid())
             {
-                viewModel = UpdateProductStatusCommands(viewModel);
-
-                result = productStatusService.UpdateProductStatus(
+                var result = productStatusService.UpdateProductStatus(
                     viewModel.ProductId,
+                    viewModel.CustId,
+                    viewModel.ActorId,
+                    viewModel.IP,
                     viewModel.ProductStatus);
-            }
-            else
-            {
-                result = new Result(400, Resources.BadRequest);
+
+                return Json(result, jsonRequestBehavior);
             }
 
-            return Json(result, JsonRequestBehavior.DenyGet);
+            return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
 
-        private static UpdateViewModel UpdateProductStatusCommands(UpdateViewModel viewModel)
+        //[HttpPost, ProductStatusAuthorization(IsHost = true)]
+        public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
         {
-            foreach (var item in viewModel.ProductStatus)
+            var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
+
+            if (viewModel.IsValid())
             {
-                item.CustId = viewModel.CustId;
-                item.ActorId = viewModel.ActorId;
-                item.IP = viewModel.IP;
+                var results = productStatusService.MultipleUpdateProductStatus(
+                    viewModel.ProductId,
+                    viewModel.Customers,
+                    viewModel.ActorId,
+                    viewModel.IP,
+                    viewModel.ProductStatus);
+
+                return Json(results, jsonRequestBehavior);
             }
 
-            return viewModel;
+            return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
     }
 }

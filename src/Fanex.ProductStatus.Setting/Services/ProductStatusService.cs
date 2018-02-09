@@ -10,7 +10,19 @@
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
 
-        Result UpdateProductStatus(int productId, IEnumerable<ProductStatusCommand> commands);
+        Result UpdateProductStatus(
+            int productId,
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands);
+
+        IEnumerable<Result> MultipleUpdateProductStatus(
+            int productId,
+            IEnumerable<Customer> customers,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands);
     }
 
     public class ProductStatusServiceImpl : ProductStatusService
@@ -46,11 +58,41 @@
             return GetProductStatusBetTypeName(productId, rawData);
         }
 
-        public Result UpdateProductStatus(int productId, IEnumerable<ProductStatusCommand> commands)
+        public Result UpdateProductStatus(
+            int productId,
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
             return productId == ProductIdentity.Keno ?
-                UpdateKenoStatus(commands) :
-                UpdateStatus(productId, commands);
+                UpdateKenoStatus(custId, actorId, ip, commands) :
+                UpdateStatus(productId, custId, actorId, ip, commands);
+        }
+
+        public IEnumerable<Result> MultipleUpdateProductStatus(
+            int productId,
+            IEnumerable<Customer> customers,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
+        {
+            IList<Result> results = new List<Result>();
+
+            foreach (var customer in customers)
+            {
+                // Todo: check product is offered to customer here.
+                Result result = new MultipleResult(1, "Error", customer.CustId, customer.CustName);
+
+                if (result.IsSuccess())
+                {
+                    result = UpdateProductStatus(productId, customer.CustId, actorId, ip, commands);
+                }
+
+                results.Add(result);
+            }
+
+            return results;
         }
 
         private IEnumerable<ProductStatusModel> GetProductStatusProductName(
@@ -79,10 +121,14 @@
             }
         }
 
-        private Result UpdateKenoStatus(IEnumerable<ProductStatusCommand> commands)
+        private Result UpdateKenoStatus(
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
             IList<Result> results = new List<Result>();
-            var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(commands);
+            var criteria = criteriaFactory.CreateUpdateKenoStatusCriteria(custId, actorId, ip, commands);
 
             foreach (var item in criteria)
             {
@@ -94,9 +140,14 @@
             return errorResult ?? results[0];
         }
 
-        private Result UpdateStatus(int productId, IEnumerable<ProductStatusCommand> commands)
+        private Result UpdateStatus(
+            int productId,
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
-            var criteria = criteriaFactory.CreateUpdateCriteria(productId, commands);
+            var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
 
             return statusDataAccess.ExecuteNonQuery(criteria);
         }

@@ -4,8 +4,12 @@
 
     public class UpdateNumberGameStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateNumberGameStatusCriteria(ProductStatusCommand command)
-            : base(command)
+        public UpdateNumberGameStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
+            : base(custId, actorId, ip, command)
         {
         }
 

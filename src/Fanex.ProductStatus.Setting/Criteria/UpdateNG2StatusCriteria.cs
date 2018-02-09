@@ -5,8 +5,12 @@
 
     public class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
     {
-        public UpdateNG2StatusCriteria(IEnumerable<ProductStatusCommand> command)
-            : base(command)
+        public UpdateNG2StatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
+            : base(custId, actorId, ip, commands)
         {
         }
 

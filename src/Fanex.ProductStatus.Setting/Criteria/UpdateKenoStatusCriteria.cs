@@ -4,8 +4,12 @@
 
     public class UpdateKenoStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateKenoStatusCriteria(ProductStatusCommand command)
-            : base(command)
+        public UpdateKenoStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
+            : base(custId, actorId, ip, command)
         {
             BetType = command.BetType;
         }

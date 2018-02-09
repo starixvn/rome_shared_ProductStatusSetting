@@ -5,11 +5,15 @@
 
     public abstract class UpdateProductStatusCriteriaBase : CriteriaBase
     {
-        protected UpdateProductStatusCriteriaBase(ProductStatusCommand command)
+        protected UpdateProductStatusCriteriaBase(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
         {
-            CustId = command.CustId;
-            ActorId = command.ActorId;
-            IP = command.IP;
+            CustId = custId;
+            ActorId = actorId;
+            IP = ip;
 
             Disable = command.Disable;
 
@@ -45,8 +49,6 @@
         public string IP { get; }
 
         public override bool IsValid()
-            => CustId > 0
-            && ActorId > 0
-            && !string.IsNullOrEmpty(IP);
+            => CustId > 0 && ActorId > 0;
     }
 }

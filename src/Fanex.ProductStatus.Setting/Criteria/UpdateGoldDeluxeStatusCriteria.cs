@@ -4,8 +4,12 @@
 
     public class UpdateGoldDeluxeStatusCriteria : UpdateProductStatusCriteriaBase
     {
-        public UpdateGoldDeluxeStatusCriteria(ProductStatusCommand command)
-            : base(command)
+        public UpdateGoldDeluxeStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            ProductStatusCommand command)
+            : base(custId, actorId, ip, command)
         {
         }
 

@@ -3,7 +3,6 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using Models;
     using NAP.Framework.Data;
@@ -13,24 +12,25 @@
         private readonly int custId;
         private readonly int actorId;
         private readonly string ip;
-        private readonly IEnumerable<ProductStatusCommand> productStatusCommand;
+        private readonly IEnumerable<ProductStatusCommand> productStatusCommands;
 
-        public UpdateDCSProductStatusCriteria(IEnumerable<ProductStatusCommand> commands)
+        public UpdateDCSProductStatusCriteria(
+            int custId,
+            int actorId,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
-            var firstParam = productStatusCommand.First();
-            custId = firstParam.CustId;
-            actorId = firstParam.ActorId;
-            ip = firstParam.IP;
+            this.custId = custId;
+            this.actorId = actorId;
+            this.ip = ip;
 
-            productStatusCommand = commands;
+            productStatusCommands = commands;
         }
 
         public override string GetSettingKey() => "Acc_Admin_DisableNewProductStatusUpd";
 
         public override bool IsValid()
-            => custId > 0
-            && actorId > 0
-            && !string.IsNullOrEmpty(ip);
+            => custId > 0 && actorId > 0;
 
         public override Hashtable GetSpParams() => new Hashtable
         {
@@ -45,7 +45,7 @@
             var builder = new StringBuilder();
             builder.Append("<ROOT>");
 
-            foreach (var item in productStatusCommand)
+            foreach (var item in productStatusCommands)
             {
                 builder.Append(BuildProductStatusElement(item));
             }
