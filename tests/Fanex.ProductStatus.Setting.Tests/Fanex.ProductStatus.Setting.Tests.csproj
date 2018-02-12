@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\xunit.core.2.3.1\build\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.3.1\build\xunit.core.props')" />
   <Import Project="..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="..\..\packages\xunit.core.2.3.1\build\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.3.1\build\xunit.core.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -73,6 +73,10 @@
       <HintPath>..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NSubstitute, Version=3.1.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NSubstitute.3.1.0\lib\net46\NSubstitute.dll</HintPath>
       <Private>True</Private>
@@ -82,6 +86,30 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -108,6 +136,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ProductStatusAuthorizeServiceForTesting.cs" />
+    <Compile Include="Configuration\ProductStatusConfigurationHandlerTests.cs" />
+    <Compile Include="Configuration\ProductStatusConfigurationTests.cs" />
+    <Compile Include="Configuration\ProductStatusUserServiceForTesting.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteriaTests.cs" />
@@ -150,9 +182,9 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.3.1\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.3.1\build\xunit.core.props'))" />
     <Error Condition="!Exists('..\..\packages\xunit.core.2.3.1\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.3.1\build\xunit.core.targets'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.3.1\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <Import Project="..\..\packages\xunit.core.2.3.1\build\xunit.core.targets" Condition="Exists('..\..\packages\xunit.core.2.3.1\build\xunit.core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

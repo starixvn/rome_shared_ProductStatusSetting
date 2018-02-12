@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Criteria;
@@ -54,11 +53,6 @@
             string ip,
             IEnumerable<ProductStatusCommand> commands)
         {
-            if (commands == null || !commands.Any())
-            {
-                throw new ArgumentNullException(nameof(commands));
-            }
-
             switch (productId)
             {
                 case ProductIdentity.NumberGame:
@@ -87,11 +81,6 @@
             string ip,
             IEnumerable<ProductStatusCommand> commands)
         {
-            if (commands == null || !commands.Any())
-            {
-                yield break;
-            }
-
             foreach (var status in commands)
             {
                 yield return new UpdateKenoStatusCriteria(custId, actorId, ip, status);

@@ -56,6 +56,7 @@
         [Theory]
         [InlineData(0, "Status updated successfully.")]
         [InlineData(400, "You cannot submit the action due to a validation error.")]
+        [InlineData(400, "<You cannot submit the action due to a validation error.")]
         public void New_ErrMsgIsNotXmlFormat_ReturnsCorrectResult(int code, string message)
         {
             // Arrange

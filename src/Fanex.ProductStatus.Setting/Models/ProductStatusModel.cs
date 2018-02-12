@@ -25,18 +25,18 @@ namespace Fanex.ProductStatus.Setting.Models
             switch (custRoleId)
             {
                 case RoleIdentity.Super:
-                    Master = new DownlineStatus(isDisabledUpline, totalDisabledMasters, totalEnabledMasters);
-                    Agent = new DownlineStatus(isDisabledUpline || totalEnabledMasters == 0, totalDisabledAgents, totalEnabledAgents);
-                    Member = new DownlineStatus(isDisabledUpline || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
+                    Master = new DownlineStatus(IsDisabled, totalDisabledMasters, totalEnabledMasters);
+                    Agent = new DownlineStatus(IsDisabled || totalEnabledMasters == 0, totalDisabledAgents, totalEnabledAgents);
+                    Member = new DownlineStatus(IsDisabled || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
                     break;
 
                 case RoleIdentity.Master:
-                    Agent = new DownlineStatus(isDisabledUpline, totalDisabledAgents, totalEnabledAgents);
-                    Member = new DownlineStatus(isDisabledUpline || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
+                    Agent = new DownlineStatus(IsDisabled, totalDisabledAgents, totalEnabledAgents);
+                    Member = new DownlineStatus(IsDisabled || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
                     break;
 
                 case RoleIdentity.Agent:
-                    Member = new DownlineStatus(isDisabledUpline, totalDisabledMembers, totalEnabledMembers);
+                    Member = new DownlineStatus(IsDisabled, totalDisabledMembers, totalEnabledMembers);
                     break;
 
                 default:
