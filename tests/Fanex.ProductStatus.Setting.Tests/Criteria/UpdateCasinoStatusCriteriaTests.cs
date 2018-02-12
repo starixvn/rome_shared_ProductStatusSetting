@@ -36,6 +36,7 @@
             Assert.Equal(expectedSettingKey, actualSettingKey);
         }
 
+        [Fact]
         public void GetSpParams_Always_ContainsDisabledCSField()
         {
             // Arrange

@@ -67,6 +67,7 @@
                 }
                 catch (Exception)
                 {
+                    return false;
                 }
             }
 

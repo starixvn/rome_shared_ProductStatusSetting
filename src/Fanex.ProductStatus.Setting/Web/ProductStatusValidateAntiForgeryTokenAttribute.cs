@@ -1,9 +1,11 @@
 ﻿namespace Fanex.ProductStatus.Setting.Web
 {
+    using System;
     using System.Web;
     using System.Web.Helpers;
     using System.Web.Mvc;
 
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     internal class ProductStatusValidateAntiForgeryTokenAttribute : ActionFilterAttribute
     {
         private const string AntiForgeryFormTokenName = "__RequestVerificationToken";

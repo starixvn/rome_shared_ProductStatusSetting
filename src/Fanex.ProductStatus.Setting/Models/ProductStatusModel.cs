@@ -16,7 +16,7 @@
         {
             SportType = sportType;
             BetType = betType;
-            IsDisabled = isDisabled;
+            IsDisabled = isDisabledUpline ? isDisabledUpline : isDisabled;
             IsDisabledUpline = isDisabledUpline;
 
             Master = new DownlineStatus(isDisabledUpline, totalDisabledMasters, totalEnabledMasters);

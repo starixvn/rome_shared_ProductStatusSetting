@@ -1,10 +1,12 @@
 ﻿namespace Fanex.ProductStatus.Setting.Web
 {
+    using System;
     using System.Web.Mvc;
     using AppResources;
     using Configuration;
     using Services;
 
+    [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     internal class ProductStatusAuthorizeAttribute : AuthorizeAttribute
     {
         public bool IsHost { get; set; }

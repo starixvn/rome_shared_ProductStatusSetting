@@ -4,11 +4,6 @@
 
     public class MultipleUpdateViewModel : UpdateViewModelBase
     {
-        public MultipleUpdateViewModel()
-            : base()
-        {
-        }
-
         public Customer[] Customers { get; set; }
 
         public override bool IsValid()

@@ -2,11 +2,6 @@
 {
     public class UpdateViewModel : UpdateViewModelBase
     {
-        public UpdateViewModel()
-            : base()
-        {
-        }
-
         public int CustId { get; set; }
 
         public override bool IsValid()
