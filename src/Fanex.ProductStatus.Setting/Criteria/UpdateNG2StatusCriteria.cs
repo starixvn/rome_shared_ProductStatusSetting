@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Models;
 
-    public class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
+    internal class UpdateNG2StatusCriteria : UpdateDCSProductStatusCriteria
     {
         public UpdateNG2StatusCriteria(
             int custId,

@@ -3,7 +3,7 @@
     using AppResources;
     using RemotingRef;
 
-    public interface RefDataService
+    internal interface RefDataService
     {
         string GetBetTypeName(int betTypeId);
 
@@ -12,7 +12,7 @@
         string GetProductName(int productId);
     }
 
-    public class RefDataServiceImpl : RefDataService
+    internal class RefDataServiceImpl : RefDataService
     {
         private const int FirstBetTypeIdOfAllbets = 2401;
         private const string DefaultLanguage = "en";

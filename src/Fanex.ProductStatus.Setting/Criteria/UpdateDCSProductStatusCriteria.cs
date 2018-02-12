@@ -7,7 +7,7 @@
     using Models;
     using NAP.Framework.Data;
 
-    public class UpdateDCSProductStatusCriteria : CriteriaBase
+    internal class UpdateDCSProductStatusCriteria : CriteriaBase
     {
         private readonly int custId;
         private readonly int actorId;

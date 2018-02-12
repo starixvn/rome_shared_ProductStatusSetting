@@ -4,7 +4,7 @@
     using System.Collections;
     using Models;
 
-    public class UpdateCasinoStatusCriteria : UpdateProductStatusCriteriaBase
+    internal class UpdateCasinoStatusCriteria : UpdateProductStatusCriteriaBase
     {
         public UpdateCasinoStatusCriteria(
             int custId,

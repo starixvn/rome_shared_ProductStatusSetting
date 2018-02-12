@@ -2,7 +2,7 @@
 {
     using Models;
 
-    public class UpdateNumberGameStatusCriteria : UpdateProductStatusCriteriaBase
+    internal class UpdateNumberGameStatusCriteria : UpdateProductStatusCriteriaBase
     {
         public UpdateNumberGameStatusCriteria(
             int custId,

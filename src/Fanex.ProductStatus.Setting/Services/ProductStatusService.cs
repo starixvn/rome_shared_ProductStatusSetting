@@ -25,7 +25,7 @@
             IEnumerable<ProductStatusCommand> commands);
     }
 
-    public class ProductStatusServiceImpl : ProductStatusService
+    internal class ProductStatusServiceImpl : ProductStatusService
     {
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;

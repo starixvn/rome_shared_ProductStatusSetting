@@ -8,14 +8,14 @@
     using Models;
     using NAP.Framework.Data;
 
-    public interface ProductStatusDataAccess
+    internal interface ProductStatusDataAccess
     {
         IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
 
         Result ExecuteNonQuery(ICriteria criteria);
     }
 
-    public class ProductStatusDataAccessImpl : ProductStatusDataAccess
+    internal class ProductStatusDataAccessImpl : ProductStatusDataAccess
     {
         public IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria)
         {

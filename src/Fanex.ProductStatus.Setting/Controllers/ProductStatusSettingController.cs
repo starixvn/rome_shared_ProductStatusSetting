@@ -7,6 +7,7 @@
     using Models;
     using Services;
     using ViewModels;
+    using Web;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
@@ -84,7 +85,7 @@
             //return View(viewModel);
         }
 
-        //[HttpPost, ProductStatusAuthorization(IsHost = true)]
+        //[HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
         public ActionResult Update(UpdateViewModel viewModel)
         {
             var jsonRequestBehavior = JsonRequestBehavior.DenyGet;

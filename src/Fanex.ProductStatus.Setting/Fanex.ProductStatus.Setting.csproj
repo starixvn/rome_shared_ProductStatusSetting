@@ -151,6 +151,7 @@
     <Compile Include="Services\RefDataService.cs" />
     <Compile Include="ViewModels\QueryViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
+    <Compile Include="Web\ProductStatusValidateAntiForgeryTokenAttribute.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

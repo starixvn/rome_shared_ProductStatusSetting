@@ -2,7 +2,7 @@
 {
     using NAP.Framework.Data;
 
-    public class SelectProductStatusCriteria : CriteriaBase
+    internal class SelectProductStatusCriteria : CriteriaBase
     {
         public SelectProductStatusCriteria(int productId, int custId)
         {

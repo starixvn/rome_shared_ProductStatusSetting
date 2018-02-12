@@ -9,8 +9,10 @@
         private const int CustIdTest = 1176083;
 
         [Theory]
+        [InlineData(ProductIdentity.NumberGame)]
         [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
+        [InlineData(ProductIdentity.GoldDeluxe)]
         [InlineData(ProductIdentity.ColossusBets)]
         public void GetSettingKey_Always_ReturnsValidSettingKey(int productId)
         {
@@ -26,8 +28,10 @@
         }
 
         [Theory]
+        [InlineData(ProductIdentity.NumberGame)]
         [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
+        [InlineData(ProductIdentity.GoldDeluxe)]
         [InlineData(ProductIdentity.ColossusBets)]
         public void IsValid_ValidCriteria_ReturnsTrue(int productId)
         {
@@ -65,7 +69,7 @@
         public void IsValid_CustId_ReturnsExpectedResult(int custId, bool expectedResult)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria(ProductIdentity.Casino, custId);
+            var criteria = new SelectProductStatusCriteria(ProductIdentity.NumberGame, custId);
 
             // Act
             var actualResult = criteria.IsValid();

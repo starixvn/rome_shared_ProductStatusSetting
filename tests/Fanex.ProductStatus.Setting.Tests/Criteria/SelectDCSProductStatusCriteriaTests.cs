@@ -5,14 +5,11 @@
 
     public class SelectDCSProductStatusCriteriaTests
     {
-        private const int ProductIdTest = 21;
-        private const int CustIdTest = 1176083;
-
         [Fact]
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new SelectDCSProductStatusCriteria(ProductIdTest, CustIdTest);
+            var criteria = new SelectDCSProductStatusCriteria(21, 1176083);
             var expectedSettingKey = "Acc_Admin_DisableNewProductStatusSelect";
 
             // Act
@@ -20,20 +17,6 @@
 
             // Assert
             Assert.Equal(expectedSettingKey, actualSettingKey);
-        }
-
-        [Fact]
-        public void IsValid_ValidCriteria_ReturnsTrue()
-        {
-            // Arrange
-            var criteria = new SelectDCSProductStatusCriteria(ProductIdTest, CustIdTest);
-            var expectedResult = true;
-
-            // Act
-            var actualResult = criteria.IsValid();
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
         }
     }
 }

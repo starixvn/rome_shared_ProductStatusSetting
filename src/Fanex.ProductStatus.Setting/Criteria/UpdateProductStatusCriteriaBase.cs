@@ -3,7 +3,7 @@
     using Models;
     using NAP.Framework.Data;
 
-    public abstract class UpdateProductStatusCriteriaBase : CriteriaBase
+    internal abstract class UpdateProductStatusCriteriaBase : CriteriaBase
     {
         protected UpdateProductStatusCriteriaBase(
             int custId,

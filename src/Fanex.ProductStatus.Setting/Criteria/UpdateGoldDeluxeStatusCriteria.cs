@@ -2,7 +2,7 @@
 {
     using Models;
 
-    public class UpdateGoldDeluxeStatusCriteria : UpdateProductStatusCriteriaBase
+    internal class UpdateGoldDeluxeStatusCriteria : UpdateProductStatusCriteriaBase
     {
         public UpdateGoldDeluxeStatusCriteria(
             int custId,

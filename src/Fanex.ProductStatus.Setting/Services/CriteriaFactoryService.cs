@@ -8,7 +8,7 @@
     using NAP.Framework.Data;
     using Shared;
 
-    public interface CriteriaFactoryService
+    internal interface CriteriaFactoryService
     {
         ICriteria CreateSelectCriteria(int productId, int custId);
 
@@ -26,7 +26,7 @@
             IEnumerable<ProductStatusCommand> commands);
     }
 
-    public class CriteriaFactoryServiceImpl : CriteriaFactoryService
+    internal class CriteriaFactoryServiceImpl : CriteriaFactoryService
     {
         public ICriteria CreateSelectCriteria(int productId, int custId)
         {

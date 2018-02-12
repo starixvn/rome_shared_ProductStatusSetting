@@ -1,107 +1,116 @@
-﻿//using System.Collections;
-//using Fanex.ProductStatus.Setting.AppResources;
-//using Fanex.ProductStatus.Setting.Models;
-//using Xunit;
+﻿namespace Fanex.ProductStatus.Setting.Tests.Models
+{
+    using System.Collections;
+    using AppResources;
+    using Setting.Models;
+    using Xunit;
 
-//namespace Fanex.ProductStatus.Setting.Tests.Models
-//{
-//    public class ResultTests
-//    {
-//        [Fact]
-//        public void IsSuccess_ValidCode_ReturnsTrue()
-//        {
-//            // Arrange
-//            var result = Result.CreateSuccessResult();
+    public class ResultTests
+    {
+        [Theory]
+        [InlineData(0, "Status updated successfully.")]
+        [InlineData(500, "Internal server error.")]
+        [InlineData(400, "You cannot submit the action due to a validation error.")]
+        [InlineData(403, "You are not authorized on this function.")]
+        public void New_Always_AssignCorrectProperties(int code, string message)
+        {
+            // Arrange && Act
+            var actualResult = new Result(code, message);
 
-//            // Act
-//            var actualResult = result.IsSuccess();
+            // Assert
+            Assert.True(
+                code == actualResult.Code
+                && message == actualResult.Message);
+        }
 
-//            // Assert
-//            Assert.True(actualResult);
-//        }
+        [Fact]
+        public void New_HashtableIsNull_Returns500()
+        {
+            // Arrange
+            var expectedCode = 500;
 
-//        [Fact]
-//        public void IsSuccess_InvalidCode_ReturnsFalse()
-//        {
-//            // Arrange
-//            var result = Result.CreateErrorResult(500, Resources.InternalServerError);
+            // Act
+            var actualResult = new Result(null);
 
-//            // Act
-//            var actualResult = result.IsSuccess();
+            // Assert
+            Assert.True(
+                !actualResult.IsSuccess()
+                && expectedCode == actualResult.Code);
+        }
 
-//            // Assert
-//            Assert.False(actualResult);
-//        }
+        [Fact]
+        public void New_HashtableNotContainsErrCodeAndErrMsg_Returns500()
+        {
+            // Arrange
+            var expectedCode = 500;
 
-//        [Fact]
-//        public void CreateSuccessResult_Always_ReturnsTrue()
-//        {
-//            // Arrange
-//            var expectedMessage = Resources.StatusUpdatedSuccessfully;
+            // Act
+            var actualResult = new Result(new Hashtable());
 
-//            // Act
-//            var actualResult = Result.CreateSuccessResult(expectedMessage);
+            // Assert
+            Assert.True(
+                !actualResult.IsSuccess()
+                && expectedCode == actualResult.Code);
+        }
 
-//            // Assert
-//            Assert.True(actualResult.IsSuccess() && actualResult.Message == expectedMessage);
-//        }
+        [Theory]
+        [InlineData(0, "Status updated successfully.")]
+        [InlineData(400, "You cannot submit the action due to a validation error.")]
+        public void New_ErrMsgIsNotXmlFormat_ReturnsCorrectResult(int code, string message)
+        {
+            // Arrange
+            var outputParams = new Hashtable
+            {
+                ["errcode"] = code,
+                ["errmsg"] = message,
+            };
 
-//        [Fact]
-//        public void CreateErrorResult_Always_ReturnsTrue()
-//        {
-//            // Arrange
-//            var expectedMessage = Resources.InternalServerError;
+            // Act
+            var actualResult = new Result(outputParams);
 
-//            // Act
-//            var actualResult = Result.CreateErrorResult(500, expectedMessage);
+            // Assert
+            Assert.True(
+                code == actualResult.Code
+                && message == actualResult.Message);
+        }
 
-//            // Assert
-//            Assert.True(!actualResult.IsSuccess() && actualResult.Message == expectedMessage);
-//        }
+        [Fact]
+        public void New_ErrMsgIsXmlFormat_ReturnsCorrectResult()
+        {
+            // Arrange
+            var outputParams = new Hashtable
+            {
+                ["errcode"] = 102,
+                ["errmsg"] = "<Root MsgID=\"60035\" Msg=\"You are not allowed to disable for downlines.\"><Row SportType=\"220\" BetType=\"1021\"/></Root>",
+            };
 
-//        [Fact]
-//        public void CreateResult_HashtableIsNull_Returns500()
-//        {
-//            // Arrange
-//            var expectedCode = 500;
+            // Act
+            var actualResult = new Result(outputParams);
 
-//            // Act
-//            var actualResult = Result.CreateResult(null);
+            // Assert
+            Assert.True(
+                !actualResult.IsSuccess()
+                && "You are not allowed to disable for downlines." == actualResult.Message);
+        }
 
-//            // Assert
-//            Assert.True(!actualResult.IsSuccess() && actualResult.Code == expectedCode);
-//        }
+        [Fact]
+        public void IsSuccess_ValidCode_ReturnsTrue()
+        {
+            // Arrange && Act
+            var actualResult = new Result(0, Resources.StatusUpdatedSuccessfully);
 
-//        [Fact]
-//        public void CreateResult_HashtableNotContainsErrCodeAndErrMsg_Returns500()
-//        {
-//            // Arrange
-//            var expectedCode = 500;
+            // Assert
+            Assert.True(actualResult.IsSuccess());
+        }
 
-//            // Act
-//            var actualResult = Result.CreateResult(new Hashtable());
+        [Fact]
+        public void IsSuccess_InvalidCode_ReturnsFalse()
+        {
+            // Arrange && Act
+            var actualResult = new Result(500, Resources.InternalServerError);
 
-//            // Assert
-//            Assert.True(!actualResult.IsSuccess() && actualResult.Code == expectedCode);
-//        }
-
-//        [Theory]
-//        [InlineData(0, "Status updated successfully.")]
-//        [InlineData(102, "")]
-//        public void CreateResult_ValidHashtable_ReturnsCorrectResult(int code, string message)
-//        {
-//            // Arrange
-//            var outputParams = new Hashtable
-//            {
-//                ["errcode"] = code,
-//                ["errmsg"] = message,
-//            };
-
-//            // Act
-//            var actualResult = Result.CreateResult(outputParams);
-
-//            // Assert
-//            Assert.True(actualResult.Code == code && actualResult.Message == message);
-//        }
-//    }
-//}
+            // Assert
+            Assert.False(actualResult.IsSuccess());
+        }
+    }
+}

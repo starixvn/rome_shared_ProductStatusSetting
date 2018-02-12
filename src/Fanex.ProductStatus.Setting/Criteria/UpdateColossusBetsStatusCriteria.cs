@@ -1,8 +1,8 @@
 ﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
-    using Fanex.ProductStatus.Setting.Models;
+    using Models;
 
-    public class UpdateColossusBetsStatusCriteria : UpdateProductStatusCriteriaBase
+    internal class UpdateColossusBetsStatusCriteria : UpdateProductStatusCriteriaBase
     {
         public UpdateColossusBetsStatusCriteria(
             int custId,

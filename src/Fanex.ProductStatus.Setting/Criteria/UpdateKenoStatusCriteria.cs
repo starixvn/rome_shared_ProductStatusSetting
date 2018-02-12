@@ -2,7 +2,7 @@
 {
     using Models;
 
-    public class UpdateKenoStatusCriteria : UpdateProductStatusCriteriaBase
+    internal class UpdateKenoStatusCriteria : UpdateProductStatusCriteriaBase
     {
         public UpdateKenoStatusCriteria(
             int custId,
