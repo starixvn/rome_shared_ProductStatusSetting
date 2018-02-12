@@ -44,26 +44,10 @@
                 }
             </tr>
             <tr>
-                @if (Model.CustRole > 1)
+                @{ var roleId01 = Model.CustRole; }
+                @while (--roleId01 > 0)
                 {
-                    roleId = Model.CustRole;
-                    while (--roleId > 0)
-                    {
-                        if (isMultipleBetTypes)
-                        {
-                            <th>
-                                <span class="enabled" data-roleid="@roleId">Enable</span>
-                            </th>
-                            <th>
-                                <span class="disabled" data-roleid="@roleId">Disable</span>
-                            </th>
-                        }
-                        else
-                        {
-                            <th>Enable</th>
-                            <th>Disable</th>
-                        }
-                    }
+                      @renderHeader(roleId01, isMultipleBetTypes)
                 }
             </tr>
         </thead>
@@ -162,4 +146,23 @@
                   data-sporttype="@sportType"
                   data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
         </td>
+}
+
+
+@helper renderHeader(byte roleId, bool isMultipleBetTypes)
+{
+    if (isMultipleBetTypes)
+    {
+        <th>
+            <span class="enabled" data-roleid="@roleId">Enable</span>
+        </th>
+        <th>
+            <span class="disabled" data-roleid="@roleId">Disable</span>
+        </th>
+    }
+    else
+    {
+        <th>Enable</th>
+        <th>Disable</th>
+    }
 }

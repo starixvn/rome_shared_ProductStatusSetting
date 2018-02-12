@@ -40,7 +40,7 @@
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
                     totalEnabledMembers: 46,
-                    custRoleId: 4),
+                    custRoleId: 3),
                 new ProductStatusModel(
                     sportType: 5,
                     betType: 13,
@@ -52,7 +52,7 @@
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
                     totalEnabledMembers: 46,
-                    custRoleId: 4),
+                    custRoleId: 3),
                   new ProductStatusModel(
                     sportType: 5,
                     betType: 14,
@@ -64,7 +64,7 @@
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
                     totalEnabledMembers: 46,
-                    custRoleId: 4)
+                    custRoleId: 3)
             };
 
             var fakeViewModel = new QueryViewModel
@@ -72,7 +72,7 @@
                 ProductId = 5,
                 CustId = 123,
                 CustName = "supertest1",
-                CustRole = 4,
+                CustRole = 3,
                 ProductStatus = productStatuses
             };
 
