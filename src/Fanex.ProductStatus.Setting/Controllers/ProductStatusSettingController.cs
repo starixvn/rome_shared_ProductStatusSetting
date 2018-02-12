@@ -56,7 +56,7 @@
                   new ProductStatusModel(
                     sportType: 5,
                     betType: 14,
-                    isDisabled: true,
+                    isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 12,
                     totalEnabledMasters: 78,

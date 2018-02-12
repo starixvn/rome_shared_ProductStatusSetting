@@ -73,39 +73,22 @@
                 <tr>
                     <td class="bettype-name">@item.BetType</td>
                     <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
-                    @{
-                        roleId = Model.CustRole;
-                        int totalEnabled, totalDisabled;
-                    }
-                    @while (--roleId > 0)
+
+                    @if (item.Master != null)
                     {
-                        if (item.Master != null)
-                        {
-                            totalEnabled = item.Master.TotalEnabled;
-                            totalDisabled = item.Master.TotalDisabled;
-                        }
-                        else if (item.Agent != null)
-                        {
-                            totalEnabled = item.Agent.TotalEnabled;
-                            totalDisabled = item.Agent.TotalDisabled;
-                        }
-                        else if (item.Member != null)
-                        {
-                            totalEnabled = item.Member.TotalEnabled;
-                            totalDisabled = item.Member.TotalDisabled;
-                        }
-                        else
-                        {
-                            totalEnabled = 0;
-                            totalDisabled = 0;
-                        }
-                        <td>
-                            @renderEnabledStatus(item.SportType, item.BetType, item.IsDisabled, roleId, totalEnabled)
-                        </td>
-                        <td>
-                            @renderDisabledStatus(item.SportType, item.BetType, item.IsDisabled, roleId, totalDisabled)
-                        </td>
+                        @renderDownlineStatus(item.SportType, item.BetType, 3, item.IsDisabledUpline, item.Master);
                     }
+
+                    @if (item.Agent != null)
+                    {
+                        @renderDownlineStatus(item.SportType, item.BetType, 2, item.IsDisabledUpline, item.Agent);
+                    }
+
+                    @if (item.Member != null)
+                    {
+                        @renderDownlineStatus(item.SportType, item.BetType, 1, item.IsDisabledUpline, item.Member);
+                    }
+
                 </tr>
             }
         </tbody>
@@ -116,10 +99,14 @@
     </div>
     <script type="text/javascript">
         var rootUrl = "@Url.Content("~")";
+        var custId = @Model.CustId;
+        var productId = @Model.ProductId;
+
         var appResources = {
             "enabled": "Enabled",
             "disabled": "Disabled"
         };
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Views/ProductStatusSetting/Scripts/ProductStatusSetting.js")"></script>
@@ -139,22 +126,40 @@
     <label for="@id" class="@labelClass">@labelText</label>
 }
 
-@helper renderEnabledStatus(int sportType, int betType, bool isDisabled, byte roleId, int totalEnabled) {
-    var spanClass = "enabled" + (isDisabled ? " gray" : string.Empty);
-    var id = string.Format("enabled_{0}_{1}", roleId, betType);
-    @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
-    <span id="@id" class="@spanClass"
-          data-roleid="@roleId"
-          data-sporttype="@sportType"
-          data-bettype="@betType">@totalEnabled.ToString("N0")</span>
-}
 
-@helper renderDisabledStatus(int sportType, int betType, bool isDisabled, byte roleId, int totalDisabled) {
-var spanClass = "disabled" + (isDisabled ? " gray" : string.Empty);
-var id = string.Format("disabled_{0}_{1}", roleId, betType);
-    @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
-    <span id="@id" class="@spanClass"
-          data-roleid="@roleId"
-          data-sporttype="@sportType"
-          data-bettype="@betType">@totalDisabled.ToString("N0")</span>
+@helper renderDownlineStatus(int sportType, int betType, byte roleId, bool isDisabledUpline, DownlineStatus downlineStatus)
+{
+    var enabledSpanClass = "enabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
+    var enabledId = string.Format("enabled_{0}_{1}", roleId, betType);
+    var disabledSpanClass = "disabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
+    var disabledId = string.Format("disabled_{0}_{1}", roleId, betType);
+    <td>
+        @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
+        @*<input type="checkbox" id="@enabledId" class="checkbox-hide"
+              data-roleid="@roleId"
+              data-sporttype="@sportType"
+              data-bettype="@betType"
+              checked="checked"/>
+        <label for="@enabledId" class="@enabledSpanClass">@downlineStatus.TotalEnabled.ToString("N0") </label>*@
+
+        <span id="@enabledId" class="@enabledSpanClass"
+              data-roleid="@roleId"
+              data-sporttype="@sportType"
+              data-bettype="@betType"
+              checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
+        </td>
+
+        <td>
+            @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
+            @*<input type="checkbox" id="@disabledId" class="checkbox-hide"
+                  data-roleid="@roleId"
+                  data-sporttype="@sportType"
+                  data-bettype="@betType"/>
+             <label for="@disabledId" class="@disabledSpanClass">@downlineStatus.TotalDisabled.ToString("N0") </label>*@
+
+            <span id="@disabledId" class="@disabledSpanClass"
+                  data-roleid="@roleId"
+                  data-sporttype="@sportType"
+                  data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
+        </td>
 }

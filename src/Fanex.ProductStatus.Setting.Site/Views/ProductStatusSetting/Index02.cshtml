@@ -1,0 +1,163 @@
+﻿@model QueryViewModel
+
+@{
+    Layout = null;
+    var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Views/ProductStatusSetting/Styles/productstatussetting.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div id="sectionMessage" class="hide"></div>
+    <table class="tbl-product margin-top10" id="tbl-product">
+        <thead>
+            <tr>
+                <th class="title" colspan="@Model.ProductStatus.Count() * 2"> @Model.GetRoleName(Model.CustRole): @Model.CustName</th>
+            </tr>
+            <tr>
+                <th rowspan="2"></th>
+                <th rowspan="2">
+                    @if (isMultipleBetTypes)
+                    {
+                        <div class="current-role">@Model.GetRoleName(Model.CustRole)</div>
+                        <div class="all-status">
+                            <span class="enabled" data-roleid="@Model.CustRole">Enable</span>
+                            <span class="disabled" data-roleid="@Model.CustRole">Disable</span>
+                        </div>
+                    }
+                    else
+                    {
+                        @Model.GetRoleName(Model.CustRole)
+                    }
+                </th>
+                @{ var roleId = Model.CustRole; }
+                @while (--roleId > 0)
+                {
+                    <th colspan="2">
+                        @Model.GetRoleName(roleId)
+                    </th>
+                }
+            </tr>
+            <tr>
+                @if (Model.CustRole > 1)
+                {
+                    roleId = Model.CustRole;
+                    while (--roleId > 0)
+                    {
+                        if (isMultipleBetTypes)
+                        {
+                            <th>
+                                <span class="enabled" data-roleid="@roleId">Enable</span>
+                            </th>
+                            <th>
+                                <span class="disabled" data-roleid="@roleId">Disable</span>
+                            </th>
+                        }
+                        else
+                        {
+                            <th>Enable</th>
+                            <th>Disable</th>
+                        }
+                    }
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ProductStatus)
+            {
+                <tr>
+                    <td class="bettype-name">@item.BetType</td>
+                    <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
+                    @{
+                        roleId = Model.CustRole;
+                        int totalEnabled, totalDisabled;
+                    }
+                    @while (--roleId > 0)
+                    {
+                        if (item.Master != null)
+                        {
+                            totalEnabled = item.Master.TotalEnabled;
+                            totalDisabled = item.Master.TotalDisabled;
+                        }
+                        else if (item.Agent != null)
+                        {
+                            totalEnabled = item.Agent.TotalEnabled;
+                            totalDisabled = item.Agent.TotalDisabled;
+                        }
+                        else if (item.Member != null)
+                        {
+                            totalEnabled = item.Member.TotalEnabled;
+                            totalDisabled = item.Member.TotalDisabled;
+                        }
+                        else
+                        {
+                            totalEnabled = 0;
+                            totalDisabled = 0;
+                        }
+                        <td>
+                            @renderEnabledStatus(item.SportType, item.BetType, item.IsDisabled, roleId, totalEnabled)
+                        </td>
+                        <td>
+                            @renderDisabledStatus(item.SportType, item.BetType, item.IsDisabled, roleId, totalDisabled)
+                        </td>
+                    }
+                </tr>
+                        }
+        </tbody>
+    </table>
+    <div class="margin-top10 align-right">
+        <button type="button" class="btn btn-reset" id="btnReset">Reset</button>
+        <button type="button" class="margin-left5 btn" id="btnSubmit">Submit</button>
+    </div>
+    <script type="text/javascript">
+        var rootUrl = "@Url.Content("~")";
+        var appResources = {
+            "enabled": "Enabled",
+            "disabled": "Disabled"
+        };
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Views/ProductStatusSetting/Scripts/ProductStatusSetting.js")"></script>
+</body>
+</html>
+
+@helper renderStatus(int sportType, int betType, bool isDisabled, bool isDisabledUpline, byte roleId)
+{
+var labelText = isDisabled ? "Disabled" : "Enabled";
+var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
+var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
+    <input type="checkbox" class="checkbox-hide" id="@id"
+           data-roleid="@roleId"
+           data-sporttype="@sportType"
+           data-bettype="@betType"
+           @(isDisabledUpline ? "disabled=disabled" : string.Empty)
+           @(isDisabled ? string.Empty : "checked=checked") />
+        <label for="@id" class="@labelClass">@labelText</label>
+}
+
+@helper renderEnabledStatus(int sportType, int betType, bool isDisabled, byte roleId, int totalEnabled)
+{
+var spanClass = "enabled" + (isDisabled ? " gray" : string.Empty);
+var id = string.Format("enabled_{0}_{1}", roleId, betType);
+    @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
+    <span id="@id" class="@spanClass"
+          data-roleid="@roleId"
+          data-sporttype="@sportType"
+          data-bettype="@betType">@totalEnabled.ToString("N0")</span>
+}
+
+@helper renderDisabledStatus(int sportType, int betType, bool isDisabled, byte roleId, int totalDisabled)
+{
+var spanClass = "disabled" + (isDisabled ? " gray" : string.Empty);
+var id = string.Format("disabled_{0}_{1}", roleId, betType);
+    @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
+    <span id="@id" class="@spanClass"
+          data-roleid="@roleId"
+          data-sporttype="@sportType"
+          data-bettype="@betType">@totalDisabled.ToString("N0")</span>
+}

@@ -1,6 +1,6 @@
 ﻿"use strict";
 (function ($, rootUrl, appResources) {
-    var enabledSpans, disabledSpans;
+    var enabledSpans, disabledSpans, checkboxHidden;
 
     function checkboxChanged() {
         var $this = $(this);
@@ -12,8 +12,17 @@
             .text(labelText);
     }
 
-    function toggleStatusDownlines(parent) {
-        var checked = parent.is(":checked");
+    function toggleStatusDownlines(parent, isEnabled) {
+        var checked = false;
+
+        if (typeof (isEnabled) === "undefined")
+        {
+            checked = parent.is(":checked");
+        }
+        else {
+            checked = isEnabled;
+        }
+
         var roleId = parent.data("roleid");
         var betType = parent.data("bettype");
 
@@ -30,11 +39,21 @@
         }
     }
 
-    function toggleStatus(statusSpan) {
+
+    function toggleStatus(statusSpan, isCheckAll, enableCheckAll) {
         if (!statusSpan.hasClass("gray")) {
             var roleId = statusSpan.data("roleid");
             var betType = statusSpan.data("bettype");
-            var className = statusSpan.attr("class");
+
+            var className = '';
+           // var oppositeClassName = '';
+            if (isCheckAll)
+            {
+                className = enableCheckAll ? "enabled" : "disabled" ;
+            }
+            else {
+                className = statusSpan.attr("class");
+            }
 
             var oppositeClassName = className === "enabled" ? "disabled" : "enabled";
             var oppositeId = ["#", oppositeClassName, "_", roleId, "_", betType].join("");
@@ -46,30 +65,41 @@
                 var currentTotal = parseInt(statusSpan.text().replace(/,/g, ""));
                 statusSpan.text((currentTotal + oppositeTotal).toLocaleString());
             }
+
+            toggleStatusDownlines(statusSpan, className === "enabled");
         }
     }
 
-    function toggleAllStatus() {
-        alert(1);
-        var $this = $(this);
+    function toggleAllStatus($this, enabled) {
+       // alert(1);
+        //var $this = $(this);
 
         if (!$this.hasClass("gray")) {
             var statusSpan;
             var roleId = $this.data("roleid");
-            var statusSpanArray = $this.attr("class") === "enabled" ? enabledSpans : disabledSpans;
+            //var statusSpanArray = $this.attr("class") === "enabled" ? enabledSpans : disabledSpans;
+            var statusSpanArray = enabled ? enabledSpans : disabledSpans;
 
             for (var i = 0, max = statusSpanArray.length; i < max; i++) {
                 statusSpan = $(statusSpanArray[i]);
 
                 if (statusSpan.data("roleid") === roleId) {
-                    toggleStatus(statusSpan);
+                    toggleStatus(statusSpan, true, enabled);
+                }
+            }
+
+            for (var j = 0, max01 = checkboxHidden.length; j < max01; j++) {
+                statusSpan = $(checkboxHidden[j]);
+
+                if (statusSpan.data("roleid") === roleId && $(statusSpan).is(":checked") != enabled) {
+                    $(statusSpan).trigger("click");
                 }
             }
         }
     }
 
     function initialize() {
-        $("input[class='checkbox-hide']:enabled")
+        checkboxHidden = $("input[class='checkbox-hide']:enabled")
             .unbind("change")
             .bind("change", checkboxChanged);
 
@@ -91,11 +121,18 @@
 
         thead.find("span.enabled")
             .unbind("click")
-            .bind("click", toggleAllStatus);
+              .bind("click", function () {
+                  toggleAllStatus($(this), true);
+              });
+
+          //  .bind("click", toggleAllStatus);
 
         thead.find("span.disabled")
             .unbind("click")
-            .bind("click", toggleAllStatus);
+         .bind("click", function () {
+             toggleAllStatus($(this), false);
+         });
+            //.bind("click", toggleAllStatus);
 
         $("#btnReset")
             .unbind("click")
