@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
@@ -133,10 +135,12 @@
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\MultipleResult.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUserService.cs" />
+    <Compile Include="Shared\RoleIdentity.cs" />
     <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModelBase.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
@@ -153,7 +157,11 @@
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="Web\ProductStatusValidateAntiForgeryTokenAttribute.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppResources\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -162,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Fanex.ProductStatus.Setting.ruleset" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

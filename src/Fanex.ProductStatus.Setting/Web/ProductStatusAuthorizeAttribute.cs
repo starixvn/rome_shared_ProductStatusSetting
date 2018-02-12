@@ -27,7 +27,7 @@
             base.OnAuthorization(filterContext);
         }
 
-        private void UnAuthorizedAction(AuthorizationContext filterContext)
+        private static void UnAuthorizedAction(AuthorizationContext filterContext)
         {
             var response = filterContext.HttpContext.Response;
 

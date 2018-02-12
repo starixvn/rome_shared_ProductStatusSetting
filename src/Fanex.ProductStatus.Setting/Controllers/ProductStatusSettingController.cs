@@ -39,8 +39,8 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46
-                    ),
+                    totalEnabledMembers: 46,
+                    custRoleId: 4),
                 new ProductStatusModel(
                     sportType: 5,
                     betType: 13,
@@ -51,8 +51,8 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46
-                    ),
+                    totalEnabledMembers: 46,
+                    custRoleId: 4),
                   new ProductStatusModel(
                     sportType: 5,
                     betType: 14,
@@ -63,8 +63,8 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46
-                    )
+                    totalEnabledMembers: 46,
+                    custRoleId: 4)
             };
 
             var fakeViewModel = new QueryViewModel

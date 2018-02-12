@@ -10,14 +10,14 @@
 
     internal interface ProductStatusDataAccess
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
+        IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria, byte custRoleId);
 
         Result ExecuteNonQuery(ICriteria criteria);
     }
 
     internal class ProductStatusDataAccessImpl : ProductStatusDataAccess
     {
-        public IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria)
+        public IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria, byte custRoleId)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
             {
@@ -25,7 +25,7 @@
                 {
                     while (reader.Read())
                     {
-                        yield return ToProductStatusModel(reader);
+                        yield return ToProductStatusModel(reader, custRoleId);
                     }
                 }
             }
@@ -46,7 +46,7 @@
             }
         }
 
-        private static ProductStatusModel ToProductStatusModel(IDataReader reader)
+        private static ProductStatusModel ToProductStatusModel(IDataReader reader, byte custRoleId)
             => new ProductStatusModel(
                 Convert.ToInt32(reader["sporttype"]),
                 Convert.ToInt32(reader["bettype"]),
@@ -57,6 +57,7 @@
                 Convert.ToInt32(reader["totaldisabledagents"]),
                 Convert.ToInt32(reader["totalenabledagents"]),
                 Convert.ToInt32(reader["totaldisabledmembers"]),
-                Convert.ToInt32(reader["totalenabledmembers"]));
+                Convert.ToInt32(reader["totalenabledmembers"]),
+                custRoleId);
     }
 }

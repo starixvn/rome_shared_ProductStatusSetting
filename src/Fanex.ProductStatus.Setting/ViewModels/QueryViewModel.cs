@@ -3,15 +3,16 @@
     using System.Collections.Generic;
     using AppResources;
     using Models;
+    using Shared;
 
     public class QueryViewModel
     {
         private readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
         {
-            [4] = Resources.Super,
-            [3] = Resources.Master,
-            [2] = Resources.Agent,
-            [1] = Resources.Member,
+            [RoleIdentity.Super] = Resources.Super,
+            [RoleIdentity.Master] = Resources.Master,
+            [RoleIdentity.Agent] = Resources.Agent,
+            [RoleIdentity.Member] = Resources.Member,
         };
 
         public int ProductId { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace Fanex.ProductStatus.Setting.Models
+﻿using Fanex.ProductStatus.Setting.Shared;
+
+namespace Fanex.ProductStatus.Setting.Models
 {
     public class ProductStatusModel
     {
@@ -12,16 +14,37 @@
             int totalDisabledAgents,
             int totalEnabledAgents,
             int totalDisabledMembers,
-            int totalEnabledMembers)
+            int totalEnabledMembers,
+            byte custRoleId)
         {
             SportType = sportType;
             BetType = betType;
             IsDisabled = isDisabledUpline ? isDisabledUpline : isDisabled;
             IsDisabledUpline = isDisabledUpline;
 
-            Master = new DownlineStatus(isDisabledUpline, totalDisabledMasters, totalEnabledMasters);
-            Agent = new DownlineStatus(isDisabledUpline, totalDisabledAgents, totalEnabledAgents);
-            Member = new DownlineStatus(isDisabledUpline, totalDisabledMembers, totalEnabledMembers);
+            switch (custRoleId)
+            {
+                case RoleIdentity.Super:
+                    Master = new DownlineStatus(isDisabledUpline, totalDisabledMasters, totalEnabledMasters);
+                    Agent = new DownlineStatus(isDisabledUpline || totalEnabledMasters == 0, totalDisabledAgents, totalEnabledAgents);
+                    Member = new DownlineStatus(isDisabledUpline || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
+                    break;
+
+                case RoleIdentity.Master:
+                    Agent = new DownlineStatus(isDisabledUpline, totalDisabledAgents, totalEnabledAgents);
+                    Member = new DownlineStatus(isDisabledUpline || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
+                    break;
+
+                case RoleIdentity.Agent:
+                    Member = new DownlineStatus(isDisabledUpline, totalDisabledMembers, totalEnabledMembers);
+                    break;
+
+                default:
+                    Master = null;
+                    Agent = null;
+                    Member = null;
+                    break;
+            }
         }
 
         public int SportType { get; }

@@ -13,6 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ProductStatus.Setting
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.ProductStatus.Setting.Site", "src\Fanex.ProductStatus.Setting.Site\Fanex.ProductStatus.Setting.Site.csproj", "{27B9ADB1-3EEE-46D9-9660-0EA50A415B6C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SonarQube", "SonarQube", "{A4E8E2F6-B622-4D6F-B6D6-7909A281F97B}"
+	ProjectSection(SolutionItems) = preProject
+		SonarQube\NAP.ProductStatusCSharp.ruleset = SonarQube\NAP.ProductStatusCSharp.ruleset
+		SonarQube\SolutionBinding.sqconfig = SonarQube\SolutionBinding.sqconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

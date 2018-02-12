@@ -58,7 +58,8 @@
         private static string BuildProductStatusElement(ProductStatusCommand command)
         {
             return string.Format(
-                "<ProductStatus SportType=\"{0}\" BetType=\"{1}\" IsDisabled=\"{2}\" UpdateAllMasters=\"{3}\" UpdateAllAgents=\"{4}\" UpdateAllMembers=\"{5}\" DisableAllMasters=\"{6}\" DisableAllAgents=\"{7}\" DisableAllMembers=\"{8}\"/>",
+                "<ProductStatus SportType=\"{0}\" BetType=\"{1}\" IsDisabled=\"{2}\" UpdateAllMasters=\"{3}\" UpdateAllAgents=\"{4}\" UpdateAllMembers=\"{5}\""
+                + " DisableAllMasters=\"{6}\" DisableAllAgents=\"{7}\" DisableAllMembers=\"{8}\"/>",
                 command.SportType,
                 command.BetType,
                 Convert.ToInt32(command.Disable),

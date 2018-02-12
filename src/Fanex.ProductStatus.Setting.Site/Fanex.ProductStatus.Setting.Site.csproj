@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.Site.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -40,6 +41,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.Site.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Fanex.Data, Version=0.5.404.59, Culture=neutral, processorArchitecture=MSIL">
@@ -222,6 +224,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\Google.Protobuf.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.CSharp.dll" />
+    <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.6.7.1.4347\analyzers\SonarAnalyzer.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fanex.ProductStatus.Setting.Site.ruleset" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

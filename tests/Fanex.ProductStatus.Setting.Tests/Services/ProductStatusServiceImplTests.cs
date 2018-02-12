@@ -13,6 +13,7 @@
     public class ProductStatusServiceImplTests
     {
         private const int CustIdTest = 1176083;
+        private const byte CustRoleIdTest = RoleIdentity.Super;
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
@@ -48,7 +49,8 @@
                     20,
                     200,
                     30,
-                    300)
+                    300,
+                    CustRoleIdTest)
             };
             var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
 
@@ -57,7 +59,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria)
+                .GetProductStatus(criteria, CustRoleIdTest)
                 .Returns(expectedResults);
 
             refDataService
@@ -65,7 +67,7 @@
                 .Returns(productName);
 
             // Act
-            var actualData = productStatusService.GetProductStatus(productId, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(productId, CustIdTest, CustRoleIdTest);
             var actualResult = actualData.First();
 
             // Assert
@@ -100,7 +102,8 @@
                     20,
                     200,
                     30,
-                    300),
+                    300,
+                    CustRoleIdTest),
                 new ProductStatusModel(
                     202,
                     1503,
@@ -111,7 +114,8 @@
                     20,
                     200,
                     30,
-                    300)
+                    300,
+                    CustRoleIdTest)
             };
             var criteria = new SelectProductStatusCriteria(ProductIdentity.Keno, CustIdTest);
 
@@ -120,7 +124,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria)
+                .GetProductStatus(criteria, CustRoleIdTest)
                 .Returns(expectedResults);
 
             refDataService
@@ -131,7 +135,7 @@
                 .Returns("Slovakia");
 
             // Act
-            var actualData = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleIdTest);
 
             // Assert
             Assert.True(expectedResults.Count == actualData.Count());
@@ -153,7 +157,8 @@
                     20,
                     200,
                     30,
-                    300),
+                    300,
+                    CustRoleIdTest),
                 new ProductStatusModel(
                     211,
                     2402,
@@ -164,7 +169,8 @@
                     20,
                     200,
                     30,
-                    300)
+                    300,
+                    CustRoleIdTest)
             };
             var criteria = new SelectDCSProductStatusCriteria(21, CustIdTest);
 
@@ -173,7 +179,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria)
+                .GetProductStatus(criteria, CustRoleIdTest)
                 .Returns(expectedResults);
 
             refDataService
@@ -184,7 +190,7 @@
                 .Returns("VIP Baccarat");
 
             // Act
-            var actualData = productStatusService.GetProductStatus(21, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(21, CustIdTest, CustRoleIdTest);
 
             // Assert
             Assert.True(expectedResults.Count == actualData.Count());
@@ -206,7 +212,8 @@
                     20,
                     200,
                     30,
-                    300)
+                    300,
+                    CustRoleIdTest)
             };
             var criteria = new SelectDCSProductStatusCriteria(28, CustIdTest);
 
@@ -215,7 +222,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria)
+                .GetProductStatus(criteria, CustRoleIdTest)
                 .Returns(expectedResults);
 
             refDataService
@@ -223,7 +230,7 @@
                 .Returns("Lottery");
 
             // Act
-            var actualData = productStatusService.GetProductStatus(28, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(28, CustIdTest, CustRoleIdTest);
             var actualResult = actualData.First();
 
             // Assert

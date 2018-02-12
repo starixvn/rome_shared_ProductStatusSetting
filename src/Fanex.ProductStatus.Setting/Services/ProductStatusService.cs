@@ -8,7 +8,7 @@
 
     public interface ProductStatusService
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, byte custRoleId);
 
         Result UpdateProductStatus(
             int productId,
@@ -41,11 +41,11 @@
             this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
-        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
+        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, byte custRoleId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
             var rawData = statusDataAccess
-                .GetProductStatus(criteria)
+                .GetProductStatus(criteria, custRoleId)
                 .ToList();
 
             var rawDataCount = rawData.Count;
