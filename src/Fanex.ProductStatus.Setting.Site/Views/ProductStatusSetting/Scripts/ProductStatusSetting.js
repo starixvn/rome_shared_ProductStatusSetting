@@ -1,6 +1,6 @@
 ﻿"use strict";
 (function ($, rootUrl, appResources) {
-    var enabledSpans, disabledSpans, checkboxHidden;
+    var enabledSpans, disabledSpans, checkboxHidden, theadEnableSpan, theadDisabledSpan;
 
     function checkboxChanged() {
         var $this = $(this);
@@ -28,13 +28,27 @@
 
         if (checked) {
             while (--roleId > 0) {
-                $("#enabled_" + roleId + "_" + betType).removeClass("gray");
-                $("#disabled_" + roleId + "_" + betType).removeClass("gray");
+                if ($("#enabled_" + roleId + "_" + betType).data("total") != 0) {
+                    $("#enabled_" + roleId + "_" + betType).removeClass("gray");
+                    $("#disabled_" + roleId + "_" + betType).removeClass("gray");
+                }
             }
         } else {
             while (--roleId > 0) {
-                $("#enabled_" + roleId + "_" + betType).addClass("gray");
-                $("#disabled_" + roleId + "_" + betType).addClass("gray");
+                if ($("#enabled_" + roleId + "_" + betType).data("total") != 0) {
+                    $("#enabled_" + roleId + "_" + betType).addClass("gray");
+                    $("#disabled_" + roleId + "_" + betType).addClass("gray");
+                }
+            }
+        }
+
+       
+        if ($("input:checked").length == 0) {
+            while (--roleId01 > 0) {
+                if ($("#enabled_" + roleId + "_" + betType).data("total") != 0) {
+                    $("#enabled_" + roleId + "_" + betType).removeClass("gray");
+                    $("#disabled_" + roleId + "_" + betType).removeClass("gray");
+                }
             }
         }
     }
@@ -70,7 +84,7 @@
         }
     }
 
-    function toggleAllStatus($this, enabled) {
+    function toggleAllStatus($this, status) {
        // alert(1);
         //var $this = $(this);
 
@@ -78,20 +92,20 @@
             var statusSpan;
             var roleId = $this.data("roleid");
             //var statusSpanArray = $this.attr("class") === "enabled" ? enabledSpans : disabledSpans;
-            var statusSpanArray = enabled ? enabledSpans : disabledSpans;
+            var statusSpanArray = status ? enabledSpans : disabledSpans;
 
             for (var i = 0, max = statusSpanArray.length; i < max; i++) {
                 statusSpan = $(statusSpanArray[i]);
 
                 if (statusSpan.data("roleid") === roleId) {
-                    toggleStatus(statusSpan, true, enabled);
+                    toggleStatus(statusSpan, true, status);
                 }
             }
 
             for (var j = 0, max01 = checkboxHidden.length; j < max01; j++) {
                 statusSpan = $(checkboxHidden[j]);
 
-                if (statusSpan.data("roleid") === roleId && $(statusSpan).is(":checked") != enabled) {
+                if (statusSpan.data("roleid") === roleId && $(statusSpan).is(":checked") != status) {
                     $(statusSpan).trigger("click");
                 }
             }
@@ -119,7 +133,7 @@
                 toggleStatus($(this));
             });
 
-        thead.find("span.enabled")
+        theadEnableSpan = thead.find("span.enabled")
             .unbind("click")
               .bind("click", function () {
                   toggleAllStatus($(this), true);
@@ -127,7 +141,7 @@
 
           //  .bind("click", toggleAllStatus);
 
-        thead.find("span.disabled")
+        theadDisabledSpan = thead.find("span.disabled")
             .unbind("click")
          .bind("click", function () {
              toggleAllStatus($(this), false);

@@ -130,6 +130,7 @@
               data-roleid="@roleId"
               data-sporttype="@sportType"
               data-bettype="@betType"
+              data-total= "@downlineStatus.Total"
               checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
         </td>
 
@@ -144,6 +145,7 @@
             <span id="@disabledId" class="@disabledSpanClass"
                   data-roleid="@roleId"
                   data-sporttype="@sportType"
+                  data-total= "@downlineStatus.Total"
                   data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
         </td>
 }
