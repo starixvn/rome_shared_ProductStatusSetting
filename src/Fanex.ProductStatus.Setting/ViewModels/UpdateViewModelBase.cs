@@ -2,24 +2,41 @@
 {
     using Configuration;
     using Models;
+    using Services;
 
     public class UpdateViewModelBase
     {
-        protected UpdateViewModelBase()
-        {
-            var userService = ProductStatusConfigurationHandler.CreateUserService();
+        private readonly IProductStatusUserService userService;
 
-            ActorId = userService.ActorId;
-            IP = userService.IP;
+        public UpdateViewModelBase()
+            : this(null)
+        {
+        }
+
+        public UpdateViewModelBase(IProductStatusUserService userService)
+        {
+            this.userService = userService ?? ProductStatusConfigurationHandler.CreateUserService();
         }
 
         public int ProductId { get; set; }
 
         public ProductStatusCommand[] ProductStatus { get; set; }
 
-        public int ActorId { get; }
+        public int ActorId
+        {
+            get
+            {
+                return userService.ActorId;
+            }
+        }
 
-        public string IP { get; }
+        public string IP
+        {
+            get
+            {
+                return userService.IP;
+            }
+        }
 
         public virtual bool IsValid()
             => ProductId > 0

@@ -158,6 +158,7 @@
     <Compile Include="Criteria\UpdateCasinoStatusCriteriaTests.cs" />
     <Compile Include="ViewModels\DownlineStatusViewModelTests.cs" />
     <Compile Include="Models\MultipleResultTests.cs" />
+    <Compile Include="ViewModels\MultipleUpdateViewModelTests.cs" />
     <Compile Include="ViewModels\ProductStatusViewModelTests.cs" />
     <Compile Include="Models\ResultTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="Services\ProductStatusServiceImplTests.cs" />
     <Compile Include="Services\RefDataServiceImplTests.cs" />
     <Compile Include="ViewModels\QueryViewModelTests.cs" />
+    <Compile Include="ViewModels\UpdateViewModelBaseTests.cs" />
+    <Compile Include="ViewModels\UpdateViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
