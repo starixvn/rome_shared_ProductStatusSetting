@@ -2,8 +2,10 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using AppResources;
     using DataAccess;
     using KellermanSoftware.CompareNetObjects;
+    using NAP.Framework.Data;
     using NSubstitute;
     using Setting.Criteria;
     using Setting.Models;
@@ -14,6 +16,8 @@
     public class ProductStatusServiceImplTests
     {
         private const int CustIdTest = 1176083;
+        private const int ActorIdTest = 8;
+        private const string IPTest = "127.0.0.1";
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
@@ -222,6 +226,210 @@
 
             // Assert
             Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
+        }
+
+        [Fact]
+        public void UpdateProductStatus_Keno_ReturnsSucessfulResult()
+        {
+            // Arrange
+            var commands = new List<ProductStatusCommand>
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1501,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1503,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+                
+            var criteria = new List<UpdateKenoStatusCriteria>
+            {
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[0]),
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[1])
+            };
+            criteriaFactory
+                .CreateUpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var successfulResult = new Result(0, Resources.StatusUpdatedSuccessfully);
+            productStatusDataAccess
+                .ExecuteNonQuery(Arg.Any<ICriteria>())
+                .Returns(successfulResult);
+
+            // Act
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.True(actualResult.IsSuccess());
+        }
+
+        [Fact]
+        public void UpdateProductStatus_Keno_ReturnsFirstError()
+        {
+            // Arrange
+            var commands = new List<ProductStatusCommand>
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1501,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1503,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new List<UpdateKenoStatusCriteria>
+            {
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[0]),
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[1])
+            };
+            criteriaFactory
+                .CreateUpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var errorResult = new Result(102, null);
+            productStatusDataAccess
+                .ExecuteNonQuery(Arg.Any<ICriteria>())
+                .Returns(errorResult);
+
+            // Act
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.False(actualResult.IsSuccess());
+        }
+
+        [Fact]
+        public void UpdateProductStatus_Product_ReturnsSucessfulResult()
+        {
+            // Arrange
+            var commands = new List<ProductStatusCommand>
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2401,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2402,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            criteriaFactory
+                .CreateUpdateCriteria(21, CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var successfulResult = new Result(0, Resources.StatusUpdatedSuccessfully);
+            productStatusDataAccess
+                .ExecuteNonQuery(criteria)
+                .Returns(successfulResult);
+
+            // Act
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.True(actualResult.IsSuccess());
+        }
+
+        [Fact]
+        public void UpdateProductStatus_Product_ReturnsErrorResult()
+        {
+            // Arrange
+            var commands = new List<ProductStatusCommand>
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2401,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2402,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            criteriaFactory
+                .CreateUpdateCriteria(21, CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var errorResult = new Result(102, null);
+            productStatusDataAccess
+                .ExecuteNonQuery(criteria)
+                .Returns(errorResult);
+
+            // Act
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.False(errorResult.IsSuccess());
         }
     }
 }

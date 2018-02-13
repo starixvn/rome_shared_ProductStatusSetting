@@ -164,6 +164,7 @@
     <Compile Include="Services\CriteriaFactoryServiceImplTests.cs" />
     <Compile Include="Services\ProductStatusServiceImplTests.cs" />
     <Compile Include="Services\RefDataServiceImplTests.cs" />
+    <Compile Include="ViewModels\QueryViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,6 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Models
 {
-    using ViewModels;
+    using Setting.ViewModels;
     using Xunit;
 
     public class DownlineStatusViewModelTests

@@ -46,7 +46,7 @@
         public bool IsValid()
             => ProductId > 0
             && CustId > 0
-            && !string.IsNullOrEmpty(CustName)
+            && !string.IsNullOrWhiteSpace(CustName)
             && roleDictionary.ContainsKey(CustRole);
     }
 }
