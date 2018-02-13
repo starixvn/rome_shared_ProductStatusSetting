@@ -111,7 +111,7 @@
 }
 
 
-@helper renderDownlineStatus(int sportType, int betType, byte roleId, bool isDisabledUpline, DownlineStatus downlineStatus)
+@helper renderDownlineStatus(int sportType, int betType, byte roleId, bool isDisabledUpline, DownlineStatusViewModel downlineStatus)
 {
     var enabledSpanClass = "enabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
     var enabledId = string.Format("enabled_{0}_{1}", roleId, betType);

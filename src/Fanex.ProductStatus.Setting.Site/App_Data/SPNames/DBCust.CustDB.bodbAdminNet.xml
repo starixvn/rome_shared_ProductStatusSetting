@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Functions>
   <Function Name="Select">
-    <Setting Key="Acc_CustomerSelStatusByProductId" SpName="Acc_CustomerSelStatusByProductId" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
-    <Setting Key="Acc_Admin_DisableGameStatusSelect" SpName="Acc_Admin_DisableGameStatusSelect" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
-    <Setting Key="Acc_Admin_DisableNewProductStatusSelect" SpName="Acc_Admin_DisableNewProductStatusSelect" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
+    <Setting Key="Acc_CustomerSelStatusByProductId" SpName="Acc_CustomerSelStatusByProductId_uat1" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
+    <Setting Key="Acc_Admin_DisableGameStatusSelect" SpName="Acc_Admin_DisableGameStatusSelect_uat1" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
+    <Setting Key="Acc_Admin_DisableNewProductStatusSelect" SpName="Acc_Admin_DisableNewProductStatusSelect_uat1" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
   </Function>
   <Function Name="Update">
     <Setting Key="Acc_AdminUpdDisableNumberGame" SpName="Acc_AdminUpdDisableNumberGame" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />

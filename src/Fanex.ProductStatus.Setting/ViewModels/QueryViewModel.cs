@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
     using System.Collections.Generic;
+    using System.Linq;
     using AppResources;
     using Models;
     using Shared;
@@ -23,7 +24,16 @@
 
         public byte CustRole { get; set; }
 
-        public IEnumerable<ProductStatusModel> ProductStatus { get; set; }
+        public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
+
+        public QueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
+        {
+            ProductStatus = models
+                .Select(status => new ProductStatusViewModel(status, CustRole))
+                .ToList();
+
+            return this;
+        }
 
         public string GetRoleName(byte roleId)
         {

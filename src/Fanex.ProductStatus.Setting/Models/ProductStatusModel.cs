@@ -1,6 +1,4 @@
-﻿using Fanex.ProductStatus.Setting.Shared;
-
-namespace Fanex.ProductStatus.Setting.Models
+﻿namespace Fanex.ProductStatus.Setting.Models
 {
     public class ProductStatusModel
     {
@@ -14,37 +12,21 @@ namespace Fanex.ProductStatus.Setting.Models
             int totalDisabledAgents,
             int totalEnabledAgents,
             int totalDisabledMembers,
-            int totalEnabledMembers,
-            byte custRoleId)
+            int totalEnabledMembers)
         {
             SportType = sportType;
             BetType = betType;
-            IsDisabled = isDisabledUpline ? isDisabledUpline : isDisabled;
+            IsDisabled = isDisabled;
             IsDisabledUpline = isDisabledUpline;
 
-            switch (custRoleId)
-            {
-                case RoleIdentity.Super:
-                    Master = new DownlineStatus(IsDisabled, totalDisabledMasters, totalEnabledMasters);
-                    Agent = new DownlineStatus(IsDisabled || totalEnabledMasters == 0, totalDisabledAgents, totalEnabledAgents);
-                    Member = new DownlineStatus(IsDisabled || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
-                    break;
+            TotalDisabledMasters = totalDisabledMasters;
+            TotalEnabledMasters = totalEnabledMasters;
 
-                case RoleIdentity.Master:
-                    Agent = new DownlineStatus(IsDisabled, totalDisabledAgents, totalEnabledAgents);
-                    Member = new DownlineStatus(IsDisabled || totalEnabledAgents == 0, totalDisabledMembers, totalEnabledMembers);
-                    break;
+            TotalDisabledAgents = totalDisabledAgents;
+            TotalEnabledAgents = totalEnabledAgents;
 
-                case RoleIdentity.Agent:
-                    Member = new DownlineStatus(IsDisabled, totalDisabledMembers, totalEnabledMembers);
-                    break;
-
-                default:
-                    Master = null;
-                    Agent = null;
-                    Member = null;
-                    break;
-            }
+            TotalDisabledMembers = totalDisabledMembers;
+            TotalEnabledMembers = totalEnabledMembers;
         }
 
         public int SportType { get; }
@@ -55,11 +37,17 @@ namespace Fanex.ProductStatus.Setting.Models
 
         public bool IsDisabledUpline { get; }
 
-        public DownlineStatus Master { get; }
+        public int TotalDisabledMasters { get; }
 
-        public DownlineStatus Agent { get; }
+        public int TotalEnabledMasters { get; }
 
-        public DownlineStatus Member { get; }
+        public int TotalDisabledAgents { get; }
+
+        public int TotalEnabledAgents { get; }
+
+        public int TotalDisabledMembers { get; }
+
+        public int TotalEnabledMembers { get; }
 
         public int ProductId { get; set; }
 

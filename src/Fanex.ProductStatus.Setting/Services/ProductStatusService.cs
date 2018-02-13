@@ -8,7 +8,7 @@
 
     public interface ProductStatusService
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, byte custRoleId);
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
 
         Result UpdateProductStatus(
             int productId,
@@ -41,14 +41,12 @@
             this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
-        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, byte custRoleId)
+        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
-            var rawData = statusDataAccess
-                .GetProductStatus(criteria, custRoleId)
-                .ToList();
 
-            var rawDataCount = rawData.Count;
+            var rawData = statusDataAccess.GetProductStatus(criteria);
+            var rawDataCount = rawData.Count();
 
             if (rawDataCount == 1)
             {
@@ -97,9 +95,9 @@
 
         private IEnumerable<ProductStatusModel> GetProductStatusProductName(
             int productId,
-            IEnumerable<ProductStatusModel> entities)
+            IEnumerable<ProductStatusModel> rawData)
         {
-            foreach (var item in entities)
+            foreach (var item in rawData)
             {
                 item.ProductId = productId;
                 item.Name = refDataService.GetProductName(productId);
@@ -110,9 +108,9 @@
 
         private IEnumerable<ProductStatusModel> GetProductStatusBetTypeName(
             int productId,
-            IEnumerable<ProductStatusModel> entities)
+            IEnumerable<ProductStatusModel> rawData)
         {
-            foreach (var item in entities)
+            foreach (var item in rawData)
             {
                 item.ProductId = productId;
                 item.Name = refDataService.GetBetTypeName(item.BetType);

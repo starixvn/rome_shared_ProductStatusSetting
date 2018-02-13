@@ -1,10 +1,10 @@
-﻿namespace Fanex.ProductStatus.Setting.Models
+﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
-    public class DownlineStatus
+    public class DownlineStatusViewModel
     {
         private readonly bool isDisabledUpline;
 
-        public DownlineStatus(bool isDisabledUpline, int totalDisabled, int totalEnabled)
+        public DownlineStatusViewModel(bool isDisabledUpline, int totalDisabled, int totalEnabled)
         {
             this.isDisabledUpline = isDisabledUpline;
             TotalDisabled = totalDisabled;

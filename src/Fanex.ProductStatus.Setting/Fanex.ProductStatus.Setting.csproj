@@ -141,11 +141,12 @@
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUserService.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
+    <Compile Include="ViewModels\DownlineStatusViewModel.cs" />
     <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />
+    <Compile Include="ViewModels\ProductStatusViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModelBase.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
-    <Compile Include="Models\DownlineStatus.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

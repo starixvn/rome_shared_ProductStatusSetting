@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess;
+    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Setting.Criteria;
     using Setting.Models;
@@ -13,7 +14,6 @@
     public class ProductStatusServiceImplTests
     {
         private const int CustIdTest = 1176083;
-        private const byte CustRoleIdTest = RoleIdentity.Super;
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
@@ -49,8 +49,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest)
+                    300)
             };
             var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
 
@@ -59,31 +58,21 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria, CustRoleIdTest)
+                .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
             refDataService
                 .GetProductName(productId)
                 .Returns(productName);
 
+            var compareLogic = new CompareLogic();
+
             // Act
-            var actualData = productStatusService.GetProductStatus(productId, CustIdTest, CustRoleIdTest);
-            var actualResult = actualData.First();
+            var actualData = productStatusService.GetProductStatus(productId, CustIdTest);
+            var actualResults = actualData.ToList();
 
             // Assert
-            Assert.True(
-                expectedResults[0].ProductId == actualResult.ProductId
-                && expectedResults[0].Name == actualResult.Name
-                && expectedResults[0].SportType == actualResult.SportType
-                && expectedResults[0].BetType == actualResult.BetType
-                && expectedResults[0].IsDisabled == actualResult.IsDisabled
-                && expectedResults[0].IsDisabledUpline == actualResult.IsDisabledUpline
-                && expectedResults[0].Master.TotalDisabled == actualResult.Master.TotalDisabled
-                && expectedResults[0].Master.TotalEnabled == actualResult.Master.TotalEnabled
-                && expectedResults[0].Agent.TotalDisabled == actualResult.Agent.TotalDisabled
-                && expectedResults[0].Agent.TotalEnabled == actualResult.Agent.TotalEnabled
-                && expectedResults[0].Member.TotalDisabled == actualResult.Member.TotalDisabled
-                && expectedResults[0].Member.TotalEnabled == actualResult.Member.TotalEnabled);
+            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
         }
 
         [Fact]
@@ -102,8 +91,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest),
+                    300),
                 new ProductStatusModel(
                     202,
                     1503,
@@ -114,8 +102,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest)
+                    300)
             };
             var criteria = new SelectProductStatusCriteria(ProductIdentity.Keno, CustIdTest);
 
@@ -124,7 +111,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria, CustRoleIdTest)
+                .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
             refDataService
@@ -134,11 +121,13 @@
                 .GetBetTypeName(1503)
                 .Returns("Slovakia");
 
+            var compareLogic = new CompareLogic();
+
             // Act
-            var actualData = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleIdTest);
+            var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest);
 
             // Assert
-            Assert.True(expectedResults.Count == actualData.Count());
+            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
         }
 
         [Fact]
@@ -157,8 +146,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest),
+                    300),
                 new ProductStatusModel(
                     211,
                     2402,
@@ -169,8 +157,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest)
+                    300)
             };
             var criteria = new SelectDCSProductStatusCriteria(21, CustIdTest);
 
@@ -179,7 +166,7 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria, CustRoleIdTest)
+                .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
             refDataService
@@ -190,7 +177,7 @@
                 .Returns("VIP Baccarat");
 
             // Act
-            var actualData = productStatusService.GetProductStatus(21, CustIdTest, CustRoleIdTest);
+            var actualData = productStatusService.GetProductStatus(21, CustIdTest);
 
             // Assert
             Assert.True(expectedResults.Count == actualData.Count());
@@ -212,8 +199,7 @@
                     20,
                     200,
                     30,
-                    300,
-                    CustRoleIdTest)
+                    300)
             };
             var criteria = new SelectDCSProductStatusCriteria(28, CustIdTest);
 
@@ -222,31 +208,20 @@
                 .Returns(criteria);
 
             productStatusDataAccess
-                .GetProductStatus(criteria, CustRoleIdTest)
+                .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
             refDataService
                 .GetProductName(28)
                 .Returns("Lottery");
 
+            var compareLogic = new CompareLogic();
+
             // Act
-            var actualData = productStatusService.GetProductStatus(28, CustIdTest, CustRoleIdTest);
-            var actualResult = actualData.First();
+            var actualResults = productStatusService.GetProductStatus(28, CustIdTest);
 
             // Assert
-            Assert.True(
-                expectedResults[0].ProductId == actualResult.ProductId
-                && expectedResults[0].Name == actualResult.Name
-                && expectedResults[0].SportType == actualResult.SportType
-                && expectedResults[0].BetType == actualResult.BetType
-                && expectedResults[0].IsDisabled == actualResult.IsDisabled
-                && expectedResults[0].IsDisabledUpline == actualResult.IsDisabledUpline
-                && expectedResults[0].Master.TotalDisabled == actualResult.Master.TotalDisabled
-                && expectedResults[0].Master.TotalEnabled == actualResult.Master.TotalEnabled
-                && expectedResults[0].Agent.TotalDisabled == actualResult.Agent.TotalDisabled
-                && expectedResults[0].Agent.TotalEnabled == actualResult.Agent.TotalEnabled
-                && expectedResults[0].Member.TotalDisabled == actualResult.Member.TotalDisabled
-                && expectedResults[0].Member.TotalEnabled == actualResult.Member.TotalEnabled);
+            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
         }
     }
 }

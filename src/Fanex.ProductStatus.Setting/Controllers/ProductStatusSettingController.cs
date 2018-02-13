@@ -1,13 +1,13 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using AppResources;
     using Models;
     using Services;
     using ViewModels;
-    using Web;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
@@ -27,7 +27,16 @@
         // [ProductStatusAuthorization(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
-            var productStatuses = new List<ProductStatusModel>
+            //var productStatus = viewModel.IsValid()
+            //    ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+            //    : Enumerable.Empty<ProductStatusModel>();
+
+            //viewModel.SetProductStatusViewModel(productStatus);
+
+            //return View(viewModel);
+
+
+            var productStatus = new List<ProductStatusModel>
             {
                 new ProductStatusModel(
                     sportType: 5,
@@ -39,20 +48,18 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46,
-                    custRoleId: 3),
+                    totalEnabledMembers: 46),
                 new ProductStatusModel(
                     sportType: 5,
                     betType: 13,
-                    isDisabled: true,
+                    isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 12,
-                    totalEnabledMasters: 78,
+                    totalEnabledMasters: 0,
                     totalDisabledAgents: 33,
-                    totalEnabledAgents: 37,
+                    totalEnabledAgents: 0,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46,
-                    custRoleId: 3),
+                    totalEnabledMembers: 0),
                   new ProductStatusModel(
                     sportType: 5,
                     betType: 14,
@@ -62,9 +69,8 @@
                     totalEnabledMasters: 78,
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
-                    totalDisabledMembers: 36,
-                    totalEnabledMembers: 46,
-                    custRoleId: 3)
+                    totalDisabledMembers: 0,
+                    totalEnabledMembers: 0)
             };
 
             var fakeViewModel = new QueryViewModel
@@ -72,17 +78,12 @@
                 ProductId = 5,
                 CustId = 123,
                 CustName = "supertest1",
-                CustRole = 3,
-                ProductStatus = productStatuses
+                CustRole = 4
             };
 
+            fakeViewModel.SetProductStatusViewModel(productStatus);
+
             return View(fakeViewModel);
-
-            //viewModel.ProductStatus = viewModel.IsValid()
-            //    ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-            //    : Enumerable.Empty<ProductStatusModel>();
-
-            //return View(viewModel);
         }
 
         //[HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
