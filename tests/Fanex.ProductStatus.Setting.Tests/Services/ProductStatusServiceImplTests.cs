@@ -127,7 +127,7 @@
             var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest);
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
+            Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
         }
 
         [Fact]
@@ -221,7 +221,7 @@
             var actualResults = productStatusService.GetProductStatus(28, CustIdTest);
 
             // Assert
-            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
+            Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
         }
     }
 }
