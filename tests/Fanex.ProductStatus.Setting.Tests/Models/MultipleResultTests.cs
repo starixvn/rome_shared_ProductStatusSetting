@@ -29,7 +29,7 @@
             var expectedCode = 500;
 
             // Act
-            var actualResult = new Result(null);
+            var actualResult = new MultipleResult(null);
 
             // Assert
             Assert.True(
@@ -44,7 +44,7 @@
             var expectedCode = 500;
 
             // Act
-            var actualResult = new Result(new Hashtable());
+            var actualResult = new MultipleResult(new Hashtable());
 
             // Assert
             Assert.True(
@@ -66,7 +66,7 @@
             };
 
             // Act
-            var actualResult = new Result(outputParams);
+            var actualResult = new MultipleResult(outputParams);
 
             // Assert
             Assert.True(
@@ -85,7 +85,7 @@
             };
 
             // Act
-            var actualResult = new Result(outputParams);
+            var actualResult = new MultipleResult(outputParams);
 
             // Assert
             Assert.True(

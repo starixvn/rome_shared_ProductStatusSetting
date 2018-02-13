@@ -67,5 +67,37 @@
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => ProductStatusConfigurationHandler.UseConfig(configuration));
         }
+
+        [Fact]
+        public void CreateAuthorizeService_AuthorizeServiceTypeIsWrong_ThrowsInvalidCastException()
+        {
+            // Arrange
+            var configuration = new ProductStatusConfiguration()
+                .UseAuthorizeService(typeof(ProductStatusConfiguration))
+                .UseUserService(typeof(ProductStatusUserServiceForTesting))
+                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
+
+            // Act
+            ProductStatusConfigurationHandler.UseConfig(configuration);
+
+            // Assert
+            Assert.Throws<InvalidCastException>(() => ProductStatusConfigurationHandler.CreateAuthorizeService());
+        }
+
+        [Fact]
+        public void CreateUserService_UserServiceTypeIsWrong_ThrowsInvalidCastException()
+        {
+            // Arrange
+            var configuration = new ProductStatusConfiguration()
+                .UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting))
+                .UseUserService(typeof(ProductStatusConfiguration))
+                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
+
+            // Act
+            ProductStatusConfigurationHandler.UseConfig(configuration);
+
+            // Assert
+            Assert.Throws<InvalidCastException>(() => ProductStatusConfigurationHandler.CreateUserService());
+        }
     }
 }

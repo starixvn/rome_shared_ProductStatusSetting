@@ -167,13 +167,15 @@
                 200,
                 10,
                 100);
+            model.Name = "Number Game";
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Super);
 
             // Assert
             Assert.True(
-                161 == actualResult.SportType
+                "Number Game" == actualResult.Name
+                && 161 == actualResult.SportType
                 && 81 == actualResult.BetType
                 && !actualResult.IsDisabled
                 && !actualResult.IsDisabledUpline
