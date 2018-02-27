@@ -24,7 +24,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        [ProductStatusAuthorize(IsHost = false)]
+        //[ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             //var productStatus = viewModel.IsValid()
@@ -34,7 +34,6 @@
             //viewModel.SetProductStatusViewModel(productStatus);
 
             //return View(viewModel);
-
 
             var productStatus = new List<ProductStatusModel>
             {
@@ -49,7 +48,6 @@
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
                     totalEnabledMembers: 46),
-                    custRoleId: 3),
                 new ProductStatusModel(
                     sportType: 5,
                     betType: 13,
@@ -61,7 +59,6 @@
                     totalEnabledAgents: 0,
                     totalDisabledMembers: 36,
                     totalEnabledMembers: 0),
-                    custRoleId: 3),
                   new ProductStatusModel(
                     sportType: 5,
                     betType: 14,
@@ -72,8 +69,7 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 0,
-                    custRoleId: 3)
+                    totalEnabledMembers: 0)
             };
 
             var fakeViewModel = new QueryViewModel
