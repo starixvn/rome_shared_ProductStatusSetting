@@ -1,6 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    public interface IProductStatusUserService
+    public interface IProductStatusUser
     {
         int ActorId { get; }
 

@@ -6,16 +6,16 @@
 
     public class UpdateViewModelBase
     {
-        private readonly IProductStatusUserService userService;
+        private readonly IProductStatusUser user;
 
         public UpdateViewModelBase()
             : this(null)
         {
         }
 
-        public UpdateViewModelBase(IProductStatusUserService userService)
+        public UpdateViewModelBase(IProductStatusUser user)
         {
-            this.userService = userService ?? ProductStatusConfigurationHandler.CreateUserService();
+            this.user = user ?? ProductStatusConfigurationHandler.User;
         }
 
         public int ProductId { get; set; }
@@ -26,7 +26,7 @@
         {
             get
             {
-                return userService.ActorId;
+                return user.ActorId;
             }
         }
 
@@ -34,7 +34,7 @@
         {
             get
             {
-                return userService.IP;
+                return user.IP;
             }
         }
 

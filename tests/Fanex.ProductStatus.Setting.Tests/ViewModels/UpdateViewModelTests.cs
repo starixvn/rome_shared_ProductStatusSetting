@@ -9,13 +9,13 @@
 
     public class UpdateViewModelTests
     {
-        private readonly IProductStatusUserService userService;
+        private readonly IProductStatusUser user;
         private readonly UpdateViewModel updateViewModel;
 
         public UpdateViewModelTests()
         {
-            userService = Substitute.For<IProductStatusUserService>();
-            updateViewModel = new UpdateViewModel(userService);
+            user = Substitute.For<IProductStatusUser>();
+            updateViewModel = new UpdateViewModel(user);
         }
 
         [Fact]
@@ -40,7 +40,7 @@
                 }
             };
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -73,7 +73,7 @@
                 }
             };
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();

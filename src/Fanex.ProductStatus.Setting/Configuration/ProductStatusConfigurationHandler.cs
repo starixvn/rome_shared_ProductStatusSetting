@@ -14,42 +14,22 @@
             Verify();
         }
 
-        internal static IProductStatusAuthorizeService CreateAuthorizeService()
-        {
-            var authorizeService = Activator.CreateInstance(statusSettings.AuthorizeServiceType) as IProductStatusAuthorizeService;
+        internal static IProductStatusAuthorizeService AuthorizeService
+            => statusSettings.AuthorizeService;
 
-            if (authorizeService == null)
-            {
-                throw new InvalidCastException("Cannot cast to IProductStatusAuthorizeService");
-            }
+        internal static IProductStatusUser User
+            => statusSettings.User;
 
-            return authorizeService;
-        }
-
-        internal static IProductStatusUserService CreateUserService()
-        {
-            var userService = Activator.CreateInstance(statusSettings.UserServiceType) as IProductStatusUserService;
-
-            if (userService == null)
-            {
-                throw new InvalidCastException("Cannot cast to IProductStatusUserService.");
-            }
-
-            return userService;
-        }
-
-        internal static string GetUnAuthorizedUrl()
-        {
-            return statusSettings.UnAuthorizedUrl;
-        }
+        internal static string UnAuthorizedUrl
+            => statusSettings.UnAuthorizedUrl;
 
         private static void Verify()
         {
             RequireProductStatusSettings();
 
-            RequireAuthorizeServiceType();
+            RequireAuthorizeService();
 
-            RequireUserServiceType();
+            RequireUser();
 
             RequireUnAuthorizedUrl();
         }
@@ -64,22 +44,22 @@
             }
         }
 
-        private static void RequireAuthorizeServiceType()
+        private static void RequireAuthorizeService()
         {
-            if (statusSettings.AuthorizeServiceType == null)
+            if (statusSettings.AuthorizeService == null)
             {
                 throw new ArgumentNullException(
-                    $"ProductStatus {nameof(statusSettings.AuthorizeServiceType)}",
+                    $"ProductStatus {nameof(statusSettings.AuthorizeService)}",
                     "Value cannot be null.");
             }
         }
 
-        private static void RequireUserServiceType()
+        private static void RequireUser()
         {
-            if (statusSettings.UserServiceType == null)
+            if (statusSettings.User == null)
             {
                 throw new ArgumentNullException(
-                    $"ProductStatus {nameof(statusSettings.UserServiceType)}",
+                    $"ProductStatus {nameof(statusSettings.User)}",
                     "Value cannot be null.");
             }
         }

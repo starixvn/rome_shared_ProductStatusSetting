@@ -3,7 +3,7 @@
     using System;
     using Setting.Services;
 
-    public class ProductStatusUserServiceForTesting : IProductStatusUserService
+    public class ProductStatusUserForTesting : IProductStatusUser
     {
         public int ActorId
         {

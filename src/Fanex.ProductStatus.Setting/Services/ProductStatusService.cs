@@ -29,16 +29,16 @@
     {
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
-        private readonly RefDataService refDataService;
+        private readonly RefDataServiceProvider refDataServiceProvider;
 
         public ProductStatusServiceImpl(
             ProductStatusDataAccess statusDataAccess = null,
             CriteriaFactoryService criteriaFactory = null,
-            RefDataService refDataService = null)
+            RefDataServiceProvider refDataServiceProvider = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
-            this.refDataService = refDataService ?? new RefDataServiceImpl();
+            this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
         }
 
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
@@ -100,7 +100,7 @@
             foreach (var item in rawData)
             {
                 item.ProductId = productId;
-                item.Name = refDataService.GetProductName(productId);
+                item.Name = refDataServiceProvider.GetProductName(productId);
 
                 yield return item;
             }
@@ -113,7 +113,7 @@
             foreach (var item in rawData)
             {
                 item.ProductId = productId;
-                item.Name = refDataService.GetBetTypeName(item.BetType);
+                item.Name = refDataServiceProvider.GetBetTypeName(item.BetType);
 
                 yield return item;
             }

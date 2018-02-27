@@ -9,8 +9,8 @@ namespace Fanex.ProductStatus.Setting.ViewModels
         {
         }
 
-        public UpdateViewModel(IProductStatusUserService userService)
-            : base(userService)
+        public UpdateViewModel(IProductStatusUser user)
+            : base(user)
         {
         }
 

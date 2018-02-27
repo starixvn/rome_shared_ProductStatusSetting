@@ -10,8 +10,8 @@
         {
         }
 
-        public MultipleUpdateViewModel(IProductStatusUserService userService)
-            : base(userService)
+        public MultipleUpdateViewModel(IProductStatusUser user)
+            : base(user)
         {
         }
 

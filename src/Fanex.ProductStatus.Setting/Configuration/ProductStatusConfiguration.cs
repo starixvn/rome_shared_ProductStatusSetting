@@ -1,24 +1,24 @@
 ﻿namespace Fanex.ProductStatus.Setting.Configuration
 {
-    using System;
+    using Services;
 
     public class ProductStatusConfiguration
     {
-        internal Type AuthorizeServiceType { get; private set; }
+        internal IProductStatusAuthorizeService AuthorizeService { get; private set; }
 
-        internal Type UserServiceType { get; private set; }
+        internal IProductStatusUser User { get; private set; }
 
         internal string UnAuthorizedUrl { get; private set; }
 
-        public ProductStatusConfiguration UseAuthorizeService(Type authorizeType)
+        public ProductStatusConfiguration UseAuthorizeService(IProductStatusAuthorizeService authorizeService)
         {
-            AuthorizeServiceType = authorizeType;
+            AuthorizeService = authorizeService;
             return this;
         }
 
-        public ProductStatusConfiguration UseUserService(Type userType)
+        public ProductStatusConfiguration UseUserSession(IProductStatusUser user)
         {
-            UserServiceType = userType;
+            User = user;
             return this;
         }
 

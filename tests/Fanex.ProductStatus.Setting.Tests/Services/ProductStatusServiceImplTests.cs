@@ -21,16 +21,16 @@
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
-        private readonly RefDataService refDataService;
+        private readonly RefDataServiceProvider refDataServiceProvider;
         private readonly ProductStatusServiceImpl productStatusService;
 
         public ProductStatusServiceImplTests()
         {
             productStatusDataAccess = Substitute.For<ProductStatusDataAccess>();
             criteriaFactory = Substitute.For<CriteriaFactoryService>();
-            refDataService = Substitute.For<RefDataService>();
+            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
 
-            productStatusService = new ProductStatusServiceImpl(productStatusDataAccess, criteriaFactory, refDataService);
+            productStatusService = new ProductStatusServiceImpl(productStatusDataAccess, criteriaFactory, refDataServiceProvider);
         }
 
         [Theory]
@@ -65,7 +65,7 @@
                 .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
-            refDataService
+            refDataServiceProvider
                 .GetProductName(productId)
                 .Returns(productName);
 
@@ -118,10 +118,10 @@
                 .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
-            refDataService
+            refDataServiceProvider
                 .GetBetTypeName(1501)
                 .Returns("Australia");
-            refDataService
+            refDataServiceProvider
                 .GetBetTypeName(1503)
                 .Returns("Slovakia");
 
@@ -173,10 +173,10 @@
                 .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
-            refDataService
+            refDataServiceProvider
                 .GetBetTypeName(2401)
                 .Returns("Baccarat, Roulette, Sic Bo, Dragon Tiger");
-            refDataService
+            refDataServiceProvider
                 .GetBetTypeName(2402)
                 .Returns("VIP Baccarat");
 
@@ -215,7 +215,7 @@
                 .GetProductStatus(criteria)
                 .Returns(expectedResults);
 
-            refDataService
+            refDataServiceProvider
                 .GetProductName(28)
                 .Returns("Lottery");
 

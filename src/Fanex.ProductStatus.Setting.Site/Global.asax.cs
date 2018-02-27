@@ -14,9 +14,9 @@
 
             //ProductStatusConfigurationHandler.UseConfig(
             //    new ProductStatusConfiguration()
-            //    .UseAuthorizeService(typeof(A))
-            //    .UseUserService(typeof(B))
-            //    .SetUnAuthorizedUrl("/a/b/c"));
+            //    .UseAuthorizeService(new )
+            //    .UseUserSession(new )
+            //    .SetUnAuthorizedUrl("~/Error/UnAuthorized"));
 
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

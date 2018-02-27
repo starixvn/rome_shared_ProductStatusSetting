@@ -1,13 +1,13 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using System.Web.SessionState;
     using AppResources;
     using Models;
     using Services;
     using ViewModels;
+    using Web;
 
     [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
@@ -24,7 +24,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        // [ProductStatusAuthorization(IsHost = false)]
+        [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             //var productStatus = viewModel.IsValid()
@@ -109,7 +109,7 @@
             return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
 
-        //[HttpPost, ProductStatusAuthorization(IsHost = true)]
+        //[HttpPost, ProductStatusAuthorize(IsHost = true)]
         public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
         {
             var jsonRequestBehavior = JsonRequestBehavior.DenyGet;

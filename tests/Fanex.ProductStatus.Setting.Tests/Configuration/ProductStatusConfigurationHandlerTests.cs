@@ -11,8 +11,8 @@
         {
             // Arrange
             var configuration = new ProductStatusConfiguration()
-                .UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting))
-                .UseUserService(typeof(ProductStatusUserServiceForTesting))
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
+                .UseUserSession(new ProductStatusUserForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized");
 
             // Act
@@ -20,9 +20,9 @@
 
             // Assert
             Assert.True(
-                null != ProductStatusConfigurationHandler.CreateAuthorizeService()
-                && null != ProductStatusConfigurationHandler.CreateUserService()
-                && null != ProductStatusConfigurationHandler.GetUnAuthorizedUrl());
+                null != ProductStatusConfigurationHandler.AuthorizeService
+                && null != ProductStatusConfigurationHandler.User
+                && null != ProductStatusConfigurationHandler.UnAuthorizedUrl);
         }
 
         [Fact]
@@ -37,7 +37,7 @@
         {
             // Arrange
             var configuration = new ProductStatusConfiguration()
-                .UseUserService(typeof(ProductStatusUserServiceForTesting))
+                .UseUserSession(new ProductStatusUserForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized");
 
             // Act & Assert
@@ -45,11 +45,11 @@
         }
 
         [Fact]
-        public void UseConfig_UserServiceTypeIsNull_ThrowsArgumentNullException()
+        public void UseConfig_UserIsNull_ThrowsArgumentNullException()
         {
             // Arrange
             var configuration = new ProductStatusConfiguration()
-                .UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting))
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized");
 
             // Act & Assert
@@ -61,43 +61,11 @@
         {
             // Arrange
             var configuration = new ProductStatusConfiguration()
-                .UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting))
-                .UseUserService(typeof(ProductStatusUserServiceForTesting));
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
+                .UseUserSession(new ProductStatusUserForTesting());
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => ProductStatusConfigurationHandler.UseConfig(configuration));
-        }
-
-        [Fact]
-        public void CreateAuthorizeService_AuthorizeServiceTypeIsWrong_ThrowsInvalidCastException()
-        {
-            // Arrange
-            var configuration = new ProductStatusConfiguration()
-                .UseAuthorizeService(typeof(ProductStatusConfiguration))
-                .UseUserService(typeof(ProductStatusUserServiceForTesting))
-                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
-
-            // Act
-            ProductStatusConfigurationHandler.UseConfig(configuration);
-
-            // Assert
-            Assert.Throws<InvalidCastException>(() => ProductStatusConfigurationHandler.CreateAuthorizeService());
-        }
-
-        [Fact]
-        public void CreateUserService_UserServiceTypeIsWrong_ThrowsInvalidCastException()
-        {
-            // Arrange
-            var configuration = new ProductStatusConfiguration()
-                .UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting))
-                .UseUserService(typeof(ProductStatusConfiguration))
-                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
-
-            // Act
-            ProductStatusConfigurationHandler.UseConfig(configuration);
-
-            // Assert
-            Assert.Throws<InvalidCastException>(() => ProductStatusConfigurationHandler.CreateUserService());
         }
     }
 }

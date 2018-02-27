@@ -12,23 +12,23 @@
             var configuration = new ProductStatusConfiguration();
 
             // Act
-            configuration.UseAuthorizeService(typeof(ProductStatusAuthorizeServiceForTesting));
+            configuration.UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting());
 
             // Assert
-            Assert.NotNull(configuration.AuthorizeServiceType);
+            Assert.NotNull(configuration.AuthorizeService);
         }
 
         [Fact]
-        public void UseUserService_Always_AssignsCorrectToUserServiceType()
+        public void UseUserSession_Always_AssignsCorrectToUser()
         {
             // Arrange
             var configuration = new ProductStatusConfiguration();
 
             // Act
-            configuration.UseUserService(typeof(ProductStatusUserServiceForTesting));
+            configuration.UseUserSession(new ProductStatusUserForTesting());
 
             // Assert
-            Assert.NotNull(configuration.UserServiceType);
+            Assert.NotNull(configuration.User);
         }
 
         [Fact]

@@ -4,7 +4,6 @@
     using System.Web.Mvc;
     using AppResources;
     using Configuration;
-    using Services;
 
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     internal class ProductStatusAuthorizeAttribute : AuthorizeAttribute
@@ -13,7 +12,15 @@
 
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
-            IProductStatusAuthorizeService authorizationService = ProductStatusConfigurationHandler.CreateAuthorizeService();
+            base.OnAuthorization(filterContext);
+
+            if (filterContext.Result is HttpUnauthorizedResult)
+            {
+                UnAuthorizedAction(filterContext);
+                return;
+            }
+
+            var authorizationService = ProductStatusConfigurationHandler.AuthorizeService;
 
             bool isAuthorized = IsHost
                 ? authorizationService.CanUpdate(filterContext)
@@ -23,8 +30,6 @@
             {
                 UnAuthorizedAction(filterContext);
             }
-
-            base.OnAuthorization(filterContext);
         }
 
         private static void UnAuthorizedAction(AuthorizationContext filterContext)
@@ -41,7 +46,7 @@
             }
             else
             {
-                filterContext.Result = new RedirectResult(ProductStatusConfigurationHandler.GetUnAuthorizedUrl());
+                filterContext.Result = new RedirectResult(ProductStatusConfigurationHandler.UnAuthorizedUrl);
             }
         }
     }

@@ -9,13 +9,13 @@
 
     public class UpdateViewModelBaseTests
     {
-        private readonly IProductStatusUserService userService;
+        private readonly IProductStatusUser user;
         private readonly UpdateViewModelBase updateBase;
 
         public UpdateViewModelBaseTests()
         {
-            userService = Substitute.For<IProductStatusUserService>();
-            updateBase = new UpdateViewModelBase(userService);
+            user = Substitute.For<IProductStatusUser>();
+            updateBase = new UpdateViewModelBase(user);
         }
 
         [Fact]
@@ -39,7 +39,7 @@
                 }
             };
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -71,7 +71,7 @@
                 }
             };
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -87,7 +87,7 @@
             updateBase.ProductId = ProductIdentity.NumberGame;
             updateBase.ProductStatus = null;
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -103,7 +103,7 @@
             updateBase.ProductId = ProductIdentity.NumberGame;
             updateBase.ProductStatus = new ProductStatusCommand[0];
 
-            userService.ActorId.Returns(8);
+            user.ActorId.Returns(8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -135,13 +135,30 @@
                 }
             };
 
-            userService.ActorId.Returns(actorId);
+            user.ActorId.Returns(actorId);
 
             // Act
             var actualResult = updateBase.IsValid();
 
             // Assert
             Assert.False(actualResult);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("::1")]
+        [InlineData("127.0.0.1")]
+        public void IP_Always_AssignsCorrectToIP(string ip)
+        {
+            // Arrange
+            user.IP.Returns(ip);
+
+            // Act
+            var actualResult = updateBase.IP;
+
+            // Assert
+            Assert.Equal(ip, actualResult);
         }
     }
 }
