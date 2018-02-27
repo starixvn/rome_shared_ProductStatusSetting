@@ -18,7 +18,6 @@
             //    .UseUserSession(new )
             //    .SetUnAuthorizedUrl("~/Error/UnAuthorized"));
 
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             Fanex.Data.Configuration.DbSettingProviderManager.Current.Start();
         }
