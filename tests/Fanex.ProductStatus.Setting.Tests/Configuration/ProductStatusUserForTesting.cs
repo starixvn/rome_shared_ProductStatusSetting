@@ -1,24 +1,11 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Configuration
 {
-    using System;
     using Setting.Services;
 
     public class ProductStatusUserForTesting : IProductStatusUser
     {
-        public int ActorId
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public int ActorId { get; } = 8;
 
-        public string IP
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public string IP { get; } = "127.0.0.1";
     }
 }
