@@ -151,10 +151,6 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
-    <Content Include="Assets\bundles\product-status-setting.js" />
-    <Content Include="Assets\bundles\product-status-setting.min.js">
-      <DependentUpon>product-status-setting.js</DependentUpon>
-    </Content>
     <Content Include="Assets\scripts\libs\bootstrap\dropdown.js" />
     <Content Include="Assets\scripts\libs\bootstrap\modal.js" />
     <Content Include="Assets\scripts\libs\bootstrap\multiselect.js" />
@@ -197,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\" />
+    <Folder Include="Assets\bundles\" />
     <Folder Include="Assets\styles\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />

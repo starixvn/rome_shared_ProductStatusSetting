@@ -173,13 +173,8 @@
             });
         });
 
-        self.$("#btnReset")
-            .unbind("click")
-            .bind("click", function () { location.reload(true); });
-
-        self.$("#btnSubmit")
-            .unbind("click")
-            .bind("click", self.onSubmit);
+        self.$("#btnReset").on("click", function () { location.reload(true); });
+        self.$("#btnSubmit").on("click", self.onSubmit);
     }
 
     onSubmit = () => {
