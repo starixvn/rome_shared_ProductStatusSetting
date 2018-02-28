@@ -1,2 +1,9 @@
 ﻿[
+  {
+    "outputFileName": "Assets/bundles/product-status-setting.js",
+    "inputFiles": [
+      "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
+      "Assets/scripts/product-status-setting/product-status-setting.js"
+    ]
+  }
 ]

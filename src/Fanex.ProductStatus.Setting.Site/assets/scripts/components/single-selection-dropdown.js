@@ -53,4 +53,3 @@ var SingleSelectionDropdownComponent = (function () {
     }
     return SingleSelectionDropdownComponent;
 }());
-//# sourceMappingURL=single-selection-dropdown.js.map

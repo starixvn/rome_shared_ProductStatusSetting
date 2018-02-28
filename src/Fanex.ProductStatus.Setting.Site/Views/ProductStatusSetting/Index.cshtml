@@ -47,7 +47,7 @@
                 @{ var roleId01 = Model.CustRole; }
                 @while (--roleId01 > 0)
                 {
-                      @renderHeader(roleId01, isMultipleBetTypes)
+                    @renderHeader(roleId01, isMultipleBetTypes)
                 }
             </tr>
         </thead>
@@ -55,6 +55,7 @@
             @foreach (var item in Model.ProductStatus)
             {
                 <tr>
+
                     <td class="bettype-name">@item.BetType</td>
                     <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
 
@@ -92,8 +93,7 @@
         };
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Views/ProductStatusSetting/Scripts/ProductStatusSetting.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Assets/bundles/product-status-setting.js")"></script>
 </body>
 </html>
 
@@ -117,37 +117,24 @@
     var enabledId = string.Format("enabled_{0}_{1}", roleId, betType);
     var disabledSpanClass = "disabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
     var disabledId = string.Format("disabled_{0}_{1}", roleId, betType);
+
     <td>
-        @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
-        @*<input type="checkbox" id="@enabledId" class="checkbox-hide"
-              data-roleid="@roleId"
-              data-sporttype="@sportType"
-              data-bettype="@betType"
-              checked="checked"/>
-        <label for="@enabledId" class="@enabledSpanClass">@downlineStatus.TotalEnabled.ToString("N0") </label>*@
-
         <span id="@enabledId" class="@enabledSpanClass"
-              data-roleid="@roleId"
-              data-sporttype="@sportType"
-              data-bettype="@betType"
-              data-total= "@downlineStatus.Total"
-              checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
-        </td>
-
-        <td>
-            @*<input type="radio" id="@id" name="@(roleId + "_" + betType)" />*@
-            @*<input type="checkbox" id="@disabledId" class="checkbox-hide"
-                  data-roleid="@roleId"
-                  data-sporttype="@sportType"
-                  data-bettype="@betType"/>
-             <label for="@disabledId" class="@disabledSpanClass">@downlineStatus.TotalDisabled.ToString("N0") </label>*@
-
-            <span id="@disabledId" class="@disabledSpanClass"
-                  data-roleid="@roleId"
-                  data-sporttype="@sportType"
-                  data-total= "@downlineStatus.Total"
-                  data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
-        </td>
+                data-roleid="@roleId"
+                data-sporttype="@sportType"
+                data-bettype="@betType"
+                data-total= "@downlineStatus.Total"
+                data-totalenabled= "@downlineStatus.TotalEnabled"
+                checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
+    </td>
+    <td>
+        <span id="@disabledId" class="@disabledSpanClass"
+                data-roleid="@roleId"
+                data-sporttype="@sportType"
+                data-total= "@downlineStatus.Total"
+                data-totaldisabled= "@downlineStatus.TotalDisabled"
+                data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
+    </td>
 }
 
 
