@@ -113,7 +113,7 @@
         }
     }
 
-    toggleAllStatus = ($this: any, status: any) => {
+    toggleAllStatus = ($this: any, status: boolean) => {
         let self = this;
 
         if (!$this.hasClass("gray")) {
@@ -129,7 +129,7 @@
 
             self.$checkboxHidden.each(function (index, element) {
                 let statusSpan = self.$(element);
-                if (statusSpan.data("roleid") === roleId && self.$(statusSpan).is(":checked") != status) {
+                if (statusSpan.data("roleid") === roleId && self.$(statusSpan).prop("checked") != status) {
                     statusSpan.click();
                 }
             });
