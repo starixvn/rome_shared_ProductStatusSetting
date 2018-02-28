@@ -117,26 +117,22 @@
         let self = this;
 
         if (!$this.hasClass("gray")) {
-            let statusSpan;
             let roleId = $this.data("roleid");
-            //var statusSpanArray = $this.attr("class") === "enabled" ? enabledSpans : disabledSpans;
             let statusSpanArray = status ? self.$enabledSpans : self.$disabledSpans;
 
-            for (var i = 0, max = statusSpanArray.length; i < max; i++) {
-                statusSpan = self.$(statusSpanArray[i]);
-
+            statusSpanArray.each(function (index, element) {
+                let statusSpan = self.$(element);
                 if (statusSpan.data("roleid") === roleId) {
                     self.toggleStatus(statusSpan, true, status);
                 }
-            }
+            });
 
-            for (var j = 0, max01 = self.$checkboxHidden.length; j < max01; j++) {
-                statusSpan = self.$(self.$checkboxHidden[j]);
-
+            self.$checkboxHidden.each(function (index, element) {
+                let statusSpan = self.$(element);
                 if (statusSpan.data("roleid") === roleId && self.$(statusSpan).is(":checked") != status) {
-                   statusSpan.click();
+                    statusSpan.click();
                 }
-            }
+            });
         }
     }
 

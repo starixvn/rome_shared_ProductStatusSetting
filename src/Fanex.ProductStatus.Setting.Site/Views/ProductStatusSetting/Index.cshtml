@@ -105,8 +105,8 @@
            data-roleid="@roleId"
            data-sporttype="@sportType"
            data-bettype="@betType"
-           @(isDisabledUpline ? "disabled=disabled" : string.Empty)
-           @(isDisabled ? string.Empty : "checked=checked")/>
+           @(isDisabled ? string.Empty : "checked=checked")
+           @(isDisabledUpline ? "disabled=disabled" : string.Empty)/>
     <label for="@id" class="@labelClass">@labelText</label>
 }
 
