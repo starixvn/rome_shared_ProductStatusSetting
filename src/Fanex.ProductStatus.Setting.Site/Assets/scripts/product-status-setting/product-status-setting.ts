@@ -192,7 +192,7 @@
         this.$.ajax({
             type: "POST",
             url: this.$resources.rootUrl + this.$resources.updatePath,
-            data: {},
+            data: updateViewModelBase,
             dataType: "json",
             success: this.onSuccess,
             complete: this.onComplete
@@ -207,12 +207,12 @@
             let checkboxStatus = self.$(this).find('input:checkbox')
             let bettype = checkboxStatus.data("bettype");
             let sporttype = checkboxStatus.data("sporttype");
-            let disabled = self.$(checkboxStatus).prop("checked");
+            let disable = !self.$(checkboxStatus).prop("checked");
 
-            let model = {
+            let data = {
                 SportType: sporttype,
                 BetType: bettype,
-                Disable: disabled,
+                Disable: disable,
                 UpdateAllMasters: false,
                 DisableAllMasters: null,
                 UpdateAllAgents: false,
@@ -222,40 +222,45 @@
             };
 
 
-            let data = self.$(this).find('span:even').each(function () {
-                let roleId = self.$(this).data("roleid");
-                switch (roleId)
-                {
-                    case 3:
-                        model.UpdateAllMasters = true;
-                        model.DisableAllMasters = true;
-                        break;
-                    case 2:
-                        model.UpdateAllAgents = true;
-                        model.DisableAllAgents = true;
-                        break;
-                    case 1:
-                        model.UpdateAllMembers = true;
-                        model.DisableAllMembers = true;
-                        break;
-                };
+            self.$(this).find('span:odd').each(function () {
+               return self.getproductStatus(this, data);
             });  
 
-            return model;
+           return data;
         });
 
-        this.$('td:last-child').each(function () {
-            let spanStatus = self.$(this).find('span:first');
-            let roleId = spanStatus.data("roleid");
-            let bettype = spanStatus.data("bettype");
-        });
-
-        let updateViewModelBase = {
+        return {
             ProductId: this.$productId,
             ProductStatus: productStatus
         };
+    }
 
-        return updateViewModelBase;
+    getproductStatus = (spanElement: any, model: any) =>{
+        let statusSpan = this.$(spanElement);
+
+        let totaldisabled = Number(statusSpan.text());
+        let originalTotaldisabled = Number(statusSpan.data("totaldisabled"));
+
+        let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
+        let disableAll = updateAll && totaldisabled == 0;
+
+        let roleId = statusSpan.data("roleid");
+        switch (roleId) {
+            case 3:
+                model.UpdateAllMasters = updateAll;
+                model.DisableAllMasters = disableAll;
+                break;
+            case 2:
+                model.UpdateAllAgents = updateAll;
+                model.DisableAllAgents = disableAll;
+                break;
+            case 1:
+                model.UpdateAllMembers = updateAll;
+                model.DisableAllMembers = disableAll;
+                break;
+        };
+
+        return model;
     }
 
     onSuccess = () => {

@@ -28,62 +28,62 @@
         //[ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
-            //var productStatus = viewModel.IsValid()
-            //    ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-            //    : Enumerable.Empty<ProductStatusModel>();
+            var productStatus = viewModel.IsValid()
+                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                : Enumerable.Empty<ProductStatusModel>();
 
-            //viewModel.SetProductStatusViewModel(productStatus);
+            viewModel.SetProductStatusViewModel(productStatus);
 
-            //return View(viewModel);
+            return View(viewModel);
 
-            var productStatus = new List<ProductStatusModel>
-            {
-                new ProductStatusModel(
-                    sportType: 5,
-                    betType: 12,
-                    isDisabled: true,
-                    isDisabledUpline: false,
-                    totalDisabledMasters: 12,
-                    totalEnabledMasters: 78,
-                    totalDisabledAgents: 33,
-                    totalEnabledAgents: 37,
-                    totalDisabledMembers: 36,
-                    totalEnabledMembers: 46),
-                new ProductStatusModel(
-                    sportType: 5,
-                    betType: 13,
-                    isDisabled: false,
-                    isDisabledUpline: false,
-                    totalDisabledMasters: 12,
-                    totalEnabledMasters: 0,
-                    totalDisabledAgents: 33,
-                    totalEnabledAgents: 0,
-                    totalDisabledMembers: 36,
-                    totalEnabledMembers: 0),
-                  new ProductStatusModel(
-                    sportType: 5,
-                    betType: 14,
-                    isDisabled: false,
-                    isDisabledUpline: false,
-                    totalDisabledMasters: 12,
-                    totalEnabledMasters: 78,
-                    totalDisabledAgents: 33,
-                    totalEnabledAgents: 37,
-                    totalDisabledMembers: 0,
-                    totalEnabledMembers: 0)
-            };
+            //var productStatus = new List<ProductStatusModel>
+            //{
+            //    new ProductStatusModel(
+            //        sportType: 5,
+            //        betType: 12,
+            //        isDisabled: true,
+            //        isDisabledUpline: false,
+            //        totalDisabledMasters: 12,
+            //        totalEnabledMasters: 78,
+            //        totalDisabledAgents: 33,
+            //        totalEnabledAgents: 37,
+            //        totalDisabledMembers: 36,
+            //        totalEnabledMembers: 46),
+            //    new ProductStatusModel(
+            //        sportType: 5,
+            //        betType: 13,
+            //        isDisabled: false,
+            //        isDisabledUpline: false,
+            //        totalDisabledMasters: 12,
+            //        totalEnabledMasters: 0,
+            //        totalDisabledAgents: 33,
+            //        totalEnabledAgents: 0,
+            //        totalDisabledMembers: 36,
+            //        totalEnabledMembers: 0),
+            //      new ProductStatusModel(
+            //        sportType: 5,
+            //        betType: 14,
+            //        isDisabled: false,
+            //        isDisabledUpline: false,
+            //        totalDisabledMasters: 12,
+            //        totalEnabledMasters: 78,
+            //        totalDisabledAgents: 33,
+            //        totalEnabledAgents: 37,
+            //        totalDisabledMembers: 0,
+            //        totalEnabledMembers: 0)
+            //};
 
-            var fakeViewModel = new QueryViewModel
-            {
-                ProductId = 5,
-                CustId = 123,
-                CustName = "supertest1",
-                CustRole = 3,
-            };
+            //var fakeViewModel = new QueryViewModel
+            //{
+            //    ProductId = 5,
+            //    CustId = 123,
+            //    CustName = "supertest1",
+            //    CustRole = 4,
+            //};
 
-            fakeViewModel.SetProductStatusViewModel(productStatus);
+            //fakeViewModel.SetProductStatusViewModel(productStatus);
 
-            return View(fakeViewModel);
+            //return View(fakeViewModel);
         }
 
         //[HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
