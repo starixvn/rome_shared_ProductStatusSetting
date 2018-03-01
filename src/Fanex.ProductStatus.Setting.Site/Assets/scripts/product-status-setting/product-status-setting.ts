@@ -258,22 +258,65 @@
         return updateViewModelBase;
     }
 
-    onSuccess = () => {
-        
-        let updateViewModelBase =
-            { ProductId: 5, ProductStatus: [] };
-        this.$.ajax({
-            type: "POST",
-            url: this.resources.rootUrl + this.resources.updatePath,
-            data: updateViewModelBase,
-            dataType: "json",
-            success: this.onSuccess,
-            complete: this.onComplete
+
+        let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
+
+            let checkboxStatus = self.$(this).find('input:checkbox')
+            let bettype = checkboxStatus.data("bettype");
+            let sporttype = checkboxStatus.data("sporttype");
+            let disabled = self.$(checkboxStatus).prop("checked");
+
+            let model = {
+                SportType: sporttype,
+                BetType: bettype,
+                Disable: disabled,
+                UpdateAllMasters: false,
+                DisableAllMasters: null,
+                UpdateAllAgents: false,
+                DisableAllAgents: null,
+                UpdateAllMembers: false,
+                DisableAllMembers: null
+            };
+
+
+            let data = self.$(this).find('span:even').each(function () {
+                let roleId = self.$(this).data("roleid");
+                switch (roleId)
+                {
+                    case 3:
+                        model.UpdateAllMasters = true;
+                        model.DisableAllMasters = true;
+                        break;
+                    case 2:
+                        model.UpdateAllAgents = true;
+                        model.DisableAllAgents = true;
+                        break;
+                    case 1:
+                        model.UpdateAllMembers = true;
+                        model.DisableAllMembers = true;
+                        break;
+                };
+            });  
+
+            return model;
         });
+
+        this.$('td:last-child').each(function () {
+            let spanStatus = self.$(this).find('span:first');
+            let roleId = spanStatus.data("roleid");
+            let bettype = spanStatus.data("bettype");
+        });
+
+        let updateViewModelBase = {
+            ProductId: this.$productId,
+            ProductStatus: productStatus
+        };
+
+        return updateViewModelBase;
     }
 
     onSuccess = () => {
-        this.$.unblockUI();
+       
     }
 
     onComplete = () => {
