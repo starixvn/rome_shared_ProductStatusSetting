@@ -10,9 +10,10 @@
     $productId: string;
 
     resources = {
-        enabled: (<HTMLInputElement>document.getElementById('enabled')).value,
-        disabled: (<HTMLInputElement>document.getElementById('disabled')).value,
-        rootUrl: (<HTMLInputElement>document.getElementById('rootUrl')).value,
+        enabled: this.$('#enabled').val(),
+        disabled: this.$('#disabled').val(),
+        rootUrl: this.$('#rootUrl').val(),
+        updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
         updatePath: 'ProductStatusSetting/Update'
     }
 
@@ -23,15 +24,17 @@
     init = () => {
         this.cachedElements();
         this.registerEvents();
+
+        this.$custId = this.$('#custId').val();
+        this.$productId = this.$('#productId').val();
     }
 
     cachedElements = () => {
-        let self = this;
-        let table = self.$("#tbl-product");
+        let table = this.$("#tbl-product");
         let thead = table.find("thead");
         let tbody = table.find("tbody");
 
-        this.$checkboxHidden = self.$("input[class='checkbox-hide']");
+        this.$checkboxHidden = this.$("input[class='checkbox-hide']");
         this.$enabledSpans = tbody.find("span.enabled");   
         this.$disabledSpans = tbody.find("span.disabled");
         this.$theadEnableSpan = thead.find("span.enabled");
@@ -186,6 +189,23 @@
 
         this.$.blockUI();
 
+        let updateViewModelBase = {
+                ProductId: 5,
+                ProductStatus: []
+            };
+
+        this.$.ajax({
+            type: "POST",
+            url: this.resources.rootUrl + this.resources.updatePath,
+            data: updateViewModelBase,
+            dataType: "json",
+            success: this.onSuccess,
+            complete: this.onComplete
+        });
+    }
+
+    onSuccess = () => {
+        
         let updateViewModelBase =
             { ProductId: 5, ProductStatus: [] };
         this.$.ajax({
@@ -204,6 +224,21 @@
 
     onComplete = () => {
         this.$.unblockUI();
+    }
+
+    showSuccessMessage = () => {
+        this.showMessage(0, this.resources.updateStatusSuccessfully);
+    }
+
+    showMessage = (type: any, message: string) => {
+        var html = ['<div class="', type === 0 ? "alertboxscc" : "alertboxerr", '"><div>', message, "</div></div>"].join("");
+        var messageDiv = this.$("#sectionMessage");
+        return messageDiv.html(html).removeClass("hide");
+    }
+
+    hideMessage = () => {
+        var messageDiv = this.$("#sectionMessage");
+        return messageDiv.html("").addClass("hide");
     }
 }
 

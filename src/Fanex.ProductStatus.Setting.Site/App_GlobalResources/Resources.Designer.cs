@@ -113,5 +113,14 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
                 return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Status Successfully..
+        /// </summary>
+        public static string UpdateStatusSuccessfully {
+            get {
+                return ResourceManager.GetString("UpdateStatusSuccessfully", resourceCulture);
+            }
+        }
     }
 }
