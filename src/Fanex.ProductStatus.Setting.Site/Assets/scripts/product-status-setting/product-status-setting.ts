@@ -8,14 +8,7 @@
 
     $custId: string;
     $productId: string;
-
-    resources = {
-        enabled: this.$('#enabled').val(),
-        disabled: this.$('#disabled').val(),
-        rootUrl: this.$('#rootUrl').val(),
-        updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
-        updatePath: 'ProductStatusSetting/Update'
-    }
+    $resources: any;
 
     constructor($: JQueryStatic) {
         this.$ = $;
@@ -40,12 +33,18 @@
         this.$theadEnableSpan = thead.find("span.enabled");
         this.$theadDisabledSpan = thead.find("span.disabled");
 
-        this.$custId = (<HTMLInputElement>document.getElementById('custId')).value;
-        this.$productId = (<HTMLInputElement>document.getElementById('productId')).value;
+        this.$resources = {
+            enabled: this.$('#enabled').val(),
+            disabled: this.$('#disabled').val(),
+            rootUrl: this.$('#rootUrl').val(),
+            updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
+            updatePath: 'ProductStatusSetting/Update'
+        }
+
     }
 
     checkboxChanged = ($this: any) => {
-        let labelText = this.$($this).is(":checked") ? this.resources.enabled : this.resources.disabled;
+        let labelText = this.$($this).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
         this.toggleStatusDownlines($this);
         $this.next("label")
             .removeClass()
@@ -187,21 +186,76 @@
     onSubmit = (e: any) => {
         e.preventDefault();
 
-        this.$.blockUI();
+        //this.$.blockUI();
 
-        let updateViewModelBase = {
-                ProductId: 5,
-                ProductStatus: []
-            };
-
+        let updateViewModelBase = this.getUpdateViewModelBase();
         this.$.ajax({
             type: "POST",
-            url: this.resources.rootUrl + this.resources.updatePath,
-            data: updateViewModelBase,
+            url: this.$resources.rootUrl + this.$resources.updatePath,
+            data: {},
             dataType: "json",
             success: this.onSuccess,
             complete: this.onComplete
         });
+    }
+
+    getUpdateViewModelBase = () => {
+        let self = this;
+
+        let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
+
+            let checkboxStatus = self.$(this).find('input:checkbox')
+            let bettype = checkboxStatus.data("bettype");
+            let sporttype = checkboxStatus.data("sporttype");
+            let disabled = self.$(checkboxStatus).prop("checked");
+
+            let model = {
+                SportType: sporttype,
+                BetType: bettype,
+                Disable: disabled,
+                UpdateAllMasters: false,
+                DisableAllMasters: null,
+                UpdateAllAgents: false,
+                DisableAllAgents: null,
+                UpdateAllMembers: false,
+                DisableAllMembers: null
+            };
+
+
+            let data = self.$(this).find('span:even').each(function () {
+                let roleId = self.$(this).data("roleid");
+                switch (roleId)
+                {
+                    case 3:
+                        model.UpdateAllMasters = true;
+                        model.DisableAllMasters = true;
+                        break;
+                    case 2:
+                        model.UpdateAllAgents = true;
+                        model.DisableAllAgents = true;
+                        break;
+                    case 1:
+                        model.UpdateAllMembers = true;
+                        model.DisableAllMembers = true;
+                        break;
+                };
+            });  
+
+            return model;
+        });
+
+        this.$('td:last-child').each(function () {
+            let spanStatus = self.$(this).find('span:first');
+            let roleId = spanStatus.data("roleid");
+            let bettype = spanStatus.data("bettype");
+        });
+
+        let updateViewModelBase = {
+            ProductId: this.$productId,
+            ProductStatus: productStatus
+        };
+
+        return updateViewModelBase;
     }
 
     onSuccess = () => {
@@ -223,11 +277,11 @@
     }
 
     onComplete = () => {
-        this.$.unblockUI();
+       // this.$.unblockUI();
     }
 
     showSuccessMessage = () => {
-        this.showMessage(0, this.resources.updateStatusSuccessfully);
+        this.showMessage(0, this.$resources.updateStatusSuccessfully);
     }
 
     showMessage = (type: any, message: string) => {
