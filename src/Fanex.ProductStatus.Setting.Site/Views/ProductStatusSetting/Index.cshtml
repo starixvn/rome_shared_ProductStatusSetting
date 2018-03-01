@@ -26,8 +26,8 @@
                     {
                         <div class="current-role">@Model.GetRoleName(Model.CustRole)</div>
                         <div class="all-status">
-                            <span class="enabled" data-roleid="@Model.CustRole">Enable</span>
-                            <span class="disabled" data-roleid="@Model.CustRole">Disable</span>
+                            <span class="enabled" data-roleid="@Model.CustRole">@Resources.Enable</span>
+                            <span class="disabled" data-roleid="@Model.CustRole">@Resources.Disable</span>
                         </div>
                     }
                     else
@@ -79,20 +79,16 @@
         </tbody>
     </table>
     <div class="margin-top10 align-right">
-        <button type="button" class="btn btn-reset" id="btnReset">Reset</button>
-        <button type="button" class="margin-left5 btn" id="btnSubmit">Submit</button>
+        <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
+        <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
     </div>
-    <script type="text/javascript">
-        var rootUrl = "@Url.Content("~")";
-        var custId = @Model.CustId;
-        var productId = @Model.ProductId;
 
-        var appResources = {
-            "enabled": "Enabled",
-            "disabled": "Disabled"
-        };
+    @Html.Hidden("rootUrl", Url.Content("~"))
+    @Html.Hidden("custId", Model.CustId)
+    @Html.Hidden("productId", Model.ProductId)
+    @Html.Hidden("enabled", Resources.Enabled)
+    @Html.Hidden("disabled", Resources.Disabled)
 
-    </script>
     <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Assets/bundles/product-status-setting.js")"></script>
 </body>
@@ -144,15 +140,15 @@
     if (isMultipleBetTypes)
     {
         <th>
-            <span class="enabled" data-roleid="@roleId">Enable</span>
+            <span class="enabled" data-roleid="@roleId">@Resources.Enable</span>
         </th>
         <th>
-            <span class="disabled" data-roleid="@roleId">Disable</span>
+            <span class="disabled" data-roleid="@roleId">@Resources.Disable</span>
         </th>
     }
     else
     {
-        <th>Enable</th>
-        <th>Disable</th>
+        <th>@Resources.Enable</th>
+        <th>@Resources.Disable</th>
     }
 }

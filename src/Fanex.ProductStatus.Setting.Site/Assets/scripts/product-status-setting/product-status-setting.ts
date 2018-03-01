@@ -6,9 +6,14 @@
     $theadEnableSpan: JQuery;
     $theadDisabledSpan: JQuery;
 
+    $custId: string;
+    $productId: string;
+
     resources = {
-        enabled: 'Enabled',
-        disabled: 'Disabled'
+        enabled: (<HTMLInputElement>document.getElementById('enabled')).value,
+        disabled: (<HTMLInputElement>document.getElementById('disabled')).value,
+        rootUrl: (<HTMLInputElement>document.getElementById('rootUrl')).value,
+        updatePath: 'ProductStatusSetting/Update'
     }
 
     constructor($: JQueryStatic) {
@@ -31,6 +36,9 @@
         this.$disabledSpans = tbody.find("span.disabled");
         this.$theadEnableSpan = thead.find("span.enabled");
         this.$theadDisabledSpan = thead.find("span.disabled");
+
+        this.$custId = (<HTMLInputElement>document.getElementById('custId')).value;
+        this.$productId = (<HTMLInputElement>document.getElementById('productId')).value;
     }
 
     checkboxChanged = ($this: any) => {
@@ -42,6 +50,7 @@
             .text(labelText);
     }
 
+
     toggleStatusDownlines = ($this: any, isEnabled?: boolean) => {
         let checked = false;
 
@@ -52,7 +61,6 @@
             checked = isEnabled;
         }
 
-       // let parent = $this.closet('tr');
         let roleId = $this.data("roleid");
         let roleId01 = $this.data("roleid");
         let betType = $this.data("bettype");
@@ -105,7 +113,7 @@
 
             if (oppositeTotal > 0) {
                 oppositeStatus.text("0");
-                var currentTotal = parseInt(statusSpan.text().replace(/,/g, ""));
+                let currentTotal = parseInt(statusSpan.text().replace(/,/g, ""));
                 statusSpan.text((currentTotal + oppositeTotal).toLocaleString());
             }
 
@@ -173,8 +181,25 @@
         self.$("#btnSubmit").on("click", self.onSubmit);
     }
 
-    onSubmit = () => {
-      
+    onSubmit = (e: any) => {
+        e.preventDefault();
+
+        this.$.blockUI();
+
+        let updateViewModelBase =
+            { ProductId: 5, ProductStatus: [] };
+        this.$.ajax({
+            type: "POST",
+            url: this.resources.rootUrl + this.resources.updatePath,
+            data: updateViewModelBase,
+            dataType: "json",
+            success: this.onSuccess,
+            complete: this.onComplete
+        });
+    }
+
+    onSuccess = () => {
+        this.$.unblockUI();
     }
 
     onComplete = () => {
