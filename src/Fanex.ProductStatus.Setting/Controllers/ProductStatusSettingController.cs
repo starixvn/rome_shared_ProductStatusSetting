@@ -25,7 +25,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        //[ProductStatusAuthorize(IsHost = false)]
+       // [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatus = viewModel.IsValid()
@@ -106,7 +106,7 @@
             return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
 
-        //[HttpPost, ProductStatusAuthorize(IsHost = true)]
+       // [HttpPost, ProductStatusAuthorize(IsHost = true)]
         public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
         {
             var jsonRequestBehavior = JsonRequestBehavior.DenyGet;

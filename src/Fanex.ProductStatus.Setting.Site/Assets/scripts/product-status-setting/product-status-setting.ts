@@ -52,7 +52,6 @@
             .text(labelText);
     }
 
-
     toggleStatusDownlines = ($this: any, isEnabled?: boolean) => {
         let checked = false;
 
@@ -191,11 +190,19 @@
         let updateViewModelBase = this.getUpdateViewModelBase();
         this.$.ajax({
             type: "POST",
-            url: this.$resources.rootUrl + this.$resources.updatePath,
-            data: updateViewModelBase,
+            url: "Update",
+            data: JSON.stringify(updateViewModelBase),
             dataType: "json",
-            success: this.onSuccess,
-            complete: this.onComplete
+            contentType: "application/json; charset=utf-8",
+            success: function (data, textStatus, jqXHR) {
+                alert('update success');
+            },
+            error: function (xhr, status, error){
+                alert('update fails');
+            },
+            complete: function (jqXHR, textStatus) {
+                alert('update complete');
+            }
         });
     }
 
@@ -210,15 +217,15 @@
             let disable = !self.$(checkboxStatus).prop("checked");
 
             let data = {
-                SportType: sporttype,
-                BetType: bettype,
-                Disable: disable,
-                UpdateAllMasters: false,
-                DisableAllMasters: null,
-                UpdateAllAgents: false,
-                DisableAllAgents: null,
-                UpdateAllMembers: false,
-                DisableAllMembers: null
+                sportType: sporttype,
+                betType: bettype,
+                disable: disable,
+                updateAllMasters: false,
+                disableAllMasters: null,
+                updateAllAgents: false,
+                disableAllAgents: null,
+                updateAllMembers: false,
+                disableAllMembers: null
             };
 
 
@@ -227,11 +234,12 @@
             });  
 
            return data;
-        });
+        }).get();
 
         return {
-            ProductId: this.$productId,
-            ProductStatus: productStatus
+            productId: this.$productId,
+            custId: this.$custId,
+            productStatus: productStatus
         };
     }
 
@@ -247,16 +255,16 @@
         let roleId = statusSpan.data("roleid");
         switch (roleId) {
             case 3:
-                model.UpdateAllMasters = updateAll;
-                model.DisableAllMasters = disableAll;
+                model.updateAllMasters = updateAll;
+                model.disableAllMasters = disableAll;
                 break;
             case 2:
-                model.UpdateAllAgents = updateAll;
-                model.DisableAllAgents = disableAll;
+                model.updateAllAgents = updateAll;
+                model.disableAllAgents = disableAll;
                 break;
             case 1:
-                model.UpdateAllMembers = updateAll;
-                model.DisableAllMembers = disableAll;
+                model.updateAllMembers = updateAll;
+                model.disableAllMembers = disableAll;
                 break;
         };
 
