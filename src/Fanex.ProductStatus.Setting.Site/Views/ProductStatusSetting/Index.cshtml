@@ -10,78 +10,83 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/Views/ProductStatusSetting/Styles/productstatussetting.css")" rel="stylesheet" type="text/css"/>
+    <link href="@Url.Content("~/Views/ProductStatusSetting/Styles/productstatussetting.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="sectionMessage" class="hide"></div>
-    <table class="tbl-product margin-top10" id="tbl-product">
-        <thead>
-            <tr>
-                <th class="title" colspan="@Model.ProductStatus.Count() * 2"> @Model.GetRoleName(Model.CustRole): @Model.CustName</th>
-            </tr>
-            <tr>
-                <th rowspan="2"></th>
-                <th rowspan="2">
-                    @if (isMultipleBetTypes)
-                    {
-                        <div class="current-role">@Model.GetRoleName(Model.CustRole)</div>
-                        <div class="all-status">
-                            <span class="enabled" data-roleid="@Model.CustRole">@Resources.Enable</span>
-                            <span class="disabled" data-roleid="@Model.CustRole">@Resources.Disable</span>
-                        </div>
-                    }
-                    else
-                    {
-                        @Model.GetRoleName(Model.CustRole)
-                    }
-                </th>
-                @{ var roleId = Model.CustRole; }
-                @while (--roleId > 0)
-                {
-                    <th colspan="2">
-                        @Model.GetRoleName(roleId)
-                    </th>
-                }
-            </tr>
-            <tr>
-                @{ var roleId01 = Model.CustRole; }
-                @while (--roleId01 > 0)
-                {
-                    @renderHeader(roleId01, isMultipleBetTypes)
-                }
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.ProductStatus)
-            {
+    @if (Model.ProductStatus.Count() > 0)
+    {
+        <table class="tbl-product margin-top10" id="tbl-product">
+            <thead>
                 <tr>
-
-                    <td class="bettype-name">@item.Name</td>
-                    <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
-
-                    @if (item.Master != null)
-                    {
-                        @renderDownlineStatus(item.SportType, item.BetType, 3, item.IsDisabledUpline, item.Master);
-                    }
-
-                    @if (item.Agent != null)
-                    {
-                        @renderDownlineStatus(item.SportType, item.BetType, 2, item.IsDisabledUpline, item.Agent);
-                    }
-
-                    @if (item.Member != null)
-                    {
-                        @renderDownlineStatus(item.SportType, item.BetType, 1, item.IsDisabledUpline, item.Member);
-                    }
-
+                    <th class="title" colspan="@(Model.CustRole * 2)"> @Model.GetRoleName(Model.CustRole): @Model.CustName</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <div class="margin-top10 align-right">
-        <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
-        <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
-    </div>
+                <tr>
+                    <th rowspan="2"></th>
+                    <th rowspan="2">
+                        @if (isMultipleBetTypes)
+                        {
+                            <div class="current-role">@Model.GetRoleName(Model.CustRole)</div>
+                            <div class="all-status">
+                                <span class="enabled" data-roleid="@Model.CustRole">@Resources.Enable</span>
+                                <span class="disabled" data-roleid="@Model.CustRole">@Resources.Disable</span>
+                            </div>
+                        }
+                        else
+                        {
+                            @Model.GetRoleName(Model.CustRole)
+                        }
+                    </th>
+                    @{ var roleId = Model.CustRole; }
+                    @while (roleId > 0 && --roleId > 0)
+                    {
+                        <th colspan="2">
+                            @Model.GetRoleName(roleId)
+                        </th>
+                    }
+                </tr>
+                <tr>
+                    @{ var roleId01 = Model.CustRole; }
+                    @while (roleId01 > 0 && --roleId01 > 0)
+                    {
+                        @renderHeader(roleId01, isMultipleBetTypes)
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProductStatus)
+                {
+                    <tr>
+                        <td class="bettype-name">@item.Name</td>
+                        <td>@renderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
+
+                        @if (item.Master != null)
+                        {
+                            @renderDownlineStatus(item.SportType, item.BetType, 3, item.IsDisabledUpline, item.Master);
+                        }
+
+                        @if (item.Agent != null)
+                        {
+                            @renderDownlineStatus(item.SportType, item.BetType, 2, item.IsDisabledUpline, item.Agent);
+                        }
+
+                        @if (item.Member != null)
+                        {
+                            @renderDownlineStatus(item.SportType, item.BetType, 1, item.IsDisabledUpline, item.Member);
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="margin-top10 align-right">
+            <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
+            <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
+        </div>
+    }
+    else
+    {
+        <div>@Resources.ThereIsNoData </div>
+    }
 
     @Html.Hidden("rootUrl", Url.Content("~"))
     @Html.Hidden("custId", Model.CustId)
@@ -95,44 +100,45 @@
 </body>
 </html>
 
-@helper renderStatus(int sportType, int betType, bool isDisabled, bool isDisabledUpline, byte roleId) {
-    var labelText = isDisabled ? "Disabled" : "Enabled";
-    var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
-    var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
+@helper renderStatus(int sportType, int betType, bool isDisabled, bool isDisabledUpline, byte roleId)
+{
+var labelText = isDisabled ? "Disabled" : "Enabled";
+var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
+var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
     <input type="checkbox" class="checkbox-hide" id="@id"
            data-roleid="@roleId"
            data-sporttype="@sportType"
            data-bettype="@betType"
            @(isDisabled ? string.Empty : "checked ")
-           @(isDisabledUpline ? "disabled=disabled" : string.Empty)/>
-    <label for="@id" class="@labelClass">@labelText</label>
+           @(isDisabledUpline ? "disabled=disabled" : string.Empty) />
+        <label for="@id" class="@labelClass">@labelText</label>
 }
 
 
 @helper renderDownlineStatus(int sportType, int betType, byte roleId, bool isDisabledUpline, DownlineStatusViewModel downlineStatus)
 {
-    var enabledSpanClass = "enabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
-    var enabledId = string.Format("enabled_{0}_{1}", roleId, betType);
-    var disabledSpanClass = "disabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
-    var disabledId = string.Format("disabled_{0}_{1}", roleId, betType);
+var enabledSpanClass = "enabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
+var enabledId = string.Format("enabled_{0}_{1}", roleId, betType);
+var disabledSpanClass = "disabled" + (downlineStatus.IsDisabled ? " gray" : string.Empty);
+var disabledId = string.Format("disabled_{0}_{1}", roleId, betType);
 
     <td>
         <span id="@enabledId" class="@enabledSpanClass"
-                data-roleid="@roleId"
-                data-sporttype="@sportType"
-                data-bettype="@betType"
-                data-total= "@downlineStatus.Total"
-                data-totalenabled= "@downlineStatus.TotalEnabled"
-                checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
-    </td>
-    <td>
-        <span id="@disabledId" class="@disabledSpanClass"
-                data-roleid="@roleId"
-                data-sporttype="@sportType"
-                data-total= "@downlineStatus.Total"
-                data-totaldisabled= "@downlineStatus.TotalDisabled"
-                data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
-    </td>
+              data-roleid="@roleId"
+              data-sporttype="@sportType"
+              data-bettype="@betType"
+              data-total="@downlineStatus.Total"
+              data-totalenabled="@downlineStatus.TotalEnabled"
+              checked="checked">@downlineStatus.TotalEnabled.ToString("N0")</span>
+        </td>
+        <td>
+            <span id="@disabledId" class="@disabledSpanClass"
+                  data-roleid="@roleId"
+                  data-sporttype="@sportType"
+                  data-total="@downlineStatus.Total"
+                  data-totaldisabled="@downlineStatus.TotalDisabled"
+                  data-bettype="@betType">@downlineStatus.TotalDisabled.ToString("N0")</span>
+            </td>
 }
 
 
@@ -140,16 +146,16 @@
 {
     if (isMultipleBetTypes)
     {
-        <th>
-            <span class="enabled" data-roleid="@roleId">@Resources.Enable</span>
-        </th>
-        <th>
-            <span class="disabled" data-roleid="@roleId">@Resources.Disable</span>
-        </th>
+            <th>
+                <span class="enabled" data-roleid="@roleId">@Resources.Enable</span>
+            </th>
+            <th>
+                <span class="disabled" data-roleid="@roleId">@Resources.Disable</span>
+            </th>
     }
     else
     {
-        <th>@Resources.Enable</th>
-        <th>@Resources.Disable</th>
+            <th>@Resources.Enable</th>
+            <th>@Resources.Disable</th>
     }
 }

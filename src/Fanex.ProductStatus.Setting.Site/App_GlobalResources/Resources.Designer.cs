@@ -115,6 +115,15 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There Is No Data..
+        /// </summary>
+        public static string ThereIsNoData {
+            get {
+                return ResourceManager.GetString("ThereIsNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Status Successfully..
         /// </summary>
         public static string UpdateStatusSuccessfully {

@@ -187,6 +187,7 @@
 
         //this.$.blockUI();
 
+        let self = this;
         let updateViewModelBase = this.getUpdateViewModelBase();
         this.$.ajax({
             type: "POST",
@@ -195,13 +196,13 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data, textStatus, jqXHR) {
-                alert('update success');
+                self.showMessage(data.Code, data.Message)
             },
             error: function (xhr, status, error){
                 alert('update fails');
             },
             complete: function (jqXHR, textStatus) {
-                alert('update complete');
+              //  alert('update complete');
             }
         });
     }
@@ -250,7 +251,7 @@
         let originalTotaldisabled = Number(statusSpan.data("totaldisabled"));
 
         let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
-        let disableAll = updateAll && totaldisabled == 0;
+        let disableAll = updateAll && totaldisabled > 0;
 
         let roleId = statusSpan.data("roleid");
         switch (roleId) {
