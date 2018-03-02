@@ -1,7 +1,11 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
+    using System;
+
     public interface IProductStatusUser
     {
-        int ActorId { get; }
+        Func<int> GetActorId();
+
+        Func<string> GetClientIP();
     }
 }

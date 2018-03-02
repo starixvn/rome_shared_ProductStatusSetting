@@ -22,13 +22,11 @@
 
         public ProductStatusCommand[] ProductStatus { get; set; }
 
+        public string IP
+            => user.GetClientIP().Invoke();
+
         public int ActorId
-        {
-            get
-            {
-                return user.ActorId;
-            }
-        }
+            => user.GetActorId().Invoke();
 
         public virtual bool IsValid()
             => ProductId > 0

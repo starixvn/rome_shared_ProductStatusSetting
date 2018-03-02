@@ -1,7 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Controllers
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Web.Mvc;
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
@@ -85,7 +84,7 @@
         public void Update_InvalidUpdateViewModel_ReturnsBadRequest()
         {
             // Arrange
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino
@@ -103,8 +102,8 @@
         public void Update_ValidUpdateViewModel_ReturnsSuccessfulJson()
         {
             // Arrange
-            user.ActorId.Returns(8);
-            var ip = "127.0.0.1";
+            user.GetActorId().Returns(() => 8);
+            user.GetClientIP().Returns(() => "127.0.0.1");
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -126,7 +125,7 @@
                 CustId = 1176083
             };
             productStatusService
-                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, user.ActorId, ip, updateViewModel.ProductStatus)
+                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, updateViewModel.ActorId, updateViewModel.IP, updateViewModel.ProductStatus)
                 .Returns(new Result(0, string.Empty));
 
             // Act
@@ -141,7 +140,7 @@
         public void MultipleUpdate_InvalidMultipleUpdateViewModel_ReturnsBadRequest()
         {
             // Arrange
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
             var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -164,8 +163,8 @@
         public void MultipleUpdate_ValidMultipleUpdateViewModel_ReturnsSuccessfulJson()
         {
             // Arrange
-            user.ActorId.Returns(8);
-            var ip = "127.0.0.1";
+            user.GetActorId().Returns(() => 8);
+            user.GetClientIP().Returns(() => "127.0.0.1");
             var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -197,7 +196,7 @@
             };
 
             productStatusService
-                .MultipleUpdateProductStatus(multipleUpdateViewModel.ProductId, multipleUpdateViewModel.Customers, user.ActorId, ip, multipleUpdateViewModel.ProductStatus)
+                .MultipleUpdateProductStatus(multipleUpdateViewModel.ProductId, multipleUpdateViewModel.Customers, multipleUpdateViewModel.ActorId, multipleUpdateViewModel.IP, multipleUpdateViewModel.ProductStatus)
                 .Returns(expectedResults);
 
             var compareLogic = new CompareLogic();

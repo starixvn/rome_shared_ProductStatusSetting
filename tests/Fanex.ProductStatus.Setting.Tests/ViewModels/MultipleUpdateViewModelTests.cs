@@ -44,7 +44,7 @@
                 }
             };
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -75,7 +75,7 @@
                 }
             };
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -106,7 +106,7 @@
                 }
             };
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();

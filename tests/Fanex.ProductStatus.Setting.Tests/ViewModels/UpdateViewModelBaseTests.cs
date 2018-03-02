@@ -39,7 +39,7 @@
                 }
             };
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -71,7 +71,7 @@
                 }
             };
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -87,7 +87,7 @@
             updateBase.ProductId = ProductIdentity.NumberGame;
             updateBase.ProductStatus = null;
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -103,7 +103,7 @@
             updateBase.ProductId = ProductIdentity.NumberGame;
             updateBase.ProductStatus = new ProductStatusCommand[0];
 
-            user.ActorId.Returns(8);
+            user.GetActorId().Returns(() => 8);
 
             // Act
             var actualResult = updateBase.IsValid();
@@ -135,13 +135,30 @@
                 }
             };
 
-            user.ActorId.Returns(actorId);
+            user.GetActorId().Returns(() => actorId);
 
             // Act
             var actualResult = updateBase.IsValid();
 
             // Assert
             Assert.False(actualResult);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData("::1")]
+        [InlineData("127.0.0.1")]
+        public void IP_Always_AssignsCorrectToIP(string ip)
+        {
+            // Arrange
+            user.GetClientIP().Returns(() => ip);
+
+            // Act
+            var actualResult = updateBase.IP;
+
+            // Assert
+            Assert.Equal(ip, actualResult);
         }
     }
 }
