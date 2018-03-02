@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess;
@@ -53,7 +54,30 @@
                 return GetProductStatusProductName(productId, rawData);
             }
 
-            return GetProductStatusBetTypeName(productId, rawData);
+            return GetProductStatusBetTypeName(rawData);
+        }
+
+        private IEnumerable<ProductStatusModel> GetProductStatusProductName(
+            int productId,
+            IEnumerable<ProductStatusModel> rawData)
+        {
+            foreach (var item in rawData)
+            {
+                item.ProductId = productId;
+                item.Name = refDataServiceProvider.GetProductName(productId);
+
+                yield return item;
+            }
+        }
+
+        private IEnumerable<ProductStatusModel> GetProductStatusBetTypeName(IEnumerable<ProductStatusModel> rawData)
+        {
+            foreach (var item in rawData)
+            {
+                item.Name = refDataServiceProvider.GetBetTypeName(item.BetType);
+
+                yield return item;
+            }
         }
 
         public Result UpdateProductStatus(
@@ -91,32 +115,6 @@
             }
 
             return results;
-        }
-
-        private IEnumerable<ProductStatusModel> GetProductStatusProductName(
-            int productId,
-            IEnumerable<ProductStatusModel> rawData)
-        {
-            foreach (var item in rawData)
-            {
-                item.ProductId = productId;
-                item.Name = refDataServiceProvider.GetProductName(productId);
-
-                yield return item;
-            }
-        }
-
-        private IEnumerable<ProductStatusModel> GetProductStatusBetTypeName(
-            int productId,
-            IEnumerable<ProductStatusModel> rawData)
-        {
-            foreach (var item in rawData)
-            {
-                item.ProductId = productId;
-                item.Name = refDataServiceProvider.GetBetTypeName(item.BetType);
-
-                yield return item;
-            }
         }
 
         private Result UpdateKenoStatus(
