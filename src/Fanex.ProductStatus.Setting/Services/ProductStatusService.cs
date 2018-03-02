@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess;
@@ -45,36 +44,22 @@
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
-
             var rawData = statusDataAccess.GetProductStatus(criteria);
-            var rawDataCount = rawData.Count();
 
-            if (rawDataCount == 1)
-            {
-                return GetProductStatusProductName(productId, rawData);
-            }
-
-            return GetProductStatusBetTypeName(rawData);
+            return SetProductStatusName(productId, rawData);
         }
 
-        private IEnumerable<ProductStatusModel> GetProductStatusProductName(
+        private IEnumerable<ProductStatusModel> SetProductStatusName(
             int productId,
             IEnumerable<ProductStatusModel> rawData)
         {
+            var setNameByBetTypeId = rawData.Count() > 1;
+
             foreach (var item in rawData)
             {
-                item.ProductId = productId;
-                item.Name = refDataServiceProvider.GetProductName(productId);
-
-                yield return item;
-            }
-        }
-
-        private IEnumerable<ProductStatusModel> GetProductStatusBetTypeName(IEnumerable<ProductStatusModel> rawData)
-        {
-            foreach (var item in rawData)
-            {
-                item.Name = refDataServiceProvider.GetBetTypeName(item.BetType);
+                item.Name = setNameByBetTypeId
+                    ? refDataServiceProvider.GetBetTypeName(item.BetType)
+                    : refDataServiceProvider.GetProductName(productId);
 
                 yield return item;
             }

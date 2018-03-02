@@ -49,8 +49,6 @@
 
         public int TotalEnabledMembers { get; }
 
-        public int ProductId { get; set; }
-
         public string Name { get; set; }
     }
 }
