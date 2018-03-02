@@ -138,6 +138,9 @@
   <data name="ThereIsNoData" xml:space="preserve">
     <value>There Is No Data.</value>
   </data>
+  <data name="UpdateStatusFailed" xml:space="preserve">
+    <value>Update Status Failed.</value>
+  </data>
   <data name="UpdateStatusSuccessfully" xml:space="preserve">
     <value>Update Status Successfully.</value>
   </data>

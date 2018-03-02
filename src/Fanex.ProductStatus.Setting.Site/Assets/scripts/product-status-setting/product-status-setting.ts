@@ -38,6 +38,7 @@
             disabled: this.$('#disabled').val(),
             rootUrl: this.$('#rootUrl').val(),
             updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
+            updateStatusFailed: this.$('#updateStatusFailed').val(),
             updatePath: 'ProductStatusSetting/Update'
         }
 
@@ -198,11 +199,11 @@
             success: function (data, textStatus, jqXHR) {
                 self.showMessage(data.Code, data.Message)
             },
-            error: function (xhr, status, error){
-                alert('update fails');
+            error: function (xhr, status, error) {
+                self.showMessage(101, self.$resources.updateStatusFailed)
             },
             complete: function (jqXHR, textStatus) {
-              //  alert('update complete');
+              // this.$.unblockUI();
             }
         });
     }
@@ -280,12 +281,12 @@
        // this.$.unblockUI();
     }
 
-    showSuccessMessage = () => {
-        this.showMessage(0, this.$resources.updateStatusSuccessfully);
-    }
+    //showSuccessMessage = () => {
+    //    this.showMessage(0, this.$resources.updateStatusSuccessfully);
+    //}
 
     showMessage = (type: any, message: string) => {
-        var html = ['<div class="', type === 0 ? "alertboxscc" : "alertboxerr", '"><div>', message, "</div></div>"].join("");
+        var html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         var messageDiv = this.$("#sectionMessage");
         return messageDiv.html(html).removeClass("hide");
     }

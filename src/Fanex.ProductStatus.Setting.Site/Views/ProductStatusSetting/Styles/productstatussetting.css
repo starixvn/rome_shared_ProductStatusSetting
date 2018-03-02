@@ -83,3 +83,25 @@ body {
   }
 .btn-reset { background: #e67e22; }
   .btn-reset:hover { background: #d97115; }
+
+  .alerterror {
+	color: #F40000;
+	font-weight: bold;
+	margin: 2px;
+	padding-left: 30px;
+}
+.alertsuccess {
+	color: #0000FF;
+	font-weight: bold;
+	margin: 2px;
+	padding-left: 30px;
+	}
+
+.msg-container {
+    border: 1px solid #7c98a4;
+    background-color: #f5f6f2;
+    font-weight: bold;
+    margin-bottom: 10px;
+    max-height: 500px;
+    overflow-x: auto;
+}

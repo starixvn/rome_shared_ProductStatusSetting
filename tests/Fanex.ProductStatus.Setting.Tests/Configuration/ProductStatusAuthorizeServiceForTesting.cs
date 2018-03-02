@@ -15,5 +15,10 @@
         {
             throw new NotImplementedException();
         }
+
+        public Func<int> GetActorId()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

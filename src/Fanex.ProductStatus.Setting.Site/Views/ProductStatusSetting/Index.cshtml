@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Views/ProductStatusSetting/Styles/productstatussetting.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <div id="sectionMessage" class="hide"></div>
+    <div id="sectionMessage" class="msg-container hide"></div>
     @if (Model.ProductStatus.Count() > 0)
     {
         <table class="tbl-product margin-top10" id="tbl-product">
@@ -94,6 +94,7 @@
     @Html.Hidden("enabled", Resources.Enabled)
     @Html.Hidden("disabled", Resources.Disabled)
     @Html.Hidden("updateStatusSuccessfully", Resources.UpdateStatusSuccessfully)
+    @Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed)
 
     <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Assets/bundles/product-status-setting.js")"></script>

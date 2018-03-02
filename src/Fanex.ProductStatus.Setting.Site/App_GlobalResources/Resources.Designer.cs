@@ -124,6 +124,15 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Status Failed..
+        /// </summary>
+        public static string UpdateStatusFailed {
+            get {
+                return ResourceManager.GetString("UpdateStatusFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Status Successfully..
         /// </summary>
         public static string UpdateStatusSuccessfully {
