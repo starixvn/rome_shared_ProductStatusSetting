@@ -7,6 +7,7 @@
     $theadDisabledSpan: JQuery;
 
     $custId: string;
+    $custRole: string;
     $productId: string;
     $resources: any;
 
@@ -19,6 +20,7 @@
         this.registerEvents();
 
         this.$custId = this.$('#custId').val();
+        this.$custRole = this.$('#custRole').val();
         this.$productId = this.$('#productId').val();
     }
 
@@ -41,56 +43,74 @@
             updateStatusFailed: this.$('#updateStatusFailed').val(),
             updatePath: 'ProductStatusSetting/Update'
         }
+    }
 
+    registerEvents = () => {
+        let self = this;
+
+        self.$checkboxHidden.each(function (index, el) {
+            self.$(el).bind("change", function () {
+                self.checkboxChanged(self.$(this));
+            });
+        });
+
+        self.$enabledSpans
+            .unbind("click")
+            .bind("click", self.toggleStatus);
+
+        self.$disabledSpans
+            .unbind("click")
+            .bind("click", self.toggleStatus);
+
+        self.$theadEnableSpan.each(function (index, el) {
+            self.$(el).bind("click", function () {
+                self.toggleAllStatus(self.$(this), true);
+            });
+        });
+
+        self.$theadDisabledSpan.each(function (index, el) {
+            self.$(el).bind("click", function () {
+                self.toggleAllStatus(self.$(this), false);
+            });
+        });
+
+        self.$("#btnReset").on("click", function () { location.reload(true); });
+        self.$("#btnSubmit").on("click", self.onSubmit);
     }
 
     checkboxChanged = ($this: any) => {
         let labelText = this.$($this).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
-        this.toggleStatusDownlines($this);
+
+        let downlineRoleId = $this.data("roleid") - 1;
+        let betType = $this.data("bettype");
+        let enable = this.$($this).is(":checked");
+        this.toggleStatusDownlines(downlineRoleId, enable, betType);
+
         $this.next("label")
             .removeClass()
             .addClass(labelText.toLowerCase())
             .text(labelText);
     }
 
-    toggleStatusDownlines = ($this: any, isEnabled?: boolean) => {
-        let checked = false;
+    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
+        if (downlineRoleId > 0)
+        {
+            let enableStatusSpan = this.$("#enabled_" + downlineRoleId + "_" + betType);
+            let disableStatusSpan = this.$("#disabled_" + downlineRoleId + "_" + betType);
 
-        if (typeof (isEnabled) === "undefined" || isEnabled == null) {
-            checked = this.$($this).is(":checked");
-        }
-        else {
-            checked = isEnabled;
-        }
-
-        let roleId = $this.data("roleid");
-        let roleId01 = $this.data("roleid");
-        let betType = $this.data("bettype");
-
-        if (checked) {
-            while (--roleId > 0) {
-                if (this.$("#enabled_" + roleId + "_" + betType).data("total") != 0) {
-                    this.$("#enabled_" + roleId + "_" + betType).removeClass("gray");
-                    this.$("#disabled_" + roleId + "_" + betType).removeClass("gray");
+            if (enable) {
+                enableStatusSpan.removeClass("gray");
+                disableStatusSpan.removeClass("gray");
+                
+            } else {
+                if (enableStatusSpan.data("total") != 0) {
+                    enableStatusSpan.addClass("gray");
+                    disableStatusSpan.addClass("gray");
                 }
             }
-        } else {
-            while (--roleId > 0) {
-                if (this.$("#enabled_" + roleId + "_" + betType).data("total") != 0) {
-                    this.$("#enabled_" + roleId + "_" + betType).addClass("gray");
-                    this.$("#disabled_" + roleId + "_" + betType).addClass("gray");
-                }
-            }
-        }
 
-
-        if (this.$("input:checked").length == 0) {
-            while (--roleId01 > 0) {
-                if (this.$("#enabled_" + roleId + "_" + betType).data("total") != 0) {
-                    this.$("#enabled_" + roleId + "_" + betType).removeClass("gray");
-                    this.$("#disabled_" + roleId + "_" + betType).removeClass("gray");
-                }
-            }
+            let levelStatus = this.getLevelStatus(enableStatusSpan);
+            this.toggleStatusDownlines(downlineRoleId - 1, levelStatus.DisableAll, betType);
         }
     }
 
@@ -100,7 +120,6 @@
             let betType = statusSpan.data("bettype");
 
             let className = '';
-            // var oppositeClassName = '';
             if (isCheckAll) {
                 className = enableCheckAll ? "enabled" : "disabled";
             }
@@ -119,7 +138,7 @@
                 statusSpan.text((currentTotal + oppositeTotal).toLocaleString());
             }
 
-            this.toggleStatusDownlines(statusSpan, className === "enabled");
+            this.toggleStatusDownlines(roleId - 1, className === "enabled", betType);
         }
     }
 
@@ -139,50 +158,15 @@
                 }
             });
 
-            self.$checkboxHidden.each(function (index, element) {
-                let statusSpan = self.$(element);
-                if (statusSpan.data("roleid") === roleId && self.$(statusSpan).prop("checked") != status) {
-                    statusSpan.click();
-                }
-            });
+            if (self.$custRole == roleId) {
+                self.$checkboxHidden.each(function (index, element) {
+                    let statusSpan = self.$(element);
+                    if (statusSpan.data("roleid") === roleId && self.$(statusSpan).prop("checked") != status) {
+                        statusSpan.click();
+                    }
+                });
+            }
         }
-    }
-
-    registerEvents = () => {
-        let self = this;
-
-        self.$checkboxHidden.each(function (index, el) {
-            self.$(el).bind("change", function () {
-                self.checkboxChanged(self.$(this));
-            });
-        });
-
-        self.$enabledSpans.each(function (index, el) {
-            self.$(el).bind("click", function () {
-                self.toggleStatus(self.$(this));
-            });
-        });
-
-        self.$disabledSpans.each(function (index, el) {
-            self.$(el).bind("click", function () {
-                self.toggleStatus(self.$(this));
-            });
-        });
-
-        self.$theadEnableSpan.each(function (index, el) {
-            self.$(el).bind("click", function () {
-                self.toggleAllStatus(self.$(this), true);
-            });
-        });
-
-        self.$theadDisabledSpan.each(function (index, el) {
-            self.$(el).bind("click", function () {
-                self.toggleAllStatus(self.$(this), false);
-            });
-        });
-
-        self.$("#btnReset").on("click", function () { location.reload(true); });
-        self.$("#btnSubmit").on("click", self.onSubmit);
     }
 
     onSubmit = (e: any) => {
@@ -249,30 +233,36 @@
 
     getproductStatus = (spanElement: any, model: any) =>{
         let statusSpan = this.$(spanElement);
-
-        let totaldisabled = this.parseInt(statusSpan.text());
-        let originalTotaldisabled = statusSpan.data("totaldisabled");
-
-        let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
-        let disableAll = updateAll && totaldisabled > 0;
-
+        let levelStatus = this.getLevelStatus(statusSpan);
         let roleId = statusSpan.data("roleid");
+
         switch (roleId) {
             case 3:
-                model.updateAllMasters = updateAll;
-                model.disableAllMasters = disableAll;
+                model.updateAllMasters = levelStatus.UpdateAll;
+                model.disableAllMasters = levelStatus.DisableAll;
                 break;
             case 2:
-                model.updateAllAgents = updateAll;
-                model.disableAllAgents = disableAll;
+                model.updateAllAgents = levelStatus.UpdateAll;
+                model.disableAllAgents = levelStatus.DisableAll;
                 break;
             case 1:
-                model.updateAllMembers = updateAll;
-                model.disableAllMembers = disableAll;
+                model.updateAllMembers = levelStatus.UpdateAll;
+                model.disableAllMembers = levelStatus.DisableAll;
                 break;
         };
 
         return model;
+    }
+
+    getLevelStatus = (statusSpan: any) => {
+        let totaldisabled = this.parseInt(statusSpan.text());
+        let originalTotaldisabled = statusSpan.data("totaldisabled");
+        let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
+
+        return {
+            UpdateAll: updateAll,
+            DisableAll: updateAll && totaldisabled > 0
+        }
     }
 
     onSuccess = () => {
