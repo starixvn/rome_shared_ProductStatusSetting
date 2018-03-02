@@ -14,7 +14,7 @@
 
         public int CustId { get; }
 
-        public override string GetSettingKey() => "Acc_CustomerSelStatusByProductId";
+        public override string GetSettingKey() => "Acc_AdminSelStatusByProductId";
 
         public override bool IsValid() => ProductId > 0 && CustId > 0;
     }
