@@ -47,31 +47,33 @@
     registerEvents = () => {
         let self = this;
 
-        self.$checkboxHidden.each(function (index, el) {
-            self.$(el).bind("change", function () {
+        self.$checkboxHidden.unbind("change")
+            .bind("change", function () {
                 self.checkboxChanged(self.$(this));
             });
-        });
 
         self.$enabledSpans
             .unbind("click")
-            .bind("click", self.toggleStatus);
+            .bind("click", function () {
+                self.toggleStatus(self.$(this));
+            });
 
         self.$disabledSpans
             .unbind("click")
-            .bind("click", self.toggleStatus);
+            .bind("click", function () {
+                self.toggleStatus(self.$(this));
+            });
 
-        self.$theadEnableSpan.each(function (index, el) {
-            self.$(el).bind("click", function () {
+        self.$theadEnableSpan
+            .unbind("click")
+            .bind("click", function () {
                 self.toggleAllStatus(self.$(this), true);
             });
-        });
 
-        self.$theadDisabledSpan.each(function (index, el) {
-            self.$(el).bind("click", function () {
+        self.$theadDisabledSpan.unbind("click")
+            .bind("click", function () {
                 self.toggleAllStatus(self.$(this), false);
             });
-        });
 
         self.$("#btnReset").on("click", function () { location.reload(true); });
         self.$("#btnSubmit").on("click", self.onSubmit);
