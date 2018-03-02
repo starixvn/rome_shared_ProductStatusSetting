@@ -111,17 +111,19 @@
             let oppositeClassName = className === "enabled" ? "disabled" : "enabled";
             let oppositeId = ["#", oppositeClassName, "_", roleId, "_", betType].join("");
             let oppositeStatus = this.$(oppositeId);
-            let oppositeTotal = parseInt(oppositeStatus.text().replace(/,/g, ""));
+            let oppositeTotal = this.parseInt(oppositeStatus.text());
 
             if (oppositeTotal > 0) {
                 oppositeStatus.text("0");
-                let currentTotal = parseInt(statusSpan.text().replace(/,/g, ""));
+                let currentTotal = this.parseInt(statusSpan.text());
                 statusSpan.text((currentTotal + oppositeTotal).toLocaleString());
             }
 
             this.toggleStatusDownlines(statusSpan, className === "enabled");
         }
     }
+
+    parseInt = (value: string) => parseInt(value.replace(/,/g, ""));
 
     toggleAllStatus = ($this: any, status: boolean) => {
         let self = this;
@@ -248,8 +250,8 @@
     getproductStatus = (spanElement: any, model: any) =>{
         let statusSpan = this.$(spanElement);
 
-        let totaldisabled = Number(statusSpan.text());
-        let originalTotaldisabled = Number(statusSpan.data("totaldisabled"));
+        let totaldisabled = this.parseInt(statusSpan.text());
+        let originalTotaldisabled = statusSpan.data("totaldisabled");
 
         let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
         let disableAll = updateAll && totaldisabled > 0;
