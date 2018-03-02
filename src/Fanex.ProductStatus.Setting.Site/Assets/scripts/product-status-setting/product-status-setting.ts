@@ -40,8 +40,7 @@
             disabled: this.$('#disabled').val(),
             rootUrl: this.$('#rootUrl').val(),
             updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
-            updateStatusFailed: this.$('#updateStatusFailed').val(),
-            updatePath: 'ProductStatusSetting/Update'
+            updateStatusFailed: this.$('#updateStatusFailed').val()
         }
     }
 
