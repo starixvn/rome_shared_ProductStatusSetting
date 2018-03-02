@@ -30,14 +30,6 @@
             }
         }
 
-        public string IP
-        {
-            get
-            {
-                return user.IP;
-            }
-        }
-
         public virtual bool IsValid()
             => ProductId > 0
             && ProductStatus?.Length > 0

@@ -143,22 +143,5 @@
             // Assert
             Assert.False(actualResult);
         }
-
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("::1")]
-        [InlineData("127.0.0.1")]
-        public void IP_Always_AssignsCorrectToIP(string ip)
-        {
-            // Arrange
-            user.IP.Returns(ip);
-
-            // Act
-            var actualResult = updateBase.IP;
-
-            // Assert
-            Assert.Equal(ip, actualResult);
-        }
     }
 }

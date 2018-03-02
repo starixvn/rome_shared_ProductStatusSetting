@@ -8,7 +8,7 @@ namespace Fanex.ProductStatus.Setting.Site.Controllers
     {
         public ActionResult Index()
         {
-            FormsAuthentication.SetAuthCookie("demo username", true);
+            FormsAuthentication.SetAuthCookie("sa", true);
             return View();
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.Site
 {
     using System;
+    using System.Web;
     using System.Web.Mvc;
     using System.Web.Routing;
     using Configuration;
@@ -28,32 +29,22 @@
     public class ProductStatusAuthorizeService : IProductStatusAuthorizeService
     {
         public bool CanUpdate(AuthorizationContext filterContext)
-        {
-            return true;
-        }
+            => true;
 
         public bool CanView(AuthorizationContext filterContext)
+            => true;
+
+        public Func<int> GetActorId()
+            => GetActorIdFromSession;
+
+        private static int GetActorIdFromSession()
         {
-            return true;
+            return Convert.ToInt32(HttpContext.Current.Session["AccId"]);
         }
     }
 
     public class ProductStatusUser : IProductStatusUser
     {
-        public int ActorId
-        {
-            get
-            {
-                return 8;
-            }
-        }
-
-        public string IP
-        {
-            get
-            {
-                return "::1";
-            }
-        }
+        public int ActorId { get; } = 8;
     }
 }

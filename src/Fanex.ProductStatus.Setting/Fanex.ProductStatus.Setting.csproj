@@ -146,6 +146,7 @@
     <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />
     <Compile Include="ViewModels\ProductStatusViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModelBase.cs" />
+    <Compile Include="Web\IPHelper.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />

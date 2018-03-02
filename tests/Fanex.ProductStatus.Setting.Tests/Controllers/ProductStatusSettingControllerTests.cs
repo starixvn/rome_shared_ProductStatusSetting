@@ -86,7 +86,6 @@
         {
             // Arrange
             user.ActorId.Returns(8);
-            user.IP.Returns("127.0.0.1");
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino
@@ -105,7 +104,7 @@
         {
             // Arrange
             user.ActorId.Returns(8);
-            user.IP.Returns("127.0.0.1");
+            var ip = "127.0.0.1";
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -127,7 +126,7 @@
                 CustId = 1176083
             };
             productStatusService
-                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, user.ActorId, user.IP, updateViewModel.ProductStatus)
+                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, user.ActorId, ip, updateViewModel.ProductStatus)
                 .Returns(new Result(0, string.Empty));
 
             // Act
@@ -143,7 +142,6 @@
         {
             // Arrange
             user.ActorId.Returns(8);
-            user.IP.Returns("127.0.0.1");
             var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -167,7 +165,7 @@
         {
             // Arrange
             user.ActorId.Returns(8);
-            user.IP.Returns("127.0.0.1");
+            var ip = "127.0.0.1";
             var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,
@@ -199,7 +197,7 @@
             };
 
             productStatusService
-                .MultipleUpdateProductStatus(multipleUpdateViewModel.ProductId, multipleUpdateViewModel.Customers, user.ActorId, user.IP, multipleUpdateViewModel.ProductStatus)
+                .MultipleUpdateProductStatus(multipleUpdateViewModel.ProductId, multipleUpdateViewModel.Customers, user.ActorId, ip, multipleUpdateViewModel.ProductStatus)
                 .Returns(expectedResults);
 
             var compareLogic = new CompareLogic();

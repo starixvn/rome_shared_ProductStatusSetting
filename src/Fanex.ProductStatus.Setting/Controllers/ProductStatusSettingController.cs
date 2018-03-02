@@ -1,16 +1,13 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using System.Web.SessionState;
     using AppResources;
     using Models;
     using Services;
     using ViewModels;
     using Web;
 
-    [SessionState(SessionStateBehavior.ReadOnly)]
     public class ProductStatusSettingController : Controller
     {
         private readonly ProductStatusService productStatusService;
@@ -97,7 +94,7 @@
                     viewModel.ProductId,
                     viewModel.CustId,
                     viewModel.ActorId,
-                    viewModel.IP,
+                    IPHelper.GetClientIP(),
                     viewModel.ProductStatus);
 
                 return Json(result, jsonRequestBehavior);
@@ -117,7 +114,7 @@
                     viewModel.ProductId,
                     viewModel.Customers,
                     viewModel.ActorId,
-                    viewModel.IP,
+                    IPHelper.GetClientIP(),
                     viewModel.ProductStatus);
 
                 return Json(results, jsonRequestBehavior);
