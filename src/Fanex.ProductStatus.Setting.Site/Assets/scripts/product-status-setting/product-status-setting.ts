@@ -44,39 +44,53 @@
         }
     }
 
-    registerEvents = () => {
-        let self = this;
-
-        self.$checkboxHidden.unbind("change")
+    bindingCheckboxHiddenEvent = ($this: any) =>
+        $this.$checkboxHidden
+            .unbind("change")
             .bind("change", function () {
-                self.checkboxChanged(self.$(this));
+                $this.checkboxChanged($this.$(this));
             });
 
-        self.$enabledSpans
+    bindingEnableSpanEvent = ($this: any) => 
+        $this.$enabledSpans
             .unbind("click")
             .bind("click", function () {
-                self.toggleStatus(self.$(this));
+                $this.toggleStatus($this.$(this));
             });
 
-        self.$disabledSpans
+    bindingDisableSpanEvent = ($this: any) => 
+        $this.$disabledSpans
             .unbind("click")
             .bind("click", function () {
-                self.toggleStatus(self.$(this));
+                $this.toggleStatus($this.$(this));
             });
 
-        self.$theadEnableSpan
+    bindingTheadEnableSpanEvent = ($this: any) =>
+        $this.$theadEnableSpan
             .unbind("click")
             .bind("click", function () {
-                self.toggleAllStatus(self.$(this), true);
+                $this.toggleAllStatus($this.$(this), true);
             });
 
-        self.$theadDisabledSpan.unbind("click")
+    bindingTheadDisableSpanEvent = ($this: any) => 
+        $this.$theadDisabledSpan
+            .unbind("click")
             .bind("click", function () {
-                self.toggleAllStatus(self.$(this), false);
+                $this.toggleAllStatus($this.$(this), false);
             });
 
-        self.$("#btnReset").on("click", function () { location.reload(true); });
-        self.$("#btnSubmit").on("click", self.onSubmit);
+    bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
+    bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
+
+    registerEvents = () => {
+        this.bindingCheckboxHiddenEvent(this);
+        this.bindingEnableSpanEvent(this);
+        this.bindingDisableSpanEvent(this);
+        this.bindingTheadEnableSpanEvent(this);
+        this.bindingTheadDisableSpanEvent(this);
+
+        this.bindingResetButtonEvent();
+        this.bindingSubmitButtonEvent();
     }
 
     checkboxChanged = ($this: any) => {
@@ -99,19 +113,16 @@
             let enableStatusSpan = this.$("#enabled_" + downlineRoleId + "_" + betType);
             let disableStatusSpan = this.$("#disabled_" + downlineRoleId + "_" + betType);
 
-            if (enable) {
+            if (enable && enableStatusSpan.data("total") > 0) {
                 enableStatusSpan.removeClass("gray");
                 disableStatusSpan.removeClass("gray");
-                
             } else {
-                if (enableStatusSpan.data("total") != 0) {
-                    enableStatusSpan.addClass("gray");
-                    disableStatusSpan.addClass("gray");
-                }
+                enableStatusSpan.addClass("gray");
+                disableStatusSpan.addClass("gray");
             }
 
-            let levelStatus = this.getLevelStatus(enableStatusSpan);
-            this.toggleStatusDownlines(downlineRoleId - 1, levelStatus.DisableAll, betType);
+            let enableDownline = enable ? !this.getLevelStatus(disableStatusSpan).DisableAll : false;
+            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
         }
     }
 
@@ -150,32 +161,40 @@
 
         if (!$this.hasClass("gray")) {
             let roleId = $this.data("roleid");
-            let statusSpanArray = status ? self.$enabledSpans : self.$disabledSpans;
+            this.triggerSpanStatus(roleId, status);
 
-            statusSpanArray.each(function (index, element) {
-                let statusSpan = self.$(element);
-                if (statusSpan.data("roleid") === roleId) {
-                    self.toggleStatus(statusSpan, true, status);
-                }
-            });
-
-            if (self.$custRole == roleId) {
-                self.$checkboxHidden.each(function (index, element) {
-                    let statusSpan = self.$(element);
-                    if (statusSpan.data("roleid") === roleId && self.$(statusSpan).prop("checked") != status) {
-                        statusSpan.click();
-                    }
-                });
+            if (this.$custRole == roleId) {
+                this.triggerCheckboxHidden(roleId, status);
             }
         }
+    }
+
+    triggerSpanStatus = (roleId: number, status: boolean) => {
+        let self = this;
+        let statusSpanArray = status ? this.$enabledSpans : this.$disabledSpans;
+
+        statusSpanArray.each(function (index, element) {
+            let statusSpan = self.$(element);
+            if (statusSpan.data("roleid") === roleId) {
+                self.toggleStatus(statusSpan, true, status);
+            }
+        });
+    }
+
+    triggerCheckboxHidden = (roleId: number, status: boolean) => {
+        let self = this;
+        this.$checkboxHidden.each(function (index, element) {
+            let statusSpan = self.$(element);
+            if (statusSpan.data("roleid") === roleId && self.$(statusSpan).prop("checked") != status) {
+                statusSpan.click();
+            }
+        });
     }
 
     onSubmit = (e: any) => {
         e.preventDefault();
 
         //this.$.blockUI();
-
-        let self = this;
         let updateViewModelBase = this.getUpdateViewModelBase();
         this.$.ajax({
             type: "POST",
@@ -183,15 +202,9 @@
             data: JSON.stringify(updateViewModelBase),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (data, textStatus, jqXHR) {
-                self.showMessage(data.Code, data.Message)
-            },
-            error: function (xhr, status, error) {
-                self.showMessage(101, self.$resources.updateStatusFailed)
-            },
-            complete: function (jqXHR, textStatus) {
-              // this.$.unblockUI();
-            }
+            success: this.onSuccess,
+            error: this.onError,
+            complete: this.onComplete
         });
     }
 
@@ -232,12 +245,11 @@
         };
     }
 
-    getproductStatus = (spanElement: any, model: any) =>{
-        let statusSpan = this.$(spanElement);
-        let levelStatus = this.getLevelStatus(statusSpan);
-        let roleId = statusSpan.data("roleid");
+    getproductStatus = (disabledSpan: any, model: any) =>{
+        let levelStatus = this.getLevelStatus(this.$(disabledSpan));
+        let roleId = this.$(disabledSpan).data("roleid");
 
-        switch (roleId) {
+        switch (this.$(disabledSpan).data("roleid")) {
             case 3:
                 model.updateAllMasters = levelStatus.UpdateAll;
                 model.disableAllMasters = levelStatus.DisableAll;
@@ -255,10 +267,10 @@
         return model;
     }
 
-    getLevelStatus = (statusSpan: any) => {
-        let totaldisabled = this.parseInt(statusSpan.text());
-        let originalTotaldisabled = statusSpan.data("totaldisabled");
-        let updateAll = !statusSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
+    getLevelStatus = (disabledSpan: any) => {
+        let totaldisabled = this.parseInt(disabledSpan.text());
+        let originalTotaldisabled = disabledSpan.data("totaldisabled");
+        let updateAll = !disabledSpan.hasClass("gray") && totaldisabled != originalTotaldisabled;
 
         return {
             UpdateAll: updateAll,
@@ -266,17 +278,17 @@
         }
     }
 
-    onSuccess = () => {
-       
+    onSuccess = (data: any) => {
+        this.showMessage(data.Code, data.Message)
+    }
+
+    onError = () => {
+        this.showMessage(101, this.$resources.updateStatusFailed);
     }
 
     onComplete = () => {
        // this.$.unblockUI();
     }
-
-    //showSuccessMessage = () => {
-    //    this.showMessage(0, this.$resources.updateStatusSuccessfully);
-    //}
 
     showMessage = (type: any, message: string) => {
         var html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
