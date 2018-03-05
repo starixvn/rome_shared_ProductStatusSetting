@@ -55,14 +55,14 @@
         $this.$enabledSpans
             .unbind("click")
             .bind("click", function () {
-                $this.toggleStatus($this.$(this));
+                $this.toggleStatusBySpan($this.$(this));
             });
 
     bindingDisableSpanEvent = ($this: any) => 
         $this.$disabledSpans
             .unbind("click")
             .bind("click", function () {
-                $this.toggleStatus($this.$(this));
+                $this.toggleStatusBySpan($this.$(this));
             });
 
     bindingTheadEnableSpanEvent = ($this: any) =>
@@ -126,18 +126,15 @@
         }
     }
 
-    toggleStatus = (statusSpan: any, isCheckAll?: boolean, enableCheckAll?: boolean) => {
+    toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, statusSpan.attr("class"));
+
+    toggleStatusByHiddenCheck = (statusSpan: any, isCheckAll: boolean, enableCheckAll: boolean) => 
+        this.toggleStatus(statusSpan, enableCheckAll ? "enabled" : "disabled");
+
+    toggleStatus = (statusSpan: any, className: string) => {
         if (!statusSpan.hasClass("gray")) {
             let roleId = statusSpan.data("roleid");
             let betType = statusSpan.data("bettype");
-
-            let className = '';
-            if (isCheckAll) {
-                className = enableCheckAll ? "enabled" : "disabled";
-            }
-            else {
-                className = statusSpan.attr("class");
-            }
 
             let oppositeClassName = className === "enabled" ? "disabled" : "enabled";
             let oppositeId = ["#", oppositeClassName, "_", roleId, "_", betType].join("");
@@ -176,7 +173,7 @@
         statusSpanArray.each(function (index, element) {
             let statusSpan = self.$(element);
             if (statusSpan.data("roleid") === roleId) {
-                self.toggleStatus(statusSpan, true, status);
+                self.toggleStatusByHiddenCheck(statusSpan, true, status);
             }
         });
     }
