@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
-    using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Setting.Controllers;
     using Setting.Models;
@@ -135,79 +134,6 @@
 
             // Assert
             Assert.True(actualResult.IsSuccess());
-        }
-
-        [Fact]
-        public void MultipleUpdate_InvalidMultipleUpdateViewModel_ReturnsBadRequest()
-        {
-            // Arrange
-            user.GetActorId().Returns(() => 8);
-            var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
-            {
-                ProductId = ProductIdentity.Casino,
-                Customers = new[]
-                {
-                    new Customer(1176083, "supertest1"),
-                    new Customer(1176082, "supertest2")
-                }
-            };
-
-            // Act
-            var actualView = productStatusSettingController.MultipleUpdate(multipleUpdateViewModel) as JsonResult;
-            var actualResult = (Result)actualView.Data;
-
-            // Assert
-            Assert.Equal(400, actualResult.Code);
-        }
-
-        [Fact]
-        public void MultipleUpdate_ValidMultipleUpdateViewModel_ReturnsSuccessfulJson()
-        {
-            // Arrange
-            user.GetActorId().Returns(() => 8);
-            user.GetClientIP().Returns(() => "127.0.0.1");
-            var multipleUpdateViewModel = new MultipleUpdateViewModel(user)
-            {
-                ProductId = ProductIdentity.Casino,
-                ProductStatus = new[]
-                {
-                    new ProductStatusCommand
-                    {
-                        SportType = 208,
-                        BetType = 2101,
-                        Disable = false,
-                        UpdateAllMasters = true,
-                        DisableAllMasters = false,
-                        UpdateAllAgents = true,
-                        DisableAllAgents = false,
-                        UpdateAllMembers = true,
-                        DisableAllMembers = false,
-                    }
-                },
-                Customers = new[]
-                {
-                    new Customer(1176083, "supertest1"),
-                    new Customer(1176082, "supertest2")
-                }
-            };
-            var expectedResults = new List<Result>
-            {
-                new MultipleResult(0, string.Empty, 1176083, "supertest1"),
-                new MultipleResult(102, string.Empty, 1176082, "supertest2"),
-            };
-
-            productStatusService
-                .MultipleUpdateProductStatus(multipleUpdateViewModel.ProductId, multipleUpdateViewModel.Customers, multipleUpdateViewModel.ActorId, multipleUpdateViewModel.IP, multipleUpdateViewModel.ProductStatus)
-                .Returns(expectedResults);
-
-            var compareLogic = new CompareLogic();
-
-            // Act
-            var actualView = productStatusSettingController.MultipleUpdate(multipleUpdateViewModel) as JsonResult;
-            var actualResults = (List<Result>)actualView.Data;
-
-            // Assert
-            Assert.True(compareLogic.Compare(expectedResults, actualResults).AreEqual);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Fanex.ProductStatus.Setting.DataAccess
     using Models;
     using NAP.Framework.Data;
 
-    internal interface ProductStatusDataAccess
+    public interface ProductStatusDataAccess
     {
         IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
 

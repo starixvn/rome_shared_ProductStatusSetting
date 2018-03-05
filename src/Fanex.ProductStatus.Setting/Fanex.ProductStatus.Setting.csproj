@@ -136,16 +136,12 @@
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\MultipleResult.cs" />
     <Compile Include="Services\RefDataServiceProvider.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUser.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
     <Compile Include="ViewModels\DownlineStatusViewModel.cs" />
-    <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />
     <Compile Include="ViewModels\ProductStatusViewModel.cs" />
-    <Compile Include="ViewModels\UpdateViewModelBase.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />

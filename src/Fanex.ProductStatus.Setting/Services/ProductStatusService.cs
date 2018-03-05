@@ -16,16 +16,9 @@
             int actorId,
             string ip,
             IEnumerable<ProductStatusCommand> commands);
-
-        IEnumerable<Result> MultipleUpdateProductStatus(
-            int productId,
-            IEnumerable<Customer> customers,
-            int actorId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands);
     }
 
-    internal class ProductStatusServiceImpl : ProductStatusService
+    public class ProductStatusServiceImpl : ProductStatusService
     {
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
@@ -75,31 +68,6 @@
             return productId == ProductIdentity.Keno ?
                 UpdateKenoStatus(custId, actorId, ip, commands) :
                 UpdateStatus(productId, custId, actorId, ip, commands);
-        }
-
-        public IEnumerable<Result> MultipleUpdateProductStatus(
-            int productId,
-            IEnumerable<Customer> customers,
-            int actorId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands)
-        {
-            IList<Result> results = new List<Result>();
-
-            foreach (var customer in customers)
-            {
-                // Todo: check product is offered to customer here.
-                Result result = new MultipleResult(1, "Error", customer.CustId, customer.CustName);
-
-                if (result.IsSuccess())
-                {
-                    result = UpdateProductStatus(productId, customer.CustId, actorId, ip, commands);
-                }
-
-                results.Add(result);
-            }
-
-            return results;
         }
 
         private Result UpdateKenoStatus(

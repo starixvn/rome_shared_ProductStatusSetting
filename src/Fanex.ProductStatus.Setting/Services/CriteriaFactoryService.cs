@@ -7,7 +7,7 @@
     using NAP.Framework.Data;
     using Shared;
 
-    internal interface CriteriaFactoryService
+    public interface CriteriaFactoryService
     {
         ICriteria CreateSelectCriteria(int productId, int custId);
 

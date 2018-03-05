@@ -53,25 +53,5 @@
 
             return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
-
-        [HttpPost, ProductStatusAuthorize(IsHost = true)]
-        public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
-        {
-            var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
-
-            if (viewModel.IsValid())
-            {
-                var results = productStatusService.MultipleUpdateProductStatus(
-                    viewModel.ProductId,
-                    viewModel.Customers,
-                    viewModel.ActorId,
-                    viewModel.IP,
-                    viewModel.ProductStatus);
-
-                return Json(results, jsonRequestBehavior);
-            }
-
-            return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
-        }
     }
 }

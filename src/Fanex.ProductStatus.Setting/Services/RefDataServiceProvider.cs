@@ -2,7 +2,7 @@
 {
     using AppResources;
 
-    internal interface RefDataServiceProvider
+    public interface RefDataServiceProvider
     {
         string GetBetTypeName(int betTypeId);
 

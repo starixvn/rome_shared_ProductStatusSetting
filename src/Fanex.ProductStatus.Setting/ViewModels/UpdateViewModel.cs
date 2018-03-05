@@ -1,22 +1,39 @@
-﻿using Fanex.ProductStatus.Setting.Services;
-
-namespace Fanex.ProductStatus.Setting.ViewModels
+﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
-    public class UpdateViewModel : UpdateViewModelBase
+    using Configuration;
+    using Models;
+    using Services;
+
+    public class UpdateViewModel
     {
+        private readonly IProductStatusUser user;
+
         public UpdateViewModel()
-            : base(null)
+            : this(null)
         {
         }
 
         public UpdateViewModel(IProductStatusUser user)
-            : base(user)
         {
+            this.user = user ?? ProductStatusConfigurationHandler.User;
         }
+
+        public int ProductId { get; set; }
 
         public int CustId { get; set; }
 
-        public override bool IsValid()
-            => base.IsValid() && CustId > 0;
+        public ProductStatusCommand[] ProductStatus { get; set; }
+
+        public string IP
+            => user.GetClientIP().Invoke();
+
+        public int ActorId
+            => user.GetActorId().Invoke();
+
+        public virtual bool IsValid()
+            => ProductId > 0
+            && CustId > 0
+            && ProductStatus?.Length > 0
+            && ActorId > 0;
     }
 }
