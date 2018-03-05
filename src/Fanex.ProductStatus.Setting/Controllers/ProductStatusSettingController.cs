@@ -6,6 +6,7 @@
     using Models;
     using Services;
     using ViewModels;
+    using Web;
 
     public class ProductStatusSettingController : Controller
     {
@@ -21,7 +22,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        //[ProductStatusAuthorize(IsHost = false)]
+        [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatus = viewModel.IsValid()
@@ -33,7 +34,7 @@
             return View(viewModel);
         }
 
-        //[HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
+        [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
         public ActionResult Update(UpdateViewModel viewModel)
         {
             var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
@@ -53,7 +54,7 @@
             return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
         }
 
-       // [HttpPost, ProductStatusAuthorize(IsHost = true)]
+        [HttpPost, ProductStatusAuthorize(IsHost = true)]
         public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
         {
             var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
