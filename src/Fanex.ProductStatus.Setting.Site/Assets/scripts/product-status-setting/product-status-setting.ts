@@ -52,39 +52,39 @@
         }
     }
 
-    bindingCheckboxHiddenEvent = ($this: any) =>
-        $this.$checkboxHidden
+    bindingCheckboxHiddenEvent = (self: any) =>
+        self.$checkboxHidden
             .unbind("change")
             .bind("change", function () {
-                $this.checkboxChanged($this.$(this));
+                self.checkboxChanged(self.$(this));
             });
 
-    bindingEnableSpanEvent = ($this: any) => 
-        $this.$enabledSpans
+    bindingEnableSpanEvent = (self: any) => 
+        self.$enabledSpans
             .unbind("click")
             .bind("click", function () {
-                $this.toggleStatusBySpan($this.$(this));
+                self.toggleStatusBySpan(self.$(this));
             });
 
-    bindingDisableSpanEvent = ($this: any) => 
-        $this.$disabledSpans
+    bindingDisableSpanEvent = (self: any) => 
+        self.$disabledSpans
             .unbind("click")
             .bind("click", function () {
-                $this.toggleStatusBySpan($this.$(this));
+                self.toggleStatusBySpan(self.$(this));
             });
 
-    bindingTheadEnableSpanEvent = ($this: any) =>
-        $this.$theadEnableSpan
+    bindingTheadEnableSpanEvent = (self: any) =>
+        self.$theadEnableSpan
             .unbind("click")
             .bind("click", function () {
-                $this.toggleAllStatus($this.$(this), true);
+                self.toggleAllStatus(self.$(this), true);
             });
 
-    bindingTheadDisableSpanEvent = ($this: any) => 
-        $this.$theadDisabledSpan
+    bindingTheadDisableSpanEvent = (self: any) => 
+        self.$theadDisabledSpan
             .unbind("click")
             .bind("click", function () {
-                $this.toggleAllStatus($this.$(this), false);
+                self.toggleAllStatus(self.$(this), false);
             });
 
     bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
@@ -101,15 +101,15 @@
         this.bindingSubmitButtonEvent();
     }
 
-    checkboxChanged = ($this: any) => {
-        let labelText = this.$($this).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
+    checkboxChanged = (element: any) => {
+        let labelText = this.$(element).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
 
-        let downlineRoleId = this.getRoleId($this) - 1;
-        let betType = this.getBetType($this);
-        let enable = this.$($this).is(":checked");
+        let downlineRoleId = this.getRoleId(element) - 1;
+        let betType = this.getBetType(element);
+        let enable = this.$(element).is(":checked");
         this.toggleStatusDownlines(downlineRoleId, enable, betType);
 
-        $this.next("label")
+        element.next("label")
             .removeClass()
             .addClass(labelText.toLowerCase())
             .text(labelText);
@@ -143,7 +143,7 @@
 
     toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, statusSpan.attr("class"));
 
-    toggleStatusByHiddenCheck = (statusSpan: any, isCheckAll: boolean, enableCheckAll: boolean) => 
+    toggleStatusByHiddenCheck = (statusSpan: any, enableCheckAll: boolean) => 
         this.toggleStatus(statusSpan, enableCheckAll ? this.$resources.enabledClass : this.$resources.disabledClass);
 
     toggleStatus = (statusSpan: any, className: string) => {
@@ -165,35 +165,31 @@
         }
     }
 
-    toggleAllStatus = ($this: any, status: boolean) => {
-        if (!this.isDisableElement($this)) {
-            let roleId = this.getRoleId($this);
-            this.triggerSpanStatus(roleId, status);
-
-            if (this.$custRole == roleId) {
-                this.triggerCheckboxHidden(roleId, status);
-            }
+    toggleAllStatus = (element: any, enable: boolean) => {
+        if (!this.isDisableElement(element)) {
+            let roleId = this.getRoleId(element);
+            this.$custRole == roleId ? this.triggerCheckboxHidden(enable) : this.triggerSpanStatus(roleId, enable);
         }
     }
 
-    triggerSpanStatus = (roleId: number, status: boolean) => {
+    triggerSpanStatus = (roleId: number, enable: boolean) => {
         let self = this;
-        let statusSpanArray = status ? this.$enabledSpans : this.$disabledSpans;
+        let statusSpanArray = enable ? this.$enabledSpans : this.$disabledSpans;
 
         statusSpanArray.each(function (index, element) {
             let statusSpan = self.$(element);
             if (self.getRoleId(statusSpan) === roleId) {
-                self.toggleStatusByHiddenCheck(statusSpan, true, status);
+                self.toggleStatusByHiddenCheck(statusSpan, enable);
             }
         });
     }
 
-    triggerCheckboxHidden = (roleId: number, status: boolean) => {
+    triggerCheckboxHidden = (changeAllStatus: boolean) => {
         let self = this;
         this.$checkboxHidden.each(function (index, element) {
-            let statusSpan = self.$(element);
-            if (self.getRoleId(statusSpan) === roleId && self.$(statusSpan).prop("checked") != status) {
-                statusSpan.click();
+            let chkElement = self.$(element);
+            if (chkElement.prop("checked") != changeAllStatus) {
+                chkElement.click();
             }
         });
     }
@@ -220,7 +216,6 @@
     onSubmit = (e: any) => {
         e.preventDefault();
 
-        this.setupAntiXSRF();
         let headers = this.setupAntiXSRF();
         this.$.ajax({
             type: "POST",
