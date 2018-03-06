@@ -132,17 +132,14 @@
                 this.disableElement(disableStatusSpan);
             }
 
-            let totalDisabled = this.parseInt(disableStatusSpan.text());
-            let totalEnabled = this.parseInt(enableStatusSpan.text());
-            let enableDownline = enable ? totalEnabled > 0 : false;
-
+            let enableDownline = enable ? this.parseInt(enableStatusSpan.text()) > 0 : false;
             this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
         }
     }
 
     disableElement = (element: any) => element.addClass(this.$resources.grayClass);
     enableElement = (element: any) => element.removeClass(this.$resources.grayClass);
-    isDisableElement = (element: any) => element.hasClass(this.$resources.grayClass)
+    isDisableElement = (element: any) => element.hasClass(this.$resources.grayClass);
 
     toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, statusSpan.attr("class"));
 
@@ -204,7 +201,6 @@
     getRoleId = (element: any) => element.data("roleid");
     getBetType = (element: any) => element.data("bettype");
     getSportType = (element: any) => element.data("bettype");
-
     getStatusTotal = (element: any) => element.data("total");
 
     buildElementId = (className: string, roleId: number, betType: number) =>
@@ -212,30 +208,26 @@
 
     parseInt = (value: string) => parseInt(value.replace(/,/g, ""));
 
-    setupAntiXSRF = () => {
-        let self = this;
 
-        this.$.ajaxSetup({
-            beforeSend: function (xhr) {
-                self.$.blockUI();
-                let antiXSRFToken = self.$("[name='__RequestVerificationToken']");
-                if (antiXSRFToken.length > 0) {
-                    xhr.setRequestHeader("__RequestVerificationToken", (<HTMLInputElement>antiXSRFToken[0]).value);
-                }
-            }
-        });
+    setupAntiXSRF = () => {
+        let token = this.$('[name=__RequestVerificationToken]').val();
+        let headers = {};
+        headers["__RequestVerificationToken"] = token;
+
+        return headers;
     }
 
     onSubmit = (e: any) => {
         e.preventDefault();
 
         this.setupAntiXSRF();
-        let updateViewModelBase = this.getUpdateViewModelBase();
-        
+        let headers = this.setupAntiXSRF();
         this.$.ajax({
             type: "POST",
             url: "Update",
-            data: JSON.stringify(updateViewModelBase),
+            cache: false,
+            headers: headers,
+            data: JSON.stringify(this.getUpdateViewModelBase()),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: this.onSuccess,
@@ -247,7 +239,6 @@
         let self = this;
 
         let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
-
             let checkboxStatus = self.$(this).find('input:checkbox')
             let bettype = self.getBetType(checkboxStatus);
             let sporttype = self.getSportType(checkboxStatus);
