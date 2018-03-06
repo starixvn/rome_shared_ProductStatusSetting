@@ -96,8 +96,10 @@
     @Html.Hidden("disabled", Resources.Disabled)
     @Html.Hidden("updateStatusSuccessfully", Resources.UpdateStatusSuccessfully)
     @Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed)
+    @Html.AntiForgeryToken()
 
     <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/blockUI.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Assets/bundles/product-status-setting.js")"></script>
 </body>
 </html>

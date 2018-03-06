@@ -154,8 +154,6 @@
     parseInt = (value: string) => parseInt(value.replace(/,/g, ""));
 
     toggleAllStatus = ($this: any, status: boolean) => {
-        let self = this;
-
         if (!$this.hasClass("gray")) {
             let roleId = $this.data("roleid");
             this.triggerSpanStatus(roleId, status);
@@ -188,11 +186,26 @@
         });
     }
 
+    setupAntiXSRF = () => {
+        let self = this;
+
+        this.$.ajaxSetup({
+            beforeSend: function (xhr) {
+                self.$.blockUI();
+                let antiXSRFToken = self.$("[name='__RequestVerificationToken']");
+                if (antiXSRFToken.length > 0) {
+                    xhr.setRequestHeader("__RequestVerificationToken", (<HTMLInputElement>antiXSRFToken[0]).value);
+                }
+            }
+        });
+    }
+
     onSubmit = (e: any) => {
         e.preventDefault();
 
-        //this.$.blockUI();
+        this.setupAntiXSRF();
         let updateViewModelBase = this.getUpdateViewModelBase();
+        
         this.$.ajax({
             type: "POST",
             url: "Update",
@@ -200,8 +213,7 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: this.onSuccess,
-            error: this.onError,
-            complete: this.onComplete
+            error: this.onError
         });
     }
 
@@ -276,15 +288,16 @@
     }
 
     onSuccess = (data: any) => {
-        this.showMessage(data.Code, data.Message)
+        this.$.unblockUI();
+        this.showMessage(data.Code, data.Message);
+        setTimeout(function () {
+            location.reload(true);
+        }, 3000);
     }
 
     onError = () => {
         this.showMessage(101, this.$resources.updateStatusFailed);
-    }
-
-    onComplete = () => {
-       // this.$.unblockUI();
+        this.$.unblockUI();
     }
 
     showMessage = (type: any, message: string) => {

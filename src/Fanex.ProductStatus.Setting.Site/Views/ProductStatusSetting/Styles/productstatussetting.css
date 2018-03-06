@@ -100,8 +100,17 @@ body {
 .msg-container {
     border: 1px solid #7c98a4;
     background-color: #f5f6f2;
+    margin-top: 10px;
     font-weight: bold;
     margin-bottom: 10px;
     max-height: 500px;
     overflow-x: auto;
+}
+
+/*Loading css*/
+.block-ui-loading
+{
+    width: 64px;
+    height: 64px;
+    background: url(Images/loader3.gif) no-repeat;
 }
