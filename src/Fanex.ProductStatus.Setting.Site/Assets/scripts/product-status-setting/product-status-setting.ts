@@ -1,7 +1,7 @@
-﻿class ProductStatusSetting { 
+﻿class ProductStatusSetting {
     $: JQueryStatic;
-    $enabledSpans: JQuery;
-    $disabledSpans: JQuery;
+    $tbodyEnabledSpans: JQuery;
+    $tbodyDisabledSpans: JQuery;
     $checkboxHidden: JQuery;
     $theadEnableSpan: JQuery;
     $theadDisabledSpan: JQuery;
@@ -35,8 +35,8 @@
         let tbody = table.find("tbody");
 
         this.$checkboxHidden = this.$("input[class='checkbox-hide']");
-        this.$enabledSpans = tbody.find("span.enabled");   
-        this.$disabledSpans = tbody.find("span.disabled");
+        this.$tbodyEnabledSpans = tbody.find("span.enabled");
+        this.$tbodyDisabledSpans = tbody.find("span.disabled");
         this.$theadEnableSpan = thead.find("span.enabled");
         this.$theadDisabledSpan = thead.find("span.disabled");
 
@@ -59,15 +59,15 @@
                 self.checkboxChanged(self.$(this));
             });
 
-    bindingEnableSpanEvent = (self: any) => 
-        self.$enabledSpans
+    bindingEnableSpanEvent = (self: any) =>
+        self.$tbodyEnabledSpans
             .unbind("click")
             .bind("click", function () {
                 self.toggleStatusBySpan(self.$(this));
             });
 
-    bindingDisableSpanEvent = (self: any) => 
-        self.$disabledSpans
+    bindingDisableSpanEvent = (self: any) =>
+        self.$tbodyDisabledSpans
             .unbind("click")
             .bind("click", function () {
                 self.toggleStatusBySpan(self.$(this));
@@ -80,7 +80,7 @@
                 self.toggleAllStatus(self.$(this), true);
             });
 
-    bindingTheadDisableSpanEvent = (self: any) => 
+    bindingTheadDisableSpanEvent = (self: any) =>
         self.$theadDisabledSpan
             .unbind("click")
             .bind("click", function () {
@@ -101,90 +101,26 @@
         this.bindingSubmitButtonEvent();
     }
 
-    checkboxChanged = (element: any) => {
-        let labelText = this.$(element).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
-
-        let downlineRoleId = this.getRoleId(element) - 1;
-        let betType = this.getBetType(element);
-        let enable = this.$(element).is(":checked");
-        this.toggleStatusDownlines(downlineRoleId, enable, betType);
-
-        element.next("label")
-            .removeClass()
-            .addClass(labelText.toLowerCase())
-            .text(labelText);
-    }
-
-    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
-        if (downlineRoleId > 0)
-        {
-            let enabledSpanId = this.buildElementId(this.$resources.enabledClass, downlineRoleId, betType);
-            let disabledSpanId = this.buildElementId(this.$resources.disabledClass, downlineRoleId, betType);
-
-            let enableStatusSpan = this.$(enabledSpanId);
-            let disableStatusSpan = this.$(disabledSpanId);
-
-            if (enable && this.getStatusTotal(enableStatusSpan) > 0) {
-                this.enableElement(enableStatusSpan);
-                this.enableElement(disableStatusSpan);
-            } else {
-                this.disableElement(enableStatusSpan);
-                this.disableElement(disableStatusSpan);
-            }
-
-            let enableDownline = enable ? this.parseInt(enableStatusSpan.text()) > 0 : false;
-            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
-        }
-    }
-
-    disableElement = (element: any) => element.addClass(this.$resources.grayClass);
-    enableElement = (element: any) => element.removeClass(this.$resources.grayClass);
-    isDisableElement = (element: any) => element.hasClass(this.$resources.grayClass);
-
-    toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, statusSpan.attr("class"));
-
-    toggleStatusByHiddenCheck = (statusSpan: any, enableCheckAll: boolean) => 
-        this.toggleStatus(statusSpan, enableCheckAll ? this.$resources.enabledClass : this.$resources.disabledClass);
-
-    toggleStatus = (statusSpan: any, className: string) => {
-        if (!this.isDisableElement(statusSpan)) {
-            let roleId = this.getRoleId(statusSpan);
-            let betType = this.getBetType(statusSpan);
-
-            let oppositeClassName = className === this.$resources.enabledClass ? this.$resources.disabledClass : this.$resources.enabledClass;
-            let oppositeId = this.buildElementId(oppositeClassName, roleId, betType);
-            let oppositeStatus = this.$(oppositeId);
-            let oppositeTotal = this.parseInt(oppositeStatus.text());
-
-            if (oppositeTotal > 0) {
-                oppositeStatus.text("0");
-                statusSpan.text(this.getStatusTotal(statusSpan));
-            }
-
-            this.toggleStatusDownlines(roleId - 1, className === this.$resources.enabledClass, betType);
-        }
-    }
-
     toggleAllStatus = (element: any, enable: boolean) => {
-        if (!this.isDisableElement(element)) {
+        if (!this.allowActionOnElement(element)) {
             let roleId = this.getRoleId(element);
-            this.$custRole == roleId ? this.triggerCheckboxHidden(enable) : this.triggerSpanStatus(roleId, enable);
+            this.$custRole == roleId ? this.toggleAllStatusOnCheckbox(enable) : this.toggleAllStatusOnSpans(roleId, enable);
         }
     }
 
-    triggerSpanStatus = (roleId: number, enable: boolean) => {
+    toggleAllStatusOnSpans = (toggleAllRoleId: number, enable: boolean) => {
         let self = this;
-        let statusSpanArray = enable ? this.$enabledSpans : this.$disabledSpans;
+        let statusSpanArray = enable ? this.$tbodyEnabledSpans : this.$tbodyDisabledSpans;
 
         statusSpanArray.each(function (index, element) {
             let statusSpan = self.$(element);
-            if (self.getRoleId(statusSpan) === roleId) {
-                self.toggleStatusByHiddenCheck(statusSpan, enable);
+            if (self.getRoleId(statusSpan) === toggleAllRoleId) {
+                statusSpan.click();
             }
         });
     }
 
-    triggerCheckboxHidden = (changeAllStatus: boolean) => {
+    toggleAllStatusOnCheckbox = (changeAllStatus: boolean) => {
         let self = this;
         this.$checkboxHidden.each(function (index, element) {
             let chkElement = self.$(element);
@@ -194,16 +130,74 @@
         });
     }
 
+    checkboxChanged = (element: any) => {
+        let labelText = this.$(element).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
+
+        element.next("label")
+            .removeClass()
+            .addClass(labelText.toLowerCase())
+            .text(labelText);
+
+        this.toggleStatusDownlines(this.getRoleId(element) - 1, this.$(element).is(":checked"), this.getBetType(element));
+    }
+
+    toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, this.isEnabledElement(statusSpan.attr("class")));
+
+    toggleStatus = (statusSpan: any, enable: boolean) => {
+        if (!this.allowActionOnElement(statusSpan)) {
+            let roleId = this.getRoleId(statusSpan);
+            let betType = this.getBetType(statusSpan);
+
+            let oppositeClassName = enable ? this.$resources.disabledClass : this.$resources.enabledClass;
+            let oppositeId = this.buildElementId(oppositeClassName, roleId, betType);
+            let oppositeStatusSpan = this.$(oppositeId);
+            let oppositeTotal = this.parseInt(oppositeStatusSpan.text());
+
+            if (oppositeTotal > 0) {
+                oppositeStatusSpan.text("0");
+                statusSpan.text(this.getTotalStatus(statusSpan));
+            }
+
+            this.toggleStatusDownlines(roleId - 1, enable, betType);
+        }
+    }
+
+    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
+        if (downlineRoleId > 0) {
+            let enabledSpanId = this.buildElementId(this.$resources.enabledClass, downlineRoleId, betType);
+            let disabledSpanId = this.buildElementId(this.$resources.disabledClass, downlineRoleId, betType);
+
+            let enabledElement = this.$(enabledSpanId);
+            let disabledElement = this.$(disabledSpanId);
+
+            if (enable && this.getTotalStatus(enabledElement) > 0) {
+                this.enableElement(enabledElement);
+                this.enableElement(disabledElement);
+            } else {
+                this.disableElement(enabledElement);
+                this.disableElement(disabledElement);
+            }
+
+            let enableDownline = enable ? (this.parseInt(enabledElement.text()) > 0) : false;
+            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
+        }
+    }
+
+    disableElement = (element: any) => element.addClass(this.$resources.grayClass);
+    enableElement = (element: any) => element.removeClass(this.$resources.grayClass);
+    allowActionOnElement = (element: any) => element.hasClass(this.$resources.grayClass);
+
+    isEnabledElement = (className: string) => className === this.$resources.enabledClass;
+
     getRoleId = (element: any) => element.data("roleid");
     getBetType = (element: any) => element.data("bettype");
-    getSportType = (element: any) => element.data("bettype");
-    getStatusTotal = (element: any) => element.data("total");
+    getSportType = (element: any) => element.data("sporttype");
+    getTotalStatus = (element: any) => element.data("total");
 
     buildElementId = (className: string, roleId: number, betType: number) =>
         ["#", className, "_", roleId, "_", betType].join("");
 
     parseInt = (value: string) => parseInt(value.replace(/,/g, ""));
-
 
     setupAntiXSRF = () => {
         let token = this.$('[name=__RequestVerificationToken]').val();
@@ -251,7 +245,6 @@
                 disableAllMembers: null
             };
 
-
             self.$(this).find('span:odd').each(function () {
                return self.getproductStatus(this, data);
             });  
@@ -290,7 +283,7 @@
     getLevelStatus = (disabledSpan: any) => {
         let totaldisabled = this.parseInt(disabledSpan.text());
         let originalTotaldisabled = disabledSpan.data("totaldisabled");
-        let updateAll = !this.isDisableElement(disabledSpan) && totaldisabled != originalTotaldisabled;
+        let updateAll = !this.allowActionOnElement(disabledSpan) && totaldisabled != originalTotaldisabled;
 
         return {
             UpdateAll: updateAll,
@@ -317,10 +310,7 @@
         return messageDiv.html(html).removeClass("hide");
     }
 
-    hideMessage = () => {
-        var messageDiv = this.$("#sectionMessage");
-        return messageDiv.html("").addClass("hide");
-    }
+    hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");
 }
 
 var productStatusSetting = new ProductStatusSetting($);

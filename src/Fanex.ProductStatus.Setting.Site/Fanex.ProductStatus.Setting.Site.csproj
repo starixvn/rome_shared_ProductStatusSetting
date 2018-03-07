@@ -166,7 +166,6 @@
     <Content Include="Assets\scripts\libs\jasmine-jquery.js" />
     <Content Include="Assets\scripts\libs\jasmine.js" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
-    <Content Include="Assets\scripts\libs\jquery\cookie.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
