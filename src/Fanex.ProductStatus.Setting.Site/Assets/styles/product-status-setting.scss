@@ -1,110 +1,131 @@
-﻿.align-right { text-align: right; }
+﻿@import '_variables.scss';
+
+.align-right { text-align: right; }
 .margin-top10 { margin-top: 10px; }
 .margin-left5 { margin-left: 5px; }
+
 body {
-  color: #333;
-  font-family: Tahoma,Arial,helvetica,sans-serif;
-  font-size: 11px;
+  color: $text-color;
+  font-family: $font-family;
+  font-size: $font-size;
   margin: 0;
 }
-.alertboxerr div, .alertboxscc div { padding: 6px 4px 6px 21px; }
-.alertboxscc, .alertboxerr { font-size: inherit; }
+
 .tbl-product {
-  border: 1px solid #ccc;
+  border: 1px solid $border-color;
   border-spacing: 0;
   border-collapse: collapse;
   width: 100%;
 }
+
 .title {
-  background-color: #f1f1a6;
+  background-color: $title-background-color;
   text-align: center;
   height: 28px;
 }
+
 .tbl-product > thead > tr > th:not(.title), .tbl-product > tbody > tr > td {
-  border: 1px solid #ccc;
+  border: 1px solid $border-color;
   height: 24px;
 }
-.tbl-product > thead > tr > th:not(.title) { background-color: #e7f7ff; }
+
+.tbl-product > thead > tr > th:not(.title) { background-color: $background-color; }
 .tbl-product > tbody > tr > td:not(.bettype-name) { text-align: center; }
+
 .bettype-name {
-  background-color: #e7f7ff;
+  background-color: $background-color;
   padding-left: 5px;
   text-align: left;
 }
+
 .checkbox-hide, hide { display: none; }
 .enabled, .disabled, .gray {
-  color: #fff;
+  color: $button-color;
   border-radius: 3px;
   display: inline-block;
   font-weight: normal;
   padding: 3px 4px;
   min-width: 45px;
 }
-.enabled { background-color: #1e84c4; }
+
+.enabled { background-color: $enable-background-color; }
   .enabled:hover {
-    background-color: #1177b7;
+    background-color: $enable-hover-background-color;
     cursor: pointer;
   }
-.disabled { background-color: #d9534f; }
+
+.disabled { background-color: $disable-background-color; }
   .disabled:hover {
-    background-color: #cc4642;
+    background-color: $disable-hover-background-color;
     cursor: pointer;
   }
+
 .gray {
-  background-color: #e2e2e2;
-  color: #ccc;
+  background-color: $gray-color;
+  color: $background-color;
+  &:hover {
+       cursor: default;
+      }
 }
-  .gray:hover {
-    background-color: #e2e2e2;
-    cursor: default;
-  }
+
 .current-role {
   position: relative;
   top: 3px;
 }
-.all-status { margin-top: 12px; }
-  .all-status label { margin: 0 2px; }
+
+.all-status { 
+    margin-top: 12px; 
+    .label{
+        margin: 0 2px; 
+    }
+}
+
 .btn {
-  background: #6f7d95;
+  background: $button-background-color;
   border: 0;
   border-radius: 2px;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
-  color: #fff;
+  color: $button-color;
   display: inline-block;
   font-size: 12px;
   min-width: 64px;
   height: 28px;
   outline: 0;
+  &:hover {
+      background: $button-hover-background-color;
+      cursor: pointer;
+    }
 }
-  .btn:hover {
-    background: #637187;
-    cursor: pointer;
-  }
-.btn-reset { background: #e67e22; }
-  .btn-reset:hover { background: #d97115; }
 
-  .alerterror {
-	color: #F40000;
-	font-weight: bold;
-	margin: 2px;
-	padding-left: 30px;
+.btn-reset { 
+    background: $button-reset-background-color;
+   &:hover { 
+       background: $button-reset-hover-background-color; 
+    }
 }
-.alertsuccess {
-	color: #0000FF;
-	font-weight: bold;
-	margin: 2px;
-	padding-left: 30px;
-	}
 
 .msg-container {
-    border: 1px solid #7c98a4;
-    background-color: #f5f6f2;
+    border: 1px solid $msg-border-color;
+    background-color: $msg-background-color;
     margin-top: 10px;
     font-weight: bold;
     margin-bottom: 10px;
     max-height: 500px;
     overflow-x: auto;
+    .alerterror, .alertsuccess{
+        font-weight: bold;
+	    margin: 2px;
+	    padding-left: 30px;
+    }
+
+    .alerterror{
+        color: $msg-error-color;
+    }
+
+    .alertsuccess {
+	    color: $msg-success-color;
+    }
 }
 
 /*Loading css*/
