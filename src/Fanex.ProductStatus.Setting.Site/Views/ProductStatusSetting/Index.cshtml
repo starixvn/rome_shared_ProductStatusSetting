@@ -37,20 +37,10 @@
                             @Model.GetRoleName(Model.CustRole)
                         }
                     </th>
-                    @{ var roleId = Model.CustRole; }
-                    @while (roleId > 0 && --roleId > 0)
-                    {
-                        <th colspan="2">
-                            @Model.GetRoleName(roleId)
-                        </th>
-                    }
+                    @renderHeaderLevelName(Model.CustRole);
                 </tr>
                 <tr>
-                    @{ var roleId01 = Model.CustRole; }
-                    @while (roleId01 > 0 && --roleId01 > 0)
-                    {
-                        @renderHeader(roleId01, isMultipleBetTypes)
-                    }
+                    @renderHeaderStatus(Model.CustRole, isMultipleBetTypes);
                 </tr>
             </thead>
             <tbody>
@@ -104,6 +94,23 @@
 </body>
 </html>
 
+@helper renderHeaderLevelName(byte roleId)
+{
+    while (roleId > 0 && --roleId > 0)
+    {
+        <th colspan="2">
+            @Model.GetRoleName(roleId)
+        </th>
+    }
+}
+
+@helper renderHeaderStatus(byte roleId, bool isMultipleBetTypes)
+{
+    while (roleId > 0 && --roleId > 0)
+    {
+        @renderHeader(roleId, isMultipleBetTypes);
+    }
+}
 @helper renderStatus(int sportType, int betType, bool isDisabled, bool isDisabledUpline, byte roleId)
 {
 var labelText = isDisabled ? "Disabled" : "Enabled";
