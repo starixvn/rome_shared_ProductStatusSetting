@@ -167,6 +167,9 @@
     <Content Include="Assets\scripts\libs\jasmine.js" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
+    <Content Include="Assets\styles\product-status-setting.css">
+      <DependentUpon>product-status-setting.scss</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -174,8 +177,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="Assets\scripts\tests\chutzpah.json" />
-    <Content Include="Views\ProductStatusSetting\Images\loader3.gif" />
-    <Content Include="Views\ProductStatusSetting\Styles\productstatussetting.css" />
+    <Content Include="Assets\styles\images\loader3.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -203,7 +205,6 @@
   <ItemGroup>
     <Folder Include="Areas\" />
     <Folder Include="Assets\scripts\tests\apps\" />
-    <Folder Include="Assets\styles\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
@@ -249,6 +250,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\styles\_mixins.scss" />
+    <Content Include="Assets\styles\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\styles\product-status-setting.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

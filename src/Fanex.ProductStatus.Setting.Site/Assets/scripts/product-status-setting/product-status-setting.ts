@@ -120,11 +120,11 @@
         });
     }
 
-    toggleAllStatusOnCheckbox = (changeAllStatus: boolean) => {
+    toggleAllStatusOnCheckbox = (enableAllStatus: boolean) => {
         let self = this;
         this.$checkboxHidden.each(function (index, element) {
             let chkElement = self.$(element);
-            if (chkElement.prop("checked") != changeAllStatus) {
+            if (chkElement.prop("checked") != enableAllStatus) {
                 chkElement.click();
             }
         });
@@ -193,6 +193,7 @@
     getBetType = (element: any) => element.data("bettype");
     getSportType = (element: any) => element.data("sporttype");
     getTotalStatus = (element: any) => element.data("total");
+    isChangeState = (originValue: number, currentValue: number) => originValue != currentValue;
 
     buildElementId = (className: string, roleId: number, betType: number) =>
         ["#", className, "_", roleId, "_", betType].join("");
@@ -283,7 +284,7 @@
     getLevelStatus = (disabledSpan: any) => {
         let totaldisabled = this.parseInt(disabledSpan.text());
         let originalTotaldisabled = disabledSpan.data("totaldisabled");
-        let updateAll = !this.allowActionOnElement(disabledSpan) && totaldisabled != originalTotaldisabled;
+        let updateAll = !this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
 
         return {
             UpdateAll: updateAll,

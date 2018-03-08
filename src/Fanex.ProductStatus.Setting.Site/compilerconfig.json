@@ -1,3 +1,6 @@
 ﻿[
-
+  {
+    "outputFile": "assets/styles/product-status-setting.css",
+    "inputFile": "assets/styles/product-status-setting.scss"
+  }
 ]
