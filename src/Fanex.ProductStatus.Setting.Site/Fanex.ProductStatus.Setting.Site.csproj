@@ -167,12 +167,6 @@
     <Content Include="Assets\scripts\libs\jasmine.js" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
-    <Content Include="Assets\styles\product-status-setting.css">
-      <DependentUpon>product-status-setting.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\styles\product-status-setting.min.css">
-      <DependentUpon>product-status-setting.css</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -253,10 +247,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\styles\product-status-setting.scss" />
-    <Content Include="Assets\styles\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\styles\product-status-setting.scss" />
