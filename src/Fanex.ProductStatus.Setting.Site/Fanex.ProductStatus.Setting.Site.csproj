@@ -170,6 +170,9 @@
     <Content Include="Assets\styles\product-status-setting.css">
       <DependentUpon>product-status-setting.scss</DependentUpon>
     </Content>
+    <Content Include="Assets\styles\product-status-setting.min.css">
+      <DependentUpon>product-status-setting.css</DependentUpon>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -252,7 +255,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\styles\_mixins.scss" />
+    <Content Include="Assets\styles\product-status-setting.scss" />
     <Content Include="Assets\styles\_variables.scss" />
   </ItemGroup>
   <ItemGroup>
