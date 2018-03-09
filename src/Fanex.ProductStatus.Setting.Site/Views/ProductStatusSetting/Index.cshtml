@@ -37,10 +37,10 @@
                             @Model.GetRoleName(Model.CustRole)
                         }
                     </th>
-                    @renderHeaderLevelName(Model.CustRole);
+                    @renderHeaderLevelName(Model.CustRole)
                 </tr>
                 <tr>
-                    @renderHeaderStatus(Model.CustRole, isMultipleBetTypes);
+                    @renderHeaderStatus(Model.CustRole, isMultipleBetTypes)
                 </tr>
             </thead>
             <tbody>
@@ -52,17 +52,17 @@
 
                         @if (item.Master != null)
                         {
-                            @renderDownlineStatus(item.SportType, item.BetType, 3, item.IsDisabledUpline, item.Master);
+                            @renderDownlineStatus(item.SportType, item.BetType, 3, item.IsDisabledUpline, item.Master)
                         }
 
                         @if (item.Agent != null)
                         {
-                            @renderDownlineStatus(item.SportType, item.BetType, 2, item.IsDisabledUpline, item.Agent);
+                            @renderDownlineStatus(item.SportType, item.BetType, 2, item.IsDisabledUpline, item.Agent)
                         }
 
                         @if (item.Member != null)
                         {
-                            @renderDownlineStatus(item.SportType, item.BetType, 1, item.IsDisabledUpline, item.Member);
+                            @renderDownlineStatus(item.SportType, item.BetType, 1, item.IsDisabledUpline, item.Member)
                         }
                     </tr>
                 }
@@ -111,6 +111,7 @@
         @renderHeader(roleId, isMultipleBetTypes);
     }
 }
+
 @helper renderStatus(int sportType, int betType, bool isDisabled, bool isDisabledUpline, byte roleId)
 {
 var labelText = isDisabled ? "Disabled" : "Enabled";
@@ -124,7 +125,6 @@ var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
            @(isDisabledUpline ? "disabled=disabled" : string.Empty) />
         <label for="@id" class="@labelClass">@labelText</label>
 }
-
 
 @helper renderDownlineStatus(
     int sportType, 
