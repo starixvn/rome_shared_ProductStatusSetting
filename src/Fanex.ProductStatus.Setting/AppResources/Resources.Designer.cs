@@ -88,6 +88,51 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable.
+        /// </summary>
+        public static string Disable {
+            get {
+                return ResourceManager.GetString("Disable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        public static string Disabled {
+            get {
+                return ResourceManager.GetString("Disabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable.
+        /// </summary>
+        public static string Enable {
+            get {
+                return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enabled.
+        /// </summary>
+        public static string Enabled {
+            get {
+                return ResourceManager.GetString("Enabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1} all rows.
+        /// </summary>
+        public static string HeaderTooltip {
+            get {
+                return ResourceManager.GetString("HeaderTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Internal server error..
         /// </summary>
         public static string InternalServerError {
@@ -115,11 +160,47 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string Reset {
+            get {
+                return ResourceManager.GetString("Reset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1}.
+        /// </summary>
+        public static string SearchAccountTBodyTooltip {
+            get {
+                return ResourceManager.GetString("SearchAccountTBodyTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1} all rows.
+        /// </summary>
+        public static string SearchAccountTHeadTooltip {
+            get {
+                return ResourceManager.GetString("SearchAccountTHeadTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Status updated successfully..
         /// </summary>
         public static string StatusUpdatedSuccessfully {
             get {
                 return ResourceManager.GetString("StatusUpdatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
         
@@ -133,11 +214,47 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to {0} all {1}.
+        /// </summary>
+        public static string TBodyDownlineTooltip {
+            get {
+                return ResourceManager.GetString("TBodyDownlineTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is no change..
+        /// </summary>
+        public static string ThereIsNoChange {
+            get {
+                return ResourceManager.GetString("ThereIsNoChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There Is No Data..
+        /// </summary>
+        public static string ThereIsNoData {
+            get {
+                return ResourceManager.GetString("ThereIsNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not authorized on this function..
         /// </summary>
         public static string UnauthorizeMessage {
             get {
                 return ResourceManager.GetString("UnauthorizeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Status Failed..
+        /// </summary>
+        public static string UpdateStatusFailed {
+            get {
+                return ResourceManager.GetString("UpdateStatusFailed", resourceCulture);
             }
         }
     }

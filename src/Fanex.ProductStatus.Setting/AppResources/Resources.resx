@@ -126,6 +126,21 @@
   <data name="BetType_2401" xml:space="preserve">
     <value>Baccarat, Roulette, Sic Bo, Dragon Tiger</value>
   </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="HeaderTooltip" xml:space="preserve">
+    <value>Click to {0} {1} all rows</value>
+  </data>
   <data name="InternalServerError" xml:space="preserve">
     <value>Internal server error.</value>
   </data>
@@ -135,13 +150,37 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="SearchAccountTBodyTooltip" xml:space="preserve">
+    <value>Click to {0} {1}</value>
+  </data>
+  <data name="SearchAccountTHeadTooltip" xml:space="preserve">
+    <value>Click to {0} {1} all rows</value>
+  </data>
   <data name="StatusUpdatedSuccessfully" xml:space="preserve">
     <value>Status updated successfully.</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
   </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>
   </data>
+  <data name="TBodyDownlineTooltip" xml:space="preserve">
+    <value>Click to {0} all {1}</value>
+  </data>
+  <data name="ThereIsNoChange" xml:space="preserve">
+    <value>There is no change.</value>
+  </data>
+  <data name="ThereIsNoData" xml:space="preserve">
+    <value>There Is No Data.</value>
+  </data>
   <data name="UnauthorizeMessage" xml:space="preserve">
     <value>You are not authorized on this function.</value>
+  </data>
+  <data name="UpdateStatusFailed" xml:space="preserve">
+    <value>Update Status Failed.</value>
   </data>
 </root>
