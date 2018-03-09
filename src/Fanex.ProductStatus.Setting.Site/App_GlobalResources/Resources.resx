@@ -129,11 +129,23 @@
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="HeaderTooltip" xml:space="preserve">
+    <value>Click to {0} {1} all rows</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
+  <data name="SearchAccountTBodyTooltip" xml:space="preserve">
+    <value>Click to {0} {1}</value>
+  </data>
+  <data name="SearchAccountTHeadTooltip" xml:space="preserve">
+    <value>Click to {0} {1} all rows</value>
+  </data>
   <data name="Submit" xml:space="preserve">
     <value>Submit</value>
+  </data>
+  <data name="TBodyDownlineTooltip" xml:space="preserve">
+    <value>Click to {0} all {1}</value>
   </data>
   <data name="ThereIsNoData" xml:space="preserve">
     <value>There Is No Data.</value>

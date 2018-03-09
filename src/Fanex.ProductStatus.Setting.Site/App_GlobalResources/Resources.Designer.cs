@@ -97,6 +97,15 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1} all rows.
+        /// </summary>
+        public static string HeaderTooltip {
+            get {
+                return ResourceManager.GetString("HeaderTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -106,11 +115,38 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1}.
+        /// </summary>
+        public static string SearchAccountTBodyTooltip {
+            get {
+                return ResourceManager.GetString("SearchAccountTBodyTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to {0} {1} all rows.
+        /// </summary>
+        public static string SearchAccountTHeadTooltip {
+            get {
+                return ResourceManager.GetString("SearchAccountTHeadTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
         public static string Submit {
             get {
                 return ResourceManager.GetString("Submit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to {0} all {1}.
+        /// </summary>
+        public static string TBodyDownlineTooltip {
+            get {
+                return ResourceManager.GetString("TBodyDownlineTooltip", resourceCulture);
             }
         }
         

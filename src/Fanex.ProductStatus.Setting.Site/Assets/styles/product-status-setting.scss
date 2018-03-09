@@ -65,6 +65,7 @@ body {
   background-color: $gray-color;
   color: $background-color;
   &:hover {
+       background-color: $gray-color;
        cursor: default;
       }
 }

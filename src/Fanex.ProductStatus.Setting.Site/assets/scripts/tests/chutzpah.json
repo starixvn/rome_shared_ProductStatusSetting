@@ -18,29 +18,18 @@
     { "Path": "libs/jasmine.js" },
     { "Path": "libs/jasmine-jquery.js" },
 
-    { "Path": "libs/bootstrap/dropdown.js" },
-    { "Path": "libs/bootstrap/modal.js" },
     { "Path": "libs/jquery/blockUI.js" },
 
-    { "Path": "libs/bootstrap/multiselect.js" },
-
-    { "Path": "../components/single-selection-dropdown.ts" },
-    { "Path": "../member-requests/member-requests.ts" },
-
-    { "Path": "../transfer/cash-balance.ts" }
+    { "Path": "../product-status-setting/product-status-setting.ts" }
   ],
   "Tests": [
     {
-      "Path": "apps/components",
+      "Path": "apps/product-status-setting",
       "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
     },
     {
-      "Path": "apps/member-requests",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/transfer",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
+      "Path": "apps/samples/spec",
+      "Excludes": [ "**.js.map", "**-template.ts" ]
     }
   ]
 }
