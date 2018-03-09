@@ -43,9 +43,8 @@
         this.$resources = {
             enabled: this.$('#enabled').val(),
             disabled: this.$('#disabled').val(),
-            rootUrl: this.$('#rootUrl').val(),
-            updateStatusSuccessfully: this.$('#UpdateStatusSuccessfully').val(),
             updateStatusFailed: this.$('#updateStatusFailed').val(),
+            thereIsNoChange: this.$('#thereIsNoChange').val(),
             enabledClass: "enabled",
             disabledClass: "disabled",
             grayClass: "gray"
@@ -102,7 +101,7 @@
     }
 
     toggleAllStatus = (element: any, enable: boolean) => {
-        if (!this.allowActionOnElement(element)) {
+        if (this.allowActionOnElement(element)) {
             let roleId = this.getRoleId(element);
             this.$custRole == roleId ? this.toggleAllStatusOnCheckbox(enable) : this.toggleAllStatusOnSpans(roleId, enable);
         }
@@ -148,7 +147,7 @@
     toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, this.isEnabledElement(statusSpan.attr("class")));
 
     toggleStatus = (statusSpan: any, enable: boolean) => {
-        if (!this.allowActionOnElement(statusSpan)) {
+        if (this.allowActionOnElement(statusSpan)) {
             let roleId = this.getRoleId(statusSpan);
             let betType = this.getBetType(statusSpan);
 
@@ -189,7 +188,7 @@
 
     disableElement = (element: any) => element.addClass(this.$resources.grayClass);
     enableElement = (element: any) => element.removeClass(this.$resources.grayClass);
-    allowActionOnElement = (element: any) => element.hasClass(this.$resources.grayClass);
+    allowActionOnElement = (element: any) => !element.hasClass(this.$resources.grayClass);
 
     isEnabledElement = (className: string) => className === this.$resources.enabledClass;
 
@@ -216,20 +215,27 @@
         e.preventDefault();
 
         let headers = this.setupAntiXSRF();
+        let updateViewModel = this.getUpdateViewModel();
+
+        updateViewModel.productStatus.length > 0 ?
+            this.callAjax(headers, updateViewModel) : 
+            this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
+    }
+
+    callAjax = (headers: any, updateViewModel: any) =>
         this.$.ajax({
             type: "POST",
             url: "Update",
             cache: false,
             headers: headers,
-            data: JSON.stringify(this.getUpdateViewModelBase()),
+            data: JSON.stringify(updateViewModel),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: this.onSuccess,
             error: this.onError
-        });
-    }
+        })
 
-    getUpdateViewModelBase = () => {
+    getUpdateViewModel = () => {
         let self = this;
 
         let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
@@ -237,6 +243,7 @@
             let bettype = self.getBetType(checkboxStatus);
             let sporttype = self.getSportType(checkboxStatus);
             let disable = !self.$(checkboxStatus).prop("checked");
+            let originstatus = self.$.parseJSON(checkboxStatus.data("originstatus").toLowerCase());
 
             let data = {
                 sportType: sporttype,
@@ -254,7 +261,13 @@
                return self.getproductStatus(this, data);
             });  
 
-           return data;
+            if (data.disable != originstatus
+                || data.updateAllMasters
+                || data.updateAllAgents
+                || data.updateAllMembers)
+            {
+                return data;
+            }  
         }).get();
 
         return {
@@ -288,7 +301,7 @@
     getLevelStatus = (disabledSpan: any) => {
         let totaldisabled = this.parseInt(disabledSpan.text());
         let originalTotaldisabled = disabledSpan.data("totaldisabled");
-        let updateAll = !this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
+        let updateAll = this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
 
         return {
             UpdateAll: updateAll,

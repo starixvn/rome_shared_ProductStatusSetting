@@ -151,6 +151,15 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no change..
+        /// </summary>
+        public static string ThereIsNoChange {
+            get {
+                return ResourceManager.GetString("ThereIsNoChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There Is No Data..
         /// </summary>
         public static string ThereIsNoData {
@@ -165,15 +174,6 @@ namespace Fanex.ProductStatus.Setting.Site.App_GlobalResources {
         public static string UpdateStatusFailed {
             get {
                 return ResourceManager.GetString("UpdateStatusFailed", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update Status Successfully..
-        /// </summary>
-        public static string UpdateStatusSuccessfully {
-            get {
-                return ResourceManager.GetString("UpdateStatusSuccessfully", resourceCulture);
             }
         }
     }

@@ -107,8 +107,11 @@ body {
     }
 }
 
+.text-align-center {
+    text-align: center;
+}
+
 .msg-container {
-    border: 1px solid $msg-border-color;
     background-color: $msg-background-color;
     margin-top: 10px;
     font-weight: bold;
@@ -122,10 +125,12 @@ body {
     }
 
     .alerterror{
+        border: 1px solid $msg-error-color;
         color: $msg-error-color;
     }
 
     .alertsuccess {
+        border: 1px solid $msg-success-color;
 	    color: $msg-success-color;
     }
 }
