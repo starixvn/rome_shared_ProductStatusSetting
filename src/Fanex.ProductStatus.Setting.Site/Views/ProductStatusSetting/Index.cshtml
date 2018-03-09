@@ -126,7 +126,7 @@
     bool isDisabledUpline, 
     byte roleId)
 {
-    var labelText = isDisabled ? "Disabled" : "Enabled";
+    var labelText = isDisabled ? Resources.Disabled : Resources.Enabled;
     var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
     var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
 
