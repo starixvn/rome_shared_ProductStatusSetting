@@ -131,9 +131,13 @@
     }
 
     checkboxChanged = (element: any) => {
-        let labelText = this.$(element).is(":checked") ? this.$resources.enabled : this.$resources.disabled;
+        let enable = this.$(element).is(":checked");
+        let labelElement = element.next("label");
 
-        element.next("label")
+        let tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip")
+        let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
+
+        labelElement.attr("title", tooltip)
             .removeClass()
             .addClass(labelText.toLowerCase())
             .text(labelText);
