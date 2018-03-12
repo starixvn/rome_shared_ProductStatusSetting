@@ -222,7 +222,10 @@
         let headers = this.setupAntiXSRF();
         let updateViewModel = this.getUpdateViewModel();
 
-        this.$.blockUI();
+        this.$.blockUI({
+            blockMsgClass: "block-ui-loading"
+        });
+
         updateViewModel.productStatus.length > 0 ?
             this.callAjax(headers, updateViewModel) : 
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
@@ -320,6 +323,7 @@
         this.showMessage(data.Code, data.Message);
         if (data.Code == 0) { 
             setTimeout(function () {
+                this.$.unblockUI();
                 location.reload(true);
             }, this.$timeoutDefault);
         }

@@ -35,6 +35,19 @@
     <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.Site.ruleset</CodeAnalysisRuleSet>
     <LangVersion>6</LangVersion>
     <DocumentationFile>bin\Fanex.ProductStatus.Setting.Site.XML</DocumentationFile>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>False</TypeScriptRemoveComments>
+    <TypeScriptOutFile />
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>True</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -153,14 +166,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
-    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.js" />
-    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.min.js">
-      <DependentUpon>product-status-setting.js</DependentUpon>
-    </Content>
-    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.css" />
-    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.min.css">
-      <DependentUpon>product-status-setting.css</DependentUpon>
-    </Content>
+    <Content Include="Areas\ProductStatusSetting\Styles\images\ajax-loader.png" />
     <Content Include="Assets\bundles\product-status-setting.js" />
     <Content Include="Assets\bundles\product-status-setting.min.js">
       <DependentUpon>product-status-setting.js</DependentUpon>
@@ -187,7 +193,6 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="Assets\scripts\tests\chutzpah.json" />
-    <Content Include="Areas\ProductStatusSetting\Styles\images\loader3.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -212,6 +217,7 @@
     <Content Include="Areas\ProductStatusSetting\Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\ProductStatusSetting\Scripts\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
@@ -269,6 +275,9 @@
     <Content Include="Views\web.config">
       <SubType>Designer</SubType>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\styles\_variables.scss" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
