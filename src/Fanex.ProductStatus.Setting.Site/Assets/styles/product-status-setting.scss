@@ -1,6 +1,7 @@
 ﻿@import '_variables.scss';
 
 .align-right { text-align: right; }
+.align-center {text-align: center;}
 .margin-top10 { margin-top: 10px; }
 .margin-left5 { margin-left: 5px; }
 
@@ -107,10 +108,6 @@ body {
     }
 }
 
-.text-align-center {
-    text-align: center;
-}
-
 .msg-container {
     background-color: $msg-background-color;
     margin-top: 10px;
@@ -121,7 +118,7 @@ body {
     .alerterror, .alertsuccess{
         font-weight: bold;
 	    margin: 2px;
-	    padding-left: 30px;
+	    padding: 10px 0px 10px 20px;
     }
 
     .alerterror{

@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/assets/styles/product-status-setting.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Areas/ProductStatusSetting/Styles/product-status-setting.min.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
     <div id="sectionMessage" class="msg-container hide"></div>
@@ -83,7 +83,7 @@
     else
     {
         <div id="sectionMessage" class="msg-container">
-            <div class="alerterror text-align-center"> @Resources.ThereIsNoData</div>
+            <div class="alerterror align-center"> @Resources.ThereIsNoData</div>
         </div>
     }
 
@@ -96,9 +96,7 @@
     @Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed)
     @Html.AntiForgeryToken()
 
-    <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/jquery-1.11.3.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Assets/scripts/libs/jQuery/blockUI.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Assets/bundles/product-status-setting.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/ProductStatusSetting/Scripts/product-status-setting.min.js")"></script>
 </body>
 </html>
 
