@@ -130,18 +130,20 @@
     }
 
     checkboxChanged = (element: any) => {
-        let enable = this.$(element).is(":checked");
-        let labelElement = element.next("label");
+        if (this.isEnablebUpline(element)) {
+            let enable = this.$(element).is(":checked");
+            let labelElement = element.next("label");
 
-        let tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip")
-        let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
+            let tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip")
+            let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
 
-        labelElement.attr("title", tooltip)
-            .removeClass()
-            .addClass(labelText.toLowerCase())
-            .text(labelText);
+            labelElement.attr("title", tooltip)
+                .removeClass()
+                .addClass(labelText.toLowerCase())
+                .text(labelText);
 
-        this.toggleStatusDownlines(this.getRoleId(element) - 1, this.$(element).is(":checked"), this.getBetType(element));
+            this.toggleStatusDownlines(this.getRoleId(element) - 1, this.$(element).is(":checked"), this.getBetType(element));
+        }
     }
 
     toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, this.isEnabledElement(statusSpan.attr("class")));
@@ -193,6 +195,8 @@
     isEnabledElement = (className: string) => className === this.$resources.enabledClass;
 
     getRoleId = (element: any) => element.data("roleid");
+    isEnablebUpline = (element: any) => !this.parseBoolean(element.data("disabledupline"));
+
     getBetType = (element: any) => element.data("bettype");
     getSportType = (element: any) => element.data("sporttype");
     getTotalStatus = (element: any) => element.data("total");
@@ -202,6 +206,7 @@
         ["#", className, "_", roleId, "_", betType].join("");
 
     parseInt = (value: string) => parseInt(value.replace(/,/g, ""));
+    parseBoolean = (value: string) => { return this.$.parseJSON(value.toLowerCase()); }
 
     setupAntiXSRF = () => {
         let token = this.$('[name=__RequestVerificationToken]').val();
@@ -217,6 +222,7 @@
         let headers = this.setupAntiXSRF();
         let updateViewModel = this.getUpdateViewModel();
 
+        this.$.blockUI();
         updateViewModel.productStatus.length > 0 ?
             this.callAjax(headers, updateViewModel) : 
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
@@ -239,35 +245,36 @@
         let self = this;
 
         let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
-            let checkboxStatus = self.$(this).find('input:checkbox')
-            let bettype = self.getBetType(checkboxStatus);
-            let sporttype = self.getSportType(checkboxStatus);
-            let disable = !self.$(checkboxStatus).prop("checked");
-            let originstatus = self.$.parseJSON(checkboxStatus.data("originstatus").toLowerCase());
+            let checkboxStatus = self.$(this).find('input:checkbox');
+            if (self.isEnablebUpline(checkboxStatus)) {
+                let bettype = self.getBetType(checkboxStatus);
+                let sporttype = self.getSportType(checkboxStatus);
+                let disable = !self.$(checkboxStatus).prop("checked");
+                let originstatus = self.parseBoolean(checkboxStatus.data("originstatus"));
 
-            let data = {
-                sportType: sporttype,
-                betType: bettype,
-                disable: disable,
-                updateAllMasters: false,
-                disableAllMasters: null,
-                updateAllAgents: false,
-                disableAllAgents: null,
-                updateAllMembers: false,
-                disableAllMembers: null
-            };
+                let data = {
+                    sportType: sporttype,
+                    betType: bettype,
+                    disable: disable,
+                    updateAllMasters: false,
+                    disableAllMasters: null,
+                    updateAllAgents: false,
+                    disableAllAgents: null,
+                    updateAllMembers: false,
+                    disableAllMembers: null
+                };
 
-            self.$(this).find('span:odd').each(function () {
-               return self.getproductStatus(this, data);
-            });  
+                self.$(this).find('span:odd').each(function () {
+                    return self.getproductStatus(this, data);
+                });
 
-            if (data.disable != originstatus
-                || data.updateAllMasters
-                || data.updateAllAgents
-                || data.updateAllMembers)
-            {
-                return data;
-            }  
+                if (data.disable != originstatus
+                    || data.updateAllMasters
+                    || data.updateAllAgents
+                    || data.updateAllMembers) {
+                    return data;
+                }
+            }
         }).get();
 
         return {
@@ -310,7 +317,6 @@
     }
 
     onSuccess = (data: any) => {
-        this.$.unblockUI();
         this.showMessage(data.Code, data.Message);
         if (data.Code == 0) { 
             setTimeout(function () {
@@ -319,21 +325,19 @@
         }
     }
 
-    onError = () => {
-        this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
-        this.$.unblockUI();
-    }
+    onError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
     showMessage = (type: any, message: string) => {
-        var html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
-        var messageDiv = this.$("#sectionMessage");
+        this.$.unblockUI();
+        let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
+        let messageDiv = this.$("#sectionMessage");
         return messageDiv.html(html).removeClass("hide");
     }
 
     hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");
 }
 
-var productStatusSetting = new ProductStatusSetting($);
+let productStatusSetting = new ProductStatusSetting($);
 
 $(function () {
     productStatusSetting.init();

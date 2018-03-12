@@ -187,7 +187,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </Content>
     <Content Include="Assets\scripts\tests\chutzpah.json" />
-    <Content Include="Assets\styles\images\loader3.gif" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\loader3.gif" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

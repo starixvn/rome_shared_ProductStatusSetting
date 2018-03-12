@@ -11071,15 +11071,17 @@ var ProductStatusSetting = /** @class */ (function () {
             });
         };
         this.checkboxChanged = function (element) {
-            var enable = _this.$(element).is(":checked");
-            var labelElement = element.next("label");
-            var tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip");
-            var labelText = enable ? _this.$resources.enabled : _this.$resources.disabled;
-            labelElement.attr("title", tooltip)
-                .removeClass()
-                .addClass(labelText.toLowerCase())
-                .text(labelText);
-            _this.toggleStatusDownlines(_this.getRoleId(element) - 1, _this.$(element).is(":checked"), _this.getBetType(element));
+            if (_this.isEnablebUpline(element)) {
+                var enable = _this.$(element).is(":checked");
+                var labelElement = element.next("label");
+                var tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip");
+                var labelText = enable ? _this.$resources.enabled : _this.$resources.disabled;
+                labelElement.attr("title", tooltip)
+                    .removeClass()
+                    .addClass(labelText.toLowerCase())
+                    .text(labelText);
+                _this.toggleStatusDownlines(_this.getRoleId(element) - 1, _this.$(element).is(":checked"), _this.getBetType(element));
+            }
         };
         this.toggleStatusBySpan = function (statusSpan) { return _this.toggleStatus(statusSpan, _this.isEnabledElement(statusSpan.attr("class"))); };
         this.toggleStatus = function (statusSpan, enable) {
@@ -11120,6 +11122,7 @@ var ProductStatusSetting = /** @class */ (function () {
         this.allowActionOnElement = function (element) { return !element.hasClass(_this.$resources.grayClass); };
         this.isEnabledElement = function (className) { return className === _this.$resources.enabledClass; };
         this.getRoleId = function (element) { return element.data("roleid"); };
+        this.isEnablebUpline = function (element) { return !_this.parseBoolean(element.data("disabledupline")); };
         this.getBetType = function (element) { return element.data("bettype"); };
         this.getSportType = function (element) { return element.data("sporttype"); };
         this.getTotalStatus = function (element) { return element.data("total"); };
@@ -11128,6 +11131,7 @@ var ProductStatusSetting = /** @class */ (function () {
             return ["#", className, "_", roleId, "_", betType].join("");
         };
         this.parseInt = function (value) { return parseInt(value.replace(/,/g, "")); };
+        this.parseBoolean = function (value) { return _this.$.parseJSON(value.toLowerCase()); };
         this.setupAntiXSRF = function () {
             var token = _this.$('[name=__RequestVerificationToken]').val();
             var headers = {};
@@ -11138,6 +11142,7 @@ var ProductStatusSetting = /** @class */ (function () {
             e.preventDefault();
             var headers = _this.setupAntiXSRF();
             var updateViewModel = _this.getUpdateViewModel();
+            _this.$.blockUI();
             updateViewModel.productStatus.length > 0 ?
                 _this.callAjax(headers, updateViewModel) :
                 _this.showMessage(_this.$errorCodeDefault, _this.$resources.thereIsNoChange);
@@ -11159,29 +11164,31 @@ var ProductStatusSetting = /** @class */ (function () {
             var self = _this;
             var productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
                 var checkboxStatus = self.$(this).find('input:checkbox');
-                var bettype = self.getBetType(checkboxStatus);
-                var sporttype = self.getSportType(checkboxStatus);
-                var disable = !self.$(checkboxStatus).prop("checked");
-                var originstatus = self.$.parseJSON(checkboxStatus.data("originstatus").toLowerCase());
-                var data = {
-                    sportType: sporttype,
-                    betType: bettype,
-                    disable: disable,
-                    updateAllMasters: false,
-                    disableAllMasters: null,
-                    updateAllAgents: false,
-                    disableAllAgents: null,
-                    updateAllMembers: false,
-                    disableAllMembers: null
-                };
-                self.$(this).find('span:odd').each(function () {
-                    return self.getproductStatus(this, data);
-                });
-                if (data.disable != originstatus
-                    || data.updateAllMasters
-                    || data.updateAllAgents
-                    || data.updateAllMembers) {
-                    return data;
+                if (self.isEnablebUpline(checkboxStatus)) {
+                    var bettype = self.getBetType(checkboxStatus);
+                    var sporttype = self.getSportType(checkboxStatus);
+                    var disable = !self.$(checkboxStatus).prop("checked");
+                    var originstatus = self.parseBoolean(checkboxStatus.data("originstatus"));
+                    var data_1 = {
+                        sportType: sporttype,
+                        betType: bettype,
+                        disable: disable,
+                        updateAllMasters: false,
+                        disableAllMasters: null,
+                        updateAllAgents: false,
+                        disableAllAgents: null,
+                        updateAllMembers: false,
+                        disableAllMembers: null
+                    };
+                    self.$(this).find('span:odd').each(function () {
+                        return self.getproductStatus(this, data_1);
+                    });
+                    if (data_1.disable != originstatus
+                        || data_1.updateAllMasters
+                        || data_1.updateAllAgents
+                        || data_1.updateAllMembers) {
+                        return data_1;
+                    }
                 }
             }).get();
             return {
@@ -11219,7 +11226,6 @@ var ProductStatusSetting = /** @class */ (function () {
             };
         };
         this.onSuccess = function (data) {
-            _this.$.unblockUI();
             _this.showMessage(data.Code, data.Message);
             if (data.Code == 0) {
                 setTimeout(function () {
@@ -11227,11 +11233,9 @@ var ProductStatusSetting = /** @class */ (function () {
                 }, _this.$timeoutDefault);
             }
         };
-        this.onError = function () {
-            _this.showMessage(_this.$errorCodeDefault, _this.$resources.updateStatusFailed);
-            _this.$.unblockUI();
-        };
+        this.onError = function () { return _this.showMessage(_this.$errorCodeDefault, _this.$resources.updateStatusFailed); };
         this.showMessage = function (type, message) {
+            _this.$.unblockUI();
             var html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
             var messageDiv = _this.$("#sectionMessage");
             return messageDiv.html(html).removeClass("hide");

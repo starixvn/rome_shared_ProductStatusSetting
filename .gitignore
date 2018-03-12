@@ -51,3 +51,6 @@ bundles
 artifacts/
 _Chutzpah.coverage.html
 
+*.test.html
+src/Alpha.Reports.Site/jsUnitTest.xml
+.vs/Alpha.Reports.Site/v14/suo36F2.tmp
