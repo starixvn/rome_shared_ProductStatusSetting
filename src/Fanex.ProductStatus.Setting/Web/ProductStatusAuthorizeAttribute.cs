@@ -2,9 +2,11 @@
 namespace Fanex.ProductStatus.Setting.Web
 {
     using System;
+    using System.Net;
     using System.Web.Mvc;
     using AppResources;
     using Configuration;
+    using Models;
 
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
     internal class ProductStatusAuthorizeAttribute : AuthorizeAttribute
@@ -40,8 +42,11 @@ namespace Fanex.ProductStatus.Setting.Web
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
                 response.Clear();
-                response.Write(Resources.UnauthorizeMessage);
-                filterContext.Result = new HttpUnauthorizedResult();
+                filterContext.Result = new JsonResult
+                {
+                    Data = new Result((int)HttpStatusCode.Forbidden, Resources.UnauthorizeMessage),
+                    JsonRequestBehavior = JsonRequestBehavior.DenyGet
+                }; 
                 filterContext.Result.ExecuteResult(filterContext.Controller.ControllerContext);
                 response.End();
             }
