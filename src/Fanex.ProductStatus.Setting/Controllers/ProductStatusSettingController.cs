@@ -10,6 +10,8 @@
 
     public class ProductStatusSettingController : Controller
     {
+        private const string IndexViewPath = "~/Areas/ProductStatusSetting/Views/Index.cshtml";
+
         private readonly ProductStatusService productStatusService;
 
         public ProductStatusSettingController()
@@ -31,7 +33,7 @@
 
             viewModel.SetProductStatusViewModel(productStatus);
 
-            return View(viewModel);
+            return View(IndexViewPath, viewModel);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
