@@ -312,9 +312,11 @@
     onSuccess = (data: any) => {
         this.$.unblockUI();
         this.showMessage(data.Code, data.Message);
-        setTimeout(function () {
-            location.reload(true);
-        }, this.$timeoutDefault);
+        if (data.Code == 0) { 
+            setTimeout(function () {
+                location.reload(true);
+            }, this.$timeoutDefault);
+        }
     }
 
     onError = () => {

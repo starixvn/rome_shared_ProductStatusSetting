@@ -180,12 +180,6 @@
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture.html" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture_style.css" />
     <Content Include="Assets\scripts\tests\apps\samples\myfixture.html" />
-    <Content Include="Assets\styles\product-status-setting.css">
-      <DependentUpon>product-status-setting.scss</DependentUpon>
-    </Content>
-    <Content Include="Assets\styles\product-status-setting.min.css">
-      <DependentUpon>product-status-setting.css</DependentUpon>
-    </Content>
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />

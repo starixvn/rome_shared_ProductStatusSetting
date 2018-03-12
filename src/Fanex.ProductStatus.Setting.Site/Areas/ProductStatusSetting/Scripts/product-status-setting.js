@@ -11221,9 +11221,11 @@ var ProductStatusSetting = /** @class */ (function () {
         this.onSuccess = function (data) {
             _this.$.unblockUI();
             _this.showMessage(data.Code, data.Message);
-            setTimeout(function () {
-                location.reload(true);
-            }, _this.$timeoutDefault);
+            if (data.Code == 0) {
+                setTimeout(function () {
+                    location.reload(true);
+                }, _this.$timeoutDefault);
+            }
         };
         this.onError = function () {
             _this.showMessage(_this.$errorCodeDefault, _this.$resources.updateStatusFailed);
@@ -11243,4 +11245,3 @@ var productStatusSetting = new ProductStatusSetting($);
 $(function () {
     productStatusSetting.init();
 });
-//# sourceMappingURL=product-status-setting.js.map

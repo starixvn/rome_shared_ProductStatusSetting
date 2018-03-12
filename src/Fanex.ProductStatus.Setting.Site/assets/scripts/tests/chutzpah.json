@@ -17,6 +17,7 @@
     { "Path": "libs/jquery/jquery-1.11.3.js" },
     { "Path": "libs/jasmine.js" },
     { "Path": "libs/jasmine-jquery.js" },
+    { "Path": "../../../typings/globals/jasmine-jquery/index.d.ts" },
 
     { "Path": "libs/jquery/blockUI.js" },
 
@@ -29,6 +30,10 @@
     },
     {
       "Path": "apps/samples/spec",
+      "Excludes": [ "**.js.map", "**-template.ts" ]
+    },
+    {
+      "Path": "apps/samples",
       "Excludes": [ "**.js.map", "**-template.ts" ]
     }
   ]

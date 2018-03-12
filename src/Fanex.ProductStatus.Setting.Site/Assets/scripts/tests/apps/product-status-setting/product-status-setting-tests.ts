@@ -1,3 +1,3 @@
 ﻿describe('ProductStatusSetting_', () => {
-    const productStatusSetting = new ProductStatusSetting($);
+   // const productStatusSetting = new ProductStatusSetting($);
 });

@@ -1,4 +1,7 @@
 ﻿describe("sample", function () {
-    it("should set 'jasmine-fixtures' as the default container id", function () {
+    it("Test", function () {
+        loadFixtures('myfixture.html');
+        $('#my-fixture').myTestedPlugin();
+        expect($('#my-fixture')).toBeEmpty();
     })
 })
