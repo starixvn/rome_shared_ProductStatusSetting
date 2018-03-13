@@ -341,8 +341,7 @@
     hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");
 }
 
-let productStatusSetting = new ProductStatusSetting($);
-
 $(function () {
+    let productStatusSetting = new ProductStatusSetting($);
     productStatusSetting.init();
 });

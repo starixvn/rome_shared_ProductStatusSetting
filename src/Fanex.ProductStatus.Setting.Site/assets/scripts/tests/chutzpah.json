@@ -3,7 +3,8 @@
   "EnableCodeCoverage": "true",
   "Compile": {
     "Mode": "External",
-    "Extensions": [ ".ts" ]
+    "Extensions": [ ".ts" ],
+    "ExtensionsWithNoOutput": [".d.ts"]
   },
   "CodeCoverageExcludes": [
     "*\\libs\\*"
@@ -11,30 +12,28 @@
   "CodeCoverageIgnores": [
     "*\\tests\\*"
   ],
-
+  
   "CodeCoverageExecutionMode": "Manual",
   "References": [
-    { "Path": "libs/jquery/jquery-1.11.3.js" },
-    { "Path": "libs/jasmine.js" },
-    { "Path": "libs/jasmine-jquery.js" },
+    { "Path": "../../../typings/globals/jasmine/index.d.ts" },
     { "Path": "../../../typings/globals/jasmine-jquery/index.d.ts" },
+    { "Path": "../../../typings/globals/jquery/index.d.ts" },
 
-    { "Path": "libs/jquery/blockUI.js" },
+    { "Path": "../libs/jasmine.js" },
+    { "Path": "../libs/jquery/jquery-1.11.3.js" },
+    { "Path": "../libs/jasmine-jquery.js" },
 
+    { "Path": "../samples/mymodule.ts" },
     { "Path": "../product-status-setting/product-status-setting.ts" }
   ],
   "Tests": [
     {
-      "Path": "apps/product-status-setting",
-      "Excludes": [ "**.js.map", "**.js", "**-template.ts" ]
-    },
-    {
-      "Path": "apps/samples/spec",
-      "Excludes": [ "**.js.map", "**-template.ts" ]
-    },
-    {
       "Path": "apps/samples",
-      "Excludes": [ "**.js.map", "**-template.ts" ]
+      "Excludes": [ "**.js.map" ]
+    },
+    {
+      "Path": "apps/product-status-setting",
+      "Excludes": [ "**.js.map" ]
     }
   ]
 }

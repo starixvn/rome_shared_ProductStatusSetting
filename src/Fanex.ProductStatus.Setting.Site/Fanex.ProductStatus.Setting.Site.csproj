@@ -35,7 +35,7 @@
     <CodeAnalysisRuleSet>Fanex.ProductStatus.Setting.Site.ruleset</CodeAnalysisRuleSet>
     <LangVersion>6</LangVersion>
     <DocumentationFile>bin\Fanex.ProductStatus.Setting.Site.XML</DocumentationFile>
-    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptTarget>ES5</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
@@ -166,7 +166,15 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.js" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.min.js">
+      <DependentUpon>product-status-setting.js</DependentUpon>
+    </Content>
     <Content Include="Areas\ProductStatusSetting\Styles\images\ajax-loader.png" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.css" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.min.css">
+      <DependentUpon>product-status-setting.css</DependentUpon>
+    </Content>
     <Content Include="Assets\bundles\product-status-setting.js" />
     <Content Include="Assets\bundles\product-status-setting.min.js">
       <DependentUpon>product-status-setting.js</DependentUpon>
@@ -178,6 +186,7 @@
     <Content Include="Assets\scripts\libs\jasmine.js" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
+    <Content Include="Assets\scripts\tests\apps\product-status-setting\fixtures\numbergame.html" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_checkbox_with_checked.html" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_javascript.html" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_javascript_block.html" />
@@ -185,7 +194,7 @@
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\javascripts\jasmine_javascript_hover.js" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture.html" />
     <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture_style.css" />
-    <Content Include="Assets\scripts\tests\apps\samples\myfixture.html" />
+    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\myfixture.html" />
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -217,7 +226,6 @@
     <Content Include="Areas\ProductStatusSetting\Views\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\ProductStatusSetting\Scripts\" />
     <Folder Include="Content\" />
     <Folder Include="Models\" />
     <Folder Include="Scripts\" />
