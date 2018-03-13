@@ -16,9 +16,17 @@
             int actorId,
             string ip,
             IEnumerable<ProductStatusCommand> commands);
+
+        IEnumerable<Result> MultipleUpdateProductStatus(
+            int productId,
+            int[] custIds,
+            string[] custNames,
+            int actorId,
+            string ip,
+            ProductStatusCommand[] commands);
     }
 
-    public class ProductStatusServiceImpl : ProductStatusService
+    internal class ProductStatusServiceImpl : ProductStatusService
     {
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
@@ -99,6 +107,26 @@
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
 
             return statusDataAccess.ExecuteNonQuery(criteria);
+        }
+
+        public IEnumerable<Result> MultipleUpdateProductStatus(
+            int productId,
+            int[] custIds,
+            string[] custNames,
+            int actorId,
+            string ip,
+            ProductStatusCommand[] commands)
+        {
+            Result result;
+            int customerId;
+
+            for (int i = 0, max = custIds.Length; i < max; i++)
+            {
+                customerId = custIds[i];
+                result = UpdateProductStatus(productId, customerId, actorId, ip, commands);
+
+                yield return new MultipleResult(result, customerId, custNames[i]);
+            }
         }
     }
 }

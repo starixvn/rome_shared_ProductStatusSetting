@@ -11,6 +11,7 @@
     public class ProductStatusSettingController : Controller
     {
         private const string IndexViewPath = "~/Areas/ProductStatusSetting/Views/Index.cshtml";
+        private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
 
         private readonly ProductStatusService productStatusService;
 
@@ -24,7 +25,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        [ProductStatusAuthorize(IsHost = false)]
+        [ProductStatusAuthorize(IsHost = false, IsMultiple = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatus = viewModel.IsValid()
@@ -36,24 +37,52 @@
             return View(IndexViewPath, viewModel);
         }
 
-        [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
+        [HttpPost, ProductStatusAuthorize(IsHost = true, IsMultiple = false), ProductStatusValidateAntiForgeryToken]
         public ActionResult Update(UpdateViewModel viewModel)
         {
-            var jsonRequestBehavior = JsonRequestBehavior.DenyGet;
-
-            if (viewModel.IsValid())
+            if (!viewModel.IsValid())
             {
-                var result = productStatusService.UpdateProductStatus(
-                    viewModel.ProductId,
-                    viewModel.CustId,
-                    viewModel.ActorId,
-                    viewModel.IP,
-                    viewModel.ProductStatus);
-
-                return Json(result, jsonRequestBehavior);
+                return JsonBadRequest();
             }
 
-            return Json(new Result(400, Resources.BadRequest), jsonRequestBehavior);
+            var result = productStatusService.UpdateProductStatus(
+                viewModel.ProductId,
+                viewModel.CustId,
+                viewModel.ActorId,
+                viewModel.IP,
+                viewModel.ProductStatus);
+
+            return Json(result, JsonRequestBehavior.DenyGet);
+        }
+
+        [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
+        public ActionResult MultipleView(MultipleQueryViewModel viewModel)
+        {
+            return View(MultipleViewPath, viewModel);
+        }
+
+        [HttpPost, ProductStatusAuthorize(IsHost = true, IsMultiple = true), ProductStatusValidateAntiForgeryToken]
+        public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
+        {
+            if (!viewModel.IsValid())
+            {
+                return JsonBadRequest();
+            }
+
+            var results = productStatusService.MultipleUpdateProductStatus(
+                viewModel.ProductId,
+                viewModel.CustIds,
+                viewModel.CustNames,
+                viewModel.ActorId,
+                viewModel.IP,
+                viewModel.ProductStatus);
+
+            return Json(results, JsonRequestBehavior.DenyGet);
+        }
+
+        private ActionResult JsonBadRequest()
+        {
+            return Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
         }
     }
 }

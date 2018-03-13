@@ -13,6 +13,8 @@ namespace Fanex.ProductStatus.Setting.Web
     {
         public bool IsHost { get; set; }
 
+        public bool IsMultiple { get; set; }
+
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
@@ -23,11 +25,7 @@ namespace Fanex.ProductStatus.Setting.Web
                 return;
             }
 
-            var authorizationService = ProductStatusConfigurationHandler.AuthorizeService;
-
-            bool isAuthorized = IsHost
-                ? authorizationService.CanUpdate(filterContext)
-                : authorizationService.CanView(filterContext);
+            bool isAuthorized = GetAuthorizationFunc().Invoke(filterContext);
 
             if (!isAuthorized)
             {
@@ -54,6 +52,22 @@ namespace Fanex.ProductStatus.Setting.Web
             {
                 filterContext.Result = new RedirectResult(ProductStatusConfigurationHandler.UnAuthorizedUrl);
             }
+        }
+
+        private Func<AuthorizationContext, bool> GetAuthorizationFunc()
+        {
+            var authorizationService = ProductStatusConfigurationHandler.AuthorizeService;
+
+            if (IsHost)
+            {
+                return IsMultiple
+                    ? (Func<AuthorizationContext, bool>)authorizationService.CanUpdateMultiple
+                    : authorizationService.CanUpdate;
+            }
+
+            return IsMultiple
+                ? (Func<AuthorizationContext, bool>)authorizationService.CanViewMultiple
+                : authorizationService.CanView;
         }
     }
 }

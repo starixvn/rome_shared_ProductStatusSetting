@@ -6,17 +6,22 @@
 
     public class ProductStatusAuthorizeServiceForTesting : IProductStatusAuthorizeService
     {
-        public bool CanUpdate(AuthorizationContext filterContext)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool CanView(AuthorizationContext filterContext)
         {
             throw new NotImplementedException();
         }
 
-        public Func<int> GetActorId()
+        public bool CanUpdate(AuthorizationContext filterContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanViewMultiple(AuthorizationContext filterContext)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanUpdateMultiple(AuthorizationContext filterContext)
         {
             throw new NotImplementedException();
         }
