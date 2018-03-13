@@ -18,6 +18,8 @@
         private const int CustIdTest = 1176083;
         private const int ActorIdTest = 8;
         private const string IPTest = "127.0.0.1";
+        private readonly static int[] CustIdsTest = new[] { 1176092, 14244423 };
+        private readonly static string[] CustNamesTest = new[] { "member01", "member012" };
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
