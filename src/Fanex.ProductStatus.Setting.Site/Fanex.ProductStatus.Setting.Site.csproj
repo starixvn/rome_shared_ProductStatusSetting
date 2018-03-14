@@ -167,6 +167,10 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting-multiple.js" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting-multiple.min.js">
+      <DependentUpon>product-status-setting-multiple.js</DependentUpon>
+    </Content>
     <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.js" />
     <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.min.js">
       <DependentUpon>product-status-setting.js</DependentUpon>
@@ -235,6 +239,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Assets\scripts\product-status-setting\product-status-setting-multiple.ts" />
     <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-tests.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />

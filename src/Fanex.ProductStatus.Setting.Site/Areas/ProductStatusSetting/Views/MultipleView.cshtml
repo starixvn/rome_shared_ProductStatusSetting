@@ -23,27 +23,7 @@
                 </tr>
                 <tr>
                     <th rowspan="2"></th>
-                    <th rowspan="2">
-                        @if (isMultipleBetTypes)
-                        {
-                            var roleName = Model.GetRoleName(Model.CustRole);
-                            <div class="current-role">@roleName</div>
-                            <div class="all-status">
-                                <span class="enabled" data-roleid="@Model.CustRole"
-                                      title="@String.Format(Resources.SearchAccountTHeadTooltip, Resources.Enable.ToLower(), roleName)">
-                                    @Resources.EnableAll
-                                </span>
-                            </div>
-                        }
-                        else
-                        {
-                            @Model.GetRoleName(Model.CustRole)
-                        }
-                    </th>
-                    @RenderHeaderLevelName(Model.CustRole)
-                </tr>
-                <tr>
-                    @RenderHeaderStatus(Model.CustRole, isMultipleBetTypes, true)
+                    @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes)
                 </tr>
             </thead>
             <tbody>
@@ -96,21 +76,31 @@
 </body>
 </html>
 
-@helper RenderHeaderLevelName(byte roleId)
+@helper RenderHeaderLevelName(int roleId, bool isMultipleBetTypes)
 {
-    while (roleId > 0 && --roleId > 0)
-    {
-        <th>
-            @Model.GetRoleName(roleId)
-        </th>
-    }
-}
+while (roleId > 0 && --roleId > 0)
+{
+    var id = string.Format("{0}_{1}", "enabled", roleId);
+    var roleName = Model.GetRoleName((byte)roleId);
 
-@helper RenderHeaderStatus(byte roleId, bool isMultipleBetTypes, bool enable)
-{
-    while (roleId > 0 && --roleId > 0)
-    {
-        @RenderHeader(roleId, isMultipleBetTypes, enable);
+        <th>
+            @if (isMultipleBetTypes)
+            {
+                <div class="current-role">@roleName</div>
+                            <div class="all-status">
+                                <input type="checkbox" class="checkbox-hide" id="@id"
+                                       data-roleid="@roleId" />
+
+                                <label for="@id" class="enabled">
+                                    @Resources.EnableAll
+                                </label>
+                            </div>
+            }
+            else
+            {
+                @Model.GetRoleName(Model.CustRole)
+            }
+        </th>
     }
 }
 
@@ -121,13 +111,9 @@
     bool isDisabledUpline, 
     byte roleId)
 {
-var labelText = isDisabled ? Resources.EnableAll : Resources.DisableAll;
-var labelClass = isDisabledUpline ? "gray" : (isDisabled ? Resources.Disabled : Resources.Enabled).ToLowerInvariant();
-var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
-var roleName = Model.GetRoleName(roleId);
 
-var tbodyEnableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Enable.ToLower(), roleName + "s");
-var tbodyDisableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Disable.ToLower(), roleName + "s");
+var id = string.Format("{0}_{1}_{2}", "enabled", roleId, betType);
+var roleName = Model.GetRoleName(roleId);
 
     <input type="checkbox" class="checkbox-hide" id="@id"
            data-roleid="@roleId"
@@ -135,34 +121,11 @@ var tbodyDisableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, 
            data-sporttype="@sportType"
            data-bettype="@betType"
            data-originstatus="@isDisabled"
-           title="@tbodyEnableDownlineTooltip"
            @(isDisabled ? string.Empty : "checked ") 
            @(isDisabledUpline ? "disabled " : string.Empty) />
 
-        <label for="@id" class="@labelClass"
-               title="@(isDisabled ? tbodyEnableDownlineTooltip : tbodyDisableDownlineTooltip)"
-               data-enabletooltip="@tbodyEnableDownlineTooltip"
-               data-disabletooltip="@tbodyDisableDownlineTooltip">
-            @labelText
+        <label for="@id" class="enabled">
+            @Resources.EnableAll
         </label>
 
-}
-
-@helper RenderHeader(byte roleId, bool isMultipleBetTypes, bool enable)
-{
-var labelText = enable ? Resources.DisableAll : Resources.EnableAll;
-var roleName = Model.GetRoleName(roleId);
-if (isMultipleBetTypes)
-{
-        <th>
-            <span class=@(enable ? "disabled" : "enabled") data-roleid="@roleId" 
-                    title="@String.Format(Resources.HeaderTooltip, Resources.Enable.ToLower(), roleName)">
-                 @labelText
-            </span>
-        </th>
-    }
-    else
-    {
-        <th>@labelText</th>
-    }
 }

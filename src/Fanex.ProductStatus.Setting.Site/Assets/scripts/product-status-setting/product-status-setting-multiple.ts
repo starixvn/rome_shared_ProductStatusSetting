@@ -102,8 +102,7 @@
 
     toggleAllStatus = (element: any, enable: boolean) => {
         if (this.allowActionOnElement(element)) {
-            let roleId = this.getRoleId(element);
-            this.$custRole == roleId ? this.toggleAllStatusOnCheckbox(enable) : this.toggleAllStatusOnSpans(roleId, enable);
+            this.toggleAllStatusOnCheckbox(enable);
         }
     }
 
@@ -130,7 +129,7 @@
     }
 
     checkboxChanged = (element: any) => {
-        if (this.isEnablebUpline(element)) {
+       // if (this.isEnablebUpline(element)) {
             let enable = this.$(element).is(":checked");
             let labelElement = element.next("label");
 
@@ -143,7 +142,7 @@
                 .text(labelText);
 
             this.toggleStatusDownlines(this.getRoleId(element) - 1, this.$(element).is(":checked"), this.getBetType(element));
-        }
+       // }
     }
 
     toggleStatusBySpan = (statusSpan: any) => this.toggleStatus(statusSpan, this.isEnabledElement(statusSpan.attr("class")));
@@ -219,6 +218,7 @@
     onSubmit = (e: any) => {
         e.preventDefault();
 
+        return;
         let headers = this.setupAntiXSRF();
         let updateViewModel = this.getUpdateViewModel();
 
@@ -342,6 +342,6 @@
 }
 
 $(function () {
-    let productStatusSetting = new ProductStatusSettingMultipe($);
-    productStatusSetting.init();
+    let productStatusSettingMultipe = new ProductStatusSettingMultipe($);
+    productStatusSettingMultipe.init();
 });
