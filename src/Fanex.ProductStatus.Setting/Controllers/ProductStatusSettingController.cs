@@ -56,8 +56,15 @@
         }
 
         [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
-        public ActionResult MultipleView(MultipleQueryViewModel viewModel)
+        public ActionResult MultipleView(QueryViewModel viewModel)
         {
+
+            var productStatus = viewModel.IsValid()
+                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                : Enumerable.Empty<ProductStatusModel>();
+
+            viewModel.SetProductStatusViewModel(productStatus);
+
             return View(MultipleViewPath, viewModel);
         }
 

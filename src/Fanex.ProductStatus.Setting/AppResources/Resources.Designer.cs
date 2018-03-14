@@ -70,6 +70,42 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Agents.
+        /// </summary>
+        public static string AllAgents {
+            get {
+                return ResourceManager.GetString("AllAgents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Masters.
+        /// </summary>
+        public static string AllMasters {
+            get {
+                return ResourceManager.GetString("AllMasters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Members.
+        /// </summary>
+        public static string AllMembers {
+            get {
+                return ResourceManager.GetString("AllMembers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All Supers.
+        /// </summary>
+        public static string AllSupers {
+            get {
+                return ResourceManager.GetString("AllSupers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You cannot submit the action due to a validation error..
         /// </summary>
         public static string BadRequest {
@@ -97,6 +133,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disable All.
+        /// </summary>
+        public static string DisableAll {
+            get {
+                return ResourceManager.GetString("DisableAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Disabled.
         /// </summary>
         public static string Disabled {
@@ -111,6 +156,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string Enable {
             get {
                 return ResourceManager.GetString("Enable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable All.
+        /// </summary>
+        public static string EnableAll {
+            get {
+                return ResourceManager.GetString("EnableAll", resourceCulture);
             }
         }
         
