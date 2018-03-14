@@ -1,9 +1,10 @@
 ﻿describe('ProductStatusSetting_', () => {
     const productStatusSetting = new ProductStatusSetting($);
+    const fixturesPath = '../../../../../Assets/scripts/tests/apps/product-status-setting/fixtures/';
 
-    // Setup
+// Setup
     beforeEach(function () {
-        jasmine.getFixtures().fixturesPath = 'fixtures/';
+        jasmine.getFixtures().fixturesPath = fixturesPath;
         jasmine.getFixtures().load('numbergame.html');
     });
 

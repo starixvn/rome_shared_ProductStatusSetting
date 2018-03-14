@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JasmineController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -182,19 +183,16 @@
     <Content Include="Assets\scripts\libs\bootstrap\dropdown.js" />
     <Content Include="Assets\scripts\libs\bootstrap\modal.js" />
     <Content Include="Assets\scripts\libs\bootstrap\multiselect.js" />
-    <Content Include="Assets\scripts\libs\jasmine-jquery.js" />
-    <Content Include="Assets\scripts\libs\jasmine.js" />
+    <Content Include="Assets\scripts\libs\jasmine\boot.js" />
+    <Content Include="Assets\scripts\libs\jasmine\console.js" />
+    <Content Include="Assets\scripts\libs\jasmine\jasmine-html.js" />
+    <Content Include="Assets\scripts\libs\jasmine\jasmine-jquery.js" />
+    <Content Include="Assets\scripts\libs\jasmine\jasmine.css" />
+    <Content Include="Assets\scripts\libs\jasmine\jasmine.js" />
+    <Content Include="Assets\scripts\libs\jasmine\jasmine_favicon.png" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
     <Content Include="Assets\scripts\tests\apps\product-status-setting\fixtures\numbergame.html" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_checkbox_with_checked.html" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_javascript.html" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\fixture_with_javascript_block.html" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\javascripts\jasmine_javascript_click.js" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\javascripts\jasmine_javascript_hover.js" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture.html" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\real_non_mocked_fixture_style.css" />
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\myfixture.html" />
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
     <Content Include="compilerconfig.json" />
@@ -241,8 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-tests.ts" />
-    <TypeScriptCompile Include="Assets\scripts\tests\apps\samples\sample-setting-tests.ts" />
-    <TypeScriptCompile Include="Assets\scripts\tests\apps\samples\spec\suites\jasmine-jquery-spec.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine\index.d.ts" />
@@ -271,9 +267,6 @@
     <Content Include="Assets\styles\product-status-setting.scss" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\scripts\tests\apps\samples\spec\fixtures\json\jasmine_json_test.json" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\styles\_variables.scss" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Jasmine\SpecRunner.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

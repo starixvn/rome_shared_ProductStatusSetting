@@ -15,22 +15,17 @@
   
   "CodeCoverageExecutionMode": "Manual",
   "References": [
-    { "Path": "../../../typings/globals/jasmine/index.d.ts" },
-    { "Path": "../../../typings/globals/jasmine-jquery/index.d.ts" },
-    { "Path": "../../../typings/globals/jquery/index.d.ts" },
+    //{ "Path": "../../../typings/globals/jasmine/index.d.ts" },
+    //{ "Path": "../../../typings/globals/jasmine-jquery/index.d.ts" },
+    //{ "Path": "../../../typings/globals/jquery/index.d.ts" },
 
-    { "Path": "../libs/jasmine.js" },
     { "Path": "../libs/jquery/jquery-1.11.3.js" },
-    { "Path": "../libs/jasmine-jquery.js" },
+    { "Path": "../libs/jasmine/jasmine.js" },
+    { "Path": "../libs/jasmine/jasmine-jquery.js" },
 
-    { "Path": "../samples/mymodule.ts" },
     { "Path": "../product-status-setting/product-status-setting.ts" }
   ],
   "Tests": [
-    {
-      "Path": "apps/samples",
-      "Excludes": [ "**.js.map" ]
-    },
     {
       "Path": "apps/product-status-setting",
       "Excludes": [ "**.js.map" ]
