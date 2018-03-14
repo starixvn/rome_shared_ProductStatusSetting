@@ -56,15 +56,8 @@
         }
 
         [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
-        public ActionResult MultipleView(QueryViewModel viewModel)
+        public ActionResult MultipleView(MultipleQueryViewModel viewModel)
         {
-
-            var productStatus = viewModel.IsValid()
-                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-                : Enumerable.Empty<ProductStatusModel>();
-
-            viewModel.SetProductStatusViewModel(productStatus);
-
             return View(MultipleViewPath, viewModel);
         }
 
@@ -88,8 +81,6 @@
         }
 
         private ActionResult JsonBadRequest()
-        {
-            return Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
-        }
+            => Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
     }
 }
