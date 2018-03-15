@@ -89,7 +89,7 @@ while (roleId > 0 && --roleId > 0)
                 <div class="current-role">@roleName</div>
                             <div class="all-status">
                                 <input type="checkbox" class="checkbox-hide" id="@id"
-                                       data-roleid="@roleId" />
+                                       data-roleid="@roleId" checked ="checked"/>
 
                                 <label for="@id" class="enabled">
                                     @Resources.EnableAll
@@ -112,7 +112,7 @@ while (roleId > 0 && --roleId > 0)
     byte roleId)
 {
 
-var id = string.Format("{0}_{1}_{2}", "enabled", roleId, betType);
+var id = string.Format("{0}_{1}", roleId, betType);
 var roleName = Model.GetRoleName(roleId);
 
     <input type="checkbox" class="checkbox-hide" id="@id"
@@ -121,7 +121,7 @@ var roleName = Model.GetRoleName(roleId);
            data-sporttype="@sportType"
            data-bettype="@betType"
            data-originstatus="@isDisabled"
-           @(isDisabled ? string.Empty : "checked ") 
+           checked ="checked"
            @(isDisabledUpline ? "disabled " : string.Empty) />
 
         <label for="@id" class="enabled">

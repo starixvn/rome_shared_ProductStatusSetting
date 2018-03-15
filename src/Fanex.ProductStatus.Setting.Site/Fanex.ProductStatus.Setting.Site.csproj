@@ -180,9 +180,6 @@
     <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.min.css">
       <DependentUpon>product-status-setting.css</DependentUpon>
     </Content>
-    <Content Include="Assets\scripts\libs\bootstrap\dropdown.js" />
-    <Content Include="Assets\scripts\libs\bootstrap\modal.js" />
-    <Content Include="Assets\scripts\libs\bootstrap\multiselect.js" />
     <Content Include="Assets\scripts\libs\jasmine\boot.js" />
     <Content Include="Assets\scripts\libs\jasmine\console.js" />
     <Content Include="Assets\scripts\libs\jasmine\jasmine-html.js" />
