@@ -12,6 +12,8 @@ namespace Fanex.ProductStatus.Setting.DataAccess
     {
         IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
 
+        IEnumerable<ProductInfo> GetProductInfo(ICriteria criteria);
+
         Result ExecuteNonQuery(ICriteria criteria);
     }
 
@@ -26,6 +28,20 @@ namespace Fanex.ProductStatus.Setting.DataAccess
                     while (reader.Read())
                     {
                         yield return ToProductStatusModel(reader);
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<ProductInfo> GetProductInfo(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                {
+                    while (reader.Read())
+                    {
+                        yield return ToProductInfo(reader);
                     }
                 }
             }
@@ -53,5 +69,10 @@ namespace Fanex.ProductStatus.Setting.DataAccess
                 Convert.ToInt32(reader["totalenabledagents"]),
                 Convert.ToInt32(reader["totaldisabledmembers"]),
                 Convert.ToInt32(reader["totalenabledmembers"]));
+
+        private static ProductInfo ToProductInfo(IDataReader reader)
+            => new ProductInfo(
+                Convert.ToInt32(reader["sporttype"]),
+                Convert.ToInt32(reader["bettype"]));
     }
 }

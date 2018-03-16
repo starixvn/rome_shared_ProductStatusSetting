@@ -126,6 +126,7 @@
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
+    <Compile Include="Criteria\SelectProductInfoCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateCasinoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateColossusBetsStatusCriteria.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
+    <Compile Include="Models\ProductInfo.cs" />
     <Compile Include="Services\RefDataServiceProvider.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUser.cs" />

@@ -8,6 +8,8 @@
 
     public class MultipleQueryViewModel
     {
+        private readonly IProductStatusUser _user;
+
         public MultipleQueryViewModel()
             : this(null)
         {
@@ -15,14 +17,7 @@
 
         public MultipleQueryViewModel(IProductStatusUser user)
         {
-            Products = (user ?? ProductStatusConfigurationHandler.User).GetProductList();
-
-            if (CustRole != RoleIdentity.Super)
-            {
-                var includedProducts = ToProductDictionary();
-
-                Products = Products.Where(p => includedProducts.ContainsKey(p.Key));
-            }
+            _user = user ?? ProductStatusConfigurationHandler.User;
         }
 
         public int[] ProductIds { get; set; }
@@ -33,7 +28,22 @@
 
         public byte CustRole { get; set; }
 
-        public IEnumerable<KeyValuePair<int, string>> Products { get; }
+        public IEnumerable<KeyValuePair<int, string>> Products
+        {
+            get
+            {
+                var products = _user.GetProductList();
+
+                if (CustRole != RoleIdentity.Super)
+                {
+                    var includedProducts = ToProductDictionary();
+
+                    products = products.Where(p => includedProducts.ContainsKey(p.Key));
+                }
+
+                return products;
+            }
+        }
 
         private IDictionary<int, bool> ToProductDictionary()
         {

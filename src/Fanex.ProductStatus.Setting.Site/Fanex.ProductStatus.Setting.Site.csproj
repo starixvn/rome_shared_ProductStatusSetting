@@ -166,7 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Content Include="App_Data\SPNames\DBCust.CustDB.bodbAdminNet.xml" />
+    <Content Include="App_Data\SPNames\DBCust.CustDB.xml" />
     <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting-multiple.js" />
     <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting-multiple.min.js">
       <DependentUpon>product-status-setting-multiple.js</DependentUpon>

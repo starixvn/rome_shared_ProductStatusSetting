@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Criteria;
     using DataAccess;
     using Models;
     using Shared;
@@ -9,6 +10,8 @@
     public interface ProductStatusService
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
+
+        IEnumerable<ProductInfo> GetProductInfo(int productId);
 
         Result UpdateProductStatus(
             int productId,
@@ -58,6 +61,31 @@
 
             foreach (var item in rawData)
             {
+                item.Name = setNameByBetTypeId
+                    ? refDataServiceProvider.GetBetTypeName(item.BetType)
+                    : refDataServiceProvider.GetProductName(productId);
+
+                yield return item;
+            }
+        }
+
+        public IEnumerable<ProductInfo> GetProductInfo(int productId)
+        {
+            var criteria = new SelectProductInfoCriteria(productId);
+            var rawData = statusDataAccess.GetProductInfo(criteria);
+
+            return SetProductInfoName(productId, rawData);
+        }
+
+        private IEnumerable<ProductInfo> SetProductInfoName(
+            int productId,
+            IEnumerable<ProductInfo> rawData)
+        {
+            var setNameByBetTypeId = rawData.Count() > 1;
+
+            foreach (var item in rawData)
+            {
+                item.ProductId = productId;
                 item.Name = setNameByBetTypeId
                     ? refDataServiceProvider.GetBetTypeName(item.BetType)
                     : refDataServiceProvider.GetProductName(productId);

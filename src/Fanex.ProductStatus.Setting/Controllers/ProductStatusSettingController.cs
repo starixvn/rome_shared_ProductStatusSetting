@@ -12,6 +12,7 @@
     {
         private const string IndexViewPath = "~/Areas/ProductStatusSetting/Views/Index.cshtml";
         private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
+        private const string MultiplePartialViewPath = "~/Areas/ProductStatusSetting/Views/MultiplePartialView.cshtml";
 
         private readonly ProductStatusService productStatusService;
 
@@ -55,17 +56,20 @@
             return Json(result, JsonRequestBehavior.DenyGet);
         }
 
-        [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
-        public ActionResult MultipleView(QueryViewModel viewModel)
+        #region Multiple Update
+
+        [HttpPost, ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
+        public ActionResult MultipleView(MultipleQueryViewModel viewModel)
         {
-
-            var productStatus = viewModel.IsValid()
-                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-                : Enumerable.Empty<ProductStatusModel>();
-
-            viewModel.SetProductStatusViewModel(productStatus);
-
             return View(MultipleViewPath, viewModel);
+        }
+
+        [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
+        public ActionResult MultipleView(int productId)
+        {
+            var productInfo = productStatusService.GetProductInfo(productId);
+
+            return PartialView(MultiplePartialViewPath, productInfo);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true, IsMultiple = true), ProductStatusValidateAntiForgeryToken]
@@ -87,9 +91,9 @@
             return Json(results, JsonRequestBehavior.DenyGet);
         }
 
+        #endregion
+
         private ActionResult JsonBadRequest()
-        {
-            return Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
-        }
+            => Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
     }
 }
