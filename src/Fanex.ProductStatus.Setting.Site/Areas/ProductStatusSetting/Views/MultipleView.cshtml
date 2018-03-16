@@ -80,7 +80,7 @@
 {
 while (roleId > 0 && --roleId > 0)
 {
-    var id = string.Format("{0}_{1}", "enabled", roleId);
+    var id = string.Format("header_{0}", roleId);
     var roleName = Model.GetRoleName((byte)roleId);
 
         <th>

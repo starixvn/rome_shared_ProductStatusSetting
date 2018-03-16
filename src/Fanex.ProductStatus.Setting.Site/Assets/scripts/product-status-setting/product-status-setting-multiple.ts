@@ -48,14 +48,14 @@
     bindingTbodyEvent = () =>
         this.$tbodyButton.forEach((element) => {
             element.addEventListener('click', () => {
-                this.checkboxChanged(this.$(element));
+                this.toogleBodyCheckbox(element, false);
         });
     });
 
     bindingTheadEvent = () =>
         this.$theadButton.forEach((element) => {
             element.addEventListener('click', () => {
-                this.toggleAllStatus(this.$(element));
+                this.toogleHeaderCheckbox(element, false);
             });
         });
 
@@ -66,43 +66,56 @@
     registerEvents = () => {
         this.bindingTheadEvent();
         this.bindingTbodyEvent();
-
         this.bindingResetButtonEvent();
         this.bindingSubmitButtonEvent();
     }
 
-    toggleAllStatus = (element: any) => {
-        if (this.allowActionOnElement(element)) {
-            this.toggleStatus(element);
-            this.toggleAllStatusOnCheckbox(this.isChecked(element), this.getRoleId(element));
-        }
-    }
+    toogleHeaderCheckbox = (element: HTMLInputElement, toogleByUpline: boolean, enabledUpline?: boolean) => {
+        let allowChange = toogleByUpline ? true : this.allowActionOnElement(element);
+        if (allowChange) {
+            toogleByUpline ? this.toggleStatusByValue(element, enabledUpline) : this.toggleStatus(element);
 
-    toggleAllStatusOnCheckbox = (enableAllStatus: boolean, roleId: number) =>
-        this.$tbodyButton.forEach((element) => {
-            if (this.getRoleId(element) <= roleId && this.isChecked(element) != enableAllStatus) {
-                element.click();
+            let roleId = this.getRoleId(element);
+            let enable = this.isChecked(element);
+
+            let tbodyElements = this.getArrayElementByRoleId(this.$tbodyButton, roleId);
+            tbodyElements.forEach((el) => {
+                this.toogleBodyCheckboxByHeader(el, enable);
+            });
+        
+            if (roleId > 1) {
+                let downlineHeader = this.getFirstElementByRoleId(this.$theadButton, roleId - 1);
+                let enable = this.isChecked(element);
+                this.toogleHeaderCheckbox(downlineHeader, true, enable);
+                enable ? this.enableElement(downlineHeader) : this.disableElement(downlineHeader);
             }
-        });
-
-    checkboxChanged = (element: any) => {
-       // if (this.isEnablebUpline(element)) {
-        this.toggleStatus(element);
-        let roleId = this.getRoleId(element);
-        this.watchTheadCheckbox(roleId);
-
-        if (roleId > 0)
-        {
-            this.triggerDownline(roleId - 1, this.getBetType(element), this.isChecked(element));
         }
-       // }
     }
 
-    triggerDownline = (roleId: number, bettype: number, status: boolean) => {
-        let downlineElement = this.getDownlineElement(this.$tbodyButton, roleId, bettype);
-        if (this.isChecked(downlineElement) != status) {
-            this.$(downlineElement).click();
+    toogleBodyCheckbox = (element: HTMLInputElement, toogleByUpline: boolean,  enabledUpline?: boolean) => {
+        //if (this.isEnablebUpline(element)) {
+        if (this.allowActionOnElement(element)) {
+            toogleByUpline ? this.toggleStatusByValue(element, enabledUpline) : this.toggleStatus(element);
+
+            let roleId = this.getRoleId(element);
+
+            [true, false].forEach((status) => {
+                this.watchHeader(roleId, status);
+            });
+
+            if (roleId > 0) {
+                let bettype = this.getBetType(element);
+                let enable = this.isChecked(element);
+                let downlineElement = this.getDownlineElement(this.$tbodyButton, roleId - 1, bettype);
+
+                this.toogleBodyCheckbox(downlineElement, true, enable);
+            }
         }
+    }
+
+    toogleBodyCheckboxByHeader = (element: HTMLInputElement, allowChange: boolean) => {
+        this.toggleStatusByValue(element, allowChange);
+        allowChange ? this.toggleStatusByValue(element, allowChange) : this.disableElement(element);
     }
 
     getDownlineElement = (elements: HTMLInputElement[], roleId: number, bettype: number): HTMLInputElement =>
@@ -119,6 +132,7 @@
     toggleStatus = (element: HTMLInputElement) => this.toggleStatusByValue(element, this.isChecked(element));
 
     toggleStatusByValue = (element: HTMLInputElement, enable: boolean) => {
+        this.$(element).prop('checked', enable);
         let labelElement = this.$(element).parent().find("label");
 
         let tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip")
@@ -132,21 +146,12 @@
             .text(labelText);
     }
 
-    watchTheadCheckbox = (roleId: number) => {
+    watchHeader = (roleId: number, status: boolean) => {
         let tbodyElements = this.getArrayElementByRoleId(this.$tbodyButton, roleId);
-        let theadElement = this.getFirstElementByRoleId(this.$theadButton, roleId);
 
-        if (tbodyElements != null && tbodyElements.length > 0)
-        {
-            if (this.isAllStatus(tbodyElements, true)) {
-                this.toggleStatusByValue(theadElement, true);
-                return;
-            }
-
-            if (this.isAllStatus(tbodyElements, false)) {
-                this.toggleStatusByValue(theadElement, false);
-                return;
-            }
+        if (tbodyElements != null && tbodyElements.length > 0 && this.isAllStatus(tbodyElements, status)) {
+            let theadElement = this.getFirstElementByRoleId(this.$theadButton, roleId);
+            this.toggleStatusByValue(theadElement, status); 
         }
     }
 
@@ -158,13 +163,9 @@
         });
 
     getFirstElementByRoleId = (elements: HTMLInputElement[], roleId: number): HTMLInputElement => {
-        for (let index = 0; index < elements.length; index++) {
-            if (this.getRoleId(elements[index]) == roleId) {
-                return elements[index];
-            }
-        }
-
-        return null;
+        let arrayElement = this.getArrayElementByRoleId(elements, roleId);
+        let defaultElement: HTMLInputElement;
+        return arrayElement.length > 0 ? arrayElement[0] : null;
     }
 
     isAllStatus = (elements: HTMLInputElement[], status: boolean): boolean => 
@@ -172,22 +173,54 @@
             return this.isChecked(elements[index]) == status;
         });
 
-    disableElement = (element: HTMLInputElement) => this.$(element).addClass(this.$resources.grayClass);
-    enableElement = (element: HTMLInputElement) => this.$(element).removeClass(this.$resources.grayClass);
 
-    allowActionOnElement = (element: HTMLInputElement): boolean => !this.$(element).hasClass(this.$resources.grayClass);
-    isEnabledElement = (className: string): boolean => className === this.$resources.enabledClass;
-    isEnablebUpline = (element: HTMLInputElement): boolean => !this.parseBoolean(this.$(element).data("disabledupline"));
-    isChangeState = (originValue: number, currentValue: number) => originValue != currentValue;
-    isChecked = (element: HTMLInputElement): boolean => this.$(element).is(":checked");
+    disableElement = (element: HTMLInputElement) => {
+        let nextLabel = this.getNextLable(element);
+        this.$(nextLabel).addClass(this.$resources.grayClass);
+    }
 
-    getBetType = (element: HTMLInputElement): number => parseInt(this.$(element).data("bettype"));
-    getSportType = (element: HTMLInputElement): number => parseInt(this.$(element).data("sporttype"));
-    getTotalStatus = (element: HTMLInputElement): number => parseInt(this.$(element).data("total"));
-    getRoleId = (element: HTMLInputElement): number => parseInt(this.$(element).data("roleid"));
+    enableElement = (element: HTMLInputElement) => {
+        let nextLabel = this.getNextLable(element);
+        this.$(nextLabel).removeClass(this.$resources.grayClass);
+    }
 
-    parseInt = (value: string): number => parseInt(value.replace(/,/g, ""));
-    parseBoolean = (value: string): boolean => { return this.$.parseJSON(value.toLowerCase()); }
+    allowActionOnElement = (element: HTMLInputElement): boolean => {
+        let nextLabel = this.getNextLable(element);
+        return !this.$(nextLabel).hasClass(this.$resources.grayClass);
+    }
+
+    getNextLable = (element: HTMLInputElement) => 
+        this.$(element).parent().find("label");
+
+    isEnabledElement = (className: string): boolean =>
+        className === this.$resources.enabledClass;
+
+    isEnablebUpline = (element: HTMLInputElement): boolean =>
+        !this.parseBoolean(this.$(element).data("disabledupline"));
+
+    isChangeState = (originValue: number, currentValue: number): boolean =>
+        originValue != currentValue;
+
+    isChecked = (element: HTMLInputElement): boolean =>
+        this.$(element).is(":checked");
+
+    getBetType = (element: HTMLInputElement): number =>
+        parseInt(this.$(element).data("bettype"));
+
+    getSportType = (element: HTMLInputElement): number =>
+        parseInt(this.$(element).data("sporttype"));
+
+    getTotalStatus = (element: HTMLInputElement): number =>
+        parseInt(this.$(element).data("total"));
+
+    getRoleId = (element: HTMLInputElement): number =>
+        parseInt(this.$(element).data("roleid"));
+
+    parseInt = (value: string): number =>
+        parseInt(value.replace(/,/g, ""));
+
+    parseBoolean = (value: string): boolean =>
+        this.$.parseJSON(value.toLowerCase()); 
 
     setupAntiXSRF = () => {
         let token = this.$('[name=__RequestVerificationToken]').val();
@@ -312,7 +345,7 @@
 
     onError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
-    showMessage = (type: any, message: string) => {
+    showMessage = (type: number, message: string) => {
         this.$.unblockUI();
         let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
