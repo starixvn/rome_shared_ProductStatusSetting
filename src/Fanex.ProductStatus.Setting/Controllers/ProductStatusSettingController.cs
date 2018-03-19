@@ -26,7 +26,7 @@
             this.productStatusService = productStatusService ?? new ProductStatusServiceImpl();
         }
 
-        [ProductStatusAuthorize(IsHost = false, IsMultiple = false)]
+        [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
             var productStatus = viewModel.IsValid()
@@ -38,7 +38,7 @@
             return View(IndexViewPath, viewModel);
         }
 
-        [HttpPost, ProductStatusAuthorize(IsHost = true, IsMultiple = false), ProductStatusValidateAntiForgeryToken]
+        [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
         public ActionResult Update(UpdateViewModel viewModel)
         {
             if (!viewModel.IsValid())
@@ -58,13 +58,13 @@
 
         #region Multiple Update
 
-        [HttpPost, ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
+        [HttpPost]
         public ActionResult MultipleView(MultipleQueryViewModel viewModel)
         {
             return View(MultipleViewPath, viewModel);
         }
 
-        [ProductStatusAuthorize(IsHost = false, IsMultiple = true)]
+        [ProductStatusAuthorize(IsHost = false)]
         public ActionResult MultipleView(int productId)
         {
             var productInfo = productStatusService.GetProductInfo(productId);
@@ -72,7 +72,7 @@
             return PartialView(MultiplePartialViewPath, productInfo);
         }
 
-        [HttpPost, ProductStatusAuthorize(IsHost = true, IsMultiple = true), ProductStatusValidateAntiForgeryToken]
+        [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
         public ActionResult MultipleUpdate(MultipleUpdateViewModel viewModel)
         {
             if (!viewModel.IsValid())

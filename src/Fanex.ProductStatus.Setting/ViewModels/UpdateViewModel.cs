@@ -25,10 +25,10 @@
         public ProductStatusCommand[] ProductStatus { get; set; }
 
         public string IP
-            => user.GetClientIP().Invoke();
+            => user.GetClientIP();
 
         public int ActorId
-            => user.GetActorId().Invoke();
+            => user.GetActorId();
 
         public virtual bool IsValid()
             => ProductId > 0

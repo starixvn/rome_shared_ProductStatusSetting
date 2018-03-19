@@ -231,6 +231,36 @@
         }
 
         [Fact]
+        public void GetProductInfo_Keno_ReturnsDataFromDataAccess()
+        {
+            // Arrange
+            var expectedResults = new List<ProductStatusModel>
+            {
+                new ProductStatusModel(202, 1501),
+                new ProductStatusModel(202, 1503)
+            };
+
+            productStatusDataAccess
+                .GetProductInfo(Arg.Any<ICriteria>())
+                .Returns(expectedResults);
+
+            refDataServiceProvider
+                .GetBetTypeName(1501)
+                .Returns("Australia");
+            refDataServiceProvider
+                .GetBetTypeName(1503)
+                .Returns("Slovakia");
+
+            var compareLogic = new CompareLogic();
+
+            // Act
+            var actualResults = productStatusService.GetProductInfo(ProductIdentity.Keno);
+
+            // Assert
+            Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
+        }
+
+        [Fact]
         public void UpdateProductStatus_Keno_ReturnsSucessfulResult()
         {
             // Arrange

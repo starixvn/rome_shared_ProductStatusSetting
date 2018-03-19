@@ -84,7 +84,7 @@
         public void Update_InvalidUpdateViewModel_ReturnsBadRequest()
         {
             // Arrange
-            user.GetActorId().Returns(() => 8);
+            user.GetActorId().Returns(8);
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino
@@ -102,8 +102,8 @@
         public void Update_ValidUpdateViewModel_ReturnsSuccessfulJson()
         {
             // Arrange
-            user.GetActorId().Returns(() => 8);
-            user.GetClientIP().Returns(() => "127.0.0.1");
+            user.GetActorId().Returns(8);
+            user.GetClientIP().Returns("127.0.0.1");
             var updateViewModel = new UpdateViewModel(user)
             {
                 ProductId = ProductIdentity.Casino,

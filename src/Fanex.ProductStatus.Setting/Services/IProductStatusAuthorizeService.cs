@@ -7,9 +7,5 @@
         bool CanView(AuthorizationContext filterContext);
 
         bool CanUpdate(AuthorizationContext filterContext);
-
-        bool CanViewMultiple(AuthorizationContext filterContext);
-
-        bool CanUpdateMultiple(AuthorizationContext filterContext);
     }
 }

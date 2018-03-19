@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Site
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -43,11 +42,11 @@
 
     public class ProductStatusUser : IProductStatusUser
     {
-        public Func<int> GetActorId()
-            => () => 8;
+        public int GetActorId()
+            => 8;
 
-        public Func<string> GetClientIP()
-            => () => "127.0.0.1";
+        public string GetClientIP()
+            => "127.0.0.1";
 
         public IEnumerable<KeyValuePair<int, string>> GetProductList()
             => new List<KeyValuePair<int, string>>

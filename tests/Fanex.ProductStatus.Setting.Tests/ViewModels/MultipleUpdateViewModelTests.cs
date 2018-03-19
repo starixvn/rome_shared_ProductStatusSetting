@@ -42,7 +42,7 @@
                 }
             };
 
-            user.GetActorId().Returns(() => 8);
+            user.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -72,7 +72,7 @@
                 }
             };
 
-            user.GetActorId().Returns(() => 8);
+            user.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -104,7 +104,7 @@
                 }
             };
 
-            user.GetActorId().Returns(() => 8);
+            user.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -136,7 +136,7 @@
                 }
             };
 
-            user.GetActorId().Returns(() => 8);
+            user.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
