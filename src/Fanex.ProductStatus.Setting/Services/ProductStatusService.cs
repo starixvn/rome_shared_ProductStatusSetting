@@ -11,7 +11,7 @@
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
 
-        IEnumerable<ProductInfo> GetProductInfo(int productId);
+        IEnumerable<ProductStatusModel> GetProductInfo(int productId);
 
         Result UpdateProductStatus(
             int productId,
@@ -53,6 +53,14 @@
             return SetProductStatusName(productId, rawData);
         }
 
+        public IEnumerable<ProductStatusModel> GetProductInfo(int productId)
+        {
+            var criteria = new SelectProductInfoCriteria(productId);
+            var rawData = statusDataAccess.GetProductInfo(criteria);
+
+            return SetProductStatusName(productId, rawData);
+        }
+
         private IEnumerable<ProductStatusModel> SetProductStatusName(
             int productId,
             IEnumerable<ProductStatusModel> rawData)
@@ -61,31 +69,6 @@
 
             foreach (var item in rawData)
             {
-                item.Name = setNameByBetTypeId
-                    ? refDataServiceProvider.GetBetTypeName(item.BetType)
-                    : refDataServiceProvider.GetProductName(productId);
-
-                yield return item;
-            }
-        }
-
-        public IEnumerable<ProductInfo> GetProductInfo(int productId)
-        {
-            var criteria = new SelectProductInfoCriteria(productId);
-            var rawData = statusDataAccess.GetProductInfo(criteria);
-
-            return SetProductInfoName(productId, rawData);
-        }
-
-        private IEnumerable<ProductInfo> SetProductInfoName(
-            int productId,
-            IEnumerable<ProductInfo> rawData)
-        {
-            var setNameByBetTypeId = rawData.Count() > 1;
-
-            foreach (var item in rawData)
-            {
-                item.ProductId = productId;
                 item.Name = setNameByBetTypeId
                     ? refDataServiceProvider.GetBetTypeName(item.BetType)
                     : refDataServiceProvider.GetProductName(productId);

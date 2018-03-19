@@ -12,10 +12,8 @@
             int totalDisabledAgents,
             int totalEnabledAgents,
             int totalDisabledMembers,
-            int totalEnabledMembers)
+            int totalEnabledMembers) : this(sportType, betType)
         {
-            SportType = sportType;
-            BetType = betType;
             IsDisabled = isDisabled;
             IsDisabledUpline = isDisabledUpline;
 
@@ -27,6 +25,12 @@
 
             TotalDisabledMembers = totalDisabledMembers;
             TotalEnabledMembers = totalEnabledMembers;
+        }
+
+        public ProductStatusModel(int sportType, int betType)
+        {
+            SportType = sportType;
+            BetType = betType;
         }
 
         public int SportType { get; }
