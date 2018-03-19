@@ -1,76 +1,76 @@
-﻿describe('ProductStatusSetting_', () => {
-    const productStatusSetting = new ProductStatusSetting($);
-    const fixturesPath = '../../../../../Assets/scripts/tests/apps/product-status-setting/fixtures/';
+﻿//describe('ProductStatusSetting_', () => {
+//    const productStatusSetting = new ProductStatusSetting($);
+//    const fixturesPath = '../../../../../Assets/scripts/tests/apps/product-status-setting/fixtures/';
 
-// Setup
-    beforeEach(function () {
-        jasmine.getFixtures().fixturesPath = fixturesPath;
-        jasmine.getFixtures().load('numbergame.html');
-    });
+//// Setup
+//    beforeEach(function () {
+//        jasmine.getFixtures().fixturesPath = fixturesPath;
+//        jasmine.getFixtures().load('numbergame.html');
+//    });
 
-    describe("parseInt_", () => {
-        it("Should return correct value", function () {
-            expect(productStatusSetting.parseInt("5")).toEqual(5);
-        });
-    });
+//    describe("parseInt_", () => {
+//        it("Should return correct value", function () {
+//            expect(productStatusSetting.parseInt("5")).toEqual(5);
+//        });
+//    });
 
-    describe("parseBoolean_", () => {
-        it("Should return correct value", function () {
-            expect(productStatusSetting.parseBoolean("True")).toBeTruthy();
-            expect(productStatusSetting.parseBoolean("true")).toBeTruthy();
+//    describe("parseBoolean_", () => {
+//        it("Should return correct value", function () {
+//            expect(productStatusSetting.parseBoolean("True")).toBeTruthy();
+//            expect(productStatusSetting.parseBoolean("true")).toBeTruthy();
 
-            expect(productStatusSetting.parseBoolean("False")).toBeFalsy();
-            expect(productStatusSetting.parseBoolean("false")).toBeFalsy();
-        });
-    });
+//            expect(productStatusSetting.parseBoolean("False")).toBeFalsy();
+//            expect(productStatusSetting.parseBoolean("false")).toBeFalsy();
+//        });
+//    });
 
-    describe("buildElementId_", () => {
-        it("Should return correct Element Id", function () {
-            // Act
-            let elementId = productStatusSetting.buildElementId("enabled", 3, 12);
+//    describe("buildElementId_", () => {
+//        it("Should return correct Element Id", function () {
+//            // Act
+//            let elementId = productStatusSetting.buildElementId("enabled", 3, 12);
 
-             // Assert
-            expect(elementId).toEqual("#enabled_3_12");
-        });
-    });
+//             // Assert
+//            expect(elementId).toEqual("#enabled_3_12");
+//        });
+//    });
 
-    describe("getBetType_", () => {
-        it("Should return correct bettype id", function () {
-            // Act
-            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
-            let actualSporttype = productStatusSetting.getBetType($(elementId));
+//    describe("getBetType_", () => {
+//        it("Should return correct bettype id", function () {
+//            // Act
+//            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
+//            let actualSporttype = productStatusSetting.getBetType($(elementId));
 
-            // Assert
-            expect(actualSporttype).toEqual(81);
-        });
-    });
+//            // Assert
+//            expect(actualSporttype).toEqual(81);
+//        });
+//    });
 
-    describe("getSportType_", () => {
-        it("Should return correct sporttype id", function () {
-            // Act
-            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
-            let actualBettype = productStatusSetting.getSportType($(elementId));
+//    describe("getSportType_", () => {
+//        it("Should return correct sporttype id", function () {
+//            // Act
+//            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
+//            let actualBettype = productStatusSetting.getSportType($(elementId));
 
-            // Assert
-            expect(actualBettype).toEqual(161);
-        });
-    });
+//            // Assert
+//            expect(actualBettype).toEqual(161);
+//        });
+//    });
 
-    describe("getTotalStatus_", () => {
-        it("Should return correct total statuas", function () {
-            // Act
-            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
-            let actualTotalStatus = productStatusSetting.getTotalStatus($(elementId));
+//    describe("getTotalStatus_", () => {
+//        it("Should return correct total statuas", function () {
+//            // Act
+//            let elementId = productStatusSetting.buildElementId("enabled", 3, 81);
+//            let actualTotalStatus = productStatusSetting.getTotalStatus($(elementId));
 
-            // Assert
-            expect(actualTotalStatus).toEqual(615);
-        });
-    });
+//            // Assert
+//            expect(actualTotalStatus).toEqual(615);
+//        });
+//    });
 
-    describe("isChangeState_", () => {
-        it("Should return change state of element", function () {
-            expect(productStatusSetting.isChangeState(5, 7)).toBeTruthy();
-            expect(productStatusSetting.isChangeState(5, 5)).toBeFalsy();
-        });
-    });
-});
+//    describe("isChangeState_", () => {
+//        it("Should return change state of element", function () {
+//            expect(productStatusSetting.isChangeState(5, 7)).toBeTruthy();
+//            expect(productStatusSetting.isChangeState(5, 5)).toBeFalsy();
+//        });
+//    });
+//});
