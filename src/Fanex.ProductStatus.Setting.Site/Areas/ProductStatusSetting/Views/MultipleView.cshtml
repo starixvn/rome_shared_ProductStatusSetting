@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <th rowspan="2"></th>
-                    @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes)
+                    @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes, Model.ProductStatus.ToList().First().IsDisabledUpline)
                 </tr>
             </thead>
             <tbody>
@@ -76,7 +76,7 @@
 </body>
 </html>
 
-@helper RenderHeaderLevelName(int roleId, bool isMultipleBetTypes)
+@helper RenderHeaderLevelName(int roleId, bool isMultipleBetTypes, bool isDisabledUpline)
 {
 while (roleId > 0 && --roleId > 0)
 {
@@ -89,7 +89,10 @@ while (roleId > 0 && --roleId > 0)
                 <div class="current-role">@roleName</div>
                             <div class="all-status">
                                 <input type="checkbox" class="checkbox-hide" id="@id"
-                                       data-roleid="@roleId" checked ="checked"/>
+                                       data-roleid="@roleId" 
+                                       data-disabledupline="@isDisabledUpline"
+                                       checked ="checked"
+                                        @(isDisabledUpline ? "disabled " : string.Empty) />
 
                                 <label for="@id" class="enabled">
                                     @Resources.EnableAll
