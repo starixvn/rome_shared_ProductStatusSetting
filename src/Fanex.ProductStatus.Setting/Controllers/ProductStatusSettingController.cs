@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
-    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using AppResources;
@@ -101,7 +100,10 @@
 
         private bool CanView()
         {
-            var filterContext = new AuthorizationContext(ControllerContext, null);
+            var controllerDescriptor = new ReflectedControllerDescriptor(GetType());
+            var actionDescriptor = controllerDescriptor.FindAction(ControllerContext, nameof(MultipleView));
+            var filterContext = new AuthorizationContext(ControllerContext, actionDescriptor);
+
             var authorizationService = ProductStatusConfigurationHandler.AuthorizeService;
 
             return authorizationService.CanView(filterContext);
