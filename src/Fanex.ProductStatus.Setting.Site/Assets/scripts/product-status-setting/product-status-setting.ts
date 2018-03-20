@@ -7,7 +7,6 @@
     $theadDisabledSpan: HTMLElement[];
 
     $custId: number;
-    $custNames: string;
     $custRole: number;
     $productId: number;
     $resources: any;
@@ -120,8 +119,8 @@
         });
     }
 
-    toggleAllStatusOnCheckbox = (enableAllStatus: boolean) => 
-        this.$checkboxHidden.forEach((element, index)  => {
+    toggleAllStatusOnCheckbox = (enableAllStatus: boolean) =>
+        this.$checkboxHidden.forEach((element, index) => {
             let chkElement = this.$(element);
             if (chkElement.prop("checked") != enableAllStatus) {
                 chkElement.click();
@@ -234,7 +233,7 @@
         parseInt(value.replace(/,/g, ""));
 
     parseBoolean = (value: string): boolean =>
-        this.$.parseJSON(value.toLowerCase()); 
+        this.$.parseJSON(value.toLowerCase());
 
     setupAntiXSRF = () => {
         let token = this.$('[name=__RequestVerificationToken]').val();
@@ -255,14 +254,14 @@
         });
 
         updateViewModel.productStatus.length > 0 ?
-            this.callAjax(headers, updateViewModel) : 
+            this.callAjax(headers, updateViewModel) :
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
 
     callAjax = (headers: any, updateViewModel: any) =>
         this.$.ajax({
             type: "POST",
-            url: "MultipleUpdate",
+            url: "Update",
             cache: false,
             headers: headers,
             data: JSON.stringify(updateViewModel),
@@ -310,8 +309,7 @@
 
         return {
             productId: this.$productId,
-            CustIds: this.$("#CustIds").val(),
-            CustNames: this.$("#CustNames").val(),
+            custId: this.$custId,
             productStatus: productStatus
         };
     }
@@ -350,7 +348,7 @@
 
     onSuccess = (data: any) => {
         this.showMessage(data.Code, data.Message);
-        if (data.Code == 0) { 
+        if (data.Code == 0) {
             setTimeout(function () {
                 this.$.unblockUI();
                 location.reload(true);
