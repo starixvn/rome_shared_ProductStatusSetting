@@ -135,5 +135,132 @@
             // Assert
             Assert.True(actualResult.IsSuccess());
         }
+
+        [Fact]
+        public void MultipleView_Always_ReturnsView()
+        {
+            // Arrange
+            user.GetProductList().Returns(Enumerable.Empty<KeyValuePair<int, string>>());
+            var viewModel = new MultipleQueryViewModel(user);
+            string expectedView = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
+
+            // Act
+            var actualView = productStatusSettingController.MultipleView(viewModel) as ViewResult;
+
+            // Assert
+            Assert.Equal(expectedView, actualView.ViewName);
+        }
+
+        [Fact]
+        public void MultiplePartialView_InvalidQueryViewModel_ReturnsEmptyData()
+        {
+            // Arrange
+            var queryViewModel = new QueryViewModel
+            {
+                ProductId = ProductIdentity.Casino,
+                CustRole = RoleIdentity.Super
+            };
+            productStatusService
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId)
+                .Returns(Enumerable.Empty<ProductStatusModel>());
+
+            // Act
+            var actualView = productStatusSettingController.Index(queryViewModel) as ViewResult;
+
+            // Assert
+            Assert.False(queryViewModel.ProductStatus.Any());
+        }
+
+        [Fact]
+        public void MultiplePartialView_ValidQueryViewModel_ReturnsView()
+        {
+            // Arrange
+            var queryViewModel = new QueryViewModel
+            {
+                ProductId = ProductIdentity.Casino,
+                CustId = 1176083,
+                CustRole = RoleIdentity.Super
+            };
+            var productStatus = new List<ProductStatusModel>
+            {
+                new ProductStatusModel(
+                    sportType: 208,
+                    betType: 2101,
+                    isDisabled: false,
+                    isDisabledUpline: false,
+                    totalDisabledMasters: 0,
+                    totalEnabledMasters: 100,
+                    totalDisabledAgents: 0,
+                    totalEnabledAgents: 200,
+                    totalDisabledMembers: 0,
+                    totalEnabledMembers: 300)
+            };
+            productStatusService
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId)
+                .Returns(productStatus);
+
+            // Act
+            var actualView = productStatusSettingController.Index(queryViewModel) as ViewResult;
+
+            // Assert
+            Assert.True(queryViewModel.ProductStatus.Any() && null != actualView);
+        }
+
+        [Fact]
+        public void MultipleUpdate_InvalidMultipleUpdateViewModel_ReturnsBadRequest()
+        {
+            // Arrange
+            user.GetActorId().Returns(8);
+            var updateViewModel = new MultipleUpdateViewModel(user)
+            {
+                ProductId = ProductIdentity.Casino
+            };
+
+            // Act
+            var actualView = productStatusSettingController.MultipleUpdate(updateViewModel) as JsonResult;
+            var actualResult = (Result)actualView.Data;
+
+            // Assert
+            Assert.Equal(400, actualResult.Code);
+        }
+
+        [Fact]
+        public void MultipleUpdate_ValidMultipleUpdateViewModel_ReturnsSuccessfulJson()
+        {
+            // Arrange
+            user.GetActorId().Returns(8);
+            user.GetClientIP().Returns("127.0.0.1");
+            var updateViewModel = new MultipleUpdateViewModel(user)
+            {
+                ProductId = ProductIdentity.Casino,
+                ProductStatus = new[]
+                {
+                    new ProductStatusCommand
+                    {
+                        SportType = 208,
+                        BetType = 2101,
+                        Disable = false,
+                        UpdateAllMasters = true,
+                        DisableAllMasters = false,
+                        UpdateAllAgents = true,
+                        DisableAllAgents = false,
+                        UpdateAllMembers = true,
+                        DisableAllMembers = false,
+                    }
+                },
+                CustIds = new[] { 1176092, 14244423 },
+                CustNames = new[] { "member01", "member012" }
+            };
+            productStatusService
+                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustIds, updateViewModel.CustNames, updateViewModel.ActorId, updateViewModel.IP, updateViewModel.ProductStatus)
+                .Returns(new[] { new Result(0, string.Empty) });
+
+            // Act
+            var actualView = productStatusSettingController.MultipleUpdate(updateViewModel) as JsonResult;
+            var actualResults = (IList<Result>)actualView.Data;
+
+            // Assert
+            Assert.DoesNotContain(actualResults, result => !result.IsSuccess());
+        }
     }
 }
