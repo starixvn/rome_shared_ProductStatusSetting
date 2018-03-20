@@ -12,7 +12,6 @@
     {
         private const string IndexViewPath = "~/Areas/ProductStatusSetting/Views/Index.cshtml";
         private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
-        private const string MultiplePartialViewPath = "~/Areas/ProductStatusSetting/Views/MultiplePartialView.cshtml";
 
         private readonly ProductStatusService productStatusService;
 
@@ -57,15 +56,9 @@
         [HttpPost]
         public ActionResult MultipleView(MultipleQueryViewModel viewModel)
         {
-            return View(MultipleViewPath, viewModel);
-        }
-
-        [ProductStatusAuthorize(IsHost = false)]
-        public ActionResult MultiplePartialView(QueryViewModel viewModel)
-        {
             PopulateQueryViewModel(viewModel);
 
-            return PartialView(MultiplePartialViewPath, viewModel);
+            return View(MultipleViewPath, viewModel);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
@@ -89,7 +82,7 @@
 
         #endregion
 
-        private void PopulateQueryViewModel(QueryViewModel viewModel)
+        private void PopulateQueryViewModel(BaseQueryViewModel viewModel)
         {
             var productStatus = viewModel.IsValid()
                 ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)

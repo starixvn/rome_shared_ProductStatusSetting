@@ -142,6 +142,7 @@
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusUser.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
+    <Compile Include="ViewModels\BaseQueryViewModel.cs" />
     <Compile Include="ViewModels\DownlineStatusViewModel.cs" />
     <Compile Include="ViewModels\MultipleQueryViewModel.cs" />
     <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />

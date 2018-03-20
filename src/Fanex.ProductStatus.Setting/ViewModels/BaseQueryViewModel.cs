@@ -1,0 +1,41 @@
+﻿namespace Fanex.ProductStatus.Setting.ViewModels
+{
+    using System.Collections.Generic;
+    using System.Linq;
+    using AppResources;
+    using Models;
+    using Shared;
+
+    public class BaseQueryViewModel
+    {
+        protected readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
+        {
+            [RoleIdentity.Super] = Resources.Super,
+            [RoleIdentity.Master] = Resources.Master,
+            [RoleIdentity.Agent] = Resources.Agent,
+            [RoleIdentity.Member] = Resources.Member,
+        };
+
+        public int ProductId { get; set; }
+
+        public int CustId { get; set; }
+
+        public byte CustRole { get; set; }
+
+        public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
+
+        public BaseQueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
+        {
+            ProductStatus = models
+                .Select(status => new ProductStatusViewModel(status, CustRole))
+                .ToList();
+
+            return this;
+        }
+
+        public bool IsValid()
+            => ProductId > 0
+            && CustId > 0
+            && roleDictionary.ContainsKey(CustRole);
+    }
+}

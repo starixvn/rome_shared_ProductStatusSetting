@@ -6,7 +6,7 @@
     using Services;
     using Shared;
 
-    public class MultipleQueryViewModel
+    public class MultipleQueryViewModel : BaseQueryViewModel
     {
         private readonly IProductStatusUser _user;
 
@@ -25,8 +25,6 @@
         public int[] CustIds { get; set; }
 
         public string[] CustNames { get; set; }
-
-        public byte CustRole { get; set; }
 
         public IEnumerable<KeyValuePair<int, string>> Products
         {
