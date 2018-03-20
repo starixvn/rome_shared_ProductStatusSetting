@@ -5,8 +5,8 @@
     using KellermanSoftware.CompareNetObjects;
     using NSubstitute;
     using Setting.Services;
+    using Setting.Shared;
     using Setting.ViewModels;
-    using Shared;
     using Xunit;
 
     public class MultipleQueryViewModelTests

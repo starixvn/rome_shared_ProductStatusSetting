@@ -1,7 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Criteria
 {
     using Setting.Criteria;
-    using Shared;
+    using Setting.Shared;
     using Xunit;
 
     public class SelectProductStatusCriteriaTests

@@ -5,7 +5,7 @@
     using Setting.Criteria;
     using Setting.Models;
     using Setting.Services;
-    using Shared;
+    using Setting.Shared;
     using Xunit;
 
     public class CriteriaFactoryServiceImplTests

@@ -1,10 +1,9 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
-    using System;
-    using System.Linq;
     using Configuration;
     using Models;
     using Services;
+    using Shared;
 
     public class MultipleUpdateViewModel
     {
@@ -41,14 +40,7 @@
         {
             get
             {
-                if (customerIds == null && CustIds?.Length > 0)
-                {
-                    customerIds = CustIds
-                        .Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                        //.Where(id => int.TryParse(id, ))
-                        .Select(id => int.Parse(id))
-                        .ToArray();
-                }
+                customerIds = customerIds ?? CustIds.SplitInt();
 
                 return customerIds;
             }
@@ -58,10 +50,7 @@
         {
             get
             {
-                if (customerNames == null && CustNames?.Length > 0)
-                {
-                    customerNames = CustNames.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-                }
+                customerNames = customerNames ?? CustNames.SplitString();
 
                 return customerNames;
             }
@@ -69,8 +58,8 @@
 
         public bool IsValid()
         {
-            var isValidCustomers = CustomerIds?.Length > 0
-                && CustomerNames?.Length > 0
+            var isValidCustomers = CustomerIds.Length > 0
+                && CustomerNames.Length > 0
                 && CustomerIds.Length == CustomerNames.Length;
 
             return ProductId > 0

@@ -3,8 +3,8 @@
     using System.Collections.Generic;
     using System.Linq;
     using Setting.Models;
+    using Setting.Shared;
     using Setting.ViewModels;
-    using Shared;
     using Xunit;
 
     public class QueryViewModelTests

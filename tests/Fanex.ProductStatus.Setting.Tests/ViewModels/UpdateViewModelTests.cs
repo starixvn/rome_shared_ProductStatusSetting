@@ -3,8 +3,8 @@
     using NSubstitute;
     using Setting.Models;
     using Setting.Services;
+    using Setting.Shared;
     using Setting.ViewModels;
-    using Shared;
     using Xunit;
 
     public class UpdateViewModelTests

@@ -1,8 +1,8 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Models
 {
     using Setting.Models;
+    using Setting.Shared;
     using Setting.ViewModels;
-    using Shared;
     using Xunit;
 
     public class ProductStatusViewModelTests

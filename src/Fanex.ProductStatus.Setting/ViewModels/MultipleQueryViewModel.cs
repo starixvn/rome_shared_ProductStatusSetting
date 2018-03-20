@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Configuration;
@@ -35,34 +34,13 @@
 
                 if (CustRole != RoleIdentity.Super)
                 {
-                    var includedProducts = ToProductDictionary();
+                    var includedProducts = ProductIds.ToDictionary();
 
                     products = products.Where(p => includedProducts.ContainsKey(p.Key));
                 }
 
                 return products;
             }
-        }
-
-        private IDictionary<int, bool> ToProductDictionary()
-        {
-            IDictionary<int, bool> productDictionary = new Dictionary<int, bool>();
-
-            if (ProductIds?.Length > 0)
-            {
-                int productId;
-                var productArray = ProductIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-
-                foreach (var item in productArray)
-                {
-                    if (int.TryParse(item, out productId))
-                    {
-                        productDictionary[productId] = true;
-                    }
-                }
-            }
-
-            return productDictionary;
         }
     }
 }
