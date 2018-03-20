@@ -259,7 +259,7 @@
         });
 
         updateViewModel.productStatus.length > 0 ?
-            this.callAjax(headers, updateViewModel) : 
+            this.callAjax(headers, updateViewModel) :
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
 
@@ -288,7 +288,7 @@
                 let data = {
                     sportType: sporttype,
                     betType: bettype,
-                    disable: true,
+                    disable: !this.isChecked(checkboxElement),
                     updateAllMasters: false,
                     disableAllMasters: null,
                     updateAllAgents: false,
@@ -345,19 +345,37 @@
         return model;
     }
 
-    onSuccess = (data: any) => {
-        this.showMessage(data.Code, data.Message);
-        if (data.Code == 0) { 
+    onSuccess = (results: any) => {
+        if (this.isUpdateSuccess(results))
+        {
+            this.showMessage(results[0].Code, results[0].Message);
+
             setTimeout(function () {
                 this.$.unblockUI();
                 location.reload(true);
             }, this.$timeoutDefault);
         }
+        else
+        {
+            let html = '';
+            results.forEach((result) => {
+                if (result.Code != 0) {
+                    html +=  [result.CustName, ": ", result.Message, "<br>"].join("");
+                }
+            });
+
+            this.showMessage(this.$errorCodeDefault, html);
+        }   
     }
+
+    isUpdateSuccess = (results: any) => 
+        results.every((result) => {
+            return result.Code == 0;
+        })
 
     onError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
-    showMessage = (type: number, message: string) => {
+    showMessage = (type: any, message: string) => {
         this.$.unblockUI();
         let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
