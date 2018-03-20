@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
+    using System.Net;
     using System.Linq;
     using System.Web.Mvc;
     using AppResources;
@@ -92,6 +93,6 @@
         }
 
         private ActionResult JsonBadRequest()
-            => Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);
+            => Json(new Result((int)HttpStatusCode.BadRequest, Resources.BadRequest), JsonRequestBehavior.DenyGet);
     }
 }

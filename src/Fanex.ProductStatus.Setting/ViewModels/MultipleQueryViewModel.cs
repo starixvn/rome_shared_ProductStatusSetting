@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Configuration;
@@ -20,11 +21,11 @@
             _user = user ?? ProductStatusConfigurationHandler.User;
         }
 
-        public int[] ProductIds { get; set; }
+        public string ProductIds { get; set; }
 
-        public int[] CustIds { get; set; }
+        public string CustIds { get; set; }
 
-        public string[] CustNames { get; set; }
+        public string CustNames { get; set; }
 
         public IEnumerable<KeyValuePair<int, string>> Products
         {
@@ -49,9 +50,15 @@
 
             if (ProductIds?.Length > 0)
             {
-                foreach (var item in ProductIds)
+                int productId;
+                var productArray = ProductIds.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var item in productArray)
                 {
-                    productDictionary[item] = true;
+                    if (int.TryParse(item, out productId))
+                    {
+                        productDictionary[productId] = true;
+                    }
                 }
             }
 
