@@ -7,6 +7,7 @@
     $theadDisabledSpan: HTMLElement[];
 
     $custId: number;
+    $custNames: string;
     $custRole: number;
     $productId: number;
     $resources: any;
@@ -261,7 +262,7 @@
     callAjax = (headers: any, updateViewModel: any) =>
         this.$.ajax({
             type: "POST",
-            url: "Update",
+            url: "MultipleUpdate",
             cache: false,
             headers: headers,
             data: JSON.stringify(updateViewModel),
@@ -309,7 +310,8 @@
 
         return {
             productId: this.$productId,
-            custId: this.$custId,
+            CustIds: this.$("#CustIds").val(),
+            CustNames: this.$("#CustNames").val(),
             productStatus: productStatus
         };
     }

@@ -132,6 +132,21 @@ body {
     }
 }
 
+.filter {
+    background-color: $msg-background-color;
+    border: 1px solid $border-color;
+    margin-top: 5px;
+    padding: 5px;
+    font-weight: bold;
+    max-height: 500px;
+    overflow-x: auto;
+    .alerterror{
+        font-weight: bold;
+        margin-left: 10px;
+        color: $msg-error-color;
+    }
+}
+
 /*Loading css*/
 .block-ui-loading
 {

@@ -29,21 +29,8 @@
     loadMultiple = () => {
         let selft = this;
         this.$("#Products").change(() => {
-            this.$.ajax({
-                type: "post",
-                url: "MultipleViewPartial",
-                dataType: "html",
-                data: { ProductId: this.$("#Products").val()},
-                contentType: "application/x-www-form-urlencoded;charset=utf-8",
-                //  async: true,
-                success: function (result) {
-                    selft.$("#content").html(result);
-                },
-                error: function (e) {  }
-            });
-
-            //this.$("#ProductId").val(this.$("#Products").val());
-            //this.$("#product-form").submit();
+            this.$("#ProductId").val(this.$("#Products").val());
+            this.$("#product-form").submit();
         });
     }
 
@@ -279,7 +266,7 @@
     callAjax = (headers: any, updateViewModel: any) =>
         this.$.ajax({
             type: "POST",
-            url: "Update",
+            url: "MultipleUpdate",
             cache: false,
             headers: headers,
             data: JSON.stringify(updateViewModel),
@@ -292,18 +279,16 @@
     getUpdateViewModel = () => {
         let self = this;
 
-        let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
-            let checkboxStatus = self.$(this).find('input:checkbox');
-            if (self.allowActionOnElement(this)) {
-                let bettype = self.getBetType(this);
-                let sporttype = self.getSportType(this);
-                let disable = !self.$(checkboxStatus).prop("checked");
-                let originstatus = self.parseBoolean(checkboxStatus.data("originstatus"));
-
+        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, columnElement) => {
+            let checkboxElement = this.$(columnElement).find("input[type=checkbox]").toArray()[0] as HTMLInputElement;
+            if (self.allowActionOnElement(checkboxElement)) {
+                let bettype = self.getBetType(checkboxElement);
+                let sporttype = self.getSportType(checkboxElement);
+               
                 let data = {
                     sportType: sporttype,
                     betType: bettype,
-                    disable: disable,
+                    disable: true,
                     updateAllMasters: false,
                     disableAllMasters: null,
                     updateAllAgents: false,
@@ -312,12 +297,11 @@
                     disableAllMembers: null
                 };
 
-                self.$(this).find('input[type=checkbox]').each(function () {
+                this.$(columnElement).find('input[type=checkbox]').each(function () {
                     return self.getproductStatus(this, data);
                 });
 
-                if (data.disable != originstatus
-                    || data.updateAllMasters
+                if (data.updateAllMasters
                     || data.updateAllAgents
                     || data.updateAllMembers) {
                     return data;
@@ -327,10 +311,18 @@
 
         return {
             productId: this.$productId,
-            custId: this.$custId,
+            custIds: this.getCustIds(),
+            custNames: this.$('#CustNames').val().split(','),
             productStatus: productStatus
         };
     }
+
+    getCustIds = () => {
+        return this.$('[name="CustIds"]').map((index, element) => {
+            return this.$(element).val();
+        }).get();
+    }
+
 
     getproductStatus = (disabledSpan: any, model: any) =>{
         let disableAll = this.isEnabledElement(disabledSpan);

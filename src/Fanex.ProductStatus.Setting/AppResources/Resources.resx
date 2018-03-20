@@ -198,6 +198,9 @@
   <data name="UnauthorizeMessage" xml:space="preserve">
     <value>You are not authorized on this function.</value>
   </data>
+  <data name="UnauthorizeProductMessage" xml:space="preserve">
+    <value>You are not authorized on this product.</value>
+  </data>
   <data name="UpdateStatusFailed" xml:space="preserve">
     <value>Update Status Failed.</value>
   </data>

@@ -12,17 +12,48 @@
     <link href="@Url.Content("~/Areas/ProductStatusSetting/Styles/product-status-setting.css")" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    
-        @Html.DropDownListFor(model => model.Products,
-            new List<SelectListItem>(
-                Model.Products.Select(product => new SelectListItem { Value = product.Key.ToString(), Text = product.Value })),
-                    "Select Product",
-                    new { @class = "form-control" })
-
     <div id="sectionMessage" class="msg-container hide"></div>
 
-@* @Html.Hidden("ProductId", 0)*@
-    <div id="content"></div>
+    <div class="filter">
+        @using (Html.BeginForm("MultipleView", "ProductStatusSetting", FormMethod.Post, new { id = "product-form", method = "Post" }))
+        {
+
+            @Html.DropDownListFor(model => model.Products,
+                new List<SelectListItem>(
+                    Model.Products.Select(product => new SelectListItem { Value = product.Key.ToString(), Text = product.Value })),
+                        "Select Product",
+                        new { @class = "form-control" })
+
+            if (!Model.ProductStatus.Any())
+            {
+                <span class="alerterror align-center"> @Resources.UnauthorizeProductMessage</span>
+            }
+
+            @Html.Hidden("ProductId", 0)
+            foreach (var custId in Model.CustIds)
+            {
+                @Html.Hidden("CustIds", custId)
+            }
+           // @Html.Hidden("CustIds", Model.CustIds)
+            @Html.Hidden("CustNames", Model.CustNames)
+           
+            foreach (var product in Model.Products)
+            {
+                @Html.Hidden("ProductIds", product.Key)
+            }
+           // @Html.Hidden("ProductIds", Model.ProductIds)
+            @Html.Hidden("CustRole", Model.CustRole)
+            @Html.Hidden("CustId", Model.CustIds[0])
+        }
+    </div>
+    @if (Model.ProductStatus.Any())
+    {
+        @Html.Partial("~/Areas/ProductStatusSetting/Views/MultiplePartialView.cshtml", Model)
+    }
+
+
+    @* @Html.Hidden("ProductId", 0)*@
+    @* <div id="content"></div>*@
     <script type="text/javascript" src="@Url.Content("~/Areas/ProductStatusSetting/Scripts/product-status-setting-multiple.js")"></script>
 </body>
 </html>

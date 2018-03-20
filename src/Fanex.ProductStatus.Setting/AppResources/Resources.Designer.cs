@@ -304,6 +304,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You are not authorized on this product..
+        /// </summary>
+        public static string UnauthorizeProductMessage {
+            get {
+                return ResourceManager.GetString("UnauthorizeProductMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update Status Failed..
         /// </summary>
         public static string UpdateStatusFailed {

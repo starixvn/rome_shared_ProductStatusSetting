@@ -1,16 +1,12 @@
-﻿@model QueryViewModel
+﻿@model MultipleQueryViewModel
 
 @{
-    Layout = null;
     var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
 }
-
-    @if (Model.ProductStatus.Count() > 0)
-    {
         <table class="tbl-product margin-top10" id="tbl-product">
             <thead>
                 <tr>
-                    <th class="title" colspan="@(Model.CustRole + 1)"> @Model.GetRoleName(Model.CustRole): @Model.CustName</th>
+                    <th class="title" colspan="@(Model.CustRole + 1)"> @String.Join(", ", Model.CustNames)</th>
                 </tr>
                 <tr>
                     <th rowspan="2"></th>
@@ -46,13 +42,6 @@
             <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
             <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
         </div>
-    }
-    else
-    {
-        <div id="sectionMessage" class="msg-container">
-            <div class="alerterror align-center"> @Resources.ThereIsNoData</div>
-        </div>
-    }
 
     @Html.Hidden("custId", Model.CustId)
     @Html.Hidden("custRole", Model.CustRole)
@@ -65,15 +54,23 @@
 
 @helper RenderHeaderLevelName(int roleId, bool isMultipleBetTypes, bool isDisabledUpline)
 {
-while (roleId > 0 && --roleId > 0)
-{
-    var id = string.Format("header_{0}", roleId);
-    var roleName = Model.GetRoleName((byte)roleId);
+    var roleNames = new Dictionary<int, string>()
+    {
+        {4, "All Supers" },
+        {3, "All Masters" },
+        {2, "All Agents" },
+        {1, "All Members" }
+
+    };
+
+    while (roleId > 0 && --roleId > 0)
+    {
+        var id = string.Format("header_{0}", roleId);
 
         <th>
             @if (isMultipleBetTypes)
             {
-                <div class="current-role">@roleName</div>
+                <div class="current-role">@roleNames[roleId]</div>
                 <div class="all-status">
                     <input type="checkbox" class="checkbox-hide" id="@id"
                            data-roleid="@roleId"
@@ -88,7 +85,7 @@ while (roleId > 0 && --roleId > 0)
             }
             else
             {
-                @Model.GetRoleName(Model.CustRole)
+                @roleNames[roleId]
             }
         </th>
 }
@@ -103,7 +100,6 @@ while (roleId > 0 && --roleId > 0)
 {
 
 var id = string.Format("{0}_{1}", roleId, betType);
-var roleName = Model.GetRoleName(roleId);
 
     <input type="checkbox" class="checkbox-hide" id="@id"
            data-roleid="@roleId"
