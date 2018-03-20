@@ -6,46 +6,26 @@
     $theadEnableSpan: HTMLElement[];
     $theadDisabledSpan: HTMLElement[];
 
-    $custId: number;
-    $custRole: number;
-    $productId: number;
-
     constructor($: JQueryStatic) {
         super($);
     }
 
-    init = () => {
-        this.cachedElements();
+    init() {
+        super.init();
         this.registerEvents();
-
-        this.$custId = parseInt(this.$('#custId').val());
-        this.$custRole = parseInt(this.$('#custRole').val());
-        this.$productId = parseInt(this.$('#productId').val());
-
-        this.$errorCodeDefault = 101;
-        this.$timeoutDefault = 3000;
     }
 
-    cachedElements = () => {
-        let table = this.$("#tbl-product");
-        let thead = table.find("thead");
-        let tbody = table.find("tbody");
+    cachedElements() {
+        super.cachedElements();
 
         this.$checkboxHidden = this.$("input[class='checkbox-hide']").toArray() as HTMLElement[];
-        this.$tbodyEnabledSpans = tbody.find("span.enabled").toArray() as HTMLElement[];
-        this.$tbodyDisabledSpans = tbody.find("span.disabled").toArray() as HTMLElement[];
-        this.$theadEnableSpan = thead.find("span.enabled").toArray() as HTMLElement[];
-        this.$theadDisabledSpan = thead.find("span.disabled").toArray() as HTMLElement[];
+        this.$tbodyEnabledSpans = this.$tbody.find("span.enabled").toArray() as HTMLElement[];
+        this.$tbodyDisabledSpans = this.$tbody.find("span.disabled").toArray() as HTMLElement[];
+        this.$theadEnableSpan = this.$thead.find("span.enabled").toArray() as HTMLElement[];
+        this.$theadDisabledSpan = this.$thead.find("span.disabled").toArray() as HTMLElement[];
 
-        this.$resources = {
-            enabled: this.$('#enabled').val(),
-            disabled: this.$('#disabled').val(),
-            updateStatusFailed: this.$('#updateStatusFailed').val(),
-            thereIsNoChange: this.$('#thereIsNoChange').val(),
-            enabledClass: "enabled",
-            disabledClass: "disabled",
-            grayClass: "gray"
-        }
+        this.$resources.enabled = this.$('#enabled').val();
+        this.$resources.disabled = this.$('#disabled').val();
     }
 
     bindingCheckboxHiddenEvent = () =>
@@ -118,26 +98,25 @@
 
     toggleAllStatusOnCheckbox = (enableAllStatus: boolean) =>
         this.$checkboxHidden.forEach((element, index) => {
-            let chkElement = this.$(element);
-            if (chkElement.prop("checked") != enableAllStatus) {
-                chkElement.click();
+            if (this.isChecked(element) != enableAllStatus) {
+                element.click();
             }
         });
 
     checkboxChanged = (element: HTMLElement) => {
         if (this.isEnablebUpline(element)) {
-            let enable = this.$(element).is(":checked");
-            let labelElement = this.getNextLable(element);
+            let enable = this.isChecked(element);
+            let labelElement = this.getNextLabel(element);
 
-            let tooltip = enable ? labelElement.data("disabletooltip") : labelElement.data("enabletooltip")
+            let tooltip = enable ? this.$(labelElement).data("disabletooltip") : this.$(labelElement).data("enabletooltip")
             let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
 
-            labelElement.attr("title", tooltip)
+            this.$(labelElement).attr("title", tooltip)
                 .removeClass()
                 .addClass(labelText.toLowerCase())
                 .text(labelText);
 
-            this.toggleStatusDownlines(this.getRoleId(element) - 1, this.$(element).is(":checked"), this.getBetType(element));
+            this.toggleStatusDownlines(this.getRoleId(element) - 1, enable, this.getBetType(element));
         }
     }
 
@@ -201,22 +180,9 @@
         });
 
         updateViewModel.productStatus.length > 0 ?
-            this.callAjax(headers, updateViewModel) :
+            this.callAjax(headers, updateViewModel, "Update") :
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
-
-    callAjax = (headers: any, updateViewModel: any) =>
-        this.$.ajax({
-            type: "POST",
-            url: "Update",
-            cache: false,
-            headers: headers,
-            data: JSON.stringify(updateViewModel),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: this.onSuccess,
-            error: this.onError
-        })
 
     getUpdateViewModel = () => {
         let self = this;
@@ -226,7 +192,7 @@
             if (self.isEnablebUpline(checkboxStatus)) {
                 let bettype = self.getBetType(checkboxStatus);
                 let sporttype = self.getSportType(checkboxStatus);
-                let disable = !self.$(checkboxStatus).prop("checked");
+                let disable = !self.isChecked(checkboxStatus);
                 let originstatus = self.parseBoolean(self.$(checkboxStatus).data("originstatus"));
 
                 let data = {
@@ -284,7 +250,7 @@
 
     getLevelStatus = (disabledSpan: any) => {
         let totaldisabled = this.parseInt(disabledSpan.text());
-        let originalTotaldisabled = disabledSpan.data("totaldisabled");
+        let originalTotaldisabled = this.getTotalStatus(disabledSpan);
         let updateAll = this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
 
         return {
