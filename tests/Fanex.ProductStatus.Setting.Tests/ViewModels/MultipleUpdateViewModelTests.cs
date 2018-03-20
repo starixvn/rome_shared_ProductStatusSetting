@@ -23,8 +23,8 @@
         {
             // Arrange
             multipleUpdateViewModel.ProductId = ProductIdentity.NumberGame;
-            multipleUpdateViewModel.CustIds = new[] { 1176092, 14244423 };
-            multipleUpdateViewModel.CustNames = new[] { "member01", "member012" };
+            multipleUpdateViewModel.CustIds = "1176092,14244423";
+            multipleUpdateViewModel.CustNames = "member01,member012";
 
             multipleUpdateViewModel.ProductStatus = new ProductStatusCommand[]
             {
@@ -86,8 +86,6 @@
         {
             // Arrange
             multipleUpdateViewModel.ProductId = ProductIdentity.NumberGame;
-            multipleUpdateViewModel.CustIds = new int[0];
-            multipleUpdateViewModel.CustNames = new string[0];
             multipleUpdateViewModel.ProductStatus = new ProductStatusCommand[]
             {
                 new ProductStatusCommand
@@ -118,8 +116,8 @@
         {
             // Arrange
             multipleUpdateViewModel.ProductId = ProductIdentity.NumberGame;
-            multipleUpdateViewModel.CustIds = new[] { 1176092, 14244423, 20 };
-            multipleUpdateViewModel.CustNames = new[] { "member01", "member012" };
+            multipleUpdateViewModel.CustIds = "1176092,14244423,20";
+            multipleUpdateViewModel.CustNames = "member01,member012";
             multipleUpdateViewModel.ProductStatus = new ProductStatusCommand[]
             {
                 new ProductStatusCommand

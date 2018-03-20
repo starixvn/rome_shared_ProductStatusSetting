@@ -1,9 +1,10 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
-    using System.Net;
     using System.Linq;
+    using System.Net;
     using System.Web.Mvc;
     using AppResources;
+    using Configuration;
     using Models;
     using Services;
     using ViewModels;
@@ -57,7 +58,10 @@
         [HttpPost]
         public ActionResult MultipleView(MultipleQueryViewModel viewModel)
         {
-            PopulateQueryViewModel(viewModel);
+            if (viewModel.ProductId != 0 && CanView())
+            {
+                PopulateQueryViewModel(viewModel);
+            }
 
             return View(MultipleViewPath, viewModel);
         }
@@ -72,8 +76,8 @@
 
             var results = productStatusService.MultipleUpdateProductStatus(
                 viewModel.ProductId,
-                viewModel.CustIds,
-                viewModel.CustNames,
+                viewModel.CustomerIds,
+                viewModel.CustomerNames,
                 viewModel.ActorId,
                 viewModel.IP,
                 viewModel.ProductStatus);
@@ -85,14 +89,22 @@
 
         private void PopulateQueryViewModel(BaseQueryViewModel viewModel)
         {
-            var productStatus = viewModel.IsValid()
-                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-                : Enumerable.Empty<ProductStatusModel>();
-
-            viewModel.SetProductStatusViewModel(productStatus);
+            if (viewModel.IsValid())
+            {
+                viewModel.SetProductStatusViewModel(
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId));
+            }
         }
 
         private ActionResult JsonBadRequest()
             => Json(new Result((int)HttpStatusCode.BadRequest, Resources.BadRequest), JsonRequestBehavior.DenyGet);
+
+        private bool CanView()
+        {
+            var filterContext = new AuthorizationContext(ControllerContext, null);
+            var authorizationService = ProductStatusConfigurationHandler.AuthorizeService;
+
+            return authorizationService.CanView(filterContext);
+        }
     }
 }

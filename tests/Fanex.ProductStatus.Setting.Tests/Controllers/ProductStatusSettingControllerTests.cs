@@ -248,11 +248,11 @@
                         DisableAllMembers = false,
                     }
                 },
-                CustIds = new[] { 1176092, 14244423 },
-                CustNames = new[] { "member01", "member012" }
+                CustIds = "1176092,14244423",
+                CustNames = "member01,member012"
             };
             productStatusService
-                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustIds, updateViewModel.CustNames, updateViewModel.ActorId, updateViewModel.IP, updateViewModel.ProductStatus)
+                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.IP, updateViewModel.ProductStatus)
                 .Returns(new[] { new Result(0, string.Empty) });
 
             // Act

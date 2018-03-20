@@ -23,6 +23,7 @@
         public byte CustRole { get; set; }
 
         public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
+            = Enumerable.Empty<ProductStatusViewModel>();
 
         public BaseQueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
         {
