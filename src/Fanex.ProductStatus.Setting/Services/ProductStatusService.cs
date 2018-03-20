@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Criteria;
     using DataAccess;
     using Models;
     using Shared;
@@ -10,8 +9,6 @@
     public interface ProductStatusService
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
-
-        IEnumerable<ProductStatusModel> GetProductInfo(int productId);
 
         Result UpdateProductStatus(
             int productId,
@@ -49,14 +46,6 @@
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
             var rawData = statusDataAccess.GetProductStatus(criteria);
-
-            return SetProductStatusName(productId, rawData);
-        }
-
-        public IEnumerable<ProductStatusModel> GetProductInfo(int productId)
-        {
-            var criteria = new SelectProductInfoCriteria(productId);
-            var rawData = statusDataAccess.GetProductInfo(criteria);
 
             return SetProductStatusName(productId, rawData);
         }

@@ -126,7 +126,6 @@
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
-    <Compile Include="Criteria\SelectProductInfoCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateCasinoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateColossusBetsStatusCriteria.cs" />

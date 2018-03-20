@@ -231,36 +231,6 @@
         }
 
         [Fact]
-        public void GetProductInfo_Keno_ReturnsDataFromDataAccess()
-        {
-            // Arrange
-            var expectedResults = new List<ProductStatusModel>
-            {
-                new ProductStatusModel(202, 1501),
-                new ProductStatusModel(202, 1503)
-            };
-
-            productStatusDataAccess
-                .GetProductInfo(Arg.Any<ICriteria>())
-                .Returns(expectedResults);
-
-            refDataServiceProvider
-                .GetBetTypeName(1501)
-                .Returns("Australia");
-            refDataServiceProvider
-                .GetBetTypeName(1503)
-                .Returns("Slovakia");
-
-            var compareLogic = new CompareLogic();
-
-            // Act
-            var actualResults = productStatusService.GetProductInfo(ProductIdentity.Keno);
-
-            // Assert
-            Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
-        }
-
-        [Fact]
         public void UpdateProductStatus_Keno_ReturnsSucessfulResult()
         {
             // Arrange
@@ -462,6 +432,210 @@
 
             // Assert
             Assert.False(errorResult.IsSuccess());
+        }
+
+        [Fact]
+        public void MultipleUpdateProductStatus_Keno_ReturnsSucessfulResult()
+        {
+            // Arrange
+            var commands = new[]
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1501,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1503,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new List<UpdateKenoStatusCriteria>
+            {
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[0]),
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[1])
+            };
+            criteriaFactory
+                .CreateUpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var successfulResult = new Result(0, Resources.StatusUpdatedSuccessfully);
+            productStatusDataAccess
+                .ExecuteNonQuery(Arg.Any<ICriteria>())
+                .Returns(successfulResult);
+
+            // Act
+            var actualResults = productStatusService.MultipleUpdateProductStatus(ProductIdentity.Keno, CustIdsTest, CustNamesTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.DoesNotContain(actualResults, result => !result.IsSuccess());
+        }
+
+        [Fact]
+        public void MultipleUpdateProductStatus_Keno_ReturnsFirstError()
+        {
+            // Arrange
+            var commands = new[]
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1501,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1503,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new List<UpdateKenoStatusCriteria>
+            {
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[0]),
+                new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands[1])
+            };
+            criteriaFactory
+                .CreateUpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var errorResult = new Result(102, null);
+            productStatusDataAccess
+                .ExecuteNonQuery(Arg.Any<ICriteria>())
+                .Returns(errorResult);
+
+            // Act
+            var actualResults = productStatusService.MultipleUpdateProductStatus(ProductIdentity.Keno, CustIdsTest, CustNamesTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.DoesNotContain(actualResults, result => result.IsSuccess());
+        }
+
+        [Fact]
+        public void MultipleUpdateProductStatus_Product_ReturnsSucessfulResult()
+        {
+            // Arrange
+            var commands = new[]
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2401,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2402,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            criteriaFactory
+                .CreateUpdateCriteria(21, CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var successfulResult = new Result(0, Resources.StatusUpdatedSuccessfully);
+            productStatusDataAccess
+                .ExecuteNonQuery(criteria)
+                .Returns(successfulResult);
+
+            // Act
+            var actualResults = productStatusService.MultipleUpdateProductStatus(21, CustIdsTest, CustNamesTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.DoesNotContain(actualResults, result => !result.IsSuccess());
+        }
+
+        [Fact]
+        public void MultipleUpdateProductStatus_Product_ReturnsErrorResult()
+        {
+            // Arrange
+            var commands = new[]
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2401,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 211,
+                    BetType = 2402,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            criteriaFactory
+                .CreateUpdateCriteria(21, CustIdTest, ActorIdTest, IPTest, commands)
+                .Returns(criteria);
+
+            var errorResult = new Result(102, null);
+            productStatusDataAccess
+                .ExecuteNonQuery(criteria)
+                .Returns(errorResult);
+
+            // Act
+            var actualResults = productStatusService.MultipleUpdateProductStatus(21, CustIdsTest, CustNamesTest, ActorIdTest, IPTest, commands);
+
+            // Assert
+            Assert.DoesNotContain(actualResults, result => result.IsSuccess());
         }
     }
 }

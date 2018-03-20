@@ -29,11 +29,7 @@
         [ProductStatusAuthorize(IsHost = false)]
         public ActionResult Index(QueryViewModel viewModel)
         {
-            var productStatus = viewModel.IsValid()
-                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
-                : Enumerable.Empty<ProductStatusModel>();
-
-            viewModel.SetProductStatusViewModel(productStatus);
+            PopulateQueryViewModel(viewModel);
 
             return View(IndexViewPath, viewModel);
         }
@@ -65,11 +61,11 @@
         }
 
         [ProductStatusAuthorize(IsHost = false)]
-        public ActionResult MultipleView(int productId)
+        public ActionResult MultipleView(QueryViewModel viewModel)
         {
-            var productInfo = productStatusService.GetProductInfo(productId);
+            PopulateQueryViewModel(viewModel);
 
-            return PartialView(MultiplePartialViewPath, productInfo);
+            return PartialView(MultiplePartialViewPath, viewModel);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
@@ -92,6 +88,15 @@
         }
 
         #endregion
+
+        private void PopulateQueryViewModel(QueryViewModel viewModel)
+        {
+            var productStatus = viewModel.IsValid()
+                ? productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                : Enumerable.Empty<ProductStatusModel>();
+
+            viewModel.SetProductStatusViewModel(productStatus);
+        }
 
         private ActionResult JsonBadRequest()
             => Json(new Result(400, Resources.BadRequest), JsonRequestBehavior.DenyGet);

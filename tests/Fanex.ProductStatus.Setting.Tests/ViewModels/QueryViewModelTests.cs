@@ -189,28 +189,6 @@
         }
 
         [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        [InlineData("     ")]
-        public void IsValid_InvalidCustName_ReturnsFalse(string custName)
-        {
-            // Arrange
-            var viewModel = new QueryViewModel
-            {
-                ProductId = ProductIdTest,
-                CustId = CustIdTest,
-                CustName = custName,
-                CustRole = CustRoleTest
-            };
-
-            // Act
-            var actualResult = viewModel.IsValid();
-
-            // Assert
-            Assert.False(actualResult);
-        }
-
-        [Theory]
         [InlineData(byte.MinValue)]
         [InlineData(5)]
         [InlineData(byte.MaxValue)]
