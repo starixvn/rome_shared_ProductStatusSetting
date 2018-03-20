@@ -61,7 +61,7 @@
         }
 
         [ProductStatusAuthorize(IsHost = false)]
-        public ActionResult MultipleView(QueryViewModel viewModel)
+        public ActionResult MultiplePartialView(QueryViewModel viewModel)
         {
             PopulateQueryViewModel(viewModel);
 
