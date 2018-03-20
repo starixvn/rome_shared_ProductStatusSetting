@@ -26,6 +26,27 @@
         this.$timeoutDefault = 3000;
     }
 
+    loadMultiple = () => {
+        let selft = this;
+        this.$("#Products").change(() => {
+            this.$.ajax({
+                type: "post",
+                url: "MultipleViewPartial",
+                dataType: "html",
+                data: { ProductId: this.$("#Products").val()},
+                contentType: "application/x-www-form-urlencoded;charset=utf-8",
+                //  async: true,
+                success: function (result) {
+                    selft.$("#content").html(result);
+                },
+                error: function (e) {  }
+            });
+
+            //this.$("#ProductId").val(this.$("#Products").val());
+            //this.$("#product-form").submit();
+        });
+    }
+
     cachedElements = () => {
         let table = this.$("#tbl-product");
         let thead = table.find("thead");
@@ -68,6 +89,8 @@
         this.bindingTbodyEvent();
         this.bindingResetButtonEvent();
         this.bindingSubmitButtonEvent();
+
+        this.loadMultiple();
     }
 
     toogleHeaderCheckbox = (element: HTMLInputElement) => {
