@@ -24,24 +24,16 @@
                         "Select Product",
                         new { @class = "form-control" })
 
-            if (!Model.ProductStatus.Any())
+            if (!Model.ProductStatus.Any() && !Model.ProductId.Equals(0))
             {
                 <span class="alerterror align-center"> @Resources.UnauthorizeProductMessage</span>
             }
 
             @Html.Hidden("ProductId", 0)
-            foreach (var custId in Model.CustIds)
-            {
-                @Html.Hidden("CustIds", custId)
-            }
-           // @Html.Hidden("CustIds", Model.CustIds)
+           
+            @Html.Hidden("CustIds", Model.CustIds)
             @Html.Hidden("CustNames", Model.CustNames)
            
-            foreach (var product in Model.Products)
-            {
-                @Html.Hidden("ProductIds", product.Key)
-            }
-           // @Html.Hidden("ProductIds", Model.ProductIds)
             @Html.Hidden("CustRole", Model.CustRole)
             @Html.Hidden("CustId", Model.CustIds[0])
         }

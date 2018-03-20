@@ -311,18 +311,11 @@
 
         return {
             productId: this.$productId,
-            custIds: this.getCustIds(),
-            custNames: this.$('#CustNames').val().split(','),
+            custIds: this.$('#CustIds').val(),
+            custNames: this.$('#CustNames').val(),
             productStatus: productStatus
         };
     }
-
-    getCustIds = () => {
-        return this.$('[name="CustIds"]').map((index, element) => {
-            return this.$(element).val();
-        }).get();
-    }
-
 
     getproductStatus = (disabledSpan: any, model: any) =>{
         let disableAll = this.isEnabledElement(disabledSpan);
