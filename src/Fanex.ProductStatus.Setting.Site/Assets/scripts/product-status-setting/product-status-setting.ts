@@ -36,7 +36,6 @@
             });
         });
 
-
     bindingEnableSpanEvent = () =>
         this.$tbodyEnabledSpans.forEach((element) => {
             element.addEventListener('click', () => {
@@ -64,10 +63,6 @@
                 this.toggleAllStatus(element, false);
             });
         });
-
-
-    bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
-    bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
 
     registerEvents = () => {
         this.bindingCheckboxHiddenEvent();
@@ -141,6 +136,32 @@
         }
     }
 
+    watchHeader = (roleId: number) => {
+        if (this.$isMultipleBetTypes) {
+            this.toogleHeader(roleId);
+        }
+    }
+
+    isDisableHeader = (tbodyElements: HTMLElement[]): boolean => 
+        tbodyElements.every((element) => {
+            return !this.allowActionOnElement(element);
+        });
+
+    toogleHeader = (roleId: number) => {
+        let tbodyElements = this.getArrayElement(this.$tbodyEnabledSpans, roleId);
+        let theadEnabledElement = this.getFirstElement(this.$theadEnableSpan, roleId);
+        let theadDisabledElement = this.getFirstElement(this.$theadDisabledSpan, roleId);
+
+        if (tbodyElements != null && tbodyElements.length > 0 && this.isDisableHeader(tbodyElements)) {
+            this.disableElement(theadEnabledElement);
+            this.disableElement(theadDisabledElement);
+        }
+        else {
+            this.enableElement(theadEnabledElement);
+            this.enableElement(theadDisabledElement);
+        }
+    }
+
     toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
         if (downlineRoleId > 0) {
             let enabledSpan = this.getDownlineElement(this.$tbodyEnabledSpans, downlineRoleId, betType);
@@ -153,6 +174,8 @@
                 this.disableElement(enabledSpan);
                 this.disableElement(disabledSpan);
             }
+
+            this.watchHeader(downlineRoleId);
 
             let currentTotalEnabled = this.$(enabledSpan).text();
             let enableDownline = enable ? (this.parseInt(currentTotalEnabled) > 0) : false;

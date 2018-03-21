@@ -42,6 +42,9 @@
         this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
     }
 
+    bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
+    bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
+
     protected disableElement(element: HTMLElement) {
         this.$(element).addClass(this.$resources.grayClass);
     }
@@ -54,30 +57,24 @@
         return !this.$(element).hasClass(this.$resources.grayClass);
     }
 
-    protected isEnabledElement(statusSpan: HTMLElement): boolean {
-        return this.$(statusSpan).hasClass(this.$resources.enabledClass);
+    protected isEnabledElement(element: HTMLElement): boolean {
+        return this.$(element).hasClass(this.$resources.enabledClass);
     }
 
     getNextLabel = (element: HTMLElement): HTMLElement =>
         this.$("label[for='" + element.id + "']").toArray()[0] as HTMLElement;
 
-    getRoleId = (element: HTMLElement): number =>
-        this.$(element).data("roleid");
+    getRoleId = (element: HTMLElement): number => this.$(element).data("roleid");
 
-    isEnablebUpline = (element: HTMLElement): boolean =>
-        !this.parseBoolean(this.$(element).data("disabledupline"));
+    isEnablebUpline = (element: HTMLElement): boolean => !this.parseBoolean(this.$(element).data("disabledupline"));
 
-    getBetType = (element: HTMLElement): number =>
-        this.$(element).data("bettype");
+    getBetType = (element: HTMLElement): number => this.$(element).data("bettype");
 
-    getSportType = (element: HTMLElement): number =>
-        this.$(element).data("sporttype");
+    getSportType = (element: HTMLElement): number => this.$(element).data("sporttype");
 
-    getTotalStatus = (element: HTMLElement): number =>
-        this.$(element).data("total");
+    getTotalStatus = (element: HTMLElement): number => this.$(element).data("total");
 
-    isChecked = (element: HTMLElement): boolean =>
-         this.$(element).is(":checked");
+    isChecked = (element: HTMLElement): boolean => this.$(element).is(":checked");
 
     isChangeState = (originValue: number, currentValue: number): boolean =>
         originValue != currentValue;
@@ -85,11 +82,21 @@
     buildElementId = (className: string, roleId: number, betType: number): string =>
         ["#", className, "_", roleId, "_", betType].join("");
 
-    parseInt = (value: string): number =>
-        parseInt(value.replace(/,/g, ""));
+    parseInt = (value: string): number => parseInt(value.replace(/,/g, ""));
 
-    parseBoolean = (value: string): boolean =>
-        this.$.parseJSON(value.toLowerCase());
+    parseBoolean = (value: string): boolean => this.$.parseJSON(value.toLowerCase());
+
+    getArrayElement = (elements: HTMLElement[], roleId: number): HTMLElement[] =>
+        elements.filter((element, index) => {
+            if (this.getRoleId(element) == roleId) {
+                return element;
+            }
+        });
+
+    getFirstElement = (elements: HTMLElement[], roleId: number): HTMLElement => {
+        let arrayElement = this.getArrayElement(elements, roleId);
+        return arrayElement.length > 0 ? arrayElement[0] : null;
+    }
 
     protected getUpdateViewModel() {
         return {
@@ -151,7 +158,5 @@
         return messageDiv.html(html).removeClass("hide");
     }
 
-    hideMessage() {
-        this.$("#sectionMessage").html("").addClass("hide");
-    }
+    hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");
 }

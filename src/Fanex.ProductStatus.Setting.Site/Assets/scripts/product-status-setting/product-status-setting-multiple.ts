@@ -25,8 +25,8 @@
         this.$theadButton = this.$thead.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
         this.$tbodyButton = this.$tbody.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
 
-        this.$resources.enabled = "Enable All";
-        this.$resources.disabled = "Disable All";
+        this.$resources.enabled = this.$('#enableAll').val();
+        this.$resources.disabled = this.$('#disableAll').val();
         this.$resources.updateActionName = "MultipleUpdate";
     }
 
@@ -43,9 +43,6 @@
                 this.toogleHeaderCheckbox(element);
             });
         });
-
-    bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
-    bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
 
     registerEvents() {
         this.loadMultiple();
@@ -77,7 +74,7 @@
             this.toggleStatus(element);
             let roleId = this.getRoleId(element);
 
-            this.watchHeader(roleId);
+            this.watchHeader(roleId, false);
 
             let bettype = this.getBetType(element);
             let enable = this.isChecked(element);
@@ -92,7 +89,7 @@
         enabledUpline ? this.enableElement(element) : this.disableElement(element);
 
         let roleId = this.getRoleId(element);
-        this.watchHeader(roleId);
+        this.watchHeader(roleId, true);
 
         if (roleId > 1) {
             let bettype = this.getBetType(element);
@@ -130,38 +127,36 @@
             .text(labelText);
     }
 
-    watchHeader = (roleId: number) => {
+    watchHeader = (roleId: number, isDownline: boolean) => {
         if (this.$isMultipleBetTypes) {
             [true, false].forEach((status) => {
-                this.toogleHeader(roleId, status);
+                this.toogleHeader(roleId, status, isDownline);
             });
         }
     }
 
-    toogleHeader = (roleId: number, status: boolean) => {
+    toogleHeader = (roleId: number, status: boolean, isDownline: boolean) => {
         let tbodyElements = this.getArrayElement(this.$tbodyButton, roleId);
 
         if (tbodyElements != null && tbodyElements.length > 0 && this.isAllStatus(tbodyElements, status)) {
             let theadElement = this.getFirstElement(this.$theadButton, roleId);
             this.toggleStatusByValue(theadElement, status); 
+
+            if (isDownline && status == false)
+            {
+                this.disableElement(theadElement);
+            }
         }
     }
 
-    getArrayElement = (elements: HTMLElement[], roleId: number): HTMLElement[] => 
-        elements.filter((element, index) => {
-            if (this.getRoleId(element) == roleId) {
-                return element;
-            }
-        });
-
-    getFirstElement = (elements: HTMLElement[], roleId: number): HTMLElement => {
-        let arrayElement = this.getArrayElement(elements, roleId);
-        return arrayElement.length > 0 ? arrayElement[0] : null;
-    }
-
     isAllStatus = (elements: HTMLElement[], status: boolean): boolean => 
-        elements.every((element, index) => {
-            return this.isChecked(elements[index]) == status;
+        elements.every((element) => {
+            if (!this.isEnabledElement(element))
+            {
+                return true;
+            }
+
+            return this.isChecked(element) == status;
         });
 
     disableElement(element: HTMLElement) {
