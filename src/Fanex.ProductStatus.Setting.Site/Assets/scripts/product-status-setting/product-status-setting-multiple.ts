@@ -27,6 +27,7 @@
 
         this.$resources.enabled = "Enable All";
         this.$resources.disabled = "Disable All";
+        this.$resources.updateActionName = "MultipleUpdate";
     }
 
     bindingTbodyEvent = () =>
@@ -43,11 +44,10 @@
             });
         });
 
-
     bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
     bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
 
-    registerEvents = () => {
+    registerEvents() {
         this.loadMultiple();
 
         this.bindingTheadEvent();
@@ -56,7 +56,7 @@
         this.bindingSubmitButtonEvent();
     }
 
-    toogleHeaderCheckbox = (element: HTMLElement) => {
+    toogleHeaderCheckbox(element: HTMLElement) {
         if (this.allowActionOnElement(element)) {
             this.toggleStatus(element);
 
@@ -72,45 +72,38 @@
         }    
     }
 
-    toogleBodyCheckbox = (element: HTMLElement) => {
+    toogleBodyCheckbox(element: HTMLElement) {
         if (this.allowActionOnElement(element)) {
             this.toggleStatus(element);
             let roleId = this.getRoleId(element);
 
-            [true, false].forEach((status) => {
-                this.watchHeader(roleId, status);
-            });
+            this.watchHeader(roleId);
 
+            let bettype = this.getBetType(element);
+            let enable = this.isChecked(element);
+            let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
 
-                let bettype = this.getBetType(element);
-                let enable = this.isChecked(element);
-                let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
-
-                this.toogleBodyCheckboxDownline(downlineElement, enable);
+            this.toogleBodyCheckboxDownline(downlineElement, enable);
         }
     }
 
-    toogleBodyCheckboxDownline = (element: HTMLElement, enabledUpline: boolean) => {
-           this.toggleStatusByValue(element, enabledUpline);
-            enabledUpline ? this.enableElement(element) : this.disableElement(element);
+    toogleBodyCheckboxDownline(element: HTMLElement, enabledUpline: boolean) {
+        this.toggleStatusByValue(element, enabledUpline);
+        enabledUpline ? this.enableElement(element) : this.disableElement(element);
 
-            let roleId = this.getRoleId(element);
+        let roleId = this.getRoleId(element);
+        this.watchHeader(roleId);
 
-            [true, false].forEach((status) => {
-                this.watchHeader(roleId, status);
-            });
+        if (roleId > 1) {
+            let bettype = this.getBetType(element);
+            let enable = this.isChecked(element);
+            let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
 
-            if (roleId > 1) {
-                let bettype = this.getBetType(element);
-                let enable = this.isChecked(element);
-                let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
-
-                this.toogleBodyCheckboxDownline(downlineElement, enable);
-            }
+            this.toogleBodyCheckboxDownline(downlineElement, enable);
+        }
     }
 
-    getBodyElement = (elements: HTMLElement[], roleId: number, bettype: number): HTMLElement =>
-    {
+    getBodyElement(elements: HTMLElement[], roleId: number, bettype: number): HTMLElement {
         for (let index = 0; index < elements.length; index++) {
             if (this.getRoleId(elements[index]) == roleId && this.getBetType(elements[index]) == bettype) {
                 return elements[index];
@@ -120,7 +113,9 @@
         return null;
     }
 
-    toggleStatus = (element: HTMLElement) => this.toggleStatusByValue(element, this.isChecked(element));
+    toggleStatus(element: HTMLElement) {
+        return this.toggleStatusByValue(element, this.isChecked(element));
+    }
 
     toggleStatusByValue = (element: HTMLElement, enable: boolean) => {
         this.$(element).prop('checked', enable);
@@ -137,7 +132,15 @@
             .text(labelText);
     }
 
-    watchHeader = (roleId: number, status: boolean) => {
+    watchHeader = (roleId: number) => {
+        if (this.$isMultipleBetTypes) {
+            [true, false].forEach((status) => {
+                this.toogleHeader(roleId, status);
+            });
+        }
+    }
+
+    toogleHeader = (roleId: number, status: boolean) => {
         let tbodyElements = this.getArrayElement(this.$tbodyButton, roleId);
 
         if (tbodyElements != null && tbodyElements.length > 0 && this.isAllStatus(tbodyElements, status)) {
@@ -174,44 +177,24 @@
         super.enableElement(nextLabel);
     }
 
-    allowActionOnElement = (element: HTMLElement): boolean => {
+    allowActionOnElement(element: HTMLElement): boolean {
         let nextLabel = this.getNextLabel(element);
-        return !this.$(nextLabel).hasClass(this.$resources.grayClass) && this.isEnablebUpline(element);
+        return super.allowActionOnElement(nextLabel);
     }
 
-
-    isEnabledElement = (element: HTMLElement): boolean =>
-    {
+    isEnabledElement(element: HTMLElement): boolean {
         let nextLabel = this.getNextLabel(element);
-        return this.$(nextLabel).hasClass(this.$resources.enabledClass);
+        return super.isEnabledElement(nextLabel);
     }
 
-    isChangeState = (originValue: number, currentValue: number): boolean =>
-        originValue != currentValue;
-
-    onSubmit = (e: any) => {
-        e.preventDefault();
-
-        let headers = this.setupAntiXSRF();
-        let updateViewModel = this.getUpdateViewModel();
-
-        this.$.blockUI({
-            blockMsgClass: "block-ui-loading"
-        });
-
-        updateViewModel.productStatus.length > 0 ?
-            this.callAjax(headers, updateViewModel, "MultipleUpdate") :
-            this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
-    }
-
-    getUpdateViewModel = () => {
-        let self = this;
+    getUpdateViewModel() {
+        let viewModel = super.getUpdateViewModel();
 
         let productStatus = this.$('#tbl-product > tbody  > tr').map((index, columnElement) => {
             let checkboxElement = this.$(columnElement).find("input[type=checkbox]").toArray()[0] as HTMLElement;
-            if (self.allowActionOnElement(checkboxElement)) {
-                let bettype = self.getBetType(checkboxElement);
-                let sporttype = self.getSportType(checkboxElement);
+            if (this.allowActionOnElement(checkboxElement)) {
+                let bettype = this.getBetType(checkboxElement);
+                let sporttype = this.getSportType(checkboxElement);
                
                 let data = {
                     sportType: sporttype,
@@ -225,8 +208,8 @@
                     disableAllMembers: null
                 };
 
-                this.$(columnElement).find('input[type=checkbox]').each(function () {
-                    return self.getproductStatus(this, data);
+                this.$(columnElement).find('input[type=checkbox]').each((index, element) => {
+                    return this.getproductStatus(element, data);
                 });
 
                 if (data.updateAllMasters
@@ -237,15 +220,13 @@
             }
         }).get();
 
-        return {
-            productId: this.$productId,
-            custIds: this.$('#CustIds').val(),
-            custNames: this.$('#CustNames').val(),
-            productStatus: productStatus
-        };
+        viewModel.productStatus = productStatus;
+        viewModel.custIds = this.$('#CustIds').val();
+        viewModel.custNames = this.$('#CustNames').val();
+        return viewModel;
     }
 
-    getproductStatus = (disabledSpan: any, model: any) =>{
+    getproductStatus(disabledSpan: any, model: any) {
         let disableAll = !this.isEnabledElement(disabledSpan);
 
         switch (this.getRoleId(disabledSpan)) {
@@ -278,7 +259,7 @@
         }
         else
         {
-            let html = '';
+            let html: string;
             results.forEach((result) => {
                 if (result.Code != 0) {
                     html +=  [result.CustName, ": ", result.Message, "<br>"].join("");
@@ -289,11 +270,10 @@
         }   
     }
 
-    isUpdateSuccess = (results: any) => 
+    isUpdateSuccess = (results: any): boolean =>
         results.every((result) => {
             return result.Code == 0;
-        })
-
+        });
 }
 
 $(function () {

@@ -29,7 +29,8 @@
                             var roleName = Model.GetRoleName(Model.CustRole);
                             <div class="current-role">@roleName</div>
                             <div class="all-status">
-                                <span class="enabled" data-roleid="@Model.CustRole"
+                                <span class="enabled" 
+                                      data-roleid="@Model.CustRole"
                                       title="@String.Format(Resources.SearchAccountTHeadTooltip, Resources.Enable.ToLower(), roleName)">
                                     @Resources.Enable
                                 </span>
@@ -94,6 +95,7 @@
     @Html.Hidden("disabled", Resources.Disabled)
     @Html.Hidden("thereIsNoChange", Resources.ThereIsNoChange)
     @Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed)
+    @Html.Hidden("isMultipleBetTypes", isMultipleBetTypes)
     @Html.AntiForgeryToken()
 
     <script type="text/javascript" src="@Url.Content("~/Areas/ProductStatusSetting/Scripts/product-status-setting.js")"></script>

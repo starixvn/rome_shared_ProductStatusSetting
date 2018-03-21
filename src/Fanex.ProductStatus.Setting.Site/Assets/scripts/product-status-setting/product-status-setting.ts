@@ -26,6 +26,7 @@
 
         this.$resources.enabled = this.$('#enabled').val();
         this.$resources.disabled = this.$('#disabled').val();
+        this.$resources.updateActionName = "Update";
     }
 
     bindingCheckboxHiddenEvent = () =>
@@ -169,31 +170,16 @@
         return null;
     }
 
-    onSubmit = (e: any) => {
-        e.preventDefault();
+    getUpdateViewModel() {
+        let viewModel = super.getUpdateViewModel();
 
-        let headers = this.setupAntiXSRF();
-        let updateViewModel = this.getUpdateViewModel();
-
-        this.$.blockUI({
-            blockMsgClass: "block-ui-loading"
-        });
-
-        updateViewModel.productStatus.length > 0 ?
-            this.callAjax(headers, updateViewModel, "Update") :
-            this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
-    }
-
-    getUpdateViewModel = () => {
-        let self = this;
-
-        let productStatus = self.$('#tbl-product > tbody  > tr').map(function () {
-            let checkboxStatus = (self.$(this).find('input:checkbox').toArray() as HTMLElement[])[0];
-            if (self.isEnablebUpline(checkboxStatus)) {
-                let bettype = self.getBetType(checkboxStatus);
-                let sporttype = self.getSportType(checkboxStatus);
-                let disable = !self.isChecked(checkboxStatus);
-                let originstatus = self.parseBoolean(self.$(checkboxStatus).data("originstatus"));
+        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, element) => {
+            let checkboxStatus = (this.$(element).find('input:checkbox').toArray() as HTMLElement[])[0];
+            if (this.isEnablebUpline(checkboxStatus)) {
+                let bettype = this.getBetType(checkboxStatus);
+                let sporttype = this.getSportType(checkboxStatus);
+                let disable = !this.isChecked(checkboxStatus);
+                let originstatus = this.parseBoolean(this.$(checkboxStatus).data("originstatus"));
 
                 let data = {
                     sportType: sporttype,
@@ -207,8 +193,8 @@
                     disableAllMembers: null
                 };
 
-                self.$(this).find('span:odd').each(function () {
-                    return self.getproductStatus(this, data);
+                this.$(this).find('span:odd').each(function () {
+                    return this.getproductStatus(this, data);
                 });
 
                 if (data.disable != originstatus
@@ -220,14 +206,11 @@
             }
         }).get();
 
-        return {
-            productId: this.$productId,
-            custId: this.$custId,
-            productStatus: productStatus
-        };
+        viewModel.productStatus = productStatus;
+        return viewModel;
     }
 
-    getproductStatus = (disabledSpan: HTMLElement, model: any) => {
+    getproductStatus(disabledSpan: HTMLElement, model: any) {
         let levelStatus = this.getLevelStatus(this.$(disabledSpan));
 
         switch (this.getRoleId(disabledSpan)) {
@@ -248,7 +231,7 @@
         return model;
     }
 
-    getLevelStatus = (disabledSpan: any) => {
+    getLevelStatus(disabledSpan: any) {
         let totaldisabled = this.parseInt(disabledSpan.text());
         let originalTotaldisabled = this.getTotalStatus(disabledSpan);
         let updateAll = this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
@@ -256,6 +239,16 @@
         return {
             UpdateAll: updateAll,
             DisableAll: updateAll && totaldisabled > 0
+        }
+    }
+
+    onSuccess = (data: any) => {
+        this.showMessage(data.Code, data.Message);
+        if (data.Code == 0) {
+            setTimeout(function () {
+                this.$.unblockUI();
+                location.reload(true);
+            }, this.$timeoutDefault);
         }
     }
 }

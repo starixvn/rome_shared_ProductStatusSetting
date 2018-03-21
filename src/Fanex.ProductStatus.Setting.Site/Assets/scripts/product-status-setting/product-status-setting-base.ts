@@ -1,4 +1,4 @@
-﻿class ProductStatusSettingBase implements IProductStatusSettingBase {
+﻿class ProductStatusSettingBase  {
     $: JQueryStatic;
     $resources: any;
     $errorCodeDefault: number;
@@ -9,12 +9,13 @@
     $custId: number;
     $custRole: number;
     $productId: number;
+    $isMultipleBetTypes: boolean;
 
     constructor($: JQueryStatic) {
         this.$ = $;
     }
 
-    protected init () {
+    protected init() {
         this.cachedElements();
 
         this.$custId = this.$('#custId').val();
@@ -37,24 +38,28 @@
             disabledClass: "disabled",
             grayClass: "gray"
         }
+
+        this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
     }
 
-    disableElement(element: HTMLElement) {
+    protected disableElement(element: HTMLElement) {
         this.$(element).addClass(this.$resources.grayClass);
     }
 
-    enableElement (element: HTMLElement) {
+    protected enableElement(element: HTMLElement) {
         this.$(element).removeClass(this.$resources.grayClass);
+    }
+
+    protected allowActionOnElement(element: HTMLElement): boolean {
+        return !this.$(element).hasClass(this.$resources.grayClass);
+    }
+
+    protected isEnabledElement(statusSpan: HTMLElement): boolean {
+        return this.$(statusSpan).hasClass(this.$resources.enabledClass);
     }
 
     getNextLabel = (element: HTMLElement): HTMLElement =>
         this.$("label[for='" + element.id + "']").toArray()[0] as HTMLElement;
-
-    allowActionOnElement = (element: HTMLElement): boolean =>
-        !this.$(element).hasClass(this.$resources.grayClass);
-
-    isEnabledElement = (statusSpan: HTMLElement): boolean =>
-        this.$(statusSpan).attr("class") === this.$resources.enabledClass;
 
     getRoleId = (element: HTMLElement): number =>
         this.$(element).data("roleid");
@@ -72,7 +77,7 @@
         this.$(element).data("total");
 
     isChecked = (element: HTMLElement): boolean =>
-        this.$(element).is(":checked");
+         this.$(element).is(":checked");
 
     isChangeState = (originValue: number, currentValue: number): boolean =>
         originValue != currentValue;
@@ -86,7 +91,17 @@
     parseBoolean = (value: string): boolean =>
         this.$.parseJSON(value.toLowerCase());
 
-    setupAntiXSRF = () => {
+    protected getUpdateViewModel() {
+        return {
+            productId: this.$productId,
+            custId: this.$custId,
+            custIds: [],
+            custNames: [],
+            productStatus: []
+        }
+    };
+
+    setupAntiXSRF() {
         let token = this.$('[name=__RequestVerificationToken]').val();
         let headers = {};
         headers["__RequestVerificationToken"] = token;
@@ -94,7 +109,22 @@
         return headers;
     }
 
-    callAjax = (headers: any, updateViewModel: any, action: string)  =>
+    onSubmit = (e: any) => {
+        e.preventDefault();
+        let updateViewModel = this.getUpdateViewModel();
+
+        this.$.blockUI({
+            blockMsgClass: "block-ui-loading"
+        });
+
+        updateViewModel.productStatus.length > 0 ?
+            this.callAjax(updateViewModel, this.$resources.updateActionName) :
+            this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
+    }
+
+    callAjax(updateViewModel: any, action: string): void {
+        let headers = this.setupAntiXSRF();
+
         this.$.ajax({
             type: "POST",
             url: action,
@@ -105,26 +135,23 @@
             contentType: "application/json; charset=utf-8",
             success: this.onSuccess,
             error: this.onError
-        })
-
-    onSuccess = (data: any) => {
-        this.showMessage(data.Code, data.Message);
-        if (data.Code == 0) {
-            setTimeout(function () {
-                this.$.unblockUI();
-                location.reload(true);
-            }, this.$timeoutDefault);
-        }
+        });
     }
 
-    onError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
+    onSuccess = (data: any): void => {}
 
-    showMessage = (type: any, message: string) => {
+    onError = () => {
+        this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
+    }
+
+    showMessage(type: any, message: string) {
         this.$.unblockUI();
         let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
         return messageDiv.html(html).removeClass("hide");
     }
 
-    hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");
+    hideMessage() {
+        this.$("#sectionMessage").html("").addClass("hide");
+    }
 }

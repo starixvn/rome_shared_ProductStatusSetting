@@ -50,7 +50,8 @@
 @Html.Hidden("enabled", Resources.Enabled)
 @Html.Hidden("disabled", Resources.Disabled)
 @Html.Hidden("thereIsNoChange", Resources.ThereIsNoChange)
-@Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed)
+@Html.Hidden("updateStatusFailed", Resources.UpdateStatusFailed),
+
 @Html.AntiForgeryToken()
 
 @helper RenderHeaderLevelName(int roleId, bool isMultipleBetTypes, bool isDisabledUpline)

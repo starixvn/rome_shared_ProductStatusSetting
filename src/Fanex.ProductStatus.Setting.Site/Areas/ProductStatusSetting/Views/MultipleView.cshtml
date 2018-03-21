@@ -33,9 +33,10 @@
            
             @Html.Hidden("CustIds", Model.CustIds)
             @Html.Hidden("CustNames", Model.CustNames)
-           
+            @Html.Hidden("ProductIds", Model.ProductIds)
             @Html.Hidden("CustRole", Model.CustRole)
-            @Html.Hidden("CustId", Model.CustIds[0])
+            @Html.Hidden("CustId", Model.CustIds.Split(',')[0])
+            @Html.Hidden("isMultipleBetTypes", Model.ProductStatus.Count() > 1)
         }
     </div>
 
