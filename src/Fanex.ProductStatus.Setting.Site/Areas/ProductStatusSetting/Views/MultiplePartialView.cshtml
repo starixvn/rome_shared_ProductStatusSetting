@@ -2,6 +2,7 @@
 
 @{
     var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
+    var IsDisabledUplineHeader = Model.ProductStatus.All(product => product.IsDisabledUpline.Equals(true));
 }
 
 <table class="tbl-product margin-top10" id="tbl-product">
@@ -11,7 +12,7 @@
         </tr>
         <tr>
             <th rowspan="2"></th>
-            @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes, Model.ProductStatus.ToList().First().IsDisabledUpline)
+            @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes, IsDisabledUplineHeader)
         </tr>
     </thead>
     <tbody>

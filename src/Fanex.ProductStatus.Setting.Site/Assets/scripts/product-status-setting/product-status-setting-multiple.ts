@@ -113,9 +113,7 @@
         return null;
     }
 
-    toggleStatus(element: HTMLElement) {
-        return this.toggleStatusByValue(element, this.isChecked(element));
-    }
+    toggleStatus = (element: HTMLElement) => this.toggleStatusByValue(element, this.isChecked(element));
 
     toggleStatusByValue = (element: HTMLElement, enable: boolean) => {
         this.$(element).prop('checked', enable);
@@ -158,7 +156,6 @@
 
     getFirstElement = (elements: HTMLElement[], roleId: number): HTMLElement => {
         let arrayElement = this.getArrayElement(elements, roleId);
-        let defaultElement: HTMLElement;
         return arrayElement.length > 0 ? arrayElement[0] : null;
     }
 
