@@ -119,8 +119,9 @@
         {
             Result result;
             int customerId;
+            int custIdsLength = custIds.Length;
 
-            for (int i = 0, max = custIds.Length; i < max; i++)
+            for (int i = 0; i < custIdsLength; i++)
             {
                 customerId = custIds[i];
                 result = UpdateProductStatus(productId, customerId, actorId, ip, commands);
