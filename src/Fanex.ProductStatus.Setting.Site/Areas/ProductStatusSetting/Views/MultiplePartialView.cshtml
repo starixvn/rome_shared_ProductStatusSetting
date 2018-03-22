@@ -85,7 +85,7 @@
                            @(isDisabledUpline ? "disabled " : string.Empty) />
 
                     <label for="@id" class="@(isDisabledUpline ? "gray" : "enabled")">
-                        @Resources.EnableAll
+                        @(isDisabledUpline ? Resources.DisableAll : Resources.EnableAll)
                     </label>
                 </div>
             }
@@ -116,7 +116,7 @@
            @(isDisabledUpline ? "disabled " : string.Empty) />
 
         <label for="@id" class="@(isDisabledUpline ? "gray" : "enabled")">
-            @Resources.EnableAll
+            @(isDisabledUpline ? Resources.DisableAll : Resources.EnableAll)
         </label>
 
 }

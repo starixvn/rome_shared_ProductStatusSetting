@@ -77,6 +77,14 @@
 
         this.bindingResetButtonEvent();
         this.bindingSubmitButtonEvent();
+
+        this.initialHeader();
+    }
+
+    initialHeader() {
+        for (let roleId = this.$custRole; roleId > 0; roleId--) {
+            this.watchHeader(roleId);
+        }
     }
 
     toggleAllStatus = (element: HTMLElement, enable: boolean) => {
@@ -146,17 +154,22 @@
         }
     }
 
-    isDisableHeader = (tbodyElements: HTMLElement[]): boolean => 
+    isDisableHeader = (tbodyElements: HTMLElement[], isUpline: boolean): boolean => 
         tbodyElements.every((element) => {
+            if (isUpline) {
+                element = this.getNextLabel(element);
+            }
+
             return !this.allowActionOnElement(element);
         });
 
     toogleHeader = (roleId: number) => {
-        let tbodyElements = this.getArrayElement(this.$enableDownlineArray, roleId);
+        let isUpline = roleId == this.$custRole;
+        let tbodyElements = isUpline ? this.$toggleUplineArray : this.getArrayElement(this.$enableDownlineArray, roleId);
         let theadEnabledElement = this.getFirstElement(this.$enableAllArray, roleId);
         let theadDisabledElement = this.getFirstElement(this.$disableAllArray, roleId);
 
-        if (tbodyElements != null && tbodyElements.length > 0 && this.isDisableHeader(tbodyElements)) {
+        if (tbodyElements != null && tbodyElements.length > 0 && this.isDisableHeader(tbodyElements, isUpline)) {
             this.disableElement(theadEnabledElement);
             this.disableElement(theadDisabledElement);
         }
