@@ -45,24 +45,24 @@
     bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
     bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
 
-    protected disableElement(element: HTMLElement) {
-        this.$(element).addClass(this.$resources.grayClass);
+    protected disableElement(labelElement: HTMLElement) {
+        this.$(labelElement).addClass(this.$resources.grayClass);
     }
 
-    protected enableElement(element: HTMLElement) {
-        this.$(element).removeClass(this.$resources.grayClass);
+    protected enableElement(labelElement: HTMLElement) {
+        this.$(labelElement).removeClass(this.$resources.grayClass);
     }
 
-    protected allowActionOnElement(element: HTMLElement): boolean {
-        return !this.$(element).hasClass(this.$resources.grayClass);
+    protected allowActionOnElement(labelElement: HTMLElement): boolean {
+        return !this.$(labelElement).hasClass(this.$resources.grayClass);
     }
 
-    protected isEnabledElement(element: HTMLElement): boolean {
-        return this.$(element).hasClass(this.$resources.enabledClass);
+    protected isEnabledElement(labelElement: HTMLElement): boolean {
+        return this.$(labelElement).hasClass(this.$resources.enabledClass);
     }
 
-    getNextLabel = (element: HTMLElement): HTMLElement =>
-        this.$("label[for='" + element.id + "']").toArray()[0] as HTMLElement;
+    getNextLabel = (checkboxElement: HTMLElement): HTMLElement =>
+        this.$("label[for='" + checkboxElement.id + "']").toArray()[0] as HTMLElement;
 
     getRoleId = (element: HTMLElement): number => this.$(element).data("roleid");
 

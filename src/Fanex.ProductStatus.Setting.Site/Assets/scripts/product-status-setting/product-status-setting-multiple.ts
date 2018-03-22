@@ -1,7 +1,7 @@
 ﻿class ProductStatusSettingMultipe extends ProductStatusSettingBase{
     $: JQueryStatic;
-    $theadButton: HTMLElement[];
-    $tbodyButton: HTMLElement[];
+    $theadCheckbox: HTMLElement[];
+    $tbodyCheckbox: HTMLElement[];
 
     constructor($: JQueryStatic) {
         super($);
@@ -22,8 +22,8 @@
     cachedElements() {
         super.cachedElements();
 
-        this.$theadButton = this.$thead.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
-        this.$tbodyButton = this.$tbody.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$theadCheckbox = this.$thead.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$tbodyCheckbox = this.$tbody.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
 
         this.$resources.enabled = this.$('#enableAll').val();
         this.$resources.disabled = this.$('#disableAll').val();
@@ -31,16 +31,16 @@
     }
 
     bindingTbodyEvent = () =>
-        this.$tbodyButton.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toogleBodyCheckbox(element);
+        this.$tbodyCheckbox.forEach((bodyChk) => {
+            bodyChk.addEventListener('click', () => {
+                this.toogleBodyCheckbox(bodyChk);
         });
     });
 
     bindingTheadEvent = () =>
-        this.$theadButton.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toogleHeaderCheckbox(element);
+        this.$theadCheckbox.forEach((headerChk) => {
+            headerChk.addEventListener('click', () => {
+                this.toogleHeaderCheckbox(headerChk);
             });
         });
 
@@ -53,73 +53,74 @@
         this.bindingSubmitButtonEvent();
     }
 
-    toogleHeaderCheckbox(element: HTMLElement) {
-        if (this.allowActionOnElement(element)) {
-            this.toggleStatus(element);
+    toogleHeaderCheckbox(headerCheckbox: HTMLElement) {
+        if (this.allowActionOnElement(headerCheckbox)) {
+            this.toggleStatus(headerCheckbox);
 
-            let roleId = this.getRoleId(element);
-            let enable = this.isChecked(element);
+            let roleId = this.getRoleId(headerCheckbox);
+            let enable = this.isChecked(headerCheckbox);
 
-            let tbodyElements = this.getArrayElement(this.$tbodyButton, roleId);
-            tbodyElements.forEach((el) => {
-                if (this.allowActionOnElement(el) && this.isChecked(el) != enable) {
-                    el.click();
+            let tbodyElements = this.getArrayElement(this.$tbodyCheckbox, roleId);
+            tbodyElements.forEach((bodyCheckbox) => {
+                if (this.allowActionOnElement(bodyCheckbox) && this.isChecked(bodyCheckbox) != enable) {
+                    bodyCheckbox.click();
                 }
             });
         }    
     }
 
-    toogleBodyCheckbox(element: HTMLElement) {
-        if (this.allowActionOnElement(element)) {
-            this.toggleStatus(element);
-            let roleId = this.getRoleId(element);
+    toogleBodyCheckbox(bodyCheckbox: HTMLElement) {
+        if (this.allowActionOnElement(bodyCheckbox)) {
+            this.toggleStatus(bodyCheckbox);
+            let roleId = this.getRoleId(bodyCheckbox);
 
             this.watchHeader(roleId, false);
 
-            let bettype = this.getBetType(element);
-            let enable = this.isChecked(element);
-            let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
+            let bettype = this.getBetType(bodyCheckbox);
+            let enable = this.isChecked(bodyCheckbox);
+            let downlineCheckbox = this.getBodyElement(this.$tbodyCheckbox, roleId - 1, bettype);
 
-            this.toogleBodyCheckboxDownline(downlineElement, enable);
+            this.toogleBodyCheckboxDownline(downlineCheckbox, enable);
         }
     }
 
-    toogleBodyCheckboxDownline(element: HTMLElement, enabledUpline: boolean) {
-        this.toggleStatusByValue(element, enabledUpline);
-        enabledUpline ? this.enableElement(element) : this.disableElement(element);
+    toogleBodyCheckboxDownline(bodyCheckbox: HTMLElement, enabledUpline: boolean) {
+        this.toggleStatusByValue(bodyCheckbox, enabledUpline);
+        enabledUpline ? this.enableElement(bodyCheckbox) : this.disableElement(bodyCheckbox);
 
-        let roleId = this.getRoleId(element);
+        let roleId = this.getRoleId(bodyCheckbox);
         this.watchHeader(roleId, true);
 
         if (roleId > 1) {
-            let bettype = this.getBetType(element);
-            let enable = this.isChecked(element);
-            let downlineElement = this.getBodyElement(this.$tbodyButton, roleId - 1, bettype);
+            let bettype = this.getBetType(bodyCheckbox);
+            let enable = this.isChecked(bodyCheckbox);
+            let downlineCheckbox = this.getBodyElement(this.$tbodyCheckbox, roleId - 1, bettype);
 
-            this.toogleBodyCheckboxDownline(downlineElement, enable);
+            this.toogleBodyCheckboxDownline(downlineCheckbox, enable);
         }
     }
 
-    getBodyElement(elements: HTMLElement[], roleId: number, bettype: number): HTMLElement {
-        for (let index = 0; index < elements.length; index++) {
-            if (this.getRoleId(elements[index]) == roleId && this.getBetType(elements[index]) == bettype) {
-                return elements[index];
+    getBodyElement(tbodyCheckbox: HTMLElement[], roleId: number, bettype: number): HTMLElement {
+        for (let index = 0; index < tbodyCheckbox.length; index++) {
+            let bodyCheckbox = tbodyCheckbox[index];
+            if (this.getRoleId(bodyCheckbox) == roleId && this.getBetType(bodyCheckbox) == bettype) {
+                return bodyCheckbox;
             }
         }
 
         return null;
     }
 
-    toggleStatus = (element: HTMLElement) => this.toggleStatusByValue(element, this.isChecked(element));
+    toggleStatus = (checkboxElement: HTMLElement) => this.toggleStatusByValue(checkboxElement, this.isChecked(checkboxElement));
 
-    toggleStatusByValue = (element: HTMLElement, enable: boolean) => {
-        this.$(element).prop('checked', enable);
-        let labelElement = this.getNextLabel(element);
+    toggleStatusByValue = (checkboxElement: HTMLElement, enable: boolean) => {
+        this.$(checkboxElement).prop('checked', enable);
+        let labelElement = this.getNextLabel(checkboxElement);
 
         let tooltip = enable ? this.$(labelElement).data("disabletooltip") : this.$(labelElement).data("enabletooltip")
         let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
         let labelClass = enable ? this.$resources.enabledClass : this.$resources.disabledClass;
-        let bettype = this.getBetType(element);
+        let bettype = this.getBetType(checkboxElement);
 
         this.$(labelElement).attr("title", tooltip)
             .removeClass()
@@ -136,62 +137,62 @@
     }
 
     toogleHeader = (roleId: number, status: boolean, isDownline: boolean) => {
-        let tbodyElements = this.getArrayElement(this.$tbodyButton, roleId);
+        let tbodyCheckbox = this.getArrayElement(this.$tbodyCheckbox, roleId);
 
-        if (tbodyElements != null && tbodyElements.length > 0 && this.isAllStatus(tbodyElements, status)) {
-            let theadElement = this.getFirstElement(this.$theadButton, roleId);
-            this.toggleStatusByValue(theadElement, status); 
+        if (tbodyCheckbox != null && tbodyCheckbox.length > 0 && this.isAllStatus(tbodyCheckbox, status)) {
+            let theadCheckbox = this.getFirstElement(this.$theadCheckbox, roleId);
+            this.toggleStatusByValue(theadCheckbox, status); 
 
             if (isDownline && status == false)
             {
-                this.disableElement(theadElement);
+                this.disableElement(theadCheckbox);
             }
         }
     }
 
-    isAllStatus = (elements: HTMLElement[], status: boolean): boolean => 
-        elements.every((element) => {
-            if (!this.isEnabledElement(element))
+    isAllStatus = (tbodyCheckbox: HTMLElement[], status: boolean): boolean => 
+        tbodyCheckbox.every((bodyCheckbox) => {
+            if (!this.isEnabledElement(bodyCheckbox))
             {
                 return true;
             }
 
-            return this.isChecked(element) == status;
+            return this.isChecked(bodyCheckbox) == status;
         });
 
-    disableElement(element: HTMLElement) {
-        let nextLabel = this.getNextLabel(element);
+    disableElement(checkboxElement: HTMLElement) {
+        let nextLabel = this.getNextLabel(checkboxElement);
         super.disableElement(nextLabel);
     }
 
-    enableElement(element: HTMLElement) {
-        let nextLabel = this.getNextLabel(element);
+    enableElement(checkboxElement: HTMLElement) {
+        let nextLabel = this.getNextLabel(checkboxElement);
         super.enableElement(nextLabel);
     }
 
-    allowActionOnElement(element: HTMLElement): boolean {
-        let nextLabel = this.getNextLabel(element);
+    allowActionOnElement(checkboxElement: HTMLElement): boolean {
+        let nextLabel = this.getNextLabel(checkboxElement);
         return super.allowActionOnElement(nextLabel);
     }
 
-    isEnabledElement(element: HTMLElement): boolean {
-        let nextLabel = this.getNextLabel(element);
+    isEnabledElement(checkboxElement: HTMLElement): boolean {
+        let nextLabel = this.getNextLabel(checkboxElement);
         return super.isEnabledElement(nextLabel);
     }
 
     getUpdateViewModel() {
         let viewModel = super.getUpdateViewModel();
 
-        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, columnElement) => {
-            let checkboxElement = this.$(columnElement).find("input[type=checkbox]").toArray()[0] as HTMLElement;
-            if (this.allowActionOnElement(checkboxElement)) {
-                let bettype = this.getBetType(checkboxElement);
-                let sporttype = this.getSportType(checkboxElement);
+        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, row) => {
+            let firstCheckbox = this.$(row).find("input[type=checkbox]").toArray()[0] as HTMLElement;
+            if (this.allowActionOnElement(firstCheckbox)) {
+                let bettype = this.getBetType(firstCheckbox);
+                let sporttype = this.getSportType(firstCheckbox);
                
                 let data = {
                     sportType: sporttype,
                     betType: bettype,
-                    disable: !this.isChecked(checkboxElement),
+                    disable: !this.isChecked(firstCheckbox),
                     updateAllMasters: false,
                     disableAllMasters: null,
                     updateAllAgents: false,
@@ -200,8 +201,8 @@
                     disableAllMembers: null
                 };
 
-                this.$(columnElement).find('input[type=checkbox]').each((index, element) => {
-                    return this.getproductStatus(element, data);
+                this.$(row).find('input[type=checkbox]').each((index, checkboxElement) => {
+                    return this.getproductStatus(checkboxElement, data);
                 });
 
                 if (data.updateAllMasters
@@ -215,6 +216,7 @@
         viewModel.productStatus = productStatus;
         viewModel.custIds = this.$('#CustIds').val();
         viewModel.custNames = this.$('#CustNames').val();
+
         return viewModel;
     }
 
