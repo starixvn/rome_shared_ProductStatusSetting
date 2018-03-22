@@ -232,6 +232,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to {0} all {1} on all rows.
+        /// </summary>
+        public static string SearchAccountTHeadMulitpleTooltip {
+            get {
+                return ResourceManager.GetString("SearchAccountTHeadMulitpleTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click to {0} {1} all rows.
         /// </summary>
         public static string SearchAccountTHeadTooltip {

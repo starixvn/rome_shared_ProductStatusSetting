@@ -33,35 +33,35 @@
         this.$resources.updateActionName = "Update";
     }
 
-    bindingtoggleUplineEvent = () =>
+    bindingtoggleUplineEvents = () =>
         this.$toggleUplineArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toggleUpline(element);
             });
         });
 
-    bindingEnableDownlineEvent = () =>
+    bindingEnableDownlineEvents = () =>
         this.$enableDownlineArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toggleDownline(element);
             });
         });
 
-    bindingDisableDownlineEvent = () =>
+    bindingDisableDownlineEvents = () =>
         this.$disableDownlineArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toggleDownline(element);
             });
         });
 
-    bindingEnableAllEvent = () =>
+    bindingEnableAllEvents = () =>
         this.$enableAllArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toggleAllStatus(element, true);
             });
         });
 
-    bindingDisableAllEvent = () =>
+    bindingDisableAllEvents = () =>
         this.$disableAllArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toggleAllStatus(element, false);
@@ -69,11 +69,11 @@
         });
 
     registerEvents = () => {
-        this.bindingtoggleUplineEvent();
-        this.bindingEnableDownlineEvent();
-        this.bindingDisableDownlineEvent();
-        this.bindingEnableAllEvent();
-        this.bindingDisableAllEvent();
+        this.bindingtoggleUplineEvents();
+        this.bindingEnableDownlineEvents();
+        this.bindingDisableDownlineEvents();
+        this.bindingEnableAllEvents();
+        this.bindingDisableAllEvents();
 
         this.bindingResetButtonEvent();
         this.bindingSubmitButtonEvent();
@@ -213,13 +213,13 @@
     getUpdateViewModel() {
         let viewModel = super.getUpdateViewModel();
 
-        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, element) => {
-            let checkboxStatus = (this.$(element).find('input:checkbox').toArray() as HTMLElement[])[0];
-            if (this.isEnablebUpline(checkboxStatus)) {
-                let bettype = this.getBetType(checkboxStatus);
-                let sporttype = this.getSportType(checkboxStatus);
-                let disable = !this.isChecked(checkboxStatus);
-                let originstatus = this.parseBoolean(this.$(checkboxStatus).data("originstatus"));
+        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, row) => {
+            let firstCheckbox = (this.$(row).find('input:checkbox:first').toArray() as HTMLElement[])[0];
+            if (this.isEnablebUpline(firstCheckbox)) {
+                let bettype = this.getBetType(firstCheckbox);
+                let sporttype = this.getSportType(firstCheckbox);
+                let disable = !this.isChecked(firstCheckbox);
+                let originstatus = this.parseBoolean(this.$(firstCheckbox).data("originstatus"));
 
                 let data = {
                     sportType: sporttype,
@@ -233,8 +233,8 @@
                     disableAllMembers: null
                 };
 
-                this.$(this).find('span:odd').each(function () {
-                    return this.getProductStatus(this, data);
+                (this.$(row).find('span:odd').toArray() as HTMLElement[]).forEach((spanElement) => {
+                    return this.getProductStatus(spanElement, data);
                 });
 
                 if (data.disable != originstatus

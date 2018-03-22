@@ -184,7 +184,7 @@
         let viewModel = super.getUpdateViewModel();
 
         let productStatus = this.$('#tbl-product > tbody  > tr').map((index, row) => {
-            let firstCheckbox = this.$(row).find("input[type=checkbox]").toArray()[0] as HTMLElement;
+            let firstCheckbox = this.$(row).find("input[type=checkbox:first]").toArray()[0] as HTMLElement;
             if (this.allowActionOnElement(firstCheckbox)) {
                 let bettype = this.getBetType(firstCheckbox);
                 let sporttype = this.getSportType(firstCheckbox);
@@ -201,8 +201,8 @@
                     disableAllMembers: null
                 };
 
-                this.$(row).find('input[type=checkbox]').each((index, checkboxElement) => {
-                    return this.getproductStatus(checkboxElement, data);
+                (this.$(row).find('span:odd').toArray() as HTMLElement[]).forEach((spanElement) => {
+                    return this.getproductStatus(spanElement, data);
                 });
 
                 if (data.updateAllMasters
@@ -220,7 +220,7 @@
         return viewModel;
     }
 
-    getproductStatus(disabledSpan: any, model: any) {
+    getproductStatus(disabledSpan: HTMLElement, model: any) {
         let disableAll = !this.isEnabledElement(disabledSpan);
 
         switch (this.getRoleId(disabledSpan)) {
