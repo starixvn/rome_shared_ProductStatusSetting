@@ -25,6 +25,14 @@
         public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
             = Enumerable.Empty<ProductStatusViewModel>();
 
+        public string GetRoleName(byte roleId)
+        {
+            string roleName;
+            roleDictionary.TryGetValue(roleId, out roleName);
+
+            return roleName;
+        }
+
         public BaseQueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
         {
             ProductStatus = models

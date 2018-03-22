@@ -105,8 +105,23 @@
             IEnumerable<ProductStatusCommand> commands)
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
+            var result = statusDataAccess.ExecuteNonQuery(criteria);
 
-            return statusDataAccess.ExecuteNonQuery(criteria);
+            if (IsSuccessAndCasino(result, productId))
+            {
+                UpdateCasinoStatus(custId, actorId, ip, commands.First());
+            }
+
+            return result;
+        }
+
+        private static bool IsSuccessAndCasino(Result result, int productId)
+        {
+            return result.IsSuccess() && productId == ProductIdentity.Casino;
+        }
+
+        private static void UpdateCasinoStatus(int custId, int actorId, string ip, ProductStatusCommand command)
+        {
         }
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
