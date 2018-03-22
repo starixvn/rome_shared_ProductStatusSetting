@@ -3,6 +3,8 @@
 @{
     Layout = null;
     var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
+    var isDisabledUplineHeader = Model.ProductStatus.All(product => product.IsDisabledUpline.Equals(true));
+    var disabledHeaderClass = isDisabledUplineHeader ? "gray " : string.Empty;
 }
 
 <!DOCTYPE html>
@@ -29,13 +31,14 @@
                             var roleName = Model.GetRoleName(Model.CustRole);
                             <div class="current-role">@roleName</div>
                             <div class="all-status">
-                                <span class="enabled" 
+                                <span class="enabled @disabledHeaderClass" 
                                       data-roleid="@Model.CustRole"
                                       title="@String.Format(Resources.SearchAccountTHeadTooltip, Resources.Enable.ToLower(), roleName)">
                                     @Resources.Enable
                                 </span>
-                                <span class="disabled" data-roleid="@Model.CustRole"
-                                       title="@String.Format(Resources.SearchAccountTHeadTooltip, Resources.Enable.ToLower(), roleName)">
+                                <span class="disabled  @disabledHeaderClass" 
+                                      data-roleid="@Model.CustRole"
+                                      title="@String.Format(Resources.SearchAccountTHeadTooltip, Resources.Enable.ToLower(), roleName)">
                                     @Resources.Disable
                                 </span>
                             </div>
@@ -48,7 +51,7 @@
                     @RenderHeaderLevelName(Model.CustRole)
                 </tr>
                 <tr>
-                    @RenderHeaderStatus(Model.CustRole, isMultipleBetTypes)
+                    @RenderHeaderStatus(Model.CustRole, isMultipleBetTypes, disabledHeaderClass)
                 </tr>
             </thead>
             <tbody>
@@ -77,8 +80,11 @@
             </tbody>
         </table>
         <div class="margin-top10 align-right">
-            <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
-            <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
+            @if (!isDisabledUplineHeader)
+            {
+                <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
+                <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
+            }
         </div>
     }
     else
@@ -112,11 +118,11 @@
     }
 }
 
-@helper RenderHeaderStatus(byte roleId, bool isMultipleBetTypes)
+@helper RenderHeaderStatus(byte roleId, bool isMultipleBetTypes, string disabledHeaderClass)
 {
     while (roleId > 0 && --roleId > 0)
     {
-        @RenderHeader(roleId, isMultipleBetTypes);
+        @RenderHeader(roleId, isMultipleBetTypes, disabledHeaderClass);
     }
 }
 
@@ -188,19 +194,19 @@ var tbodyDisableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, 
 }
 
 
-@helper RenderHeader(byte roleId, bool isMultipleBetTypes)
+@helper RenderHeader(byte roleId, bool isMultipleBetTypes, string disabledHeaderClass)
 {
     var roleName = Model.GetRoleName(roleId);
     if (isMultipleBetTypes)
     {
         <th>
-            <span class="enabled" data-roleid="@roleId" 
+            <span class="enabled @disabledHeaderClass" data-roleid="@roleId" 
                     title="@String.Format(Resources.HeaderTooltip, Resources.Enable.ToLower(), roleName)">
                 @Resources.Enable
             </span>
         </th>
         <th>
-            <span class="disabled" data-roleid="@roleId" 
+            <span class="disabled @disabledHeaderClass" data-roleid="@roleId" 
                     title="@String.Format(Resources.HeaderTooltip, Resources.Disable.ToLower(), roleName)">
                 @Resources.Disable
             </span>

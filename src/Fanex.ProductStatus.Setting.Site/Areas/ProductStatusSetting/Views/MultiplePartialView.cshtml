@@ -2,7 +2,7 @@
 
 @{
     var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
-    var IsDisabledUplineHeader = Model.ProductStatus.All(product => product.IsDisabledUpline.Equals(true));
+    var isDisabledUplineHeader = Model.ProductStatus.All(product => product.IsDisabledUpline.Equals(true));
 }
 
 <table class="tbl-product margin-top10" id="tbl-product">
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th rowspan="2"></th>
-            @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes, IsDisabledUplineHeader)
+            @RenderHeaderLevelName(Model.CustRole + 1, isMultipleBetTypes, isDisabledUplineHeader)
         </tr>
     </thead>
     <tbody>
@@ -41,8 +41,11 @@
     </tbody>
 </table>
 <div class="margin-top10 align-right">
+@if (!isDisabledUplineHeader)
+{
     <button type="button" class="btn btn-reset" id="btnReset">@Resources.Reset</button>
     <button type="button" class="margin-left5 btn" id="btnSubmit">@Resources.Submit</button>
+}
 </div>
 
 @Html.Hidden("custId", Model.CustId)
