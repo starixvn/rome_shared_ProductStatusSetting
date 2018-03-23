@@ -141,7 +141,7 @@
 
             if (oppositeTotal > 0) {
                 oppositeStatusSpan.text("0");
-                this.$(statusSpan).text(this.getTotalStatus(statusSpan));
+                this.$(statusSpan).text(this.getTotalStatus(statusSpan, "total"));
             }
 
             this.toggleStatusDownlines(roleId - 1, enable, betType);
@@ -184,7 +184,7 @@
             let enabledSpan = this.getDownlineElement(this.$enableDownlineArray, downlineRoleId, betType);
             let disabledSpan = this.getDownlineElement(this.$disableDownlineArray, downlineRoleId, betType);
 
-            if (enable && this.getTotalStatus(enabledSpan) > 0) {
+            if (enable && this.getTotalStatus(enabledSpan, "total") > 0) {
                 this.enableElement(enabledSpan);
                 this.enableElement(disabledSpan);
             } else {
@@ -271,9 +271,11 @@
         return model;
     }
 
+    getTotalStatus = (element: HTMLElement, customData: string): number => this.$(element).data(customData);
+
     getLevelStatus(disabledSpan: any) {
         let totaldisabled = this.parseInt(disabledSpan.text());
-        let originalTotaldisabled = this.getTotalStatus(disabledSpan);
+        let originalTotaldisabled = this.getTotalStatus(disabledSpan, "totaldisabled");
         let updateAll = this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
 
         return {

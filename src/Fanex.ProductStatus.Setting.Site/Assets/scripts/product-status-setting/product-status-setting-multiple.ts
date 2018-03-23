@@ -12,12 +12,11 @@
         this.registerEvents();
     }
 
-    loadMultiple = () => {
+    loadMultiple = () => 
         this.$("#Products").change(() => {
             this.$("#ProductId").val(this.$("#Products").val());
             this.$("#product-form").submit();
         });
-    }
 
     cachedElements() {
         super.cachedElements();
@@ -201,7 +200,7 @@
                     disableAllMembers: null
                 };
 
-                (this.$(row).find('span:odd').toArray() as HTMLElement[]).forEach((spanElement) => {
+                (this.$(row).find('input[type=checkbox]').toArray() as HTMLElement[]).forEach((spanElement) => {
                     return this.getproductStatus(spanElement, data);
                 });
 

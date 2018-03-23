@@ -21,6 +21,7 @@
         this.$custId = this.$('#custId').val();
         this.$custRole = this.$('#custRole').val();
         this.$productId = this.$('#productId').val();
+        this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
 
         this.$errorCodeDefault = 101;
         this.$timeoutDefault = 3000;
@@ -37,9 +38,7 @@
             enabledClass: "enabled",
             disabledClass: "disabled",
             grayClass: "gray"
-        }
-
-        this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
+        }  
     }
 
     bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
@@ -71,8 +70,6 @@
     getBetType = (element: HTMLElement): number => this.$(element).data("bettype");
 
     getSportType = (element: HTMLElement): number => this.$(element).data("sporttype");
-
-    getTotalStatus = (element: HTMLElement): number => this.$(element).data("total");
 
     isChecked = (element: HTMLElement): boolean => this.$(element).is(":checked");
 
@@ -129,21 +126,18 @@
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
 
-    callAjax(updateViewModel: any, action: string): void {
-        let headers = this.setupAntiXSRF();
-
+    callAjax = (updateViewModel: any, action: string) =>
         this.$.ajax({
-            type: "POST",
-            url: action,
-            cache: false,
-            headers: headers,
-            data: JSON.stringify(updateViewModel),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: this.onSuccess,
-            error: this.onDefaultError
-        });
-    }
+        type: "POST",
+        url: action,
+        cache: false,
+        headers: this.setupAntiXSRF(),
+        data: JSON.stringify(updateViewModel),
+        dataType: "json",
+        contentType: "application/json; charset=utf-8",
+        success: (data) => this.onSuccess(data),
+        error: this.onDefaultError
+    });
 
     protected onSuccess(data: any) {
         this.showMessage(data.Code, data.Message);
@@ -155,9 +149,7 @@
         }
     }
 
-    onDefaultError = () => {
-        this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
-    }
+    onDefaultError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
     protected showMessage(type: any, message: string) {
         this.$.unblockUI();
