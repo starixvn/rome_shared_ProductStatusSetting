@@ -84,6 +84,9 @@
 
     parseBoolean = (value: string): boolean => this.$.parseJSON(value.toLowerCase());
 
+    getTooltip = (element: HTMLElement, enable: boolean): string =>
+        enable ? this.$(element).data("disabletooltip") : this.$(element).data("enabletooltip");
+
     getToggles = (toggles: HTMLElement[], roleId: number): HTMLElement[] =>
         toggles.filter((toggle) => {
             if (this.getRoleId(toggle) == roleId) {
@@ -102,7 +105,7 @@
             custNames: [],
             productStatus: []
         }
-    };
+    }
 
     setupAntiXSRF() {
         let token = this.$('[name=__RequestVerificationToken]').val();
@@ -125,10 +128,10 @@
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
 
-    callAjax = (updateViewModel: any, actionPost: string) =>
+    callAjax = (updateViewModel: any, postAction: string) =>
         this.$.ajax({
             type: "POST",
-            url: actionPost,
+            url: postAction,
             cache: false,
             headers: this.setupAntiXSRF(),
             data: JSON.stringify(updateViewModel),

@@ -207,4 +207,7 @@
   <data name="UpdateStatusFailed" xml:space="preserve">
     <value>Update Status Failed.</value>
   </data>
+  <data name="UplineDisabled" xml:space="preserve">
+    <value>Upline Disabled</value>
+  </data>
 </root>

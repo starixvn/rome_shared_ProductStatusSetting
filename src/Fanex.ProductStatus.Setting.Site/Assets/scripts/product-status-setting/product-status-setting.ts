@@ -34,39 +34,24 @@
     }
 
     bindingUplineToggleEvents = () =>
-        this.$uplineToogles.forEach((toggle) => {
-            toggle.addEventListener('click', () => {
-                this.toggleUpline(toggle);
-            });
-        });
+        this.$uplineToogles.forEach((toggle) =>
+            toggle.addEventListener('click', () => this.toggleUpline(toggle)));
 
     bindingEnableDownlineEvents = () =>
-        this.$enableToggles.forEach((span) => {
-            span.addEventListener('click', () => {
-                this.toggleDownline(span);
-            });
-        });
+        this.$enableToggles.forEach((span) =>
+            span.addEventListener('click', () => this.toggleDownline(span)));
 
     bindingDisableDownlineEvents = () =>
-        this.$disableToggles.forEach((span) => {
-            span.addEventListener('click', () => {
-                this.toggleDownline(span);
-            });
-        });
+        this.$disableToggles.forEach((span) =>
+            span.addEventListener('click', () => this.toggleDownline(span)));
 
     bindingEnableAllEvents = () =>
-        this.$enableAllToggles.forEach((span) => {
-            span.addEventListener('click', () => {
-                this.toggleStatusAll(span, true);
-            });
-        });
+        this.$enableAllToggles.forEach((span) =>
+            span.addEventListener('click', () => this.toggleStatusAll(span, true)));
 
     bindingDisableAllEvents = () =>
-        this.$disableAllToggles.forEach((span) => {
-            span.addEventListener('click', () => {
-                this.toggleStatusAll(span, false);
-            });
-        });
+        this.$disableAllToggles.forEach((span) =>
+            span.addEventListener('click', () => this.toggleStatusAll(span, false)));
 
     registerEvents = () => {
         this.bindingUplineToggleEvents();
@@ -116,7 +101,7 @@
             let enable = this.isChecked(toggle);
             let labelElement = this.getNextLabel(toggle);
 
-            let tooltip = enable ? this.$(labelElement).data("disabletooltip") : this.$(labelElement).data("enabletooltip")
+            let tooltip = this.getTooltip(labelElement, enable);
             let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
 
             this.$(labelElement).attr("title", tooltip)

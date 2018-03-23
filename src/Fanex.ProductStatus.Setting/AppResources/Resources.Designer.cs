@@ -329,5 +329,14 @@ namespace Fanex.ProductStatus.Setting.AppResources {
                 return ResourceManager.GetString("UpdateStatusFailed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upline Disabled.
+        /// </summary>
+        public static string UplineDisabled {
+            get {
+                return ResourceManager.GetString("UplineDisabled", resourceCulture);
+            }
+        }
     }
 }

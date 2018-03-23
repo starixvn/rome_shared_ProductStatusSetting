@@ -30,18 +30,12 @@
     }
 
     bindingToggleEvent = () =>
-        this.$toggleArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toogleStatus(element);
-        });
-    });
+        this.$toggleArray.forEach((element) =>
+            element.addEventListener('click', () => this.toogleStatus(element)));
 
     bindingToggleAllEvent = () =>
-        this.$toggleAllArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toogleStatusAll(element);
-            });
-        });
+        this.$toggleAllArray.forEach((element) => 
+            element.addEventListener('click', () => this.toogleStatusAll(element)));
 
     registerEvents() {
         this.loadMultiple();
@@ -116,7 +110,7 @@
         this.$(toggle).prop('checked', enable);
         let labelElement = this.getNextLabel(toggle);
 
-        let tooltip = enable ? this.$(labelElement).data("disabletooltip") : this.$(labelElement).data("enabletooltip")
+        let tooltip = this.getTooltip(labelElement, enable);
         let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
         let labelClass = enable ? this.$resources.enabledClass : this.$resources.disabledClass;
         let bettype = this.getBetType(toggle);
