@@ -22,7 +22,7 @@
                 new List<SelectListItem>(
                     Model.Products.Select(product => new SelectListItem { Value = product.Key.ToString(), Text = product.Value })),
                         "Select Product",
-                        new { @class = "form-control" })
+                        new { @class = "form-control", id = "productIds" })
 
             if (!Model.ProductStatus.Any() && !Model.ProductId.Equals(0))
             {

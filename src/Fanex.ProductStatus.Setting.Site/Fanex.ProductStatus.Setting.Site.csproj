@@ -175,7 +175,9 @@
     <Content Include="Areas\ProductStatusSetting\Scripts\product-status-setting.min.js">
       <DependentUpon>product-status-setting.js</DependentUpon>
     </Content>
-    <Content Include="Areas\ProductStatusSetting\Styles\images\ajax-loader.png" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\error.png" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\loading.gif" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\success.png" />
     <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.css" />
     <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.min.css">
       <DependentUpon>product-status-setting.css</DependentUpon>

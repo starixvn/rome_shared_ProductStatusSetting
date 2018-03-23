@@ -117,7 +117,7 @@
         let updateViewModel = this.getUpdateViewModel();
 
         this.$.blockUI({
-            blockMsgClass: "block-ui-loading"
+           blockMsgClass: "block-ui-loading"
         });
 
         updateViewModel.productStatus.length > 0 ?

@@ -13,8 +13,8 @@
     }
 
     loadMultiple = () => 
-        this.$("#Products").change(() => {
-            this.$("#productId").val(this.$("#Products").val());
+        this.$("#productIds").change(() => {
+            this.$("#productId").val(this.$("#productIds").val());
             this.$("#product-form").submit();
         });
 
