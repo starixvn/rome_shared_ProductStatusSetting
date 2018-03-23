@@ -3,7 +3,7 @@
 @{
     Layout = null;
     var isMultipleBetTypes = Model.ProductStatus.Count() > 1;
-    var isDisabledAll = Model.ProductStatus.All(product => product.IsDisabledUpline.Equals(true));
+    var isDisabledAll = Model.ProductStatus.All(product => product.IsDisabledUpline);
 }
 
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 </head>
 <body>
     <div id="sectionMessage" class="msg-container hide"></div>
-    @if (Model.ProductStatus.Count() > 0)
+    @if (Model.ProductStatus.Any())
     {
         <table class="tbl-product margin-top10" id="tbl-product">
             <thead>
@@ -132,13 +132,13 @@
     bool isDisabledUpline, 
     byte roleId)
 {
-var labelText = isDisabled ? Resources.Disabled : Resources.Enabled;
-var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
-var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
-var roleName = Model.GetRoleName(roleId);
+    var labelText = isDisabled ? Resources.Disabled : Resources.Enabled;
+    var labelClass = isDisabledUpline ? "gray" : labelText.ToLowerInvariant();
+    var id = string.Format("{0}_{1}_{2}", labelClass, roleId, betType);
+    var roleName = Model.GetRoleName(roleId);
 
-var tbodyEnableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Enable.ToLower(), roleName + "s");
-var tbodyDisableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Disable.ToLower(), roleName + "s");
+    var tbodyEnableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Enable.ToLower(), roleName + "s");
+    var tbodyDisableDownlineTooltip = String.Format(Resources.TBodyDownlineTooltip, Resources.Disable.ToLower(), roleName + "s");
 
     <input type="checkbox" class="checkbox-hide" id="@id"
            data-roleid="@roleId"

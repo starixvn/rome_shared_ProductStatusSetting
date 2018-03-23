@@ -1,12 +1,12 @@
 ﻿class ProductStatusSetting extends ProductStatusSettingBase {
     $: JQueryStatic;
-    $enableAllArray: HTMLElement[];
-    $disableAllArray: HTMLElement[];
+    $enableAllToggles: HTMLElement[];
+    $disableAllToggles: HTMLElement[];
 
-    $toggleUplineArray: HTMLElement[];
+    $uplineToogles: HTMLElement[];
 
-    $enableDownlineArray: HTMLElement[];
-    $disableDownlineArray: HTMLElement[];
+    $enableToggles: HTMLElement[];
+    $disableToggles: HTMLElement[];
 
     constructor($: JQueryStatic) {
         super($);
@@ -20,56 +20,56 @@
     cachedElements() {
         super.cachedElements();
 
-        this.$enableAllArray = this.$thead.find("span.enabled").toArray() as HTMLElement[];
-        this.$disableAllArray = this.$thead.find("span.disabled").toArray() as HTMLElement[];
+        this.$enableAllToggles = this.$thead.find("span.enabled").toArray() as HTMLElement[];
+        this.$disableAllToggles = this.$thead.find("span.disabled").toArray() as HTMLElement[];
 
-        this.$toggleUplineArray = this.$("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$uplineToogles = this.$("input[class='checkbox-hide']").toArray() as HTMLElement[];
 
-        this.$enableDownlineArray = this.$tbody.find("span.enabled").toArray() as HTMLElement[];
-        this.$disableDownlineArray = this.$tbody.find("span.disabled").toArray() as HTMLElement[];
+        this.$enableToggles = this.$tbody.find("span.enabled").toArray() as HTMLElement[];
+        this.$disableToggles = this.$tbody.find("span.disabled").toArray() as HTMLElement[];
 
         this.$resources.enabled = this.$('#enabled').val();
         this.$resources.disabled = this.$('#disabled').val();
         this.$resources.updateActionName = "Update";
     }
 
-    bindingtoggleUplineEvents = () =>
-        this.$toggleUplineArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toggleUpline(element);
+    bindingUplineToggleEvents = () =>
+        this.$uplineToogles.forEach((toggle) => {
+            toggle.addEventListener('click', () => {
+                this.toggleUpline(toggle);
             });
         });
 
     bindingEnableDownlineEvents = () =>
-        this.$enableDownlineArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toggleDownline(element);
+        this.$enableToggles.forEach((span) => {
+            span.addEventListener('click', () => {
+                this.toggleDownline(span);
             });
         });
 
     bindingDisableDownlineEvents = () =>
-        this.$disableDownlineArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toggleDownline(element);
+        this.$disableToggles.forEach((span) => {
+            span.addEventListener('click', () => {
+                this.toggleDownline(span);
             });
         });
 
     bindingEnableAllEvents = () =>
-        this.$enableAllArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toggleAllStatus(element, true);
+        this.$enableAllToggles.forEach((span) => {
+            span.addEventListener('click', () => {
+                this.toggleStatusAll(span, true);
             });
         });
 
     bindingDisableAllEvents = () =>
-        this.$disableAllArray.forEach((element) => {
-            element.addEventListener('click', () => {
-                this.toggleAllStatus(element, false);
+        this.$disableAllToggles.forEach((span) => {
+            span.addEventListener('click', () => {
+                this.toggleStatusAll(span, false);
             });
         });
 
     registerEvents = () => {
-        this.bindingtoggleUplineEvents();
+        this.bindingUplineToggleEvents();
         this.bindingEnableDownlineEvents();
         this.bindingDisableDownlineEvents();
         this.bindingEnableAllEvents();
@@ -87,34 +87,34 @@
         }
     }
 
-    toggleAllStatus = (element: HTMLElement, enable: boolean) => {
-        if (this.allowActionOnElement(element)) {
-            let roleId = this.getRoleId(element);
-            this.$custRole == roleId ? this.toggleAllStatusUplines(enable) : this.toggleAllStatusDownlines(roleId, enable);
+    toggleStatusAll = (toggleAll: HTMLElement, status: boolean) => {
+        if (this.allowActionOnElement(toggleAll)) {
+            let roleId = this.getRoleId(toggleAll);
+            this.$custRole == roleId ? this.toggleStatusAllUplines(status) : this.toggleStatusAllDownlines(roleId, status);
         }
     }
 
-    toggleAllStatusDownlines = (toggleAllRoleId: number, enable: boolean) => {
-        let statusSpanArray = enable ? this.$enableDownlineArray : this.$disableDownlineArray;
+    toggleStatusAllDownlines = (toggleAllRoleId: number, enable: boolean) => {
+        let statusSpanArray = enable ? this.$enableToggles : this.$disableToggles;
 
-        statusSpanArray.forEach((element, index) => {
-            if (this.getRoleId(element) === toggleAllRoleId) {
-                element.click();
+        statusSpanArray.forEach((span) => {
+            if (this.getRoleId(span) === toggleAllRoleId) {
+                span.click();
             }
         });
     }
 
-    toggleAllStatusUplines= (enableAllStatus: boolean) =>
-        this.$toggleUplineArray.forEach((element, index) => {
-            if (this.isChecked(element) != enableAllStatus) {
-                element.click();
+    toggleStatusAllUplines= (enableAll: boolean) =>
+        this.$uplineToogles.forEach((toggle) => {
+            if (this.isChecked(toggle) != enableAll) {
+                toggle.click();
             }
         });
 
-    toggleUpline = (element: HTMLElement) => {
-        if (this.isEnablebUpline(element)) {
-            let enable = this.isChecked(element);
-            let labelElement = this.getNextLabel(element);
+    toggleUpline = (toggle: HTMLElement) => {
+        if (this.isEnablebUpline(toggle)) {
+            let enable = this.isChecked(toggle);
+            let labelElement = this.getNextLabel(toggle);
 
             let tooltip = enable ? this.$(labelElement).data("disabletooltip") : this.$(labelElement).data("enabletooltip")
             let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
@@ -124,15 +124,15 @@
                 .addClass(labelText.toLowerCase())
                 .text(labelText);
 
-            this.toggleStatusDownlines(this.getRoleId(element) - 1, enable, this.getBetType(element));
+            this.toggleStatusDownlines(this.getRoleId(toggle) - 1, enable, this.getBetType(toggle));
         }
     }
 
-    toggleDownline = (statusSpan: HTMLElement) => {
-        if (this.allowActionOnElement(statusSpan)) {
-            let enable = this.isEnabledElement(statusSpan);
-            let roleId = this.getRoleId(statusSpan);
-            let betType = this.getBetType(statusSpan);
+    toggleDownline = (toggle: HTMLElement) => {
+        if (this.allowActionOnElement(toggle)) {
+            let enable = this.isEnabledElement(toggle);
+            let roleId = this.getRoleId(toggle);
+            let betType = this.getBetType(toggle);
 
             let oppositeClassName = enable ? this.$resources.disabledClass : this.$resources.enabledClass;
             let oppositeId = this.buildElementId(oppositeClassName, roleId, betType);
@@ -141,7 +141,7 @@
 
             if (oppositeTotal > 0) {
                 oppositeStatusSpan.text("0");
-                this.$(statusSpan).text(this.getTotalStatus(statusSpan, "total"));
+                this.$(toggle).text(this.getTotalStatus(toggle, "total"));
             }
 
             this.toggleStatusDownlines(roleId - 1, enable, betType);
@@ -154,47 +154,48 @@
         }
     }
 
-    isDisableHeader = (tbodyElements: HTMLElement[], isUpline: boolean): boolean => 
-        tbodyElements.every((element) => {
-            if (isUpline) {
-                element = this.getNextLabel(element);
+    isDisableHeader = (toggles: HTMLElement[], isUplineCheckbox: boolean): boolean => 
+        toggles.every((toggle) => {
+            if (isUplineCheckbox) {
+                toggle = this.getNextLabel(toggle);
             }
 
-            return !this.allowActionOnElement(element);
+            return !this.allowActionOnElement(toggle);
         });
 
     toogleHeader = (roleId: number) => {
         let isUpline = roleId == this.$custRole;
-        let tbodyElements = isUpline ? this.$toggleUplineArray : this.getElements(this.$enableDownlineArray, roleId);
-        let theadEnabledElement = this.getFirstElement(this.$enableAllArray, roleId);
-        let theadDisabledElement = this.getFirstElement(this.$disableAllArray, roleId);
+        let toggles = isUpline ? this.$uplineToogles : this.getToggles(this.$enableToggles, roleId);
 
-        if (tbodyElements != null && tbodyElements.length > 0 && this.isDisableHeader(tbodyElements, isUpline)) {
-            this.disableElement(theadEnabledElement);
-            this.disableElement(theadDisabledElement);
+        let enabledAllToggle = this.getFirstToggle(this.$enableAllToggles, roleId);
+        let disabledAllToggle = this.getFirstToggle(this.$disableAllToggles, roleId);
+
+        if (toggles != null && toggles.length > 0 && this.isDisableHeader(toggles, isUpline)) {
+            this.disableElement(enabledAllToggle);
+            this.disableElement(disabledAllToggle);
         }
         else {
-            this.enableElement(theadEnabledElement);
-            this.enableElement(theadDisabledElement);
+            this.enableElement(enabledAllToggle);
+            this.enableElement(disabledAllToggle);
         }
     }
 
     toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
         if (downlineRoleId > 0) {
-            let enabledSpan = this.getDownlineElement(this.$enableDownlineArray, downlineRoleId, betType);
-            let disabledSpan = this.getDownlineElement(this.$disableDownlineArray, downlineRoleId, betType);
+            let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, betType);
+            let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId, betType);
 
-            if (enable && this.getTotalStatus(enabledSpan, "total") > 0) {
-                this.enableElement(enabledSpan);
-                this.enableElement(disabledSpan);
+            if (enable && this.getTotalStatus(enabledToggle, "total") > 0) {
+                this.enableElement(enabledToggle);
+                this.enableElement(disabledToggle);
             } else {
-                this.disableElement(enabledSpan);
-                this.disableElement(disabledSpan);
+                this.disableElement(enabledToggle);
+                this.disableElement(disabledToggle);
             }
 
             this.watchHeader(downlineRoleId);
 
-            let currentTotalEnabled = this.$(enabledSpan).text();
+            let currentTotalEnabled = this.$(enabledToggle).text();
             let enableDownline = enable ? (this.parseInt(currentTotalEnabled) > 0) : false;
             this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
         }
@@ -250,10 +251,10 @@
         return viewModel;
     }
 
-    getProductStatus(disabledSpan: HTMLElement, model: any) {
-        let levelStatus = this.getLevelStatus(this.$(disabledSpan));
+    getProductStatus(toggle: HTMLElement, model: any) {
+        let levelStatus = this.getLevelStatus(toggle);
 
-        switch (this.getRoleId(disabledSpan)) {
+        switch (this.getRoleId(toggle)) {
             case 3:
                 model.updateAllMasters = levelStatus.UpdateAll;
                 model.disableAllMasters = levelStatus.DisableAll;
@@ -271,12 +272,12 @@
         return model;
     }
 
-    getTotalStatus = (element: HTMLElement, customData: string): number => this.$(element).data(customData);
+    getTotalStatus = (toggle: HTMLElement, customData: string): number => this.$(toggle).data(customData);
 
-    getLevelStatus(disabledSpan: any) {
-        let totaldisabled = this.parseInt(disabledSpan.text());
-        let originalTotaldisabled = this.getTotalStatus(disabledSpan, "totaldisabled");
-        let updateAll = this.allowActionOnElement(disabledSpan) && this.isChangeState(originalTotaldisabled, totaldisabled);
+    getLevelStatus(toggle: HTMLElement) {
+        let totaldisabled = this.parseInt(this.$(toggle).text());
+        let originalTotaldisabled = this.getTotalStatus(toggle, "totaldisabled");
+        let updateAll = this.allowActionOnElement(toggle) && this.isChangeState(originalTotaldisabled, totaldisabled);
 
         return {
             UpdateAll: updateAll,

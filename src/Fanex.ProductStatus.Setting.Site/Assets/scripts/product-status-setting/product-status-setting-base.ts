@@ -84,17 +84,15 @@
 
     parseBoolean = (value: string): boolean => this.$.parseJSON(value.toLowerCase());
 
-    getElements = (elements: HTMLElement[], roleId: number): HTMLElement[] =>
-        elements.filter((element, index) => {
-            if (this.getRoleId(element) == roleId) {
-                return element;
+    getToggles = (toggles: HTMLElement[], roleId: number): HTMLElement[] =>
+        toggles.filter((toggle) => {
+            if (this.getRoleId(toggle) == roleId) {
+                return toggle;
             }
         });
 
-    getFirstElement = (elements: HTMLElement[], roleId: number): HTMLElement => {
-        let arrayElement = this.getElements(elements, roleId);
-        return arrayElement.length > 0 ? arrayElement[0] : null;
-    }
+    getFirstToggle = (toggles: HTMLElement[], roleId: number): HTMLElement =>
+        this.getToggles(toggles, roleId)[0];
 
     protected getUpdateViewModel() {
         return {
@@ -140,9 +138,9 @@
             error: this.onDefaultError
         });
 
-    protected onSuccess(data: any) {
-        this.showMessage(data.Code, data.Message);
-        if (data.Code == 0) {
+    protected onSuccess(result: any) {
+        this.showMessage(result.Code, result.Message);
+        if (result.Code == 0) {
             setTimeout(function () {
                 this.$.unblockUI();
                 location.reload(true);
@@ -152,9 +150,9 @@
 
     onDefaultError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
-    protected showMessage(type: any, message: string) {
+    protected showMessage(code: any, message: string) {
         this.$.unblockUI();
-        let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
+        let html = ['<div class="', code === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
         return messageDiv.html(html).removeClass("hide");
     }

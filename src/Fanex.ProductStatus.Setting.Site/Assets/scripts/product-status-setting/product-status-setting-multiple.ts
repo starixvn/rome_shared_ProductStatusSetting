@@ -1,7 +1,7 @@
 ﻿class ProductStatusSettingMultipe extends ProductStatusSettingBase{
     $: JQueryStatic;
-    $toggleAllCheckboxes: HTMLElement[];
-    $toggleCheckboxes: HTMLElement[];
+    $toggleAllArray: HTMLElement[];
+    $toggleArray: HTMLElement[];
 
     constructor($: JQueryStatic) {
         super($);
@@ -14,15 +14,15 @@
 
     loadMultiple = () => 
         this.$("#Products").change(() => {
-            this.$("#ProductId").val(this.$("#Products").val());
+            this.$("#productId").val(this.$("#Products").val());
             this.$("#product-form").submit();
         });
 
     cachedElements() {
         super.cachedElements();
 
-        this.$toggleAllCheckboxes = this.$thead.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
-        this.$toggleCheckboxes = this.$tbody.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$toggleAllArray = this.$thead.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$toggleArray = this.$tbody.find("input[class='checkbox-hide']").toArray() as HTMLElement[];
 
         this.$resources.enabled = this.$('#enableAll').val();
         this.$resources.disabled = this.$('#disableAll').val();
@@ -30,14 +30,14 @@
     }
 
     bindingToggleEvent = () =>
-        this.$toggleCheckboxes.forEach((element) => {
+        this.$toggleArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toogleStatus(element);
         });
     });
 
     bindingToggleAllEvent = () =>
-        this.$toggleAllCheckboxes.forEach((element) => {
+        this.$toggleAllArray.forEach((element) => {
             element.addEventListener('click', () => {
                 this.toogleStatusAll(element);
             });
@@ -59,7 +59,7 @@
             let roleId = this.getRoleId(toogleAll);
             let enable = this.isChecked(toogleAll);
 
-            let toogles = this.getElements(this.$toggleCheckboxes, roleId);
+            let toogles = this.getToggles(this.$toggleArray, roleId);
             toogles.forEach((toogle) => {
                 if (this.allowActionOnElement(toogle) && this.isChecked(toogle) != enable) {
                     toogle.click();
@@ -77,7 +77,7 @@
 
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
-            let downlineToggle = this.getToggleElements(this.$toggleCheckboxes, roleId - 1, bettype);
+            let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
 
             this.toogleStatusDownline(downlineToggle, enable);
         }
@@ -93,15 +93,15 @@
         if (roleId > 1) {
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
-            let downlineToggle = this.getToggleElements(this.$toggleCheckboxes, roleId - 1, bettype);
+            let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
 
             this.toogleStatusDownline(downlineToggle, enable);
         }
     }
 
-    getToggleElements(toggleCheckboxes: HTMLElement[], roleId: number, bettype: number): HTMLElement {
-        for (let index = 0; index < toggleCheckboxes.length; index++) {
-            let toggle = toggleCheckboxes[index];
+    getToggleElements(toggleArray: HTMLElement[], roleId: number, bettype: number): HTMLElement {
+        for (let index = 0; index < toggleArray.length; index++) {
+            let toggle = toggleArray[index];
             if (this.getRoleId(toggle) == roleId && this.getBetType(toggle) == bettype) {
                 return toggle;
             }
@@ -136,10 +136,10 @@
     }
 
     toogleHeader = (roleId: number, status: boolean, isDownline: boolean) => {
-        let toggles = this.getElements(this.$toggleCheckboxes, roleId);
+        let toggles = this.getToggles(this.$toggleArray, roleId);
 
         if (toggles != null && toggles.length > 0 && this.isAllStatus(toggles, status)) {
-            let toggleAll = this.getFirstElement(this.$toggleAllCheckboxes, roleId);
+            let toggleAll = this.getFirstToggle(this.$toggleAllArray, roleId);
             this.toggleStatusByValue(toggleAll, status); 
 
             if (isDownline && status == false)
@@ -208,8 +208,8 @@
         }).get();
 
         viewModel.productStatus = productStatus;
-        viewModel.custIds = this.$('#CustIds').val();
-        viewModel.custNames = this.$('#CustNames').val();
+        viewModel.custIds = this.$('#custIds').val();
+        viewModel.custNames = this.$('#custNames').val();
 
         return viewModel;
     }
