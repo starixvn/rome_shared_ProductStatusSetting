@@ -1,10 +1,11 @@
 ﻿class ProductStatusSettingBase  {
     $: JQueryStatic;
+    $thead: JQuery;
+    $tbody: JQuery;
+
     $resources: any;
     $errorCodeDefault: number;
     $timeoutDefault: number;
-    $thead: JQuery;
-    $tbody: JQuery;
 
     $custId: number;
     $custRole: number;
@@ -37,23 +38,23 @@
             thereIsNoChange: this.$('#thereIsNoChange').val(),
             enabledClass: "enabled",
             disabledClass: "disabled",
-            grayClass: "gray"
+            forbiddenClass: "gray"
         }  
     }
 
-    bindingSubmitButtonEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
-    bindingResetButtonEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
+    bindingSubmitEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
+    bindingResetEvent = () => this.$("#btnReset").on("click", function () { location.reload(true); });
 
     protected disableElement(labelElement: HTMLElement) {
-        this.$(labelElement).addClass(this.$resources.grayClass);
+        this.$(labelElement).addClass(this.$resources.forbiddenClass);
     }
 
     protected enableElement(labelElement: HTMLElement) {
-        this.$(labelElement).removeClass(this.$resources.grayClass);
+        this.$(labelElement).removeClass(this.$resources.forbiddenClass);
     }
 
     protected allowActionOnElement(labelElement: HTMLElement): boolean {
-        return !this.$(labelElement).hasClass(this.$resources.grayClass);
+        return !this.$(labelElement).hasClass(this.$resources.forbiddenClass);
     }
 
     protected isEnabledElement(labelElement: HTMLElement): boolean {
@@ -83,7 +84,7 @@
 
     parseBoolean = (value: string): boolean => this.$.parseJSON(value.toLowerCase());
 
-    getArrayElement = (elements: HTMLElement[], roleId: number): HTMLElement[] =>
+    getElements = (elements: HTMLElement[], roleId: number): HTMLElement[] =>
         elements.filter((element, index) => {
             if (this.getRoleId(element) == roleId) {
                 return element;
@@ -91,7 +92,7 @@
         });
 
     getFirstElement = (elements: HTMLElement[], roleId: number): HTMLElement => {
-        let arrayElement = this.getArrayElement(elements, roleId);
+        let arrayElement = this.getElements(elements, roleId);
         return arrayElement.length > 0 ? arrayElement[0] : null;
     }
 
@@ -126,18 +127,18 @@
             this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
     }
 
-    callAjax = (updateViewModel: any, action: string) =>
+    callAjax = (updateViewModel: any, actionPost: string) =>
         this.$.ajax({
-        type: "POST",
-        url: action,
-        cache: false,
-        headers: this.setupAntiXSRF(),
-        data: JSON.stringify(updateViewModel),
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        success: (data) => this.onSuccess(data),
-        error: this.onDefaultError
-    });
+            type: "POST",
+            url: actionPost,
+            cache: false,
+            headers: this.setupAntiXSRF(),
+            data: JSON.stringify(updateViewModel),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: (data) => this.onSuccess(data),
+            error: this.onDefaultError
+        });
 
     protected onSuccess(data: any) {
         this.showMessage(data.Code, data.Message);

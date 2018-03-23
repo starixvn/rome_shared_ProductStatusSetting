@@ -75,8 +75,8 @@
         this.bindingEnableAllEvents();
         this.bindingDisableAllEvents();
 
-        this.bindingResetButtonEvent();
-        this.bindingSubmitButtonEvent();
+        this.bindingResetEvent();
+        this.bindingSubmitEvent();
 
         this.initialHeader();
     }
@@ -165,7 +165,7 @@
 
     toogleHeader = (roleId: number) => {
         let isUpline = roleId == this.$custRole;
-        let tbodyElements = isUpline ? this.$toggleUplineArray : this.getArrayElement(this.$enableDownlineArray, roleId);
+        let tbodyElements = isUpline ? this.$toggleUplineArray : this.getElements(this.$enableDownlineArray, roleId);
         let theadEnabledElement = this.getFirstElement(this.$enableAllArray, roleId);
         let theadDisabledElement = this.getFirstElement(this.$disableAllArray, roleId);
 
