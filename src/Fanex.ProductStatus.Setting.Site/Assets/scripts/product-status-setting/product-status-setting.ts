@@ -281,16 +281,6 @@
             DisableAll: updateAll && totaldisabled > 0
         }
     }
-
-    onSuccess = (data: any) => {
-        this.showMessage(data.Code, data.Message);
-        if (data.Code == 0) {
-            setTimeout(function () {
-                this.$.unblockUI();
-                location.reload(true);
-            }, this.$timeoutDefault);
-        }
-    }
 }
 
 $(function () {

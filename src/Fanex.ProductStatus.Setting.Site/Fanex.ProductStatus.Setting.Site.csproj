@@ -218,7 +218,7 @@
     <Content Include="typings\globals\jqueryui\typings.json" />
     <Content Include="typings\globals\moment\typings.json" />
     <Content Include="typings\globals\storejs\typings.json" />
-    <Content Include="Areas\ProductStatusSetting\Views\Index.cshtml" />
+    <Content Include="Areas\ProductStatusSetting\Views\Single\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\bundles\" />
@@ -285,10 +285,10 @@
     <Content Include="Views\Jasmine\SpecRunner.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\ProductStatusSetting\Views\MultiplePartialView.cshtml" />
+    <Content Include="Areas\ProductStatusSetting\Views\Multiple\MultiplePartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\ProductStatusSetting\Views\MultipleView.cshtml" />
+    <Content Include="Areas\ProductStatusSetting\Views\Multiple\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

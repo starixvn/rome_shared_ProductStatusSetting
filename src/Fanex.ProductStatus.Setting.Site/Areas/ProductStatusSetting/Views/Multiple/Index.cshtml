@@ -43,7 +43,7 @@
 
     @if (Model.ProductStatus.Any())
     {
-        @Html.Partial("~/Areas/ProductStatusSetting/Views/MultiplePartialView.cshtml", Model)
+        @Html.Partial("~/Areas/ProductStatusSetting/Views/Multiple/MultiplePartialView.cshtml", Model)
     }
 
     <script type="text/javascript" src="@Url.Content("~/Areas/ProductStatusSetting/Scripts/product-status-setting-multiple.js")"></script>

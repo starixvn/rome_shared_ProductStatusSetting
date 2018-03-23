@@ -11,8 +11,8 @@
 
     public class ProductStatusSettingController : Controller
     {
-        private const string IndexViewPath = "~/Areas/ProductStatusSetting/Views/Index.cshtml";
-        private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
+        private const string SingleViewPath = "~/Areas/ProductStatusSetting/Views/Single/Index.cshtml";
+        private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
         private readonly ProductStatusService productStatusService;
 
@@ -31,7 +31,7 @@
         {
             PopulateQueryViewModel(viewModel);
 
-            return View(IndexViewPath, viewModel);
+            return View(SingleViewPath, viewModel);
         }
 
         [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]

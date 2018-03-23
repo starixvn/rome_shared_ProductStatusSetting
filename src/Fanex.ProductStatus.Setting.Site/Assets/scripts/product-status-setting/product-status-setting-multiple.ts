@@ -184,7 +184,7 @@
         let viewModel = super.getUpdateViewModel();
 
         let productStatus = this.$('#tbl-product > tbody  > tr').map((index, row) => {
-            let firstCheckbox = this.$(row).find("input[type=checkbox:first]").toArray()[0] as HTMLElement;
+            let firstCheckbox = (this.$(row).find('input:checkbox:first').toArray() as HTMLElement[])[0];
             if (this.allowActionOnElement(firstCheckbox)) {
                 let bettype = this.getBetType(firstCheckbox);
                 let sporttype = this.getSportType(firstCheckbox);
@@ -205,9 +205,7 @@
                     return this.getproductStatus(spanElement, data);
                 });
 
-                if (data.updateAllMasters
-                    || data.updateAllAgents
-                    || data.updateAllMembers) {
+                if (data.updateAllMasters|| data.updateAllAgents || data.updateAllMembers) {
                     return data;
                 }
             }
@@ -241,27 +239,19 @@
         return model;
     }
 
-    onSuccess = (results: any) => {
-        if (this.isUpdateSuccess(results))
-        {
-            this.showMessage(results[0].Code, results[0].Message);
+    onSuccess(results: any) {
+        this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results);
+    }
 
-            setTimeout(function () {
-                this.$.unblockUI();
-                location.reload(true);
-            }, this.$timeoutDefault);
-        }
-        else
-        {
-            let html: string;
-            results.forEach((result) => {
-                if (result.Code != 0) {
-                    html +=  [result.CustName, ": ", result.Message, "<br>"].join("");
-                }
-            });
+    onError(results: any) {
+        let html: string;
+        results.forEach((result) => {
+            if (result.Code != 0) {
+                html += [result.CustName, ": ", result.Message, "<br>"].join("");
+            }
+        });
 
-            this.showMessage(this.$errorCodeDefault, html);
-        }   
+        super.showMessage(this.$errorCodeDefault, html);
     }
 
     isUpdateSuccess = (results: any): boolean =>

@@ -141,17 +141,25 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: this.onSuccess,
-            error: this.onError
+            error: this.onDefaultError
         });
     }
 
-    onSuccess = (data: any): void => {}
+    protected onSuccess(data: any) {
+        this.showMessage(data.Code, data.Message);
+        if (data.Code == 0) {
+            setTimeout(function () {
+                this.$.unblockUI();
+                location.reload(true);
+            }, this.$timeoutDefault);
+        }
+    }
 
-    onError = () => {
+    onDefaultError = () => {
         this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
     }
 
-    showMessage(type: any, message: string) {
+    protected showMessage(type: any, message: string) {
         this.$.unblockUI();
         let html = ['<div class="', type === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
