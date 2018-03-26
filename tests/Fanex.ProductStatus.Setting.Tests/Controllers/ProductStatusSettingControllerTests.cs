@@ -142,7 +142,7 @@
             // Arrange
             user.GetProductList().Returns(Enumerable.Empty<KeyValuePair<int, string>>());
             var viewModel = new MultipleQueryViewModel(user);
-            string expectedView = "~/Areas/ProductStatusSetting/Views/MultipleView.cshtml";
+            string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
             // Act
             var actualView = productStatusSettingController.MultipleView(viewModel) as ViewResult;
