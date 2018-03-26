@@ -240,6 +240,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Assets\scripts\product-status-setting\product-status-setting-base.ts" />
     <TypeScriptCompile Include="Assets\scripts\product-status-setting\product-status-setting-multiple.ts" />
+    <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-base-tests.ts" />
     <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-tests.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\jasmine-jquery\index.d.ts" />

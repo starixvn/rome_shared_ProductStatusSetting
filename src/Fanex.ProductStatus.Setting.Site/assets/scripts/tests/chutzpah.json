@@ -23,11 +23,17 @@
     { "Path": "../libs/jasmine/jasmine.js" },
     { "Path": "../libs/jasmine/jasmine-jquery.js" },
 
+    { "Path": "../product-status-setting/product-status-setting-base.ts" },
     { "Path": "../product-status-setting/product-status-setting.ts" }
+
   ],
   "Tests": [
     {
       "Path": "apps/product-status-setting",
+      "Excludes": [ "**.js.map" ]
+    },
+     {
+      "Path": "apps/product-status-base-setting",
       "Excludes": [ "**.js.map" ]
     }
   ]
