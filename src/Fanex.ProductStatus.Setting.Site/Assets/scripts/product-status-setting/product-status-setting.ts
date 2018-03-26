@@ -33,9 +33,9 @@
         this.$resources.updateActionName = "Update";
     }
 
-    bindingUplineToggleEvents = () =>
+    bindingCustomerToggleEvents = () =>
         this.$customerToogles.forEach((toggle) =>
-            toggle.addEventListener('click', () => this.toggleUpline(toggle)));
+            toggle.addEventListener('click', () => this.toggleCustomer(toggle)));
 
     bindingEnableDownlineEvents = () =>
         this.$enableToggles.forEach((span) =>
@@ -54,7 +54,7 @@
             span.addEventListener('click', () => this.toggleStatusAll(span, false)));
 
     registerEvents = () => {
-        this.bindingUplineToggleEvents();
+        this.bindingCustomerToggleEvents();
         this.bindingEnableDownlineEvents();
         this.bindingDisableDownlineEvents();
         this.bindingEnableAllEvents();
@@ -75,7 +75,7 @@
     toggleStatusAll = (toggleAll: HTMLElement, status: boolean) => {
         if (this.allowActionOnElement(toggleAll)) {
             let roleId = this.getRoleId(toggleAll);
-            this.$custRole == roleId ? this.toggleStatusAllUplines(status) : this.toggleStatusAllDownlines(roleId, status);
+            this.$custRole == roleId ? this.toggleStatusAllByCustomer(status) : this.toggleStatusAllDownlines(roleId, status);
         }
     }
 
@@ -89,14 +89,14 @@
         });
     }
 
-    toggleStatusAllUplines= (enableAll: boolean) =>
+    toggleStatusAllByCustomer= (enableAll: boolean) =>
         this.$customerToogles.forEach((toggle) => {
             if (this.isChecked(toggle) != enableAll) {
                 toggle.click();
             }
         });
 
-    toggleUpline = (toggle: HTMLElement) => {
+    toggleCustomer = (toggle: HTMLElement) => {
         if (this.isEnablebUpline(toggle)) {
             let enable = this.isChecked(toggle);
             let labelElement = this.getNextLabel(toggle);
@@ -149,13 +149,13 @@
         });
 
     toogleHeader = (roleId: number) => {
-        let isUpline = roleId == this.$custRole;
-        let toggles = isUpline ? this.$customerToogles : this.getToggles(this.$enableToggles, roleId);
+        let isCustomer = roleId == this.$custRole;
+        let toggles = isCustomer ? this.$customerToogles : this.getToggles(this.$enableToggles, roleId);
 
         let enabledAllToggle = this.getFirstToggle(this.$enableAllToggles, roleId);
         let disabledAllToggle = this.getFirstToggle(this.$disableAllToggles, roleId);
 
-        if (toggles != null && toggles.length > 0 && this.isDisableHeader(toggles, isUpline)) {
+        if (toggles != null && toggles.length > 0 && this.isDisableHeader(toggles, isCustomer)) {
             this.disableElement(enabledAllToggle);
             this.disableElement(disabledAllToggle);
         }
