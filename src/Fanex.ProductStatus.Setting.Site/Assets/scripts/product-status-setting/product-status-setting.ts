@@ -3,7 +3,7 @@
     $enableAllToggles: HTMLElement[];
     $disableAllToggles: HTMLElement[];
 
-    $uplineToogles: HTMLElement[];
+    $customerToogles: HTMLElement[];
 
     $enableToggles: HTMLElement[];
     $disableToggles: HTMLElement[];
@@ -23,7 +23,7 @@
         this.$enableAllToggles = this.$thead.find("span.enabled").toArray() as HTMLElement[];
         this.$disableAllToggles = this.$thead.find("span.disabled").toArray() as HTMLElement[];
 
-        this.$uplineToogles = this.$("input[class='checkbox-hide']").toArray() as HTMLElement[];
+        this.$customerToogles = this.$("input[class='checkbox-hide']").toArray() as HTMLElement[];
 
         this.$enableToggles = this.$tbody.find("span.enabled").toArray() as HTMLElement[];
         this.$disableToggles = this.$tbody.find("span.disabled").toArray() as HTMLElement[];
@@ -34,7 +34,7 @@
     }
 
     bindingUplineToggleEvents = () =>
-        this.$uplineToogles.forEach((toggle) =>
+        this.$customerToogles.forEach((toggle) =>
             toggle.addEventListener('click', () => this.toggleUpline(toggle)));
 
     bindingEnableDownlineEvents = () =>
@@ -90,7 +90,7 @@
     }
 
     toggleStatusAllUplines= (enableAll: boolean) =>
-        this.$uplineToogles.forEach((toggle) => {
+        this.$customerToogles.forEach((toggle) => {
             if (this.isChecked(toggle) != enableAll) {
                 toggle.click();
             }
@@ -150,7 +150,7 @@
 
     toogleHeader = (roleId: number) => {
         let isUpline = roleId == this.$custRole;
-        let toggles = isUpline ? this.$uplineToogles : this.getToggles(this.$enableToggles, roleId);
+        let toggles = isUpline ? this.$customerToogles : this.getToggles(this.$enableToggles, roleId);
 
         let enabledAllToggle = this.getFirstToggle(this.$enableAllToggles, roleId);
         let disabledAllToggle = this.getFirstToggle(this.$disableAllToggles, roleId);
