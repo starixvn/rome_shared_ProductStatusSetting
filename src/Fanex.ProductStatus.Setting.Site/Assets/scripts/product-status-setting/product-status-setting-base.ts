@@ -1,5 +1,6 @@
 ﻿class ProductStatusSettingBase  {
     $: JQueryStatic;
+    $topWindow: any;
     $thead: JQuery;
     $tbody: JQuery;
 
@@ -8,20 +9,27 @@
     $timeoutDefault: number;
 
     $custId: number;
+    $custName: string;
     $custRole: number;
     $productId: number;
+    $leftPanelFrame: string;
+    $popupId: string;
     $isMultipleBetTypes: boolean;
 
-    constructor($: JQueryStatic) {
+    constructor($: JQueryStatic, topWindow: any) {
         this.$ = $;
+        this.$topWindow = topWindow;
     }
 
     protected init() {
         this.cachedElements();
 
         this.$custId = this.$('#custId').val();
+        this.$custName = this.$('#custName').val();
         this.$custRole = this.$('#custRole').val();
         this.$productId = this.$('#productId').val();
+        this.$leftPanelFrame = this.$('#leftPanelFrame').val();
+        this.$popupId = this.$('#popupId').val();
         this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
 
         this.$errorCodeDefault = 101;
@@ -144,20 +152,23 @@
     protected onSuccess(result: any) {
         this.showMessage(result.Code, result.Message);
         if (result.Code == 0) {
-            setTimeout(function () {
-                this.$.unblockUI();
-                location.reload(true);
-            }, this.$timeoutDefault);
+            setTimeout(() => this.reloadLeftPanel(), this.$timeoutDefault);
         }
+    }
+
+    reloadLeftPanel() {
+        this.$topWindow.content.frames[this.$leftPanelFrame].location.reload(true);
+        this.$topWindow.content.$(this.$popupId).dialog('close');
+        this.$.unblockUI();
     }
 
     onDefaultError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
 
     protected showMessage(code: any, message: string) {
-        this.$.unblockUI();
         let html = ['<div class="', code === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
         let messageDiv = this.$("#sectionMessage");
-        return messageDiv.html(html).removeClass("hide");
+        messageDiv.html(html).removeClass("hide");
+        this.$.unblockUI();
     }
 
     hideMessage = () => this.$("#sectionMessage").html("").addClass("hide");

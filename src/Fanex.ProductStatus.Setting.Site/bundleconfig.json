@@ -4,6 +4,7 @@
     "inputFiles": [
       "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
       "Assets/scripts/libs/jQuery/blockUI.js",  
+      "Assets/scripts/libs/jQuery/jquery-ui-1.9.1.min.js",  
       "Assets/scripts/product-status-setting/product-status-setting-base.js",
       "Assets/scripts/product-status-setting/product-status-setting.js"
     ]
@@ -13,6 +14,7 @@
     "inputFiles": [
       "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
       "Assets/scripts/libs/jQuery/blockUI.js",
+      "Assets/scripts/libs/jQuery/jquery-ui-1.9.1.min.js",  
       "Assets/scripts/product-status-setting/product-status-setting-base.js",
       "Assets/scripts/product-status-setting/product-status-setting-multiple.js"
     ]

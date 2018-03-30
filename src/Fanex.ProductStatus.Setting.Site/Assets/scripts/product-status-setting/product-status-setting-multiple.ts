@@ -3,8 +3,8 @@
     $toggleAllArray: HTMLElement[];
     $toggleArray: HTMLElement[];
 
-    constructor($: JQueryStatic) {
-        super($);
+    constructor($: JQueryStatic, topWindow: any) {
+        super($, topWindow);
     }
 
     init() {
@@ -251,6 +251,6 @@
 }
 
 $(function () {
-    let productStatusSettingMultipe = new ProductStatusSettingMultipe($);
+    let productStatusSettingMultipe = new ProductStatusSettingMultipe($, window.top);
     productStatusSettingMultipe.init();
 });

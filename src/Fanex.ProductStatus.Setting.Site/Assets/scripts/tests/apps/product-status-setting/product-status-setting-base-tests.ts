@@ -1,5 +1,5 @@
 ﻿describe('ProductStatusSettingBase_', () => {
-    const productStatusSettingBase = new ProductStatusSettingBase($);
+    const productStatusSettingBase = new ProductStatusSettingBase($, window.top);
     const fixturesPath = '../../../../../Assets/scripts/tests/apps/product-status-setting/fixtures/';
 
 // Setup

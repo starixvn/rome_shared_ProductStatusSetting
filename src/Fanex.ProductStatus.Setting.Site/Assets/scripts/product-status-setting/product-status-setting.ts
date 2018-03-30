@@ -8,8 +8,8 @@
     $enableToggles: HTMLElement[];
     $disableToggles: HTMLElement[];
 
-    constructor($: JQueryStatic) {
-        super($);
+    constructor($: JQueryStatic, topWindow: any) {
+        super($, topWindow);
     }
 
     init() {
@@ -272,6 +272,6 @@
 }
 
 $(function () {
-    let productStatusSetting = new ProductStatusSetting($);
+    let productStatusSetting = new ProductStatusSetting($, window.top);
     productStatusSetting.init();
 });

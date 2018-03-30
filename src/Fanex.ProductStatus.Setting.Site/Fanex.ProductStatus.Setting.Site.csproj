@@ -191,6 +191,7 @@
     <Content Include="Assets\scripts\libs\jasmine\jasmine_favicon.png" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
+    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.1.min.js" />
     <Content Include="Assets\scripts\tests\apps\product-status-setting\fixtures\numbergame.html" />
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
