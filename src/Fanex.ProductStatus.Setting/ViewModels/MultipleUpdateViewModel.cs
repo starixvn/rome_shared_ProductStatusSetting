@@ -7,7 +7,7 @@
 
     public class MultipleUpdateViewModel
     {
-        private readonly IProductStatusUser user;
+        private readonly IProductStatusUserService userService;
 
         private int[] customerIds;
         private string[] customerNames;
@@ -17,9 +17,9 @@
         {
         }
 
-        public MultipleUpdateViewModel(IProductStatusUser user)
+        public MultipleUpdateViewModel(IProductStatusUserService userService)
         {
-            this.user = user ?? ProductStatusConfigurationHandler.User;
+            this.userService = userService ?? ProductStatusConfigurationHandler.UserService;
         }
 
         public int ProductId { get; set; }
@@ -31,10 +31,10 @@
         public ProductStatusCommand[] ProductStatus { get; set; }
 
         public string IP
-            => user.GetClientIP();
+            => userService.GetClientIP();
 
         public int ActorId
-            => user.GetActorId();
+            => userService.GetActorId();
 
         public int[] CustomerIds
         {

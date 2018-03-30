@@ -13,13 +13,13 @@
 
     public class ProductStatusSettingControllerTests
     {
-        private readonly IProductStatusUser user;
+        private readonly IProductStatusUserService userService;
         private readonly ProductStatusService productStatusService;
         private readonly ProductStatusSettingController productStatusSettingController;
 
         public ProductStatusSettingControllerTests()
         {
-            user = Substitute.For<IProductStatusUser>();
+            userService = Substitute.For<IProductStatusUserService>();
             productStatusService = Substitute.For<ProductStatusService>();
             productStatusSettingController = new ProductStatusSettingController(productStatusService);
         }
@@ -84,8 +84,8 @@
         public void Update_InvalidUpdateViewModel_ReturnsBadRequest()
         {
             // Arrange
-            user.GetActorId().Returns(8);
-            var updateViewModel = new UpdateViewModel(user)
+            userService.GetActorId().Returns(8);
+            var updateViewModel = new UpdateViewModel(userService)
             {
                 ProductId = ProductIdentity.Casino
             };
@@ -102,9 +102,9 @@
         public void Update_ValidUpdateViewModel_ReturnsSuccessfulJson()
         {
             // Arrange
-            user.GetActorId().Returns(8);
-            user.GetClientIP().Returns("127.0.0.1");
-            var updateViewModel = new UpdateViewModel(user)
+            userService.GetActorId().Returns(8);
+            userService.GetClientIP().Returns("127.0.0.1");
+            var updateViewModel = new UpdateViewModel(userService)
             {
                 ProductId = ProductIdentity.Casino,
                 ProductStatus = new[]
@@ -140,8 +140,8 @@
         public void MultipleView_Always_ReturnsView()
         {
             // Arrange
-            user.GetProductList().Returns(Enumerable.Empty<KeyValuePair<int, string>>());
-            var viewModel = new MultipleQueryViewModel(user);
+            userService.GetProductList().Returns(Enumerable.Empty<KeyValuePair<int, string>>());
+            var viewModel = new MultipleQueryViewModel(userService);
             string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
             // Act
@@ -210,8 +210,8 @@
         public void MultipleUpdate_InvalidMultipleUpdateViewModel_ReturnsBadRequest()
         {
             // Arrange
-            user.GetActorId().Returns(8);
-            var updateViewModel = new MultipleUpdateViewModel(user)
+            userService.GetActorId().Returns(8);
+            var updateViewModel = new MultipleUpdateViewModel(userService)
             {
                 ProductId = ProductIdentity.Casino
             };
@@ -228,9 +228,9 @@
         public void MultipleUpdate_ValidMultipleUpdateViewModel_ReturnsSuccessfulJson()
         {
             // Arrange
-            user.GetActorId().Returns(8);
-            user.GetClientIP().Returns("127.0.0.1");
-            var updateViewModel = new MultipleUpdateViewModel(user)
+            userService.GetActorId().Returns(8);
+            userService.GetClientIP().Returns("127.0.0.1");
+            var updateViewModel = new MultipleUpdateViewModel(userService)
             {
                 ProductId = ProductIdentity.Casino,
                 ProductStatus = new[]

@@ -9,13 +9,13 @@
 
     public class MultipleUpdateViewModelTests
     {
-        private readonly IProductStatusUser user;
+        private readonly IProductStatusUserService userService;
         private readonly MultipleUpdateViewModel multipleUpdateViewModel;
 
         public MultipleUpdateViewModelTests()
         {
-            user = Substitute.For<IProductStatusUser>();
-            multipleUpdateViewModel = new MultipleUpdateViewModel(user);
+            userService = Substitute.For<IProductStatusUserService>();
+            multipleUpdateViewModel = new MultipleUpdateViewModel(userService);
         }
 
         [Fact]
@@ -42,7 +42,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -72,7 +72,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -102,7 +102,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();
@@ -134,7 +134,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = multipleUpdateViewModel.IsValid();

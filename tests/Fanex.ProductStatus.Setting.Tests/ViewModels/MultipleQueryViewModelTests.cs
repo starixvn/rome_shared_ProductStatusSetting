@@ -11,13 +11,13 @@
 
     public class MultipleQueryViewModelTests
     {
-        private readonly IProductStatusUser user;
+        private readonly IProductStatusUserService userService;
         private readonly MultipleQueryViewModel multipleQueryViewModel;
 
         public MultipleQueryViewModelTests()
         {
-            user = Substitute.For<IProductStatusUser>();
-            multipleQueryViewModel = new MultipleQueryViewModel(user);
+            userService = Substitute.For<IProductStatusUserService>();
+            multipleQueryViewModel = new MultipleQueryViewModel(userService);
         }
 
         [Fact]
@@ -39,7 +39,7 @@
             };
 
             multipleQueryViewModel.CustRole = RoleIdentity.Super;
-            user.GetProductList().Returns(expectedResults);
+            userService.GetProductList().Returns(expectedResults);
 
             var compareLogic = new CompareLogic();
 

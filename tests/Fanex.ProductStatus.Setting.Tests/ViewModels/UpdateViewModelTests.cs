@@ -9,13 +9,13 @@
 
     public class UpdateViewModelTests
     {
-        private readonly IProductStatusUser user;
+        private readonly IProductStatusUserService userService;
         private readonly UpdateViewModel updateViewModel;
 
         public UpdateViewModelTests()
         {
-            user = Substitute.For<IProductStatusUser>();
-            updateViewModel = new UpdateViewModel(user);
+            userService = Substitute.For<IProductStatusUserService>();
+            updateViewModel = new UpdateViewModel(userService);
         }
 
         [Fact]
@@ -40,7 +40,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -72,7 +72,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -88,7 +88,7 @@
             updateViewModel.ProductId = ProductIdentity.NumberGame;
             updateViewModel.ProductStatus = null;
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -104,7 +104,7 @@
             updateViewModel.ProductId = ProductIdentity.NumberGame;
             updateViewModel.ProductStatus = new ProductStatusCommand[0];
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -136,7 +136,7 @@
                 }
             };
 
-            user.GetActorId().Returns(actorId);
+            userService.GetActorId().Returns(actorId);
 
             // Act
             var actualResult = updateViewModel.IsValid();
@@ -153,7 +153,7 @@
         public void IP_Always_AssignsCorrectToIP(string ip)
         {
             // Arrange
-            user.GetClientIP().Returns(ip);
+            userService.GetClientIP().Returns(ip);
 
             // Act
             var actualResult = updateViewModel.IP;
@@ -186,7 +186,7 @@
                 }
             };
 
-            user.GetActorId().Returns(8);
+            userService.GetActorId().Returns(8);
 
             // Act
             var actualResult = updateViewModel.IsValid();

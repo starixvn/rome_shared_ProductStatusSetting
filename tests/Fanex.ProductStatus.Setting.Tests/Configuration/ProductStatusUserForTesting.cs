@@ -1,16 +1,20 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Configuration
 {
-    using System;
     using System.Collections.Generic;
     using Setting.Services;
 
-    public class ProductStatusUserForTesting : IProductStatusUser
+    public class ProductStatusUserForTesting : IProductStatusUserService
     {
         public int GetActorId()
             => 8;
 
         public string GetClientIP()
             => "127.0.0.1";
+
+        // NAP = 1
+        // Ext-NAP = 4
+        public byte GetSystemId()
+            => 1;
 
         public IEnumerable<KeyValuePair<int, string>> GetProductList()
             => new List<KeyValuePair<int, string>>

@@ -21,7 +21,7 @@
             // Assert
             Assert.True(
                 null != ProductStatusConfigurationHandler.AuthorizeService
-                && null != ProductStatusConfigurationHandler.User
+                && null != ProductStatusConfigurationHandler.UserService
                 && null != ProductStatusConfigurationHandler.UnAuthorizedUrl);
         }
 

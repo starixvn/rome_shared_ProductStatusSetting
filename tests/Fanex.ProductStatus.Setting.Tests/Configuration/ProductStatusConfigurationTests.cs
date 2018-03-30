@@ -28,7 +28,7 @@
             configuration.UseUserSession(new ProductStatusUserForTesting());
 
             // Assert
-            Assert.NotNull(configuration.User);
+            Assert.NotNull(configuration.UserService);
         }
 
         [Fact]

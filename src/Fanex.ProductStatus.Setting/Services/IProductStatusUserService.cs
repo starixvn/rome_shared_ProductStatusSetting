@@ -2,11 +2,13 @@
 {
     using System.Collections.Generic;
 
-    public interface IProductStatusUser
+    public interface IProductStatusUserService
     {
         int GetActorId();
 
         string GetClientIP();
+
+        byte GetSystemId();
 
         IEnumerable<KeyValuePair<int, string>> GetProductList();
     }

@@ -8,16 +8,16 @@
 
     public class MultipleQueryViewModel : BaseQueryViewModel
     {
-        private readonly IProductStatusUser _user;
+        private readonly IProductStatusUserService _userService;
 
         public MultipleQueryViewModel()
             : this(null)
         {
         }
 
-        public MultipleQueryViewModel(IProductStatusUser user)
+        public MultipleQueryViewModel(IProductStatusUserService userService)
         {
-            _user = user ?? ProductStatusConfigurationHandler.User;
+            _userService = userService ?? ProductStatusConfigurationHandler.UserService;
         }
 
         public string ProductIds { get; set; }
@@ -30,7 +30,7 @@
         {
             get
             {
-                var products = _user.GetProductList();
+                var products = _userService.GetProductList();
 
                 if (CustRole != RoleIdentity.Super)
                 {

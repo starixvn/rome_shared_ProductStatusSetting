@@ -17,8 +17,8 @@
         internal static IProductStatusAuthorizeService AuthorizeService
             => statusSettings.AuthorizeService;
 
-        internal static IProductStatusUser User
-            => statusSettings.User;
+        internal static IProductStatusUserService UserService
+            => statusSettings.UserService;
 
         internal static string UnAuthorizedUrl
             => statusSettings.UnAuthorizedUrl;
@@ -56,10 +56,10 @@
 
         private static void RequireUser()
         {
-            if (statusSettings.User == null)
+            if (statusSettings.UserService == null)
             {
                 throw new ArgumentNullException(
-                    $"ProductStatus {nameof(statusSettings.User)}",
+                    $"ProductStatus {nameof(statusSettings.UserService)}",
                     "Value cannot be null.");
             }
         }

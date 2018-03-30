@@ -140,7 +140,7 @@
     <Compile Include="Models\MultipleResult.cs" />
     <Compile Include="Services\RefDataServiceProvider.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
-    <Compile Include="Services\IProductStatusUser.cs" />
+    <Compile Include="Services\IProductStatusUserService.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
     <Compile Include="Shared\StringExtensions.cs" />
     <Compile Include="ViewModels\BaseQueryViewModel.cs" />
