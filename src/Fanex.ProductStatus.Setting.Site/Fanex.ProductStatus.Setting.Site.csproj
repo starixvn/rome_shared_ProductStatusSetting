@@ -293,6 +293,11 @@
   <ItemGroup>
     <Content Include="Areas\ProductStatusSetting\Views\Multiple\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
