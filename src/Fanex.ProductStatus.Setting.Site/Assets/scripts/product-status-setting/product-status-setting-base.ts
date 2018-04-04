@@ -28,8 +28,6 @@
         this.$custName = this.$('#custName').val();
         this.$custRole = this.$('#custRole').val();
         this.$productId = this.$('#productId').val();
-        this.$leftPanelFrame = this.$('#leftPanelFrame').val();
-        this.$popupId = this.$('#popupId').val();
         this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
 
         this.$errorCodeDefault = 101;
@@ -152,14 +150,8 @@
     protected onSuccess(result: any) {
         this.showMessage(result.Code, result.Message);
         if (result.Code == 0) {
-            setTimeout(() => this.reloadLeftPanel(), this.$timeoutDefault);
+            setTimeout(() => this.$topWindow.reloadLeftPanel(), this.$timeoutDefault);
         }
-    }
-
-    reloadLeftPanel() {
-        this.$topWindow.content.frames[this.$leftPanelFrame].location.reload(true);
-        this.$topWindow.content.$(this.$popupId).dialog('close');
-        this.$.unblockUI();
     }
 
     onDefaultError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);

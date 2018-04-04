@@ -116,8 +116,8 @@
         let bettype = this.getBetType(toggle);
 
         this.$(labelElement).attr("title", tooltip)
-            .removeClass()
-            .addClass(labelClass)
+            .removeAttr('class')
+            .attr('class', labelClass)
             .text(labelText);
     }
 

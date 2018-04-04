@@ -105,8 +105,8 @@
             let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
 
             this.$(labelElement).attr("title", tooltip)
-                .removeClass()
-                .addClass(labelText.toLowerCase())
+                .removeAttr('class')
+                .attr('class', labelText.toLowerCase())
                 .text(labelText);
 
             this.toggleStatusDownlines(this.getRoleId(toggle) - 1, enable, this.getBetType(toggle));
