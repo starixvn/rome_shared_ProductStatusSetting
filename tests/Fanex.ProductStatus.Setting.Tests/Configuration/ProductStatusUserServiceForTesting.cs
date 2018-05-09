@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Setting.Services;
 
-    public class ProductStatusUserForTesting : IProductStatusUserService
+    public class ProductStatusUserServiceForTesting : IProductStatusUserService
     {
         public int GetActorId()
             => 8;

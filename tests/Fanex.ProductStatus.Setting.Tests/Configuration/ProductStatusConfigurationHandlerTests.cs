@@ -12,7 +12,7 @@
             // Arrange
             var configuration = new ProductStatusConfiguration()
                 .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
-                .UseUserSession(new ProductStatusUserForTesting())
+                .UseUserSession(new ProductStatusUserServiceForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized");
 
             // Act
@@ -37,7 +37,7 @@
         {
             // Arrange
             var configuration = new ProductStatusConfiguration()
-                .UseUserSession(new ProductStatusUserForTesting())
+                .UseUserSession(new ProductStatusUserServiceForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized");
 
             // Act & Assert
@@ -62,7 +62,7 @@
             // Arrange
             var configuration = new ProductStatusConfiguration()
                 .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
-                .UseUserSession(new ProductStatusUserForTesting());
+                .UseUserSession(new ProductStatusUserServiceForTesting());
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => ProductStatusConfigurationHandler.UseConfig(configuration));

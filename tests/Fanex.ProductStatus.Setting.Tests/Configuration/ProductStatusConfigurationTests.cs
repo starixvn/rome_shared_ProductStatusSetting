@@ -25,7 +25,7 @@
             var configuration = new ProductStatusConfiguration();
 
             // Act
-            configuration.UseUserSession(new ProductStatusUserForTesting());
+            configuration.UseUserSession(new ProductStatusUserServiceForTesting());
 
             // Assert
             Assert.NotNull(configuration.UserService);

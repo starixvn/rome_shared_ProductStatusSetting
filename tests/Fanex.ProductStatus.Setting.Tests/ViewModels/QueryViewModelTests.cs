@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Configuration;
     using Setting.Models;
     using Setting.Shared;
     using Setting.ViewModels;
@@ -18,7 +19,7 @@
         public void New_Always_AssignsCorrectProperties()
         {
             // Arrange & Act
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -38,7 +39,7 @@
         public void SetProductStatusViewModel_InputIsEmpty_ReturnsEmpty()
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -57,7 +58,7 @@
         public void SetProductStatusViewModel_InputHasData_ReturnsCorrectProductStatusViewModel()
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -118,7 +119,7 @@
         public void GetRoleName_Always_ReturnsCorrectName(byte custRoleId, string roleName)
         {
             // Arrange
-            var viewModel = new QueryViewModel();
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting());
 
             // Act
             var actualResult = viewModel.GetRoleName(custRoleId);
@@ -131,7 +132,7 @@
         public void IsValid_CorrectData_ReturnsTrue()
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -152,7 +153,7 @@
         public void IsValid_InvalidProductId_ReturnsFalse(int productId)
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = productId,
                 CustId = CustIdTest,
@@ -173,7 +174,7 @@
         public void IsValid_InvalidCustId_ReturnsFalse(int custId)
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = custId,
@@ -195,7 +196,7 @@
         public void IsValid_InvalidCustRole_ReturnsFalse(byte custRoleId)
         {
             // Arrange
-            var viewModel = new QueryViewModel
+            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,

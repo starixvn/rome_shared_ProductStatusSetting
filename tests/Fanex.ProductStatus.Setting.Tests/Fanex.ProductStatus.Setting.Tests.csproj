@@ -143,7 +143,7 @@
     <Compile Include="Configuration\ProductStatusAuthorizeServiceForTesting.cs" />
     <Compile Include="Configuration\ProductStatusConfigurationHandlerTests.cs" />
     <Compile Include="Configuration\ProductStatusConfigurationTests.cs" />
-    <Compile Include="Configuration\ProductStatusUserForTesting.cs" />
+    <Compile Include="Configuration\ProductStatusUserServiceForTesting.cs" />
     <Compile Include="Controllers\ProductStatusSettingControllerTests.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />
