@@ -45,16 +45,16 @@
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
-            var rawData = statusDataAccess.GetProductStatus(criteria);
+            var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
 
             return SetProductStatusName(productId, rawData);
         }
 
         private IEnumerable<ProductStatusModel> SetProductStatusName(
             int productId,
-            IEnumerable<ProductStatusModel> rawData)
+            IList<ProductStatusModel> rawData)
         {
-            var setNameByBetTypeId = rawData.Count() > 1;
+            var setNameByBetTypeId = rawData.Count > 1;
 
             foreach (var item in rawData)
             {
