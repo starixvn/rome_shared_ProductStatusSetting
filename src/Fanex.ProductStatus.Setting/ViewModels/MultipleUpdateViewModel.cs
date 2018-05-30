@@ -33,6 +33,8 @@
         public string IP
             => userService.GetClientIP();
 
+        public int CustRoleId { get; set; }
+
         public int ActorId
             => userService.GetActorId();
 

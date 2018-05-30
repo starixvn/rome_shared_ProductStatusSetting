@@ -2,59 +2,99 @@
 {
     using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
+    using Criteria;
+    using DataAccess;
+    using Models;
 
     public interface RnGCasinoService
     {
+        Result AdminCheckAllowedDownlinesByLevel(
+            int custId,
+            int custRole,
+            bool updateAllMasters,
+            bool updateAllAgents,
+            bool updateAllMembers);
+
         void UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
-            int IBCCustID, 
-            bool EnableCasino, 
-            bool UpdateAllMasters, 
-            bool UpdateAllAgents, 
-            bool UpdateAllMembers, 
-            bool EnableAllMasters, 
-            bool EnableAllAgents, 
-            bool EnableAllMembers, 
-            string FromIP, 
-            int ModifyBy, 
-            string ModifyUserName, 
-            int FromSystem);
+            int custId,
+            int custRole,
+            bool enableCasino,
+            bool updateAllMasters,
+            bool updateAllAgents,
+            bool updateAllMembers,
+            bool enableAllMasters,
+            bool enableAllAgents,
+            bool enableAllMembers,
+            string fromIP,
+            int modifyBy,
+            string modifyUserName,
+            int fromSystem);
     }
 
     public class RnGCasinoServiceImpl : RnGCasinoService
     {
-        public void UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
-            int IBCCustID, 
-            bool EnableCasino, 
-            bool UpdateAllMasters, 
-            bool UpdateAllAgents, 
-            bool UpdateAllMembers, 
-            bool EnableAllMasters, 
-            bool EnableAllAgents, 
-            bool EnableAllMembers, 
-            string FromIP, 
-            int ModifyBy, 
-            string ModifyUserName, 
-            int FromSystem)
+        private readonly ProductStatusDataAccess statusDataAccess;
+        public RnGCasinoServiceImpl(ProductStatusDataAccess statusDataAccess)
         {
-            var customer = new Customer();
+            this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
+        }
 
-            var success = customer.UpdateEnableCasinoByLevel(
-                IBCCustID, 
-                EnableCasino, 
-                UpdateAllMasters, 
-                UpdateAllAgents, 
-                UpdateAllMembers, 
-                EnableAllMasters, 
-                EnableAllAgents, 
-                EnableAllMembers, 
-                FromIP, 
-                ModifyBy, 
-                ModifyUserName, 
-                FromSystem);
+       public Result AdminCheckAllowedDownlinesByLevel(
+            int custId,
+            int custRole,
+            bool updateAllMasters,
+            bool updateAllAgents,
+            bool updateAllMembers)
+            => statusDataAccess.ExecuteNonQuery(
+                new AllowedDownlinesByLevelCriteria(
+                    custId,
+                    custRole,
+                    updateAllMasters,
+                    updateAllAgents,
+                    updateAllMembers));
 
-            if (!success)
+        public void UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
+            int custId, 
+            int custRole,
+            bool enableCasino, 
+            bool updateAllMasters, 
+            bool updateAllAgents, 
+            bool updateAllMembers, 
+            bool enableAllMasters, 
+            bool enableAllAgents, 
+            bool enableAllMembers, 
+            string fromIP, 
+            int modifyBy, 
+            string modifyUserName, 
+            int fromSystem)
+        {
+            if (AdminCheckAllowedDownlinesByLevel(
+                custId,
+                custRole,
+                updateAllMasters,
+                updateAllAgents,
+                updateAllMembers).IsSuccess())
             {
-                throw (new ErrorException($"UpdateCustEnableCasino({IBCCustID}) on CasinoLibrary is failure."));
+
+                var customer = new Customer();
+
+                if (!customer.UpdateEnableCasinoByLevel(
+                    custId,
+                    enableCasino,
+                    updateAllMasters,
+                    updateAllAgents,
+                    updateAllMembers,
+                    enableAllMasters,
+                    enableAllAgents,
+                    enableAllMembers,
+                    fromIP,
+                    modifyBy,
+                    modifyUserName,
+                    fromSystem))
+                {
+                    throw (new ErrorException($"UpdateCustEnableCasino({custId}) on CasinoLibrary is failure."));
+                }
+            
             }
         }
     }

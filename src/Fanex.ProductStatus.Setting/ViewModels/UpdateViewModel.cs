@@ -22,6 +22,8 @@
 
         public int CustId { get; set; }
 
+        public int CustRole { get; set; }
+
         public ProductStatusCommand[] ProductStatus { get; set; }
 
         public string IP
@@ -36,6 +38,7 @@
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0
+            && CustRole > 0
             && ProductStatus?.Length > 0
             && ActorId > 0;
     }

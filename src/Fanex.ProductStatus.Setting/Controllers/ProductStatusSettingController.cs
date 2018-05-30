@@ -45,6 +45,7 @@
             var result = productStatusService.UpdateProductStatus(
                 viewModel.ProductId,
                 viewModel.CustId,
+                viewModel.CustRole,
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
@@ -76,6 +77,7 @@
 
             var results = productStatusService.MultipleUpdateProductStatus(
                 viewModel.ProductId,
+                viewModel.CustRoleId,
                 viewModel.CustomerIds,
                 viewModel.CustomerNames,
                 viewModel.ActorId,

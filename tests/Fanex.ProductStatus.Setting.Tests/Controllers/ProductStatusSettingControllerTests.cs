@@ -126,7 +126,7 @@
                 CustId = 1176083
             };
             productStatusService
-                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
+                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, updateViewModel.CustRole, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
                 .Returns(new Result(0, string.Empty));
 
             // Act
@@ -254,7 +254,7 @@
                 CustNames = "member01,member012"
             };
             productStatusService
-                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
+                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRoleId, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
                 .Returns(new[] { new Result(0, string.Empty) });
 
             // Act

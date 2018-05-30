@@ -13,6 +13,7 @@
         Result UpdateProductStatus(
             int productId,
             int custId,
+            int custRole,
             int actorId,
             string actorName,
             string ip,
@@ -20,6 +21,7 @@
 
         IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
+            int custRole,
             int[] custIds,
             string[] custNames,
             int actorId,
@@ -46,7 +48,7 @@
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
             this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
-            this.rnGCasinoService = rnGCasinoService ?? new RnGCasinoServiceImpl();
+            this.rnGCasinoService = rnGCasinoService ?? new RnGCasinoServiceImpl(this.statusDataAccess);
         }
 
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
@@ -76,13 +78,14 @@
         public Result UpdateProductStatus(
             int productId,
             int custId,
+            int custRole,
             int actorId,
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
             => productId == ProductIdentity.Keno ?
                 UpdateKenoStatus(custId, actorId, ip, commands) :
-                UpdateStatus(productId, custId, actorId, actorName, ip, commands);
+                UpdateStatus(productId, custId, actorId, custRole, actorName, ip, commands);
 
         private Result UpdateKenoStatus(
             int custId,
@@ -106,6 +109,7 @@
         private Result UpdateStatus(
             int productId,
             int custId,
+            int custRoleId,
             int actorId,
             string actorName,
             string ip,
@@ -116,7 +120,7 @@
 
             if (IsSuccessAndCasino(result, productId))
             {
-                UpdateCasinoStatus(custId, actorId, actorName, ip, commands.First());
+                UpdateCasinoStatus(custId, custRoleId, actorId, actorName, ip, commands.First());
             }
 
             return result;
@@ -125,9 +129,10 @@
         private bool IsSuccessAndCasino(Result result, int productId)
             => result.IsSuccess() && productId == ProductIdentity.Casino;
 
-        private  void UpdateCasinoStatus(int custId, int actorId, string actorName, string ip, ProductStatusCommand command)
+        private  void UpdateCasinoStatus(int custId, int custRoleId, int actorId, string actorName, string ip, ProductStatusCommand command)
             => rnGCasinoService.UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
                 custId,
+                custRoleId,
                 !command.Disable,
                 command.UpdateAllMasters,
                 command.UpdateAllAgents,
@@ -142,6 +147,7 @@
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
+            int custRole,
             int[] custIds,
             string[] custNames,
             int actorId,
@@ -156,7 +162,7 @@
             for (int i = 0; i < custIdsLength; i++)
             {
                 customerId = custIds[i];
-                result = UpdateProductStatus(productId, customerId, actorId, actorName, ip, commands);
+                result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip,commands);
 
                 yield return new MultipleResult(result, customerId, custNames[i]);
             }

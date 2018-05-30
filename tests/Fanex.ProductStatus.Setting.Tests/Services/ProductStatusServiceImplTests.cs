@@ -16,6 +16,7 @@
     public class ProductStatusServiceImplTests
     {
         private const int CustIdTest = 1176083;
+        private const int CustRoleTest = 3;
         private const int ActorIdTest = 8;
         private const string ActorNameTest = "sa";
         private const string IPTest = "127.0.0.1";
@@ -278,7 +279,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -331,7 +332,7 @@
                 .Returns(errorResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.False(actualResult.IsSuccess());
@@ -380,7 +381,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -429,7 +430,7 @@
                 .Returns(errorResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.False(errorResult.IsSuccess());
