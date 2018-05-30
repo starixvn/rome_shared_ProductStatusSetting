@@ -83,9 +83,17 @@
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
-            => productId == ProductIdentity.Keno ?
-                UpdateKenoStatus(custId, actorId, ip, commands) :
-                UpdateStatus(productId, custId, actorId, custRole, actorName, ip, commands);
+        {
+            switch(productId)
+            {
+                case ProductIdentity.Keno:
+                    return UpdateKenoStatus(custId, actorId, ip, commands);
+                case ProductIdentity.Casino:
+                    return UpdateCasinoStatus(productId, custId, actorId, custRole, actorName, ip, commands);
+                default:
+                    return UpdateStatus(productId, custId, actorId, ip, commands);
+            }
+        }
 
         private Result UpdateKenoStatus(
             int custId,
@@ -109,25 +117,33 @@
         private Result UpdateStatus(
             int productId,
             int custId,
-            int custRoleId,
             int actorId,
-            string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
+            return statusDataAccess.ExecuteNonQuery(criteria);
+        }
+
+        private Result UpdateCasinoStatus(
+         int productId,
+         int custId,
+         int custRoleId,
+         int actorId,
+         string actorName,
+         string ip,
+         IEnumerable<ProductStatusCommand> commands)
+        {
+            var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
 
-            if (IsSuccessAndCasino(result, productId))
+            if (result.IsSuccess())
             {
                 UpdateCasinoStatus(custId, custRoleId, actorId, actorName, ip, commands.First());
             }
 
             return result;
         }
-
-        private bool IsSuccessAndCasino(Result result, int productId)
-            => result.IsSuccess() && productId == ProductIdentity.Casino;
 
         private  void UpdateCasinoStatus(int custId, int custRoleId, int actorId, string actorName, string ip, ProductStatusCommand command)
             => rnGCasinoService.UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(

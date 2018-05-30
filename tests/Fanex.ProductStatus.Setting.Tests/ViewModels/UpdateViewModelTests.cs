@@ -24,6 +24,7 @@
             // Arrange
             updateViewModel.ProductId = ProductIdentity.NumberGame;
             updateViewModel.CustId = 1176070;
+            updateViewModel.CustRole = 3;
             updateViewModel.ProductStatus = new ProductStatusCommand[]
             {
                 new ProductStatusCommand

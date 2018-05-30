@@ -107,7 +107,7 @@
             userService.GetClientIP().Returns("127.0.0.1");
             var updateViewModel = new UpdateViewModel(userService)
             {
-                ProductId = ProductIdentity.Casino,
+                ProductId = ProductIdentity.GoldDeluxe,
                 ProductStatus = new[]
                 {
                     new ProductStatusCommand
@@ -123,7 +123,8 @@
                         DisableAllMembers = false,
                     }
                 },
-                CustId = 1176083
+                CustId = 1176083,
+                CustRole = 3
             };
             productStatusService
                 .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, updateViewModel.CustRole, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
