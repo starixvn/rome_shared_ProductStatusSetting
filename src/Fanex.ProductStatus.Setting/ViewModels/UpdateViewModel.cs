@@ -30,6 +30,9 @@
         public int ActorId
             => userService.GetActorId();
 
+        public string ActorName
+           => userService.GetActorName();
+
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0

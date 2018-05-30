@@ -14,6 +14,7 @@
             int productId,
             int custId,
             int actorId,
+            string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands);
 
@@ -22,6 +23,7 @@
             int[] custIds,
             string[] custNames,
             int actorId,
+            string actorName,
             string ip,
             ProductStatusCommand[] commands);
     }
@@ -31,15 +33,20 @@
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
         private readonly RefDataServiceProvider refDataServiceProvider;
+        private readonly RnGCasinoService rnGCasinoService;
+
+        private const int SystemId = 2;
 
         public ProductStatusServiceImpl(
             ProductStatusDataAccess statusDataAccess = null,
             CriteriaFactoryService criteriaFactory = null,
-            RefDataServiceProvider refDataServiceProvider = null)
+            RefDataServiceProvider refDataServiceProvider = null,
+            RnGCasinoService rnGCasinoService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
             this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
+            this.rnGCasinoService = rnGCasinoService ?? new RnGCasinoServiceImpl();
         }
 
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
@@ -70,13 +77,12 @@
             int productId,
             int custId,
             int actorId,
+            string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
-        {
-            return productId == ProductIdentity.Keno ?
+            => productId == ProductIdentity.Keno ?
                 UpdateKenoStatus(custId, actorId, ip, commands) :
-                UpdateStatus(productId, custId, actorId, ip, commands);
-        }
+                UpdateStatus(productId, custId, actorId, actorName, ip, commands);
 
         private Result UpdateKenoStatus(
             int custId,
@@ -101,6 +107,7 @@
             int productId,
             int custId,
             int actorId,
+            string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
         {
@@ -109,27 +116,36 @@
 
             if (IsSuccessAndCasino(result, productId))
             {
-                UpdateCasinoStatus(custId, actorId, ip, commands.First());
+                UpdateCasinoStatus(custId, actorId, actorName, ip, commands.First());
             }
 
             return result;
         }
 
-        private static bool IsSuccessAndCasino(Result result, int productId)
-        {
-            return result.IsSuccess() && productId == ProductIdentity.Casino;
-        }
+        private bool IsSuccessAndCasino(Result result, int productId)
+            => result.IsSuccess() && productId == ProductIdentity.Casino;
 
-        private static void UpdateCasinoStatus(int custId, int actorId, string ip, ProductStatusCommand command)
-        {
-            // Todo: will add code to enable/disable 3rd casino library.
-        }
+        private  void UpdateCasinoStatus(int custId, int actorId, string actorName, string ip, ProductStatusCommand command)
+            => rnGCasinoService.UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
+                custId,
+                !command.Disable,
+                command.UpdateAllMasters,
+                command.UpdateAllAgents,
+                command.UpdateAllMembers,
+                !(bool)command.DisableAllMasters,
+                !(bool)command.DisableAllAgents,
+                !(bool)command.DisableAllMembers,
+                ip,
+                actorId,
+                actorName,
+                SystemId);
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
             int[] custIds,
             string[] custNames,
             int actorId,
+            string actorName,
             string ip,
             ProductStatusCommand[] commands)
         {
@@ -140,7 +156,7 @@
             for (int i = 0; i < custIdsLength; i++)
             {
                 customerId = custIds[i];
-                result = UpdateProductStatus(productId, customerId, actorId, ip, commands);
+                result = UpdateProductStatus(productId, customerId, actorId, actorName, ip, commands);
 
                 yield return new MultipleResult(result, customerId, custNames[i]);
             }

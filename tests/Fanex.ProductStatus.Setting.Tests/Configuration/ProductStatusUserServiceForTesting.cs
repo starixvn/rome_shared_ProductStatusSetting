@@ -8,6 +8,9 @@
         public int GetActorId()
             => 8;
 
+        public string GetActorName()
+            => "sa";
+
         public string GetClientIP()
             => "127.0.0.1";
 

@@ -46,6 +46,7 @@
                 viewModel.ProductId,
                 viewModel.CustId,
                 viewModel.ActorId,
+                viewModel.ActorName,
                 viewModel.IP,
                 viewModel.ProductStatus);
 
@@ -78,6 +79,7 @@
                 viewModel.CustomerIds,
                 viewModel.CustomerNames,
                 viewModel.ActorId,
+                viewModel.ActorName,
                 viewModel.IP,
                 viewModel.ProductStatus);
 

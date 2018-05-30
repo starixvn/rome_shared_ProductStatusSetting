@@ -36,6 +36,9 @@
         public int ActorId
             => userService.GetActorId();
 
+        public string ActorName
+            => userService.GetActorName();
+
         public int[] CustomerIds
         {
             get

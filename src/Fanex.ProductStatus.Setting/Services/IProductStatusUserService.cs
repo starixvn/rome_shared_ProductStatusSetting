@@ -6,6 +6,8 @@
     {
         int GetActorId();
 
+        string GetActorName();
+
         string GetClientIP();
 
         byte GetSystemId();

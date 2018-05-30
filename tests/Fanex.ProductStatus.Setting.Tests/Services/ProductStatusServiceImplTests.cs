@@ -17,6 +17,7 @@
     {
         private const int CustIdTest = 1176083;
         private const int ActorIdTest = 8;
+        private const string ActorNameTest = "sa";
         private const string IPTest = "127.0.0.1";
         private readonly static int[] CustIdsTest = new[] { 1176092, 14244423 };
         private readonly static string[] CustNamesTest = new[] { "member01", "member012" };
@@ -277,7 +278,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -330,7 +331,7 @@
                 .Returns(errorResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.False(actualResult.IsSuccess());
@@ -379,7 +380,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -428,7 +429,7 @@
                 .Returns(errorResult);
 
             // Act
-            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, IPTest, commands);
+            var actualResult = productStatusService.UpdateProductStatus(21, CustIdTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
             Assert.False(errorResult.IsSuccess());
