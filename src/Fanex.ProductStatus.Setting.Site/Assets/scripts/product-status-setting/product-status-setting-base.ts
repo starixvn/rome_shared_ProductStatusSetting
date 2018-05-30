@@ -15,6 +15,7 @@
     $leftPanelFrame: string;
     $popupId: string;
     $isMultipleBetTypes: boolean;
+    $isReloadLeftPanel: boolean;
 
     constructor($: JQueryStatic, topWindow: any) {
         this.$ = $;
@@ -32,6 +33,7 @@
 
         this.$errorCodeDefault = 101;
         this.$timeoutDefault = 3000;
+        this.$isReloadLeftPanel = false;
     }
 
     protected cachedElements() {
@@ -150,7 +152,12 @@
     protected onSuccess(result: any) {
         this.showMessage(result.Code, result.Message);
         if (result.Code == 0) {
-            setTimeout(() => this.$topWindow.reloadLeftPanel(), this.$timeoutDefault);
+            setTimeout(() => {
+                this.$topWindow.closePopup();
+                if (this.$isReloadLeftPanel) {
+                    this.$topWindow.reloadLeftPanel();
+                }
+            }, this.$timeoutDefault);
         }
     }
 

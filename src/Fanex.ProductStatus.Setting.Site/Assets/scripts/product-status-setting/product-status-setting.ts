@@ -207,6 +207,10 @@
                 let disable = !this.isChecked(firstCheckbox);
                 let originstatus = this.parseBoolean(this.$(firstCheckbox).data("originstatus"));
 
+                if (!this.$isMultipleBetTypes && disable != originstatus) {
+                    this.$isReloadLeftPanel = true;
+                }
+
                 let data = {
                     sportType: sporttype,
                     betType: bettype,
