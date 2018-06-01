@@ -246,15 +246,15 @@
         switch (this.getRoleId(toggle)) {
             case 3:
                 model.updateAllMasters = levelStatus.UpdateAll;
-                model.disableAllMasters = levelStatus.DisableAll;
+                model.disableAllMasters = levelStatus.DisableAll || model.disable;
                 break;
             case 2:
                 model.updateAllAgents = levelStatus.UpdateAll;
-                model.disableAllAgents = levelStatus.DisableAll;
+                model.disableAllAgents = levelStatus.DisableAll || model.disable;
                 break;
             case 1:
                 model.updateAllMembers = levelStatus.UpdateAll;
-                model.disableAllMembers = levelStatus.DisableAll;
+                model.disableAllMembers = levelStatus.DisableAll || model.disable;
                 break;
         };
 

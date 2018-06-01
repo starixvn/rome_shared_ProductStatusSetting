@@ -42,7 +42,6 @@ body {
 .checkbox-hide, hide { display: none; }
 
 .enabled, .disabled, .gray {
-  color: $button-color;
   border-radius: 3px;
   display: inline-block;
   font-weight: normal;
@@ -50,23 +49,26 @@ body {
   min-width: 55px;
 }
 
-.enabled { background-color: $enable-background-color; }
-  .enabled:hover {
-    background-color: $enable-hover-background-color;
-    cursor: pointer;
-  }
+.enabled { 
+    background-color: $enable-background-color;
+    color: $button-color;
+      &:hover {
+        cursor: pointer;
+    }
+}
 
-.disabled { background-color: $disable-background-color; }
-  .disabled:hover {
-    background-color: $disable-hover-background-color;
-    cursor: pointer;
-  }
+.disabled { 
+    background-color: $disable-background-color; 
+    color: $button-color;
+    &:hover {
+        cursor: pointer;
+    }
+}
 
 .gray {
-  background-color: $gray-color;
-  color: $background-color;
+  background-color: $background-gray-color !important;
+  color: $gray-color !important;
   &:hover {
-       background-color: $gray-color;
        cursor: default;
       }
 }
