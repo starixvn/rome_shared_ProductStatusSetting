@@ -5,6 +5,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Models", "Result")]
     public class ResultTests
     {
         [Theory]

@@ -3,6 +3,7 @@
     using Setting.Criteria;
     using Xunit;
 
+    [Trait("Criteria", "AllowedDownlinesByLevelCriteria")]
     public class AllowedDownlinesByLevelCriteriaTests
     {
         [Fact]

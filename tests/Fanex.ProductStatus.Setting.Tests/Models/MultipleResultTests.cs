@@ -4,6 +4,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Models", "MultipleResult")]
     public class MultipleResultTests
     {
         [Theory]

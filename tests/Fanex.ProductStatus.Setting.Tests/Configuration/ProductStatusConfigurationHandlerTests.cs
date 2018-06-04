@@ -4,6 +4,7 @@
     using Setting.Configuration;
     using Xunit;
 
+    [Trait("Configuration", "ProductStatusConfigurationHandler")]
     public class ProductStatusConfigurationHandlerTests
     {
         [Fact]

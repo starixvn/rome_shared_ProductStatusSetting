@@ -5,6 +5,7 @@
     using Setting.Services;
     using Xunit;
 
+    [Trait("Services", "RefDataServiceProviderImpl")]
     public class RefDataServiceProviderImplTests
     {
         private readonly RefDataService refDataService;

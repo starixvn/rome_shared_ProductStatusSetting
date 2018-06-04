@@ -4,6 +4,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Criteria", "UpdateProductStatusCriteriaBase")]
     public class UpdateProductStatusCriteriaBaseTests
     {
         private const int CustIdTest = 1176083;

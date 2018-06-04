@@ -3,6 +3,7 @@
     using Setting.Shared;
     using Xunit;
 
+    [Trait("Shared", "StringExtensions")]
     public class StringExtensionsTests
     {
         [Theory]

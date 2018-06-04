@@ -5,6 +5,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("ViewModels", "ProductStatusViewModel")]
     public class ProductStatusViewModelTests
     {
         [Fact]

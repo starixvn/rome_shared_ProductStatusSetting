@@ -8,6 +8,7 @@
     using Setting.Shared;
     using Xunit;
 
+    [Trait("Services", "CriteriaFactoryServiceImpl")]
     public class CriteriaFactoryServiceImplTests
     {
         private const int CustIdTest = 1176083;

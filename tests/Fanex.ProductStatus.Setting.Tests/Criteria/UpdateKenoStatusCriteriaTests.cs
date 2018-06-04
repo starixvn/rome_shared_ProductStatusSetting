@@ -4,6 +4,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Criteria", "UpdateKenoStatusCriteria")]
     public class UpdateKenoStatusCriteriaTests
     {
         private const int CustIdTest = 1176083;

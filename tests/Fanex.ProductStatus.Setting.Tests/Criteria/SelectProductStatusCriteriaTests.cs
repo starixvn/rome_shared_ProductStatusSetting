@@ -4,6 +4,7 @@
     using Setting.Shared;
     using Xunit;
 
+    [Trait("Criteria", "SelectProductStatusCriteria")]
     public class SelectProductStatusCriteriaTests
     {
         private const int CustIdTest = 1176083;

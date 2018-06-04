@@ -3,6 +3,7 @@
     using Setting.Criteria;
     using Xunit;
 
+    [Trait("Criteria", "SelectDCSProductStatusCriteria")]
     public class SelectDCSProductStatusCriteriaTests
     {
         [Fact]

@@ -4,6 +4,7 @@
     using Setting.Shared;
     using Xunit;
 
+    [Trait("Criteria", "SelectNG2StatusCriteria")]
     public class SelectNG2StatusCriteriaTests
     {
         [Fact]

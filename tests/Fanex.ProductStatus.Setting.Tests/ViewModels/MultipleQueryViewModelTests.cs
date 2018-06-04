@@ -7,6 +7,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("ViewModels", "MultipleQueryViewModel")]
     public class MultipleQueryViewModelTests
     {
         [Fact]

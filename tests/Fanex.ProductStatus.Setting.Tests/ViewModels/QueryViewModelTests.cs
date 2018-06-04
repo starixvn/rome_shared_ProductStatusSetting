@@ -8,6 +8,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("ViewModels", "QueryViewModel")]
     public class QueryViewModelTests
     {
         private const int ProductIdTest = ProductIdentity.NumberGame;

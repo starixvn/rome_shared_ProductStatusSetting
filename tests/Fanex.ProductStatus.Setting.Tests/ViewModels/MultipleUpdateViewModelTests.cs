@@ -7,6 +7,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("ViewModels", "MultipleUpdateViewModel")]
     public class MultipleUpdateViewModelTests
     {
         private readonly IProductStatusActor productStatusActor;

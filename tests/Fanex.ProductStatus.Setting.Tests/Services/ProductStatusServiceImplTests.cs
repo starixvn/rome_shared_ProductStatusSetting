@@ -13,6 +13,7 @@
     using Setting.Shared;
     using Xunit;
 
+    [Trait("Services", "ProductStatusServiceImpl")]
     public class ProductStatusServiceImplTests
     {
         private const int CustIdTest = 1176083;

@@ -3,6 +3,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Models", "ProductStatusCommand")]
     public class ProductStatusCommandTests
     {
         [Theory]

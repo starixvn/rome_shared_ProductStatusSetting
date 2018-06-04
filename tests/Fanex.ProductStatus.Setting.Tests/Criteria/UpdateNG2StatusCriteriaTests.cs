@@ -4,6 +4,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Criteria", "UpdateNG2StatusCriteria")]
     public class UpdateNG2StatusCriteriaTests
     {
         private const int CustIdTest = 1176083;

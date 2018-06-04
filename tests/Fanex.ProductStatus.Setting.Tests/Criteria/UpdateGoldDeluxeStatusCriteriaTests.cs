@@ -4,6 +4,7 @@
     using Setting.Models;
     using Xunit;
 
+    [Trait("Criteria", "UpdateGoldDeluxeStatusCriteria")]
     public class UpdateGoldDeluxeStatusCriteriaTests
     {
         private const int CustIdTest = 1176083;

@@ -11,6 +11,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("Controllers", "ProductStatusSettingController")]
     public class ProductStatusSettingControllerTests
     {
         private readonly IProductStatusActor productStatusActor;

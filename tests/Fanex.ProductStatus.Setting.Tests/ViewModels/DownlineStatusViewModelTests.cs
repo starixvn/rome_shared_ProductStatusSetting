@@ -3,6 +3,7 @@
     using Setting.ViewModels;
     using Xunit;
 
+    [Trait("ViewModels", "DownlineStatusViewModel")]
     public class DownlineStatusViewModelTests
     {
         [Theory]
