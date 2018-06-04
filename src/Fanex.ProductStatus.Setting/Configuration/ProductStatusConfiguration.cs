@@ -6,7 +6,7 @@
     {
         internal IProductStatusAuthorizeService AuthorizeService { get; private set; }
 
-        internal IProductStatusUserService UserService { get; private set; }
+        internal IProductStatusActor Actor { get; private set; }
 
         internal string UnAuthorizedUrl { get; private set; }
 
@@ -16,9 +16,9 @@
             return this;
         }
 
-        public ProductStatusConfiguration UseUserSession(IProductStatusUserService userService)
+        public ProductStatusConfiguration UseUserSession(IProductStatusActor productStatusActor)
         {
-            UserService = userService;
+            Actor = productStatusActor;
             return this;
         }
 

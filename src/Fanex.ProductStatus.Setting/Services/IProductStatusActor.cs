@@ -2,15 +2,15 @@
 {
     using System.Collections.Generic;
 
-    public interface IProductStatusUserService
+    public interface IProductStatusActor
     {
-        int GetActorId();
+        int Id { get; }
 
-        string GetActorName();
+        string Name { get; }
 
-        string GetClientIP();
+        string ClientIP { get; }
 
-        byte GetSystemId();
+        byte SystemId { get; }
 
         IEnumerable<KeyValuePair<int, string>> GetProductList();
     }

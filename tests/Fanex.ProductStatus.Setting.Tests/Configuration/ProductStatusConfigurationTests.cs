@@ -25,10 +25,10 @@
             var configuration = new ProductStatusConfiguration();
 
             // Act
-            configuration.UseUserSession(new ProductStatusUserServiceForTesting());
+            configuration.UseUserSession(new ProductStatusActorForTesting());
 
             // Assert
-            Assert.NotNull(configuration.UserService);
+            Assert.NotNull(configuration.Actor);
         }
 
         [Fact]

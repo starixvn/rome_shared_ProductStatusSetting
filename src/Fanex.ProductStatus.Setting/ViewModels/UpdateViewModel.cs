@@ -8,16 +8,16 @@
 
     public class UpdateViewModel
     {
-        private readonly IProductStatusUserService userService;
+        private readonly IProductStatusActor productStatusActor;
 
         public UpdateViewModel()
             : this(null)
         {
         }
 
-        public UpdateViewModel(IProductStatusUserService userService)
+        public UpdateViewModel(IProductStatusActor productStatusActor)
         {
-            this.userService = userService ?? ProductStatusConfigurationHandler.UserService;
+            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
         }
 
         public int ProductId { get; set; }
@@ -29,13 +29,13 @@
         public IEnumerable<ProductStatusCommand> ProductStatus { get; set; }
 
         public string IP
-            => userService.GetClientIP();
+            => productStatusActor.ClientIP;
 
         public int ActorId
-            => userService.GetActorId();
+            => productStatusActor.Id;
 
         public string ActorName
-           => userService.GetActorName();
+           => productStatusActor.Name;
 
         public virtual bool IsValid()
             => ProductId > 0

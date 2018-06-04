@@ -3,21 +3,17 @@
     using System.Collections.Generic;
     using Setting.Services;
 
-    public class ProductStatusUserServiceForTesting : IProductStatusUserService
+    public class ProductStatusActorForTesting : IProductStatusActor
     {
-        public int GetActorId()
-            => 8;
+        public int Id { get; } = 8;
 
-        public string GetActorName()
-            => "sa";
+        public string Name { get; } = "sa";
 
-        public string GetClientIP()
-            => "127.0.0.1";
+        public string ClientIP { get; } = "127.0.0.1";
 
         // NAP = 1
         // Ext-NAP = 4
-        public byte GetSystemId()
-            => 1;
+        public byte SystemId { get; } = 1;
 
         public IEnumerable<KeyValuePair<int, string>> GetProductList()
             => new List<KeyValuePair<int, string>>

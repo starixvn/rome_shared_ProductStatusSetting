@@ -19,7 +19,7 @@
         public void New_Always_AssignsCorrectProperties()
         {
             // Arrange & Act
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -39,7 +39,7 @@
         public void SetProductStatusViewModel_InputIsEmpty_ReturnsEmpty()
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -58,7 +58,7 @@
         public void SetProductStatusViewModel_InputHasData_ReturnsCorrectProductStatusViewModel()
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -119,7 +119,7 @@
         public void GetRoleName_Always_ReturnsCorrectName(byte custRole, string roleName)
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting());
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting());
 
             // Act
             var actualResult = viewModel.GetRoleName(custRole);
@@ -132,7 +132,7 @@
         public void IsValid_CorrectData_ReturnsTrue()
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -153,7 +153,7 @@
         public void IsValid_InvalidProductId_ReturnsFalse(int productId)
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = productId,
                 CustId = CustIdTest,
@@ -174,7 +174,7 @@
         public void IsValid_InvalidCustId_ReturnsFalse(int custId)
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = custId,
@@ -196,7 +196,7 @@
         public void IsValid_InvalidCustRole_ReturnsFalse(byte custRole)
         {
             // Arrange
-            var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
+            var viewModel = new QueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,

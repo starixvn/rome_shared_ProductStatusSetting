@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Site
 {
-    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using System.Web.Routing;
@@ -18,7 +17,7 @@
             ProductStatusConfigurationHandler.UseConfig(
                 new ProductStatusConfiguration()
                 .UseAuthorizeService(new ProductStatusAuthorizeService())
-                .UseUserSession(new ProductStatusUser())
+                .UseUserSession(new ProductStatusActor())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized"));
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -33,29 +32,19 @@
 
         public bool CanUpdate(AuthorizationContext filterContext)
             => true;
-
-        public bool CanViewMultiple(AuthorizationContext filterContext)
-            => true;
-
-        public bool CanUpdateMultiple(AuthorizationContext filterContext)
-            => true;
     }
 
-    public class ProductStatusUser : IProductStatusUserService
+    public class ProductStatusActor : IProductStatusActor
     {
-        public int GetActorId()
-            => 8;
+        public int Id { get; } = 8;
 
-        public string GetActorName() 
-            => "sa";
+        public string Name { get; } = "sa";
 
-        public string GetClientIP()
-            => "127.0.0.1";
+        public string ClientIP { get; } = "127.0.0.1";
 
         // NAP = 1
         // Ext-NAP = 4
-        public byte GetSystemId()
-            => 1;
+        public byte SystemId { get; } = 1;
 
         public IEnumerable<KeyValuePair<int, string>> GetProductList()
             => new List<KeyValuePair<int, string>>

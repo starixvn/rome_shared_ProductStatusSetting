@@ -170,7 +170,7 @@
     <Compile Include="Services\RefDataServiceProvider.cs" />
     <Compile Include="Services\RnGCasino\RnGCasinoService.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
-    <Compile Include="Services\IProductStatusUserService.cs" />
+    <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
     <Compile Include="Shared\StringExtensions.cs" />
     <Compile Include="ViewModels\BaseQueryViewModel.cs" />
