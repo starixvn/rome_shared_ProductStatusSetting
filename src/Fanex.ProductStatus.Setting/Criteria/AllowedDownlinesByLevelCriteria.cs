@@ -31,7 +31,7 @@
         public bool UpdateAllMembers { get; }
 
         public override bool IsValid()
-            => CustId > 0 && CustRole > 0;
+            => CustId > 0 && CustRole > 0 && CustRole < 5;
 
         public override string GetSettingKey() => "Acc_AdminCheckAllowedDownlinesByLevel";
     }
