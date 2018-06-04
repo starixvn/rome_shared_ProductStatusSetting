@@ -17,7 +17,7 @@
             ProductStatusConfigurationHandler.UseConfig(
                 new ProductStatusConfiguration()
                 .UseAuthorizeService(new ProductStatusAuthorizeService())
-                .UseUserSession(new ProductStatusActor())
+                .UseProductStatusActor(new ProductStatusActor())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized"));
 
             RouteConfig.RegisterRoutes(RouteTable.Routes);

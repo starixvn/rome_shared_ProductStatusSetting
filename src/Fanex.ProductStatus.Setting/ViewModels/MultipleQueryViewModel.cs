@@ -3,21 +3,22 @@
     using System.Collections.Generic;
     using System.Linq;
     using Configuration;
-    using Services;
     using Shared;
 
     public class MultipleQueryViewModel : BaseQueryViewModel
     {
-        private readonly IProductStatusActor productStatusActor;
+        private readonly IEnumerable<KeyValuePair<int, string>> customerProductList;
 
         public MultipleQueryViewModel()
             : this(null)
         {
         }
 
-        public MultipleQueryViewModel(IProductStatusActor productStatusActor)
+        public MultipleQueryViewModel(
+            IEnumerable<KeyValuePair<int, string>> customerProductList)
         {
-            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
+            this.customerProductList = customerProductList
+                ?? ProductStatusConfigurationHandler.CustomerProductListHandler.Invoke();
         }
 
         public string ProductIds { get; set; }
@@ -30,7 +31,7 @@
         {
             get
             {
-                var products = productStatusActor.GetProductList();
+                var products = customerProductList;
 
                 if (CustRole != RoleIdentity.Super)
                 {

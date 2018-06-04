@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.Configuration
 {
     using System;
+    using System.Collections.Generic;
     using Services;
 
     public static class ProductStatusConfigurationHandler
@@ -23,13 +24,16 @@
         internal static string UnAuthorizedUrl
             => statusSettings.UnAuthorizedUrl;
 
+        internal static Func<IEnumerable<KeyValuePair<int, string>>> CustomerProductListHandler
+            => statusSettings.CustomerProductListHandler;
+
         private static void Verify()
         {
             RequireProductStatusSettings();
 
             RequireAuthorizeService();
 
-            RequireUser();
+            RequireActor();
 
             RequireUnAuthorizedUrl();
         }
@@ -54,7 +58,7 @@
             }
         }
 
-        private static void RequireUser()
+        private static void RequireActor()
         {
             if (statusSettings.Actor == null)
             {

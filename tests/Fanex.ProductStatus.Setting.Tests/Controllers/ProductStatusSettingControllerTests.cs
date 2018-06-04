@@ -142,8 +142,7 @@
         public void MultipleView_Always_ReturnsView()
         {
             // Arrange
-            productStatusActor.GetProductList().Returns(Enumerable.Empty<KeyValuePair<int, string>>());
-            var viewModel = new MultipleQueryViewModel(productStatusActor);
+            var viewModel = new MultipleQueryViewModel(Enumerable.Empty<KeyValuePair<int, string>>());
             string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
             // Act
