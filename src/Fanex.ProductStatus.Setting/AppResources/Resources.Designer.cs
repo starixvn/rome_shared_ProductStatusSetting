@@ -106,7 +106,7 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You cannot submit the action due to a validation error..
+        ///   Looks up a localized string similar to You are not allowed to perform this action..
         /// </summary>
         public static string BadRequest {
             get {

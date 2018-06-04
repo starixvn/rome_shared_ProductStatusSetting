@@ -133,7 +133,7 @@
     <value>All Supers</value>
   </data>
   <data name="BadRequest" xml:space="preserve">
-    <value>You cannot submit the action due to a validation error.</value>
+    <value>You are not allowed to perform this action.</value>
   </data>
   <data name="BetType_2401" xml:space="preserve">
     <value>Baccarat, Roulette, Sic Bo, Dragon Tiger</value>

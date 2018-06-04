@@ -1,12 +1,39 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Models
 {
-    using System.Collections;
-    using AppResources;
     using Setting.Models;
     using Xunit;
 
     public class ProductStatusCommandTests
     {
+        [Theory]
+        [InlineData(0, false)]
+        [InlineData(5, false)]
+        [InlineData(2, true)]
+        public void Valid_ReturnsExpectedResultByCustRole(
+          byte custRole,
+          bool expectedResult)
+        {
+            // Arrange
+            var command = new ProductStatusCommand
+            {
+                CustRole = custRole,
+                SportType = 211,
+                BetType = 2401,
+                Disable = true,
+                UpdateAllMasters = true,
+                DisableAllMasters = true,
+                UpdateAllAgents = true,
+                DisableAllAgents = true,
+                UpdateAllMembers = true,
+                DisableAllMembers = true
+            };
+
+            // Act
+            var actualResult = command.Valid();
+
+            // Assert
+            Assert.Equal(expectedResult, actualResult);
+        }
 
         [Theory]
         [InlineData(true, false, false)]

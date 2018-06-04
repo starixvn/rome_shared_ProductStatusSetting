@@ -50,9 +50,9 @@
 
         public bool DisableAllMembers { get; set; }
 
-        public bool Valid() => CustRole > 0 && CustRole < 5&& ValidUpdate[CustRole]();
+        public bool Valid() => CustRole > 0 && CustRole < 5 && ValidUpdateByLevel[CustRole]();
 
-        public IDictionary<byte, Func<bool>> ValidUpdate
+        internal IDictionary<byte, Func<bool>> ValidUpdateByLevel
         {
             get
             {
