@@ -216,11 +216,11 @@
                     betType: bettype,
                     disable: disable,
                     updateAllMasters: false,
-                    disableAllMasters: null,
+                    disableAllMasters: false,
                     updateAllAgents: false,
-                    disableAllAgents: null,
+                    disableAllAgents: false,
                     updateAllMembers: false,
-                    disableAllMembers: null
+                    disableAllMembers: false
                 };
 
                 (this.$(row).find('span:odd').toArray() as HTMLElement[]).forEach((spanElement) => {
@@ -241,20 +241,21 @@
     }
 
     getProductStatus(toggle: HTMLElement, model: any) {
-        let levelStatus = this.getLevelStatus(toggle);
-
         switch (this.getRoleId(toggle)) {
             case 3:
-                model.updateAllMasters = levelStatus.UpdateAll || model.disable;
-                model.disableAllMasters = levelStatus.DisableAll || model.disable;
+                let masterStatus = this.getLevelStatus(toggle, model.disable);
+                model.updateAllMasters = masterStatus.UpdateAll;
+                model.disableAllMasters = masterStatus.DisableAll;
                 break;
             case 2:
-                model.updateAllAgents = levelStatus.UpdateAll || model.disable;
-                model.disableAllAgents = levelStatus.DisableAll || model.disable;
+                let agentStatus = this.getLevelStatus(toggle, this.$custRole == 3 ? model.disable : model.disableAllMasters);
+                model.updateAllAgents = agentStatus.UpdateAll;
+                model.disableAllAgents = agentStatus.DisableAll;
                 break;
             case 1:
-                model.updateAllMembers = levelStatus.UpdateAll || model.disable;
-                model.disableAllMembers = levelStatus.DisableAll || model.disable;
+                let memberStatus = this.getLevelStatus(toggle, this.$custRole == 2 ? model.disable : model.disableAllAgents);
+                model.updateAllMembers = memberStatus.UpdateAll;
+                model.disableAllMembers = memberStatus.DisableAll;
                 break;
         };
 
@@ -263,7 +264,15 @@
 
     getTotalStatus = (toggle: HTMLElement, customData: string): number => this.$(toggle).data(customData);
 
-    getLevelStatus(toggle: HTMLElement) {
+    getLevelStatus(toggle: HTMLElement, disabledUpline: boolean) {
+        if (disabledUpline)
+        {
+            return {
+                UpdateAll: true,
+                DisableAll: true
+            }
+        }
+
         let totaldisabled = this.parseInt(this.$(toggle).text());
         let originalTotaldisabled = this.getTotalStatus(toggle, "totaldisabled");
         let updateAll = this.allowActionOnElement(toggle) && this.isChangeState(originalTotaldisabled, totaldisabled);
