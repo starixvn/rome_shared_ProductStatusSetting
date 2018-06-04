@@ -89,7 +89,7 @@
         });
     }
 
-    toggleStatusAllByCustomer= (enableAll: boolean) =>
+    toggleStatusAllByCustomer = (enableAll: boolean) =>
         this.$customerToogles.forEach((toggle) => {
             if (this.isChecked(toggle) != enableAll) {
                 toggle.click();
@@ -139,7 +139,7 @@
         }
     }
 
-    isDisableHeader = (toggles: HTMLElement[], isUplineCheckbox: boolean): boolean => 
+    isDisableHeader = (toggles: HTMLElement[], isUplineCheckbox: boolean): boolean =>
         toggles.every((toggle) => {
             if (isUplineCheckbox) {
                 toggle = this.getNextLabel(toggle);
@@ -245,15 +245,15 @@
 
         switch (this.getRoleId(toggle)) {
             case 3:
-                model.updateAllMasters = levelStatus.UpdateAll;
+                model.updateAllMasters = levelStatus.UpdateAll || model.disable;
                 model.disableAllMasters = levelStatus.DisableAll || model.disable;
                 break;
             case 2:
-                model.updateAllAgents = levelStatus.UpdateAll;
+                model.updateAllAgents = levelStatus.UpdateAll || model.disable;
                 model.disableAllAgents = levelStatus.DisableAll || model.disable;
                 break;
             case 1:
-                model.updateAllMembers = levelStatus.UpdateAll;
+                model.updateAllMembers = levelStatus.UpdateAll || model.disable;
                 model.disableAllMembers = levelStatus.DisableAll || model.disable;
                 break;
         };

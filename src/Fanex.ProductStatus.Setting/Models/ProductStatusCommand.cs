@@ -1,11 +1,17 @@
 ﻿namespace Fanex.ProductStatus.Setting.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using Shared;
+
     public class ProductStatusCommand
     {
+        public byte CustRole { get; set; }
+
         private bool updateAllAgents;
-        private bool? disableAllAgents;
+        private bool disableAllAgents;
         private bool updateAllMembers;
-        private bool? disableAllMembers;
+        private bool disableAllMembers;
 
         public int SportType { get; set; }
 
@@ -15,13 +21,13 @@
 
         public bool UpdateAllMasters { get; set; }
 
-        public bool? DisableAllMasters { get; set; }
+        public bool DisableAllMasters { get; set; }
 
         public bool UpdateAllAgents
         {
             get
             {
-                return DisableAllMasters == true || updateAllAgents;
+                return DisableAllMasters || updateAllAgents;
             }
             set
             {
@@ -29,11 +35,11 @@
             }
         }
 
-        public bool? DisableAllAgents
+        public bool DisableAllAgents
         {
             get
             {
-                return DisableAllMasters == true ? true : disableAllAgents;
+                return DisableAllMasters || disableAllAgents;
             }
             set
             {
@@ -45,7 +51,7 @@
         {
             get
             {
-                return DisableAllMasters == true || DisableAllAgents == true || updateAllMembers;
+                return DisableAllMasters || DisableAllAgents || updateAllMembers;
             }
             set
             {
@@ -53,18 +59,43 @@
             }
         }
 
-        public bool? DisableAllMembers
+        public bool DisableAllMembers
         {
             get
             {
-                return DisableAllMasters == true || DisableAllAgents == true
-                    ? true
-                    : disableAllMembers;
+                return DisableAllMasters || DisableAllAgents || disableAllMembers;
             }
             set
             {
                 disableAllMembers = value;
             }
         }
+
+        public bool Valid()
+         => CustRole > 0
+         && CustRole < 5
+         && ValidUpdate[CustRole]();
+
+        public IDictionary<byte, Func<bool>> ValidUpdate
+        {
+            get
+            {
+                return new Dictionary<byte, Func<bool>>
+                {
+                    [RoleIdentity.Super] = ValidSuper,
+                    [RoleIdentity.Master] = ValidMaster,
+                    [RoleIdentity.Agent] = ValidAgent
+                };
+            }
+        }
+
+        internal bool ValidSuper()
+           => !Disable || DisableAllMasters && DisableAllAgents && DisableAllMembers;
+
+        internal bool ValidMaster()
+            => !Disable || DisableAllAgents && DisableAllMembers;
+
+        internal bool ValidAgent()
+            => !Disable || DisableAllMembers;
     }
 }

@@ -1,5 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.ViewModels
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Configuration;
     using Models;
     using Services;
@@ -24,7 +26,7 @@
 
         public int CustRole { get; set; }
 
-        public ProductStatusCommand[] ProductStatus { get; set; }
+        public IEnumerable<ProductStatusCommand> ProductStatus { get; set; }
 
         public string IP
             => userService.GetClientIP();
@@ -38,8 +40,8 @@
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0
-            && CustRole > 0
-            && ProductStatus?.Length > 0
+            && ProductStatus.ToList().Count > 0
+            && ProductStatus.Any(productStatus => !productStatus.Valid())
             && ActorId > 0;
     }
 }

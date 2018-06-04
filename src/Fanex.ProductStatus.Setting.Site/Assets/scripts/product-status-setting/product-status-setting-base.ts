@@ -1,4 +1,4 @@
-﻿class ProductStatusSettingBase  {
+﻿class ProductStatusSettingBase {
     $: JQueryStatic;
     $topWindow: any;
     $thead: JQuery;
@@ -47,7 +47,7 @@
             enabledClass: "enabled",
             disabledClass: "disabled",
             forbiddenClass: "gray"
-        }  
+        }
     }
 
     bindingSubmitEvent = () => this.$("#btnSubmit").on("click", this.onSubmit);
@@ -109,6 +109,7 @@
         return {
             productId: this.$productId,
             custId: this.$custId,
+            custRole: this.$custRole,
             custIds: [],
             custNames: [],
             productStatus: []
@@ -128,7 +129,7 @@
         let updateViewModel = this.getUpdateViewModel();
 
         this.$.blockUI({
-           blockMsgClass: "block-ui-loading"
+            blockMsgClass: "block-ui-loading"
         });
 
         updateViewModel.productStatus.length > 0 ?

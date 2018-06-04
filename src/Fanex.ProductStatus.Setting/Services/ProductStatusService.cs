@@ -27,7 +27,7 @@
             int actorId,
             string actorName,
             string ip,
-            ProductStatusCommand[] commands);
+            IEnumerable<ProductStatusCommand> commands);
     }
 
     internal class ProductStatusServiceImpl : ProductStatusService
@@ -153,9 +153,9 @@
                 command.UpdateAllMasters,
                 command.UpdateAllAgents,
                 command.UpdateAllMembers,
-                !(bool)command.DisableAllMasters,
-                !(bool)command.DisableAllAgents,
-                !(bool)command.DisableAllMembers,
+                !command.DisableAllMasters,
+                !command.DisableAllAgents,
+                !command.DisableAllMembers,
                 ip,
                 actorId,
                 actorName,
@@ -169,7 +169,7 @@
             int actorId,
             string actorName,
             string ip,
-            ProductStatusCommand[] commands)
+            IEnumerable<ProductStatusCommand> commands)
         {
             Result result;
             int customerId;

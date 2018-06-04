@@ -1,4 +1,4 @@
-﻿class ProductStatusSettingMultipe extends ProductStatusSettingBase{
+﻿class ProductStatusSettingMultipe extends ProductStatusSettingBase {
     $: JQueryStatic;
     $toggleAllArray: HTMLElement[];
     $toggleArray: HTMLElement[];
@@ -12,7 +12,7 @@
         this.registerEvents();
     }
 
-    loadMultiple = () => 
+    loadMultiple = () =>
         this.$("#productIds").change(() => {
             this.$("#productId").val(this.$("#productIds").val());
             this.$("#product-form").submit();
@@ -34,7 +34,7 @@
             element.addEventListener('click', () => this.toogleStatus(element)));
 
     bindingToggleAllEvent = () =>
-        this.$toggleAllArray.forEach((element) => 
+        this.$toggleAllArray.forEach((element) =>
             element.addEventListener('click', () => this.toogleStatusAll(element)));
 
     registerEvents() {
@@ -59,7 +59,7 @@
                     toogle.click();
                 }
             });
-        }    
+        }
     }
 
     toogleStatus(toogle: HTMLElement) {
@@ -134,19 +134,17 @@
 
         if (toggles != null && toggles.length > 0 && this.isAllStatus(toggles, status)) {
             let toggleAll = this.getFirstToggle(this.$toggleAllArray, roleId);
-            this.toggleStatusByValue(toggleAll, status); 
+            this.toggleStatusByValue(toggleAll, status);
 
-            if (isDownline && status == false)
-            {
+            if (isDownline && status == false) {
                 this.disableElement(toggleAll);
             }
         }
     }
 
-    isAllStatus = (toggles: HTMLElement[], status: boolean): boolean => 
+    isAllStatus = (toggles: HTMLElement[], status: boolean): boolean =>
         toggles.every((toggle) => {
-            if (!this.isEnabledElement(toggle))
-            {
+            if (!this.isEnabledElement(toggle)) {
                 return true;
             }
 
@@ -195,7 +193,7 @@
                     return this.getproductStatus(toggle, data);
                 });
 
-                if (data.updateAllMasters|| data.updateAllAgents || data.updateAllMembers) {
+                if (data.updateAllMasters || data.updateAllAgents || data.updateAllMembers) {
                     return data;
                 }
             }
