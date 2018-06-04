@@ -13,7 +13,7 @@
         Result UpdateProductStatus(
             int productId,
             int custId,
-            int custRole,
+            byte custRole,
             int actorId,
             string actorName,
             string ip,
@@ -21,7 +21,7 @@
 
         IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
-            int custRole,
+            byte custRole,
             int[] custIds,
             string[] custNames,
             int actorId,
@@ -78,7 +78,7 @@
         public Result UpdateProductStatus(
             int productId,
             int custId,
-            int custRole,
+            byte custRole,
             int actorId,
             string actorName,
             string ip,
@@ -89,7 +89,7 @@
                 case ProductIdentity.Keno:
                     return UpdateKenoStatus(custId, actorId, ip, commands);
                 case ProductIdentity.Casino:
-                    return UpdateCasinoStatus(productId, custId, actorId, custRole, actorName, ip, commands);
+                    return UpdateCasinoStatus(productId, custId, custRole, actorId, actorName, ip, commands);
                 default:
                     return UpdateStatus(productId, custId, actorId, ip, commands);
             }
@@ -128,7 +128,7 @@
         private Result UpdateCasinoStatus(
          int productId,
          int custId,
-         int custRoleId,
+         byte custRole,
          int actorId,
          string actorName,
          string ip,
@@ -139,16 +139,16 @@
 
             if (result.IsSuccess())
             {
-                UpdateCasinoStatus(custId, custRoleId, actorId, actorName, ip, commands.First());
+                UpdateCasinoStatus(custId, custRole, actorId, actorName, ip, commands.First());
             }
 
             return result;
         }
 
-        private  void UpdateCasinoStatus(int custId, int custRoleId, int actorId, string actorName, string ip, ProductStatusCommand command)
+        private  void UpdateCasinoStatus(int custId, byte custRole, int actorId, string actorName, string ip, ProductStatusCommand command)
             => rnGCasinoService.UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
                 custId,
-                custRoleId,
+                custRole,
                 !command.Disable,
                 command.UpdateAllMasters,
                 command.UpdateAllAgents,
@@ -163,7 +163,7 @@
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
-            int custRole,
+            byte custRole,
             int[] custIds,
             string[] custNames,
             int actorId,

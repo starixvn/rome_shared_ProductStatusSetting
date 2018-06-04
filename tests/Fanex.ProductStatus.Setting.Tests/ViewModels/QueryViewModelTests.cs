@@ -116,13 +116,13 @@
         [InlineData(RoleIdentity.Agent, "Agent")]
         [InlineData(RoleIdentity.Member, "Member")]
         [InlineData(10, null)]
-        public void GetRoleName_Always_ReturnsCorrectName(byte custRoleId, string roleName)
+        public void GetRoleName_Always_ReturnsCorrectName(byte custRole, string roleName)
         {
             // Arrange
             var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting());
 
             // Act
-            var actualResult = viewModel.GetRoleName(custRoleId);
+            var actualResult = viewModel.GetRoleName(custRole);
 
             // Assert
             Assert.Equal(roleName, actualResult);
@@ -193,7 +193,7 @@
         [InlineData(byte.MinValue)]
         [InlineData(5)]
         [InlineData(byte.MaxValue)]
-        public void IsValid_InvalidCustRole_ReturnsFalse(byte custRoleId)
+        public void IsValid_InvalidCustRole_ReturnsFalse(byte custRole)
         {
             // Arrange
             var viewModel = new QueryViewModel(new ProductStatusUserServiceForTesting())
@@ -201,7 +201,7 @@
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
                 CustName = CustNameTest,
-                CustRole = custRoleId
+                CustRole = custRole
             };
 
             // Act

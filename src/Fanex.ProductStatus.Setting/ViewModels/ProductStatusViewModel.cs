@@ -5,7 +5,7 @@
 
     public class ProductStatusViewModel
     {
-        public ProductStatusViewModel(ProductStatusModel model, byte custRoleId)
+        public ProductStatusViewModel(ProductStatusModel model, byte custRole)
         {
             Name = model.Name;
             SportType = model.SportType;
@@ -13,7 +13,7 @@
             IsDisabled = model.IsDisabledUpline ? model.IsDisabledUpline : model.IsDisabled;
             IsDisabledUpline = model.IsDisabledUpline;
 
-            switch (custRoleId)
+            switch (custRole)
             {
                 case RoleIdentity.Super:
                     Master = new DownlineStatusViewModel(IsDisabled, model.TotalDisabledMasters, model.TotalEnabledMasters);

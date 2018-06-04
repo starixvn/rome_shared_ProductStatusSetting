@@ -24,7 +24,7 @@
 
         public int CustId { get; set; }
 
-        public int CustRole { get; set; }
+        public byte CustRole { get; set; }
 
         public IEnumerable<ProductStatusCommand> ProductStatus { get; set; }
 

@@ -10,14 +10,14 @@
     {
         Result AdminCheckAllowedDownlinesByLevel(
             int custId,
-            int custRole,
+            byte custRole,
             bool updateAllMasters,
             bool updateAllAgents,
             bool updateAllMembers);
 
         void UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
             int custId,
-            int custRole,
+            byte custRole,
             bool enableCasino,
             bool updateAllMasters,
             bool updateAllAgents,
@@ -41,7 +41,7 @@
 
        public Result AdminCheckAllowedDownlinesByLevel(
             int custId,
-            int custRole,
+            byte custRole,
             bool updateAllMasters,
             bool updateAllAgents,
             bool updateAllMembers)
@@ -54,8 +54,8 @@
                     updateAllMembers));
 
         public void UpdateEnableCasinoByLevelUpdateEnableCasinoByLevel(
-            int custId, 
-            int custRole,
+            int custId,
+            byte custRole,
             bool enableCasino, 
             bool updateAllMasters, 
             bool updateAllAgents, 

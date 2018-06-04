@@ -77,7 +77,7 @@
 
             var results = productStatusService.MultipleUpdateProductStatus(
                 viewModel.ProductId,
-                viewModel.CustRoleId,
+                viewModel.CustRole,
                 viewModel.CustomerIds,
                 viewModel.CustomerNames,
                 viewModel.ActorId,

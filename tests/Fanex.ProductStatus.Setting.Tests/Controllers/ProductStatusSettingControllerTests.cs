@@ -255,7 +255,7 @@
                 CustNames = "member01,member012"
             };
             productStatusService
-                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRoleId, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
+                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRole, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
                 .Returns(new[] { new Result(0, string.Empty) });
 
             // Act

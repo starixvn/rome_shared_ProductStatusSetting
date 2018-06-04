@@ -24,6 +24,8 @@
             this.userService = userService ?? ProductStatusConfigurationHandler.UserService;
         }
 
+        public byte CustRole { get; set; }
+
         public int ProductId { get; set; }
 
         public string CustIds { get; set; }
@@ -35,7 +37,6 @@
         public string IP
             => userService.GetClientIP();
 
-        public int CustRoleId { get; set; }
 
         public int ActorId
             => userService.GetActorId();

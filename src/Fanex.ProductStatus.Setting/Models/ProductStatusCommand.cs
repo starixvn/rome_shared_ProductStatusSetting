@@ -6,12 +6,11 @@
 
     public class ProductStatusCommand
     {
-        public byte CustRole { get; set; }
-
         private bool updateAllAgents;
-        private bool disableAllAgents;
+
         private bool updateAllMembers;
-        private bool disableAllMembers;
+
+        public byte CustRole { get; set; }
 
         public int SportType { get; set; }
 
@@ -35,17 +34,7 @@
             }
         }
 
-        public bool DisableAllAgents
-        {
-            get
-            {
-                return DisableAllMasters || disableAllAgents;
-            }
-            set
-            {
-                disableAllAgents = value;
-            }
-        }
+        public bool DisableAllAgents { get; set; }
 
         public bool UpdateAllMembers
         {
@@ -59,22 +48,9 @@
             }
         }
 
-        public bool DisableAllMembers
-        {
-            get
-            {
-                return DisableAllMasters || DisableAllAgents || disableAllMembers;
-            }
-            set
-            {
-                disableAllMembers = value;
-            }
-        }
+        public bool DisableAllMembers { get; set; }
 
-        public bool Valid()
-         => CustRole > 0
-         && CustRole < 5
-         && ValidUpdate[CustRole]();
+        public bool Valid() => CustRole > 0 && CustRole < 5&& ValidUpdate[CustRole]();
 
         public IDictionary<byte, Func<bool>> ValidUpdate
         {

@@ -6,7 +6,7 @@
     {
         public AllowedDownlinesByLevelCriteria(
             int custId,
-            int custRole,
+            byte custRole,
             bool updateAllMasters,
             bool updateAllAgents,
             bool updateAllMembers)
@@ -22,7 +22,7 @@
         public int CustId { get; }
 
         [SpParam(SqlParamName = "RoleId")]
-        public int CustRole { get; }
+        public byte CustRole { get; }
 
         public bool UpdateAllMasters { get; }
 
