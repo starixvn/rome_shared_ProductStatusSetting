@@ -1,6 +1,8 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Configuration
 {
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Setting.Configuration;
     using Xunit;
 
@@ -67,6 +69,27 @@
 
             // Act & Assert
             Assert.Throws<ArgumentNullException>(() => ProductStatusConfigurationHandler.UseConfig(configuration));
+        }
+
+        [Fact]
+        public void UseConfig_Always_AssignsCorrectToCustomerProductList()
+        {
+            // Arrange
+            var configuration = new ProductStatusConfiguration()
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
+                .UseProductStatusActor(new ProductStatusActorForTesting())
+                .SetUnAuthorizedUrl("~/Error/UnAuthorized")
+                .UseCustomerProductList(() => new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(3, "Number Game") });
+
+            // Act
+            ProductStatusConfigurationHandler.UseConfig(configuration);
+
+            // Assert
+            Assert.True(
+                null != ProductStatusConfigurationHandler.AuthorizeService
+                && null != ProductStatusConfigurationHandler.Actor
+                && null != ProductStatusConfigurationHandler.UnAuthorizedUrl
+                && 1 == ProductStatusConfigurationHandler.CustomerProductListGetter().Count());
         }
     }
 }

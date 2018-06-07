@@ -1,7 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Setting.Criteria;
     using Setting.Models;
     using Setting.Services;
@@ -92,36 +91,6 @@
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
                 ProductIdentity.NumberGame,
-                CustIdTest,
-                ActorIdTest,
-                IPTest,
-                new List<ProductStatusCommand> { command });
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
-        public void CreateUpdateCriteria_Casino_ReturnsUpdateCasinoStatusCriteria()
-        {
-            // Arrange
-            var command = new ProductStatusCommand
-            {
-                SportType = 208,
-                BetType = 2101,
-                Disable = false,
-                UpdateAllMasters = true,
-                DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = false,
-                UpdateAllMembers = true,
-                DisableAllMembers = false
-            };
-            var expectedCriteria = new UpdateCasinoStatusCriteria(CustIdTest, ActorIdTest, IPTest, command);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateUpdateCriteria(
-                ProductIdentity.Casino,
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
@@ -272,35 +241,6 @@
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
-        public void CreateUpdateKenoStatusCriteria_Always_ReturnsCorrectCriteria()
-        {
-            // Arrange
-            var command = new ProductStatusCommand
-            {
-                SportType = 202,
-                BetType = 1501,
-                Disable = false,
-                UpdateAllMasters = true,
-                DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = false,
-                UpdateAllMembers = true,
-                DisableAllMembers = false
-            };
-            var expectedCriteria = new UpdateKenoStatusCriteria(CustIdTest, ActorIdTest, IPTest, command);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateUpdateKenoStatusCriteria(
-                CustIdTest,
-                ActorIdTest,
-                IPTest,
-                new List<ProductStatusCommand> { command });
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.First().GetSettingKey());
         }
     }
 }

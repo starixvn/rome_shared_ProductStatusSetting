@@ -167,8 +167,11 @@
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
+    <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
+    <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
+    <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
+    <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\RefDataServiceProvider.cs" />
-    <Compile Include="Services\RnGCasino\RnGCasinoService.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />

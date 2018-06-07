@@ -24,8 +24,8 @@
         internal static string UnAuthorizedUrl
             => statusSettings.UnAuthorizedUrl;
 
-        internal static Func<IEnumerable<KeyValuePair<int, string>>> CustomerProductListHandler
-            => statusSettings.CustomerProductListHandler;
+        internal static Func<IEnumerable<KeyValuePair<int, string>>> CustomerProductListGetter
+            => statusSettings.CustomerProductListGetter;
 
         private static void Verify()
         {

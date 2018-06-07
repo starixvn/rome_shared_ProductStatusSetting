@@ -160,6 +160,8 @@
     <Compile Include="Criteria\UpdateCasinoStatusCriteriaTests.cs" />
     <Compile Include="Models\MultipleResultTests.cs" />
     <Compile Include="Models\ProductStatusCommandTests.cs" />
+    <Compile Include="Services\CommandServices\DefaultProductStatusCommandServiceTests.cs" />
+    <Compile Include="Services\CommandServices\KenoProductStatusCommandServiceTests.cs" />
     <Compile Include="Shared\StringExtensionsTests.cs" />
     <Compile Include="ViewModels\DownlineStatusViewModelTests.cs" />
     <Compile Include="ViewModels\MultipleQueryViewModelTests.cs" />

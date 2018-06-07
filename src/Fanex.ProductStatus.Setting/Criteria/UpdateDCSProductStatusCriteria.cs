@@ -66,9 +66,9 @@
                 Convert.ToInt32(command.UpdateAllMasters),
                 Convert.ToInt32(command.UpdateAllAgents),
                 Convert.ToInt32(command.UpdateAllMembers),
-                Convert.ToInt32(command.DisableAllMasters == true),
-                Convert.ToInt32(command.DisableAllAgents == true),
-                Convert.ToInt32(command.DisableAllMembers == true));
+                Convert.ToInt32(command.DisableAllMasters),
+                Convert.ToInt32(command.DisableAllAgents),
+                Convert.ToInt32(command.DisableAllMembers));
         }
     }
 }

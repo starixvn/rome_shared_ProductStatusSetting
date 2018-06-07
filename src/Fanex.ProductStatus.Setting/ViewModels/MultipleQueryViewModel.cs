@@ -9,6 +9,8 @@
     {
         private readonly IEnumerable<KeyValuePair<int, string>> customerProductList;
 
+        private IEnumerable<KeyValuePair<int, string>> products;
+
         public MultipleQueryViewModel()
             : this(null)
         {
@@ -18,7 +20,7 @@
             IEnumerable<KeyValuePair<int, string>> customerProductList)
         {
             this.customerProductList = customerProductList
-                ?? ProductStatusConfigurationHandler.CustomerProductListHandler.Invoke();
+                ?? ProductStatusConfigurationHandler.CustomerProductListGetter();
         }
 
         public string ProductIds { get; set; }
@@ -31,13 +33,16 @@
         {
             get
             {
-                var products = customerProductList;
-
-                if (CustRole != RoleIdentity.Super)
+                if (products == null)
                 {
-                    var includedProducts = ProductIds.ToDictionary();
+                    products = customerProductList;
 
-                    products = products.Where(p => includedProducts.ContainsKey(p.Key));
+                    if (CustRole != RoleIdentity.Super)
+                    {
+                        var includedProducts = ProductIds.ToDictionary();
+
+                        products = products.Where(p => includedProducts.ContainsKey(p.Key));
+                    }
                 }
 
                 return products;

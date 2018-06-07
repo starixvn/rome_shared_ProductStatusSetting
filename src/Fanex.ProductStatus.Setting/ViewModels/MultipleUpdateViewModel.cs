@@ -72,7 +72,7 @@
 
             return ProductId > 0
                 && isValidCustomers
-                 && ProductStatus.ToList().Count > 0
+                && ProductStatus.Any()
                 && ProductStatus.Any(productStatus => !productStatus.Valid());
         }
     }

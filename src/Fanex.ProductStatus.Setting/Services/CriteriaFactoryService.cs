@@ -17,12 +17,6 @@
             int actorId,
             string ip,
             IEnumerable<ProductStatusCommand> commands);
-
-        IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(
-            int custId,
-            int actorId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands);
     }
 
     internal class CriteriaFactoryServiceImpl : CriteriaFactoryService
@@ -58,9 +52,6 @@
                 case ProductIdentity.NumberGame:
                     return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
 
-                case ProductIdentity.Casino:
-                    return new UpdateCasinoStatusCriteria(custId, actorId, ip, commands.First());
-
                 case ProductIdentity.GoldDeluxe:
                     return new UpdateGoldDeluxeStatusCriteria(custId, actorId, ip, commands.First());
 
@@ -72,18 +63,6 @@
 
                 default:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands);
-            }
-        }
-
-        public IEnumerable<ICriteria> CreateUpdateKenoStatusCriteria(
-            int custId,
-            int actorId,
-            string ip,
-            IEnumerable<ProductStatusCommand> commands)
-        {
-            foreach (var status in commands)
-            {
-                yield return new UpdateKenoStatusCriteria(custId, actorId, ip, status);
             }
         }
     }

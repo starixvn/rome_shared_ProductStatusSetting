@@ -33,7 +33,8 @@
                 ProductIdTest == viewModel.ProductId
                 && CustIdTest == viewModel.CustId
                 && CustNameTest == viewModel.CustName
-                && CustRoleTest == viewModel.CustRole);
+                && CustRoleTest == viewModel.CustRole
+                && 1 == viewModel.SystemId);
         }
 
         [Fact]

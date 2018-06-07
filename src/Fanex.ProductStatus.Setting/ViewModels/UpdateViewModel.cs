@@ -40,7 +40,7 @@
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0
-            && ProductStatus.ToList().Count > 0
+            && ProductStatus.Any()
             && ProductStatus.Any(productStatus => !productStatus.Valid())
             && ActorId > 0;
     }
