@@ -153,12 +153,7 @@
     protected onSuccess(result: any) {
         this.showMessage(result.Code, result.Message);
         if (result.Code == 0) {
-            setTimeout(() => {
-                this.$topWindow.closePopup();
-                if (this.$isReloadLeftPanel) {
-                    this.$topWindow.reloadLeftPanel();
-                }
-            }, this.$timeoutDefault);
+            setTimeout(() => this.$topWindow.reloadLeftPanel(), this.$timeoutDefault);
         }
     }
 
