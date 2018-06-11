@@ -169,15 +169,20 @@
         if (downlineRoleId > 0) {
             let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, betType);
             let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId, betType);
+            let total = this.getTotalStatus(enabledToggle, "total");
 
-            if (enable && this.getTotalStatus(enabledToggle, "total") > 0) {
+            if (enable && total > 0) {
                 this.enableElement(enabledToggle);
                 this.enableElement(disabledToggle);
             } else {
                 this.disableElement(enabledToggle);
                 this.disableElement(disabledToggle);
+
+                this.$(enabledToggle).text("0");
+                this.$(disabledToggle).text(total);
             }
 
+            
             this.watchHeader(downlineRoleId);
 
             let currentTotalEnabled = this.$(enabledToggle).text();
