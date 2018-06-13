@@ -203,23 +203,27 @@
 
     getUpdateViewModel() {
         let viewModel = super.getUpdateViewModel();
+        viewModel.productStatus = this.getProductStatus();
+        return viewModel;
+    }
 
-        let productStatus = this.$('#tbl-product > tbody  > tr').map((index, row) => {
-            let firstCheckbox = (this.$(row).find('input:checkbox:first').toArray() as HTMLElement[])[0];
-            if (this.isEnablebUpline(firstCheckbox)) {
-                let bettype = this.getBetType(firstCheckbox);
-                let sporttype = this.getSportType(firstCheckbox);
-                let disable = !this.isChecked(firstCheckbox);
-                let originstatus = this.parseBoolean(this.$(firstCheckbox).data("originstatus"));
+    getProductStatus()
+    {
+        return this.$('#tbl-product > tbody  > tr').map((index, row) => {
+            let customerElement = (this.$(row).find('input:checkbox:first').toArray() as HTMLElement[])[0];
 
-                if (!this.$isMultipleBetTypes && disable != originstatus) {
-                    this.$isReloadLeftPanel = true;
-                }
+            let disableCustomer = !this.isChecked(customerElement);
+            let originDisableCustomer = this.parseBoolean(this.$(customerElement).data("originstatus"));
+            let updateCustomerStatus = !disableCustomer || !originDisableCustomer;
+
+            if (this.isEnablebUpline(customerElement) && updateCustomerStatus) {
+                let bettype = this.getBetType(customerElement);
+                let sporttype = this.getSportType(customerElement);
 
                 let data = {
                     sportType: sporttype,
                     betType: bettype,
-                    disable: disable,
+                    disable: disableCustomer,
                     updateAllMasters: false,
                     disableAllMasters: false,
                     updateAllAgents: false,
@@ -228,11 +232,12 @@
                     disableAllMembers: false
                 };
 
+
                 (this.$(row).find('span:odd').toArray() as HTMLElement[]).forEach((spanElement) => {
-                    return this.getProductStatus(spanElement, data);
+                    return this.getDownlineStatus(spanElement, data);
                 });
 
-                if (data.disable != originstatus
+                if (data.disable != originDisableCustomer
                     || data.updateAllMasters
                     || data.updateAllAgents
                     || data.updateAllMembers) {
@@ -240,31 +245,30 @@
                 }
             }
         }).get();
-
-        viewModel.productStatus = productStatus;
-        return viewModel;
     }
 
-    getProductStatus(toggle: HTMLElement, model: any) {
+    getDownlineStatus(toggle: HTMLElement, data: any) {
         switch (this.getRoleId(toggle)) {
             case 3:
-                let masterStatus = this.getLevelStatus(toggle, model.disable);
-                model.updateAllMasters = masterStatus.UpdateAll;
-                model.disableAllMasters = masterStatus.DisableAll;
+                let masterStatus = this.getLevelStatus(toggle, data.disable);
+                data.updateAllMasters = masterStatus.UpdateAll;
+                data.disableAllMasters = masterStatus.DisableAll;
                 break;
+
             case 2:
-                let agentStatus = this.getLevelStatus(toggle, this.$custRole == 3 ? model.disable : model.disableAllMasters);
-                model.updateAllAgents = agentStatus.UpdateAll;
-                model.disableAllAgents = agentStatus.DisableAll;
+                let agentStatus = this.getLevelStatus(toggle, this.$custRole == 3 ? data.disable : data.disableAllMasters);
+                data.updateAllAgents = agentStatus.UpdateAll;
+                data.disableAllAgents = agentStatus.DisableAll;
                 break;
+
             case 1:
-                let memberStatus = this.getLevelStatus(toggle, this.$custRole == 2 ? model.disable : model.disableAllAgents);
-                model.updateAllMembers = memberStatus.UpdateAll;
-                model.disableAllMembers = memberStatus.DisableAll;
+                let memberStatus = this.getLevelStatus(toggle, this.$custRole == 2 ? data.disable : data.disableAllAgents);
+                data.updateAllMembers = memberStatus.UpdateAll;
+                data.disableAllMembers = memberStatus.DisableAll;
                 break;
         };
 
-        return model;
+        return data;
     }
 
     getTotalStatus = (toggle: HTMLElement, customData: string): number => this.$(toggle).data(customData);
