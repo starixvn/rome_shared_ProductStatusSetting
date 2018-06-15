@@ -37,10 +37,9 @@
                 {
                     products = customerProductList;
 
-                    if (CustRole != RoleIdentity.Super)
+                    if (!string.IsNullOrWhiteSpace(ProductIds))
                     {
                         var includedProducts = ProductIds.ToDictionary();
-
                         products = products.Where(p => includedProducts.ContainsKey(p.Key));
                     }
                 }
