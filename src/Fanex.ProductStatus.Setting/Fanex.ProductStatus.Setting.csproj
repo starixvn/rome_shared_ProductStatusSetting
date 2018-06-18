@@ -184,6 +184,7 @@
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
+    <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs" />
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />

@@ -18,13 +18,15 @@
         private const string ActorNameTest = "sa";
         private const string IPTest = "127.0.0.1";
 
-
         private readonly ProductStatusDataAccess productStatusDataAccess;
+        private readonly RngCasinoAPIWrapper rngCasinoAPIWrapper;
         private readonly CasinoProductStatusCommandService casinoProductStatusCommandService;
+
         public CasinoProductStatusCommandServiceTests()
         {
             productStatusDataAccess = Substitute.For<ProductStatusDataAccess>();
-            casinoProductStatusCommandService = new CasinoProductStatusCommandService(productStatusDataAccess);
+            rngCasinoAPIWrapper = Substitute.For<RngCasinoAPIWrapper>();
+            casinoProductStatusCommandService = new CasinoProductStatusCommandService(productStatusDataAccess, rngCasinoAPIWrapper);
         }
 
         [Fact]
@@ -41,6 +43,86 @@
 
             // Assert
             Assert.Equal(actualResult.Code, expectedErrorCode);
+        }
+
+        [Fact]
+        public void SynchronizeStatus_AllowDownlines_CallUpdateEnableCasinoByLevel()
+        {
+            // Arrange
+            var commands = Enumerable.Empty<ProductStatusCommand>();
+
+            var result = new Result(0, "successfully");
+            productStatusDataAccess.ExecuteNonQuery(Arg.Any<ICriteria>()).Returns(result);
+
+            // Act
+            var actualResult = casinoProductStatusCommandService.SynchronizeStatus(
+                CustIdTest,
+                CustRoleTest, 
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                IPTest,
+                8,
+                "sa",
+                3);
+
+            // Assert
+            rngCasinoAPIWrapper.Received().UpdateEnableCasinoByLevel(CustIdTest,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                IPTest,
+                8,
+                "sa",
+                3);
+        }
+
+        [Fact]
+        public void SynchronizeStatus_DoesNotAllowDownlines_DoesNotCallUpdateEnableCasinoByLevel()
+        {
+            // Arrange
+            var commands = Enumerable.Empty<ProductStatusCommand>();
+
+            var result = new Result(103, "Does not allow downlines");
+            productStatusDataAccess.ExecuteNonQuery(Arg.Any<ICriteria>()).Returns(result);
+
+            // Act
+            var actualResult = casinoProductStatusCommandService.SynchronizeStatus(
+                CustIdTest,
+                CustRoleTest,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                IPTest,
+                8,
+                "sa",
+                3);
+
+            // Assert
+            rngCasinoAPIWrapper.DidNotReceive().UpdateEnableCasinoByLevel(CustIdTest,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                true,
+                IPTest,
+                8,
+                "sa",
+                3);
         }
     }
 }

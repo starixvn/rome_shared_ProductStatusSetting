@@ -1,13 +1,9 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services.CommandServices
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
-    using CasinoLibrary.SBAgent;
     using Criteria;
     using DataAccess;
-    using Logging.Extensions.Web;
     using Models;
 
     internal class CasinoProductStatusCommandService : ProductStatusCommandService
@@ -17,10 +13,14 @@
         private const string UnsyncedRnGCasinoMessage = "Product setting is not synchronized";
 
         private readonly ProductStatusDataAccess statusDataAccess;
+        private readonly RngCasinoAPIWrapper rngCasinoAPIWrapper;
 
-        public CasinoProductStatusCommandService(ProductStatusDataAccess statusDataAccess = null)
+        public CasinoProductStatusCommandService(
+            ProductStatusDataAccess statusDataAccess = null,
+            RngCasinoAPIWrapper rngCasinoAPIWrapper = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
+            this.rngCasinoAPIWrapper = rngCasinoAPIWrapper ?? new RngCasinoAPIWrapperImpl();
         }
 
         public Result UpdateProductStatus(
@@ -34,7 +34,6 @@
             => statusDataAccess.SyncedRnGCasino(new SelectCustomerInfo(custId)) ?
             UpdateEnableCasinoByLevel(custId, custRole, actorId, actorName, ip, commands)
             : new Result(UnsyncedRnGCasinoCode, UnsyncedRnGCasinoMessage);
-
 
         internal Result UpdateEnableCasinoByLevel(
             int custId,
@@ -94,9 +93,7 @@
 
             if (checkAllowDownlinesResult.IsSuccess())
             {
-                var customer = new Customer();
-
-                if (!customer.UpdateEnableCasinoByLevel(
+                rngCasinoAPIWrapper.UpdateEnableCasinoByLevel(
                     custId,
                     enableCasino,
                     updateAllMasters,
@@ -108,10 +105,7 @@
                     fromIP,
                     modifyBy,
                     modifyUserName,
-                    fromSystem))
-                {
-                    ExceptionHandler.Handle(new Exception($"UpdateCustEnableCasino({custId}) on CasinoLibrary is failure."), TraceEventType.Warning);
-                }
+                    fromSystem);
             }
 
             return checkAllowDownlinesResult;
