@@ -228,11 +228,16 @@
     }
 
     onSuccess(results: any) {
-        this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results);
+        if (results.length > 0) {
+            this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results); 
+        }
+        else {
+            this.showMessage(results.Code, results.Message);
+        }
     }
 
     onError(results: any) {
-        let html: string;
+        let html = '';
         results.forEach((result) => {
             if (result.Code != 0) {
                 html += [result.CustName, ": ", result.Message, "<br>"].join("");

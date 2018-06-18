@@ -13,6 +13,8 @@ namespace Fanex.ProductStatus.Setting.DataAccess
         IEnumerable<ProductStatusModel> GetProductStatus(ICriteria criteria);
 
         Result ExecuteNonQuery(ICriteria criteria);
+
+        bool SyncedRnGCasino(ICriteria criteria);
     }
 
     internal class ProductStatusDataAccessImpl : ProductStatusDataAccess
@@ -39,6 +41,22 @@ namespace Fanex.ProductStatus.Setting.DataAccess
 
                 return new Result(db.GetOuputParams());
             }
+        }
+
+        public bool SyncedRnGCasino(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                {
+                    while (reader.Read())
+                    {
+                       return Convert.ToBoolean(reader["synccasino"]);
+                    }
+
+                    return false;
+                }
+            } 
         }
 
         private static ProductStatusModel ToProductStatusModel(IDataReader reader)

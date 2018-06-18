@@ -1,16 +1,20 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services.CommandServices
 {
+    using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
-    using CasinoLibrary.Model.UserException;
     using CasinoLibrary.SBAgent;
     using Criteria;
     using DataAccess;
+    using Logging.Extensions.Web;
     using Models;
 
     internal class CasinoProductStatusCommandService : ProductStatusCommandService
     {
         private const int FromSystem = 3;
+        private const int UnsyncedRnGCasinoCode = 109;
+        private const string UnsyncedRnGCasinoMessage = "Product setting is not synchronized";
 
         private readonly ProductStatusDataAccess statusDataAccess;
 
@@ -27,9 +31,22 @@
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
+            => statusDataAccess.SyncedRnGCasino(new SelectCustomerInfo(custId)) ?
+            UpdateEnableCasinoByLevel(custId, custRole, actorId, actorName, ip, commands)
+            : new Result(UnsyncedRnGCasinoCode, UnsyncedRnGCasinoMessage);
+
+
+        internal Result UpdateEnableCasinoByLevel(
+            int custId,
+            byte custRole,
+            int actorId,
+            string actorName,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
         {
             var command = commands.First();
-            var result = UpdateEnableCasinoByLevel(
+
+            var result = SynchronizeStatus(
                 custId,
                 custRole,
                 !command.Disable,
@@ -46,15 +63,13 @@
 
             if (result.IsSuccess())
             {
-                var criteria = new UpdateCasinoStatusCriteria(custId, actorId, ip, command);
-
-                result = statusDataAccess.ExecuteNonQuery(criteria);
+                return statusDataAccess.ExecuteNonQuery(new UpdateCasinoStatusCriteria(custId, actorId, ip, command));
             }
 
             return result;
         }
 
-        private Result UpdateEnableCasinoByLevel(
+        internal Result SynchronizeStatus(
             int custId,
             byte custRole,
             bool enableCasino,
@@ -69,14 +84,15 @@
             string modifyUserName,
             int fromSystem)
         {
-            var result = AdminCheckAllowedDownlinesByLevel(
-                custId,
-                custRole,
-                updateAllMasters,
-                updateAllAgents,
-                updateAllMembers);
+            var checkAllowDownlinesResult = statusDataAccess.ExecuteNonQuery(
+                 new AllowedDownlinesByLevelCriteria(
+                     custId,
+                     custRole,
+                     updateAllMasters,
+                     updateAllAgents,
+                     updateAllMembers));
 
-            if (result.IsSuccess())
+            if (checkAllowDownlinesResult.IsSuccess())
             {
                 var customer = new Customer();
 
@@ -94,25 +110,11 @@
                     modifyUserName,
                     fromSystem))
                 {
-                    throw (new ErrorException($"UpdateCustEnableCasino({custId}) on CasinoLibrary is failure."));
+                    ExceptionHandler.Handle(new Exception($"UpdateCustEnableCasino({custId}) on CasinoLibrary is failure."), TraceEventType.Warning);
                 }
             }
 
-            return result;
+            return checkAllowDownlinesResult;
         }
-
-        private Result AdminCheckAllowedDownlinesByLevel(
-             int custId,
-             byte custRole,
-             bool updateAllMasters,
-             bool updateAllAgents,
-             bool updateAllMembers)
-             => statusDataAccess.ExecuteNonQuery(
-                 new AllowedDownlinesByLevelCriteria(
-                     custId,
-                     custRole,
-                     updateAllMasters,
-                     updateAllAgents,
-                     updateAllMembers));
     }
 }
