@@ -24,13 +24,6 @@
 
     public class RngCasinoAPIWrapperImpl : RngCasinoAPIWrapper
     {
-        private readonly Customer customer;
-
-        public RngCasinoAPIWrapperImpl()
-        {
-            customer = new Customer();
-        }
-
         public void UpdateEnableCasinoByLevel(
             int custId,
             bool enableCasino, 
@@ -45,6 +38,7 @@
             string modifyUserName, 
             int fromSystem)
         {
+            var customer = new Customer();
             if (!customer.UpdateEnableCasinoByLevel(
                 custId,
                 enableCasino,
