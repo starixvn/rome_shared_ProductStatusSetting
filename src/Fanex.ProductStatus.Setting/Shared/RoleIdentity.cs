@@ -1,10 +1,10 @@
 ﻿namespace Fanex.ProductStatus.Setting.Shared
 {
-    internal static class RoleIdentity
+    public static class RoleIdentity
     {
-        internal const byte Super = 4;
-        internal const byte Master = 3;
-        internal const byte Agent = 2;
-        internal const byte Member = 1;
+        public const byte Super = 4;
+        public const byte Master = 3;
+        public const byte Agent = 2;
+        public const byte Member = 1;
     }
 }
