@@ -2,12 +2,22 @@
 {
     using System.Collections;
     using AppResources;
+    using NSubstitute;
     using Setting.Models;
+    using Setting.Services;
     using Xunit;
 
     [Trait("Models", "Result")]
     public class ResultTests
     {
+        private readonly RefDataServiceProvider refDataServiceProvider;
+
+        public ResultTests()
+        {
+            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
+            refDataServiceProvider.GetBetTypeName(Arg.Any<int>()).Returns("VIP Baccarat");
+        }
+
         [Theory]
         [InlineData(0, "Status updated successfully.")]
         [InlineData(500, "Internal server error.")]
@@ -31,7 +41,7 @@
             var expectedCode = 500;
 
             // Act
-            var actualResult = new Result(null);
+            var actualResult = new Result(outputParams: null);
 
             // Assert
             Assert.True(
@@ -87,12 +97,12 @@
             };
 
             // Act
-            var actualResult = new Result(outputParams);
+            var actualResult = new Result(outputParams, refDataServiceProvider);
 
             // Assert
             Assert.True(
                 !actualResult.IsSuccess()
-                && "You are not allowed to disable for downlines." == actualResult.Message);
+                && "You are not allowed to disable downline's product.<br/>VIP Baccarat" == actualResult.Message);
         }
 
         [Fact]

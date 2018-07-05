@@ -214,6 +214,33 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to edit downline&apos;s Product Status because the account disabled for this product..
+        /// </summary>
+        public static string Msg60033 {
+            get {
+                return ResourceManager.GetString("Msg60033", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to disable downline&apos;s product..
+        /// </summary>
+        public static string Msg60035 {
+            get {
+                return ResourceManager.GetString("Msg60035", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to perform this action..
+        /// </summary>
+        public static string Msg90012 {
+            get {
+                return ResourceManager.GetString("Msg90012", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {

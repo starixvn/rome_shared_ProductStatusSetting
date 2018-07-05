@@ -1,19 +1,24 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services.CommandServices
 {
     using System.Collections.Generic;
-    using System.Linq;
+    using System.Text;
+    using AppResources;
+    using Common;
     using Criteria;
     using DataAccess;
     using Models;
-    using NAP.Framework.Data;
 
     internal class KenoProductStatusCommandService : ProductStatusCommandService
     {
         private readonly ProductStatusDataAccess statusDataAccess;
+        private readonly RefDataServiceProvider refDataServiceProvider;
 
-        public KenoProductStatusCommandService(ProductStatusDataAccess statusDataAccess = null)
+        public KenoProductStatusCommandService(
+            ProductStatusDataAccess statusDataAccess = null,
+            RefDataServiceProvider refDataServiceProvider = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
+            this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
         }
 
         public Result UpdateProductStatus(
@@ -25,20 +30,25 @@
             string ip,
             IEnumerable<ProductStatusCommand> commands)
         {
-            IList<Result> results = new List<Result>();
             var criteria = CreateUpdateCriteria(custId, actorId, ip, commands);
+            var errorMessages = new StringBuilder();
+            var errorCode = 0;
 
             foreach (var item in criteria)
             {
-                results.Add(statusDataAccess.ExecuteNonQuery(item));
+                var result = statusDataAccess.ExecuteNonQuery(item);
+
+                if(!result.IsSuccess())
+                {
+                    errorCode = result.Code;
+                    errorMessages.Append($"{result.Message}: {refDataServiceProvider.GetBetTypeName(Converter.ToInt(item.BetType))} <br/>");
+                }
             }
 
-            var errorResult = results.FirstOrDefault(r => !r.IsSuccess());
-
-            return errorResult ?? results[0];
+            return new Result(errorCode, errorCode.Equals(0) ? Resources.StatusUpdatedSuccessfully : errorMessages.ToString());
         }
 
-        private static IEnumerable<ICriteria> CreateUpdateCriteria(
+        private static IEnumerable<UpdateKenoStatusCriteria> CreateUpdateCriteria(
             int custId,
             int actorId,
             string ip,

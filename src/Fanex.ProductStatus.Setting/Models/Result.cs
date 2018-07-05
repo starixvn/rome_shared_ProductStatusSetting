@@ -5,19 +5,31 @@
     using System.Linq;
     using System.Xml.Linq;
     using AppResources;
+    using Common;
+    using Services;
 
     public class Result
     {
+        private readonly RefDataServiceProvider refDataServiceProvider;
+
+        public Result(RefDataServiceProvider refDataServiceProvider = null)
+        {
+            this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
+        }
+
         public Result(int code, string message)
         {
             Code = code;
             Message = message;
         }
 
-        public Result(Hashtable outputParams)
+        public Result(
+            Hashtable outputParams, 
+            RefDataServiceProvider refDataServiceProvider = null) : this(refDataServiceProvider)
         {
             CreateResult(outputParams);
         }
+
 
         public int Code { get; private set; }
 
@@ -43,19 +55,24 @@
             }
         }
 
-        private static string ParseDCSProductMessage(string errorMessage)
+        private string ParseDCSProductMessage(string errorMessageXml)
         {
-            if (IsValidXml(errorMessage))
+            if (IsValidXml(errorMessageXml))
             {
-                var xmlRoot = XElement.Parse(errorMessage);
-                var attributes = xmlRoot.Attributes("Msg");
+                var xmlRoot = XElement.Parse(errorMessageXml);
+                var errCode = xmlRoot.Attributes("MsgID").FirstOrDefault().Value;
 
-                return string.Join("<br/>", attributes.Select(a => a.Value));
+                var messageElement = xmlRoot.Elements().Select(row => GetBetTypeName(row.Attributes("BetType").FirstOrDefault().Value)).ToList();
+                messageElement.Insert(0, Resources.ResourceManager.GetString("Msg" + errCode));
+
+                return string.Join("<br/>", messageElement);
             }
 
-            return errorMessage;
+            return errorMessageXml;
         }
 
+        private string GetBetTypeName(string BetType) => refDataServiceProvider.GetBetTypeName(Converter.ToInt(BetType));
+        
         private static bool IsValidXml(string xml)
         {
             if (!string.IsNullOrEmpty(xml) && xml.TrimStart().StartsWith("<"))

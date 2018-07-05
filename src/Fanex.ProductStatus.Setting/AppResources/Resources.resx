@@ -168,6 +168,15 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="Msg60033" xml:space="preserve">
+    <value>Unable to edit downline's Product Status because the account disabled for this product.</value>
+  </data>
+  <data name="Msg60035" xml:space="preserve">
+    <value>You are not allowed to disable downline's product.</value>
+  </data>
+  <data name="Msg90012" xml:space="preserve">
+    <value>You are not allowed to perform this action.</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>

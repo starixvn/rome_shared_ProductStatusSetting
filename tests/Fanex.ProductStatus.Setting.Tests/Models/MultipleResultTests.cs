@@ -1,12 +1,22 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Models
 {
     using System.Collections;
+    using NSubstitute;
     using Setting.Models;
+    using Setting.Services;
     using Xunit;
 
     [Trait("Models", "MultipleResult")]
     public class MultipleResultTests
     {
+        private readonly RefDataServiceProvider refDataServiceProvider;
+
+        public MultipleResultTests()
+        {
+            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
+            refDataServiceProvider.GetBetTypeName(Arg.Any<int>()).Returns("VIP Baccarat");
+        }
+
         [Theory]
         [InlineData(1176070, "SuperTest1")]
         [InlineData(1176083, "master1")]
@@ -30,7 +40,7 @@
             var expectedCode = 500;
 
             // Act
-            var actualResult = new MultipleResult(new Result(null), 1176070, "SuperTest1");
+            var actualResult = new MultipleResult(new Result(outputParams:null), 1176070, "SuperTest1");
 
             // Assert
             Assert.True(
@@ -86,12 +96,12 @@
             };
 
             // Act
-            var actualResult = new MultipleResult(new Result(outputParams), 1176070, "SuperTest1");
+            var actualResult = new MultipleResult(new Result(outputParams, refDataServiceProvider), 1176070, "SuperTest1");
 
             // Assert
             Assert.True(
                 !actualResult.IsSuccess()
-                && "You are not allowed to disable for downlines." == actualResult.Message);
+               && "You are not allowed to disable downline's product.<br/>VIP Baccarat" == actualResult.Message);
         }
     }
 }
