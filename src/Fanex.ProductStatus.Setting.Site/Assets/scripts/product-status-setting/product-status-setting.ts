@@ -165,14 +165,14 @@
         }
     }
 
-    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number) => {
+    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number, totalDisabledUpline: number = 0) => {
         if (downlineRoleId > 0) {
             let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, betType);
             let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId, betType);
             let total = this.getTotalStatus(enabledToggle, "total");
 
             if (enable && total > 0) {
-                this.enableElement(enabledToggle);
+                totalDisabledUpline == 0 ? this.enableElement(enabledToggle) : this.disableElement(enabledToggle);
                 this.enableElement(disabledToggle);
             } else {
                 this.disableElement(enabledToggle);
@@ -182,12 +182,13 @@
                 this.$(disabledToggle).text(total);
             }
 
-            
             this.watchHeader(downlineRoleId);
 
             let currentTotalEnabled = this.$(enabledToggle).text();
             let enableDownline = enable ? (this.parseInt(currentTotalEnabled) > 0) : false;
-            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType);
+            let currentTotalDisabled = this.parseInt(this.$(disabledToggle).text());
+
+            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType, currentTotalDisabled);
         }
     }
 
