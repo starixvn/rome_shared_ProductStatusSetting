@@ -12,10 +12,21 @@ namespace Fanex.ProductStatus.Setting.Services
 
     internal class RefDataServiceImpl : RefDataService
     {
+        private readonly IRemotingRefService _remotingRefService;
+
+        public RefDataServiceImpl()
+            : this(null)
+        { }
+
+        public RefDataServiceImpl(IRemotingRefService remotingRefService)
+        {
+            this._remotingRefService = remotingRefService ?? new RemotingRefService();
+        }
+
         public string GetBetTypeName(string betTypeId, string lang)
-            => RefData.GetBetTypeName(betTypeId, lang, string.Empty);
+            => _remotingRefService.GetBetTypeName(betTypeId, lang);
 
         public string GetResourceDataByRefIdAndResourceId(string refId, string resourceId, string lang)
-            => RefData.GetResourceDataByRefIdAndResourceId(refId, resourceId, lang, string.Empty);
+            => _remotingRefService.GetResourceDataByRefIdAndResourceId(refId, resourceId, lang, string.Empty);
     }
 }

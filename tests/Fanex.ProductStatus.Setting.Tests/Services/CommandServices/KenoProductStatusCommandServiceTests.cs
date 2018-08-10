@@ -9,6 +9,7 @@
     using Setting.Services.CommandServices;
     using Setting.Shared;
     using Xunit;
+    using Setting.Services;
 
     [Trait("Services", "CommandServices")]
     public class KenoProductStatusCommandServiceTests
@@ -20,12 +21,14 @@
         private const string IPTest = "127.0.0.1";
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
+        private readonly RefDataServiceProvider refDataServiceProvider;
         private readonly KenoProductStatusCommandService kenoProductStatusCommand;
 
         public KenoProductStatusCommandServiceTests()
         {
+            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
             productStatusDataAccess = Substitute.For<ProductStatusDataAccess>();
-            kenoProductStatusCommand = new KenoProductStatusCommandService(productStatusDataAccess);
+            kenoProductStatusCommand = new KenoProductStatusCommandService(productStatusDataAccess, refDataServiceProvider);
         }
 
         [Fact]
@@ -108,6 +111,8 @@
             productStatusDataAccess
                 .ExecuteNonQuery(Arg.Any<ICriteria>())
                 .Returns(errorResult);
+            refDataServiceProvider.GetBetTypeName(1501).Returns(string.Empty);
+            refDataServiceProvider.GetBetTypeName(1503).Returns(string.Empty);
 
             // Act
             var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);

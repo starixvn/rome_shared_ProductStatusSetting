@@ -17,7 +17,10 @@
 
         private readonly RefDataService refDataService;
 
-        public RefDataServiceProviderImpl(RefDataService refDataService = null)
+        public RefDataServiceProviderImpl() : this(null)
+        { }
+
+        public RefDataServiceProviderImpl(RefDataService refDataService)
         {
             this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
