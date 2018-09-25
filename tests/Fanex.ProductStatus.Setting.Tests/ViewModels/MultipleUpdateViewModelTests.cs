@@ -26,6 +26,7 @@
             multipleUpdateViewModel.ProductId = ProductIdentity.NumberGame;
             multipleUpdateViewModel.CustIds = "1176092,14244423";
             multipleUpdateViewModel.CustNames = "member01,member012";
+            multipleUpdateViewModel.CustRole = RoleIdentity.Super;
 
             multipleUpdateViewModel.ProductStatus = new ProductStatusCommand[]
             {

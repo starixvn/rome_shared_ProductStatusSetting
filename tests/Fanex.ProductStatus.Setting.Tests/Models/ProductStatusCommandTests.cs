@@ -1,157 +1,87 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Models
 {
+    using System.Collections.Generic;
     using Setting.Models;
+    using Setting.Shared;
     using Xunit;
 
     [Trait("Models", "ProductStatusCommand")]
     public class ProductStatusCommandTests
     {
-        [Theory]
-        [InlineData(0, false)]
-        [InlineData(5, false)]
-        [InlineData(2, true)]
-        public void Valid_ReturnsExpectedResultByCustRole(
-          byte custRole,
-          bool expectedResult)
+        [Fact]
+        public void CorrectProperties_Super_ReturnsCorrectProperties()
         {
             // Arrange
             var command = new ProductStatusCommand
             {
-                CustRole = custRole,
                 SportType = 211,
                 BetType = 2401,
                 Disable = true,
-                UpdateAllMasters = true,
-                DisableAllMasters = true,
-                UpdateAllAgents = true,
-                DisableAllAgents = true,
-                UpdateAllMembers = true,
-                DisableAllMembers = true
-            };
-
-            // Act
-            var actualResult = command.Valid();
-
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
-        }
-
-        [Theory]
-        [InlineData(true, false, false)]
-        [InlineData(true, true, true)]
-
-        [InlineData(false, true, true)]
-        [InlineData(false, false, true)]
-        public void ValidAgent_ReturnsExpectedResult(
-            bool disableAgent,
-            bool disableAllMembers,
-            bool expectedResult)
-        {
-            // Arrange
-            var command = new ProductStatusCommand
-            {
-                CustRole = 2,
-                SportType = 211,
-                BetType = 2401,
-                Disable = disableAgent,
-                UpdateAllMasters = true,
+                UpdateAllMasters = false,
                 DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = true,
-                UpdateAllMembers = true,
-                DisableAllMembers = disableAllMembers
+                UpdateAllAgents = false,
+                DisableAllAgents = false,
+                UpdateAllMembers = false,
+                DisableAllMembers = false
             };
 
             // Act
-            var actualResult = command.ValidAgent();
+            command.CorrectProperties(RoleIdentity.Super);
 
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
+            // Act & Assert
+            Assert.True(
+                command.UpdateAllMasters
+                && command.DisableAllMasters
+                && command.UpdateAllAgents
+                && command.DisableAllAgents
+                && command.UpdateAllMembers
+                && command.DisableAllMembers);
         }
 
-        [Theory]
-        [InlineData(true, true, false, false)]
-        [InlineData(true, false, true, false)]
-        [InlineData(true, true, true, true)]
-
-        [InlineData(false, false, true, true)]
-        [InlineData(false, false, false, true)]
-        [InlineData(false, true, false, true)]
-        public void ValidMaster_ReturnsExpectedResult(
-            bool disableMaster,
-            bool disableAllAgents,
-            bool disableAllMembers,
-            bool expectedResult)
+        [Fact]
+        public void CorrectProperties_Master_ReturnsCorrectProperties()
         {
             // Arrange
             var command = new ProductStatusCommand
             {
-                CustRole = 3,
                 SportType = 211,
                 BetType = 2401,
-                Disable = disableMaster,
-                UpdateAllMasters = true,
-                DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = disableAllAgents,
-                UpdateAllMembers = true,
-                DisableAllMembers = disableAllMembers
+                Disable = true,
+                UpdateAllAgents = false,
+                DisableAllAgents = false,
+                UpdateAllMembers = false,
+                DisableAllMembers = false
             };
 
             // Act
-            var actualResult = command.ValidMaster();
+            command.CorrectProperties(RoleIdentity.Master);
 
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
+            // Act & Assert
+            Assert.True(command.UpdateAllAgents
+                && command.DisableAllAgents
+                && command.UpdateAllMembers
+                && command.DisableAllMembers);
         }
 
-        [Theory]
-        [InlineData(true, true, true, true, true)]
-
-        [InlineData(true, true, true, false, false)]
-        [InlineData(true, true, false, false, false)]
-
-        [InlineData(true, false, true, true, false)]
-        [InlineData(true, false, true, false, false)]
-        [InlineData(true, false, false, true, false)]
-        [InlineData(true, false, false, false, false)]
-
-        [InlineData(false, true, true, true, true)]
-        [InlineData(false, true, true, false, true)]
-        [InlineData(false, true, false, false, true)]
-
-        [InlineData(false, false, true, true, true)]
-        [InlineData(false, false, true, false, true)]
-
-        [InlineData(false, false, false, true, true)]
-        [InlineData(false, false, false, false, true)]
-        public void ValidSuper_ReturnsExpectedResult(
-            bool disableSuper,
-            bool disableAllMasters,
-            bool disableAllAgents,
-            bool disableAllMembers,
-            bool expectedResult)
+        [Fact]
+        public void CorrectProperties_Agent_ReturnsCorrectProperties()
         {
             // Arrange
             var command = new ProductStatusCommand
             {
-                CustRole = 4,
                 SportType = 211,
                 BetType = 2401,
-                Disable = disableSuper,
-                UpdateAllMasters = true,
-                DisableAllMasters = disableAllMasters,
-                UpdateAllAgents = true,
-                DisableAllAgents = disableAllAgents,
-                UpdateAllMembers = true,
-                DisableAllMembers = disableAllMembers
+                Disable = true,
+                UpdateAllMembers = false,
+                DisableAllMembers = false
             };
 
             // Act
-            var actualResult = command.ValidSuper();
+            command.CorrectProperties(RoleIdentity.Agent);
 
-            // Assert
-            Assert.Equal(expectedResult, actualResult);
+            // Act & Assert
+            Assert.True(command.UpdateAllMembers
+                && command.DisableAllMembers);
         }
     }
 }

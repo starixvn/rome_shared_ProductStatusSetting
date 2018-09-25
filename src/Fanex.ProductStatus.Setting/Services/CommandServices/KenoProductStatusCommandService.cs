@@ -11,14 +11,14 @@
     internal class KenoProductStatusCommandService : ProductStatusCommandService
     {
         private readonly ProductStatusDataAccess statusDataAccess;
-        private readonly RefDataServiceProvider refDataServiceProvider;
+        private readonly RefDataService refDataService;
 
         public KenoProductStatusCommandService(
             ProductStatusDataAccess statusDataAccess = null,
-            RefDataServiceProvider refDataServiceProvider = null)
+            RefDataService refDataService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
-            this.refDataServiceProvider = refDataServiceProvider ?? new RefDataServiceProviderImpl();
+            this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
         public Result UpdateProductStatus(
@@ -41,7 +41,7 @@
                 if(!result.IsSuccess())
                 {
                     errorCode = result.Code;
-                    errorMessages.Append($"{result.Message}: {refDataServiceProvider.GetBetTypeName(Converter.ToInt(item.BetType))} <br/>");
+                    errorMessages.Append($"{result.Message}: {refDataService.GetBetTypeName(Converter.ToInt(item.BetType))} <br/>");
                 }
             }
 

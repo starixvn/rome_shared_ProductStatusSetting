@@ -8,13 +8,16 @@
     {
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
+        private readonly RefDataService refDataService;
 
         public DefaultProductStatusCommandService(
             ProductStatusDataAccess statusDataAccess = null,
-            CriteriaFactoryService criteriaFactory = null)
+            CriteriaFactoryService criteriaFactory = null,
+            RefDataService refDataService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
+            this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
         public Result UpdateProductStatus(
@@ -27,8 +30,10 @@
             IEnumerable<ProductStatusCommand> commands)
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
+            var result = statusDataAccess.ExecuteNonQuery(criteria);
+            result.ParseDCSProductMessage(productId, refDataService.GetBetTypeName);
 
-            return statusDataAccess.ExecuteNonQuery(criteria);
+            return result;
         }
     }
 }

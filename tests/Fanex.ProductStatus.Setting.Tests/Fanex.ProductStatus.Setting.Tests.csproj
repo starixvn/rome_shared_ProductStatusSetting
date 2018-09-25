@@ -16,6 +16,7 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <SonarQubeTestProject>True</SonarQubeTestProject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,8 +54,16 @@
       <HintPath>..\..\packages\Fanex.NAP.Framework.1.0.0.2\lib\net40\Fanex.NAP.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Fanex.RemotingRef, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=4.3.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
       <HintPath>..\..\packages\CompareNETObjects.4.03.0.0\lib\net46\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MessagePack, Version=1.7.3.4, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MessagePack.1.7.3.4\lib\net45\MessagePack.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -92,8 +101,32 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Http.4.3.3\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.0\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.0\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.3.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -124,7 +157,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
@@ -150,6 +182,7 @@
     <Compile Include="Configuration\ProductStatusActorForTesting.cs" />
     <Compile Include="Controllers\ProductStatusSettingControllerTests.cs" />
     <Compile Include="Criteria\AllowedDownlinesByLevelCriteriaTests.cs" />
+    <Compile Include="Criteria\SelectCustomerInfoTests.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteriaTests.cs" />
@@ -164,6 +197,7 @@
     <Compile Include="Criteria\UpdateCasinoStatusCriteriaTests.cs" />
     <Compile Include="Models\MultipleResultTests.cs" />
     <Compile Include="Models\ProductStatusCommandTests.cs" />
+    <Compile Include="Models\SimpleProductStatusCommandTests.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandServiceTests.cs" />
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandServiceTests.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandServiceTests.cs" />
@@ -176,8 +210,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CriteriaFactoryServiceImplTests.cs" />
     <Compile Include="Services\ProductStatusServiceImplTests.cs" />
-    <Compile Include="Services\RefDataServiceProviderImplTests.cs" />
+    <Compile Include="Services\RefDataServiceImplTests.cs" />
     <Compile Include="ViewModels\QueryViewModelTests.cs" />
+    <Compile Include="ViewModels\SimpleProductStatusViewModelTests.cs" />
+    <Compile Include="ViewModels\SimpleQueryViewModelTests.cs" />
+    <Compile Include="ViewModels\SimpleUpdateViewModelTests.cs" />
     <Compile Include="ViewModels\UpdateViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

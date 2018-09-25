@@ -21,14 +21,14 @@
         private const string IPTest = "127.0.0.1";
 
         private readonly ProductStatusDataAccess productStatusDataAccess;
-        private readonly RefDataServiceProvider refDataServiceProvider;
+        private readonly RefDataService refDataService;
         private readonly KenoProductStatusCommandService kenoProductStatusCommand;
 
         public KenoProductStatusCommandServiceTests()
         {
-            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
+            refDataService = Substitute.For<RefDataService>();
             productStatusDataAccess = Substitute.For<ProductStatusDataAccess>();
-            kenoProductStatusCommand = new KenoProductStatusCommandService(productStatusDataAccess, refDataServiceProvider);
+            kenoProductStatusCommand = new KenoProductStatusCommandService(productStatusDataAccess, refDataService);
         }
 
         [Fact]
@@ -111,8 +111,8 @@
             productStatusDataAccess
                 .ExecuteNonQuery(Arg.Any<ICriteria>())
                 .Returns(errorResult);
-            refDataServiceProvider.GetBetTypeName(1501).Returns(string.Empty);
-            refDataServiceProvider.GetBetTypeName(1503).Returns(string.Empty);
+            refDataService.GetBetTypeName(1501).Returns(string.Empty);
+            refDataService.GetBetTypeName(1503).Returns(string.Empty);
 
             // Act
             var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);

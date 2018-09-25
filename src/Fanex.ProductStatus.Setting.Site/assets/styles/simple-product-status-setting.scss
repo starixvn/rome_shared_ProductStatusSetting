@@ -1,0 +1,45 @@
+﻿@import '_common.scss';
+
+.witdh-80 {
+    width: 80px;
+}
+
+.witdh-120 {
+    width: 120px;
+}
+
+.tbl-product > tbody > tr > td:not(.bettype-name) {
+    text-align: left;
+}
+
+.checkbox-container {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+
+    input[type=checkbox] {
+        cursor: pointer;
+    }
+
+    label {
+        cursor: pointer;
+        position: absolute;
+        bottom: 3px;
+        left: 22px;
+    }
+}
+
+.icon-copy-all {
+    background: url(../../Areas/ProductStatusSetting/Styles/images/copy-icon.png) no-repeat scroll right top transparent;
+    border: medium none;
+    cursor: pointer;
+    float: right;
+    height: 20px;
+    line-height: 20px;
+    width: 20px;
+}
+
+.first-bettype {
+    display: inline-block;
+    margin-top: 4px;
+}

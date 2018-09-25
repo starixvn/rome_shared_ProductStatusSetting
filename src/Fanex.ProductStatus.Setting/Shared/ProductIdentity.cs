@@ -7,6 +7,8 @@
         internal const int Keno = 8;
         internal const int GoldDeluxe = 12;
         internal const int ColossusBets = 15;
+        internal const int Allbet = 21;
         internal const int NG2 = 23;
+        internal const int PokerGames = 33;
     }
 }

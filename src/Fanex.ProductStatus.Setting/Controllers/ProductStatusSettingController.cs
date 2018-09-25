@@ -1,5 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Controllers
 {
+    using System.Linq;
     using System.Net;
     using System.Web.Mvc;
     using AppResources;
@@ -13,6 +14,7 @@
     {
         private const string SingleViewPath = "~/Areas/ProductStatusSetting/Views/Single/Index.cshtml";
         private const string MultipleViewPath = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
+        private const string SimpleViewPath = "~/Areas/ProductStatusSetting/Views/Simple/Index.cshtml";
 
         private readonly ProductStatusService productStatusService;
 
@@ -49,7 +51,7 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                viewModel.ProductStatus);
+                viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)));
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }
@@ -86,6 +88,42 @@
                 viewModel.ProductStatus);
 
             return Json(results, JsonRequestBehavior.DenyGet);
+        }
+
+        #endregion
+
+        #region Old Behavior
+
+        [ProductStatusAuthorize(IsHost = false)]
+        public ActionResult Simple(SimpleQueryViewModel viewModel)
+        {
+            if (viewModel.IsValid())
+            {
+                viewModel.SetSimpleProductStatusViewModel(
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId));
+            }
+
+            return View(SimpleViewPath, viewModel);
+        }
+
+        [HttpPost, ProductStatusAuthorize(IsHost = true), ProductStatusValidateAntiForgeryToken]
+        public ActionResult SimpleUpdate(SimpleUpdateViewModel viewModel)
+        {
+            if (!viewModel.IsValid())
+            {
+                return JsonBadRequest();
+            }
+
+            var result = productStatusService.UpdateProductStatus(
+                viewModel.ProductId,
+                viewModel.CustId,
+                viewModel.CustRole,
+                viewModel.ActorId,
+                viewModel.ActorName,
+                viewModel.IP,
+                viewModel.ProductStatus.Select(product => product.ToProductStatusCommand(viewModel.CustRole)));
+
+            return Json(result, JsonRequestBehavior.DenyGet);
         }
 
         #endregion

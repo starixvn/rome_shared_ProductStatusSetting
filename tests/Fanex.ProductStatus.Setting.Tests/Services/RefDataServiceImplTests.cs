@@ -2,19 +2,20 @@
 {
     using AppResources;
     using NSubstitute;
+    using RemotingRef;
     using Setting.Services;
     using Xunit;
 
     [Trait("Services", "RefDataServiceProviderImpl")]
-    public class RefDataServiceProviderImplTests
+    public class RefDataServiceImplTests
     {
+        private readonly IRemotingRefService remotingRefService;
         private readonly RefDataService refDataService;
-        private readonly RefDataServiceProviderImpl refDataServiceProvider;
 
-        public RefDataServiceProviderImplTests()
+        public RefDataServiceImplTests()
         {
-            refDataService = Substitute.For<RefDataService>();
-            refDataServiceProvider = new RefDataServiceProviderImpl(refDataService);
+            remotingRefService = Substitute.For<IRemotingRefService>();
+            refDataService = new RefDataServiceImpl(remotingRefService);
         }
 
         [Fact]
@@ -24,7 +25,7 @@
             var expectedBetType = Resources.BetType_2401;
 
             // Act
-            var actualBetType = refDataServiceProvider.GetBetTypeName(2401);
+            var actualBetType = refDataService.GetBetTypeName(2401);
 
             // Assert
             Assert.Equal(expectedBetType, actualBetType);
@@ -36,12 +37,12 @@
             // Arrang
             var betTypeId = 1501;
             var expectedBetType = "Australia";
-            refDataService
-                .GetBetTypeName(betTypeId.ToString(), Arg.Any<string>())
+            remotingRefService
+                .GetBetTypeName(betTypeId.ToString(), "en-US")
                 .Returns(expectedBetType);
 
             // Act
-            var actualBetType = refDataServiceProvider.GetBetTypeName(betTypeId);
+            var actualBetType = refDataService.GetBetTypeName(betTypeId);
 
             // Assert
             Assert.Equal(expectedBetType, actualBetType);
@@ -53,12 +54,12 @@
             // Arrang
             var betTypeId = -1;
             var expectedBetType = string.Empty;
-            refDataService
-                .GetBetTypeName(betTypeId.ToString(), Arg.Any<string>())
+            remotingRefService
+                .GetBetTypeName(betTypeId.ToString(), "en-US")
                 .Returns(expectedBetType);
 
             // Act
-            var actualBetType = refDataServiceProvider.GetBetTypeName(betTypeId);
+            var actualBetType = refDataService.GetBetTypeName(betTypeId);
 
             // Assert
             Assert.Equal(expectedBetType, actualBetType);
@@ -70,12 +71,12 @@
             // Arrang
             var productId = 30;
             var expectedProductName = "Bullfighting";
-            refDataService
-                .GetResourceDataByRefIdAndResourceId("Product", productId.ToString(), Arg.Any<string>())
+            remotingRefService
+                .GetResourceDataByRefIdAndResourceId("Product", productId.ToString(), "en-US", string.Empty)
                 .Returns(expectedProductName);
 
             // Act
-            var actualBetType = refDataServiceProvider.GetProductName(productId);
+            var actualBetType = refDataService.GetProductName(productId);
 
             // Assert
             Assert.Equal(expectedProductName, actualBetType);
@@ -87,12 +88,12 @@
             // Arrang
             var productId = -1;
             var expectedProductName = string.Empty;
-            refDataService
-                .GetResourceDataByRefIdAndResourceId("Product", productId.ToString(), Arg.Any<string>())
+            remotingRefService
+                .GetResourceDataByRefIdAndResourceId("Product", productId.ToString(), "en-US", string.Empty)
                 .Returns(expectedProductName);
 
             // Act
-            var actualBetType = refDataServiceProvider.GetProductName(productId);
+            var actualBetType = refDataService.GetProductName(productId);
 
             // Assert
             Assert.Equal(expectedProductName, actualBetType);

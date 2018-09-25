@@ -5,19 +5,12 @@
     using NSubstitute;
     using Setting.Models;
     using Setting.Services;
+    using Setting.Shared;
     using Xunit;
 
     [Trait("Models", "Result")]
     public class ResultTests
     {
-        private readonly RefDataServiceProvider refDataServiceProvider;
-
-        public ResultTests()
-        {
-            refDataServiceProvider = Substitute.For<RefDataServiceProvider>();
-            refDataServiceProvider.GetBetTypeName(Arg.Any<int>()).Returns("VIP Baccarat");
-        }
-
         [Theory]
         [InlineData(0, "Status updated successfully.")]
         [InlineData(500, "Internal server error.")]
@@ -68,7 +61,7 @@
         [InlineData(0, "Status updated successfully.")]
         [InlineData(400, "You cannot submit the action due to a validation error.")]
         [InlineData(400, "<You cannot submit the action due to a validation error.")]
-        public void New_ErrMsgIsNotXmlFormat_ReturnsCorrectResult(int code, string message)
+        public void ParseDCSProductMessage_ErrMsgIsNotXmlFormat_ReturnsCorrectResult(int code, string message)
         {
             // Arrange
             var outputParams = new Hashtable
@@ -78,16 +71,17 @@
             };
 
             // Act
-            var actualResult = new Result(outputParams);
+            var result = new Result(outputParams);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.NumberGame, null);
 
             // Assert
             Assert.True(
-                code == actualResult.Code
-                && message == actualResult.Message);
+                code == result.Code
+                && message == actualResult);
         }
 
         [Fact]
-        public void New_ErrMsgIsXmlFormat_ReturnsCorrectResult()
+        public void ParseDCSProductMessage_ErrMsgIsXmlFormat_ReturnsCorrectResult()
         {
             // Arrange
             var outputParams = new Hashtable
@@ -95,14 +89,17 @@
                 ["errcode"] = 102,
                 ["errmsg"] = "<Root MsgID=\"60035\" Msg=\"You are not allowed to disable for downlines.\"><Row SportType=\"220\" BetType=\"1021\"/></Root>",
             };
+            RefDataService refDataService = Substitute.For<RefDataService>();
+            refDataService.GetBetTypeName(Arg.Any<int>()).Returns("VIP Baccarat");
 
             // Act
-            var actualResult = new Result(outputParams, refDataServiceProvider);
+            var result = new Result(outputParams);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.Allbet, refDataService.GetBetTypeName);
 
             // Assert
             Assert.True(
-                !actualResult.IsSuccess()
-                && "You are not allowed to disable downline's product.<br/>VIP Baccarat" == actualResult.Message);
+                !result.IsSuccess()
+                && "You are not allowed to disable downline's product.<br/>VIP Baccarat" == actualResult);
         }
 
         [Fact]

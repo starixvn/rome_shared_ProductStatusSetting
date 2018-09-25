@@ -5,6 +5,7 @@
     using Configuration;
     using Models;
     using Services;
+    using Shared;
 
     public class UpdateViewModel
     {
@@ -40,8 +41,8 @@
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0
-            && ProductStatus.Any()
-            && ProductStatus.Any(productStatus => !productStatus.Valid())
-            && ActorId > 0;
+            && RoleIdentity.Member <= CustRole && CustRole <= RoleIdentity.Super
+            && ActorId > 0
+            && ProductStatus.Any();
     }
 }
