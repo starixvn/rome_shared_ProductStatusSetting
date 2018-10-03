@@ -157,7 +157,14 @@
         }
     }
 
-    onDefaultError = () => this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
+    onDefaultError = (jqXHR: any) => {
+        if (jqXHR.status === 403) {
+            const denyObject = this.$.parseJSON(jqXHR.responseText);
+            this.showMessage(denyObject.ErrorCode, denyObject.ErrorMessage);
+        } else {
+            this.showMessage(this.$errorCodeDefault, this.$resources.updateStatusFailed);
+        }
+    }
 
     protected showMessage(code: any, message: string) {
         let html = ['<div class="', code === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
