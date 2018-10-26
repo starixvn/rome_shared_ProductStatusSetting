@@ -9,6 +9,8 @@
         string GetBetTypeName(int betTypeId);
 
         string GetProductName(int productId);
+
+        string GetSportTypeName(int sportTypeId);
     }
 
     internal class RefDataServiceImpl : RefDataService
@@ -32,6 +34,9 @@
             return remotingRefService.GetBetTypeName(betTypeId.ToString(), LanguageCode);
         }
 
+         public string GetSportTypeName(int sportTypeId)
+            => remotingRefService.GetSportName(sportTypeId.ToString(), LanguageCode);
+            
         public string GetProductName(int productId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(
                 "Product",

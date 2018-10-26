@@ -33,7 +33,7 @@
             var expectedCriteria = new SelectProductStatusCriteria(productId, CustIdTest);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -46,7 +46,7 @@
             var expectedCriteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -64,7 +64,7 @@
             var expectedCriteria = new SelectDCSProductStatusCriteria(productId, CustIdTest);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());

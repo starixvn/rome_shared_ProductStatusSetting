@@ -10,7 +10,7 @@ namespace Fanex.ProductStatus.Setting.Services
 
     public interface ProductStatusService
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId);
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType);
 
         Result UpdateProductStatus(
             int productId,
@@ -48,9 +48,9 @@ namespace Fanex.ProductStatus.Setting.Services
             this.refDataService = refDataService ?? new RefDataServiceImpl();
         }
 
-        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId)
+        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType)
         {
-            var criteria = criteriaFactory.CreateSelectCriteria(productId, custId);
+            var criteria = criteriaFactory.CreateSelectCriteria(productId, custId, sportType);
             var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
 
             return SetProductStatusName(productId, rawData);
@@ -64,7 +64,7 @@ namespace Fanex.ProductStatus.Setting.Services
 
             foreach (var item in rawData)
             {
-                item.Name = setNameByBetTypeId
+                item.Name = productId == ProductIdentity.Sportbook2 ? refDataService.GetSportTypeName(item.SportType) : setNameByBetTypeId
                     ? refDataService.GetBetTypeName(item.BetType)
                     : refDataService.GetProductName(productId);
 
