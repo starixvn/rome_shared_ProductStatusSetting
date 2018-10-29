@@ -152,7 +152,7 @@
 
     protected onSuccess(result: any) {
         this.showMessage(result.Code, result.Message);
-        if (result.Code == 0) {
+        if (result.Code == 0 && this.$topWindow.reloadLeftPanel) {
             setTimeout(() => this.$topWindow.reloadLeftPanel(), this.$timeoutDefault);
         }
     }
