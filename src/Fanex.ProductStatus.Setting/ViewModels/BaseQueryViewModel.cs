@@ -33,7 +33,7 @@
             return roleName;
         }
 
-        public BaseQueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
+        public virtual BaseQueryViewModel SetProductStatusViewModel(IEnumerable<ProductStatusModel> models)
         {
             ProductStatus = models
                 .Select(status => new ProductStatusViewModel(status, CustRole))

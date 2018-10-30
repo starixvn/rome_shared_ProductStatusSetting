@@ -82,8 +82,8 @@
       <HintPath>..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.RemotingRef, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.RemotingRef.1.1.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
+    <Reference Include="Fanex.RemotingRef, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -223,12 +223,27 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\styles\simple-product-status-setting.scss" />
+    <None Include="Assets\styles\_dialog.scss" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JasmineController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\simple-product-status-setting.js" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\simple-product-status-setting.min.js">
+      <DependentUpon>simple-product-status-setting.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\AlphaAdmin.ttf" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\copy-icon.png" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting-multiple.css" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting-multiple.min.css">
+      <DependentUpon>product-status-setting-multiple.css</DependentUpon>
+    </Content>
+    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.2.css" />
+    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.2.js" />
+    <Content Include="Assets\styles\_common.scss" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -248,6 +263,11 @@
     <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting.min.css">
       <DependentUpon>product-status-setting.css</DependentUpon>
     </Content>
+    <Content Include="Areas\ProductStatusSetting\Styles\simple-product-status-setting.css" />
+    <Content Include="Areas\ProductStatusSetting\Styles\simple-product-status-setting.min.css">
+      <DependentUpon>simple-product-status-setting.css</DependentUpon>
+    </Content>
+    <Content Include="Areas\ProductStatusSetting\Views\Simple\Index.cshtml" />
     <Content Include="Assets\scripts\libs\jasmine\boot.js" />
     <Content Include="Assets\scripts\libs\jasmine\console.js" />
     <Content Include="Assets\scripts\libs\jasmine\jasmine-html.js" />
@@ -257,7 +277,6 @@
     <Content Include="Assets\scripts\libs\jasmine\jasmine_favicon.png" />
     <Content Include="Assets\scripts\libs\jquery\blockUI.js" />
     <Content Include="Assets\scripts\libs\jquery\jquery-1.11.3.js" />
-    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.1.min.js" />
     <Content Include="Assets\scripts\tests\apps\product-status-setting\fixtures\numbergame.html" />
     <Content Include="Global.asax" />
     <Content Include="bundleconfig.json" />
@@ -307,6 +326,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Assets\scripts\product-status-setting\product-status-setting-base.ts" />
     <TypeScriptCompile Include="Assets\scripts\product-status-setting\product-status-setting-multiple.ts" />
+    <TypeScriptCompile Include="Assets\scripts\product-status-setting\simple-product-status-setting.ts" />
     <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-base-tests.ts" />
     <TypeScriptCompile Include="Assets\scripts\tests\apps\product-status-setting\product-status-setting-tests.ts" />
     <TypeScriptCompile Include="typings\globals\bootstrap\index.d.ts" />

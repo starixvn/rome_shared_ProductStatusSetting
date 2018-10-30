@@ -37,7 +37,6 @@
         public string IP
             => productStatusActor.ClientIP;
 
-
         public int ActorId
             => productStatusActor.Id;
 
@@ -72,8 +71,8 @@
 
             return ProductId > 0
                 && isValidCustomers
-                && ProductStatus.Any()
-                && ProductStatus.Any(productStatus => !productStatus.Valid());
+                && RoleIdentity.Member <= CustRole && CustRole <= RoleIdentity.Super
+                && ProductStatus.Any();
         }
     }
 }

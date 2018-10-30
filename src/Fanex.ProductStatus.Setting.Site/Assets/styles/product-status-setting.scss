@@ -1,43 +1,5 @@
-﻿@import '_variables.scss';
-
-.align-right { text-align: right; }
-.align-center {text-align: center;}
-.margin-top10 { margin-top: 10px; }
-.margin-left5 { margin-left: 5px; }
-
-body {
-  color: $text-color;
-  font-family: $font-family;
-  font-size: $font-size;
-  margin: 0;
-}
-
-.tbl-product {
-  border: 1px solid $border-color;
-  border-spacing: 0;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.title {
-  background-color: $title-background-color;
-  text-align: center;
-  height: 28px;
-}
-
-.tbl-product > thead > tr > th:not(.title), .tbl-product > tbody > tr > td {
-  border: 1px solid $border-color;
-  height: 24px;
-}
-
-.tbl-product > thead > tr > th:not(.title) { background-color: $background-color; }
-.tbl-product > tbody > tr > td:not(.bettype-name) { text-align: center; }
-
-.bettype-name {
-  background-color: $background-color;
-  padding-left: 5px;
-  text-align: left;
-}
+﻿@import '_common.scss';
+@import '_dialog.scss';
 
 .checkbox-hide, hide { display: none; }
 
@@ -85,54 +47,10 @@ body {
     }
 }
 
-.btn {
-  background: $button-background-color;
-  border: 0;
-  border-radius: 2px;
-  -moz-border-radius: 2px;
-  -webkit-border-radius: 2px;
-  color: $button-color;
-  display: inline-block;
-  font-size: 12px;
-  min-width: 64px;
-  height: 28px;
-  outline: 0;
-  &:hover {
-      background: $button-hover-background-color;
-      cursor: pointer;
-    }
-}
-
 .btn-reset { 
     background: $button-reset-background-color;
    &:hover { 
        background: $button-reset-hover-background-color; 
-    }
-}
-
-.msg-container {
-    background-color: $msg-background-color;
-    margin-top: 10px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    max-height: 500px;
-    overflow-x: auto;  
-    .alerterror, .alertsuccess{
-        font-weight: bold;
-	    margin: 2px;
-        padding: 10px 0px 10px 30px;
-    }
-
-    .alerterror{
-        border: 1px solid $msg-error-color;
-        color: $msg-error-color;
-        background: 6px 6px no-repeat url(../../Areas/ProductStatusSetting/Styles/images/error.png);
-    }
-
-    .alertsuccess {
-        border: 1px solid $msg-success-color;
-	    color: $msg-success-color;
-        background: 6px 6px no-repeat url(../../Areas/ProductStatusSetting/Styles/images/success.png);
     }
 }
 
@@ -149,12 +67,4 @@ body {
         margin-left: 10px;
         color: $msg-error-color;
     }
-}
-
-/*Loading css*/
-.block-ui-loading
-{
-    width: 64px;
-    height: 64px;
-    background: url(../../Areas/ProductStatusSetting/Styles/images/loading.gif) no-repeat;
 }

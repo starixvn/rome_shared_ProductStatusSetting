@@ -79,6 +79,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All Downlines.
+        /// </summary>
+        public static string AllDownlines {
+            get {
+                return ResourceManager.GetString("AllDownlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Masters.
         /// </summary>
         public static string AllMasters {
@@ -120,6 +129,24 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string BetType_2401 {
             get {
                 return ResourceManager.GetString("BetType_2401", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The listed product status of all sport/bettypes will be applied for all selected accounts. Do you want to proceed?.
+        /// </summary>
+        public static string ConfirmBeforeMultipleUpdate {
+            get {
+                return ResourceManager.GetString("ConfirmBeforeMultipleUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to duplicate the values.
+        /// </summary>
+        public static string CopyAllTooltip {
+            get {
+                return ResourceManager.GetString("CopyAllTooltip", resourceCulture);
             }
         }
         
@@ -363,6 +390,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string UplineDisabled {
             get {
                 return ResourceManager.GetString("UplineDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

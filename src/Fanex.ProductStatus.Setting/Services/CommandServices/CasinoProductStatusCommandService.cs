@@ -31,9 +31,9 @@
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands)
-            => statusDataAccess.SyncedRnGCasino(new SelectCustomerInfo(custId)) ?
-            UpdateEnableCasinoByLevel(custId, custRole, actorId, actorName, ip, commands)
-            : new Result(UnsyncedRnGCasinoCode, UnsyncedRnGCasinoMessage);
+            => statusDataAccess.SyncedRnGCasino(new SelectCustomerInfo(custId))
+                ? UpdateEnableCasinoByLevel(custId, custRole, actorId, actorName, ip, commands)
+                : new Result(UnsyncedRnGCasinoCode, UnsyncedRnGCasinoMessage);
 
         internal Result UpdateEnableCasinoByLevel(
             int custId,

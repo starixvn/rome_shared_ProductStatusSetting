@@ -53,7 +53,9 @@
             viewModel.SetProductStatusViewModel(Enumerable.Empty<ProductStatusModel>());
 
             // Assert
-            Assert.False(viewModel.ProductStatus.Any());
+            Assert.True(!viewModel.ProductStatus.Any()
+                && !viewModel.HasData
+                && !viewModel.IsMultipleBetTypes);
         }
 
         [Fact]
@@ -109,7 +111,67 @@
             viewModel.SetProductStatusViewModel(productStatus);
 
             // Assert
-            Assert.True(viewModel.ProductStatus.Any());
+            Assert.True(viewModel.ProductStatus.Any()
+                && viewModel.HasData
+                && viewModel.IsMultipleBetTypes);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void SetProductStatusViewModel_IsDisabledUpline_ReturnsCorrectAllowUpdate(bool disabledUpline)
+        {
+            // Arrange
+            var viewModel = new SimpleQueryViewModel
+            {
+                ProductId = ProductIdTest,
+                CustId = CustIdTest,
+                CustName = CustNameTest,
+                CustRole = CustRoleTest
+            };
+
+            var productStatus = new List<ProductStatusModel>
+            {
+                new ProductStatusModel(
+                    sportType: 5,
+                    betType: 12,
+                    isDisabled: false,
+                    isDisabledUpline: disabledUpline,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 78,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 37,
+                    totalDisabledMembers: 36,
+                    totalEnabledMembers: 46),
+                new ProductStatusModel(
+                    sportType: 5,
+                    betType: 13,
+                    isDisabled: false,
+                    isDisabledUpline: disabledUpline,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 0,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 0,
+                    totalDisabledMembers: 36,
+                    totalEnabledMembers: 0),
+                  new ProductStatusModel(
+                    sportType: 5,
+                    betType: 14,
+                    isDisabled: false,
+                    isDisabledUpline: disabledUpline,
+                    totalDisabledMasters: 12,
+                    totalEnabledMasters: 78,
+                    totalDisabledAgents: 33,
+                    totalEnabledAgents: 37,
+                    totalDisabledMembers: 0,
+                    totalEnabledMembers: 0)
+            };
+
+            // Act
+            viewModel.SetSimpleProductStatusViewModel(productStatus);
+
+            // Assert
+            Assert.True(viewModel.AllowUpdate == !disabledUpline);
         }
 
         [Theory]

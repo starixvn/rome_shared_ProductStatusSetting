@@ -10,7 +10,7 @@
             Name = model.Name;
             SportType = model.SportType;
             BetType = model.BetType;
-            IsDisabled = model.IsDisabledUpline ? model.IsDisabledUpline : model.IsDisabled;
+            IsDisabled = model.IsDisabledUpline || model.IsDisabled;
             IsDisabledUpline = model.IsDisabledUpline;
 
             switch (custRole)
@@ -50,8 +50,17 @@
 
         public DownlineStatusViewModel Master { get; }
 
+        public bool IsShowMaster
+            => Master != null && Master.TotalDisabled + Master.TotalEnabled > 0;
+
         public DownlineStatusViewModel Agent { get; }
 
+        public bool IsShowAgent
+            => Agent != null && Agent.TotalDisabled + Agent.TotalEnabled > 0;
+
         public DownlineStatusViewModel Member { get; }
+
+        public bool IsShowMember
+            => Member != null && Member.TotalDisabled + Member.TotalEnabled > 0;
     }
 }

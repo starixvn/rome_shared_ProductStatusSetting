@@ -29,7 +29,7 @@
         public void Index_InvalidQueryViewModel_ReturnsEmptyData()
         {
             // Arrange
-            var queryViewModel = new QueryViewModel
+            var queryViewModel = new QueryViewModel(productStatusActor)
             {
                 ProductId = ProductIdentity.Casino,
                 CustRole = RoleIdentity.Super
@@ -49,7 +49,7 @@
         public void Index_ValidQueryViewModel_ReturnsView()
         {
             // Arrange
-            var queryViewModel = new QueryViewModel
+            var queryViewModel = new QueryViewModel(productStatusActor)
             {
                 ProductId = ProductIdentity.Casino,
                 CustId = 1176083,
@@ -127,9 +127,15 @@
                 CustId = 1176083,
                 CustRole = 3
             };
-            productStatusService
-                .UpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustId, updateViewModel.CustRole, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
-                .Returns(new Result(0, string.Empty));
+            productStatusService.UpdateProductStatus(
+                updateViewModel.ProductId,
+                updateViewModel.CustId,
+                updateViewModel.CustRole,
+                updateViewModel.ActorId,
+                updateViewModel.ActorName,
+                updateViewModel.IP,
+                Arg.Any<IEnumerable<ProductStatusCommand>>())
+            .Returns(new Result(0, string.Empty));
 
             // Act
             var actualView = productStatusSettingController.Update(updateViewModel) as JsonResult;
@@ -157,7 +163,7 @@
         public void MultiplePartialView_InvalidQueryViewModel_ReturnsEmptyData()
         {
             // Arrange
-            var queryViewModel = new QueryViewModel
+            var queryViewModel = new QueryViewModel(productStatusActor)
             {
                 ProductId = ProductIdentity.Casino,
                 CustRole = RoleIdentity.Super
@@ -177,7 +183,7 @@
         public void MultiplePartialView_ValidQueryViewModel_ReturnsView()
         {
             // Arrange
-            var queryViewModel = new QueryViewModel
+            var queryViewModel = new QueryViewModel(productStatusActor)
             {
                 ProductId = ProductIdentity.Casino,
                 CustId = 1176083,
@@ -252,7 +258,8 @@
                     }
                 },
                 CustIds = "1176092,14244423",
-                CustNames = "member01,member012"
+                CustNames = "member01,member012",
+                CustRole = RoleIdentity.Super
             };
             productStatusService
                 .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRole, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
@@ -264,6 +271,121 @@
 
             // Assert
             Assert.DoesNotContain(actualResults, result => !result.IsSuccess());
+        }
+
+        [Fact]
+        public void Simple_InvalidSimpleQueryViewModel_ReturnsEmptyData()
+        {
+            // Arrange
+            var viewModel = new SimpleQueryViewModel
+            {
+                ProductId = ProductIdentity.Casino,
+                CustRole = RoleIdentity.Super
+            };
+            productStatusService
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                .Returns(Enumerable.Empty<ProductStatusModel>());
+
+            // Act
+            var actualView = productStatusSettingController.Simple(viewModel) as ViewResult;
+
+            // Assert
+            Assert.False(viewModel.ProductStatus.Any());
+        }
+
+        [Fact]
+        public void Simple_ValidSimpleQueryViewModel_ReturnsView()
+        {
+            // Arrange
+            var viewModel = new SimpleQueryViewModel
+            {
+                ProductId = ProductIdentity.Casino,
+                CustId = 1176083,
+                CustName = "supertest1",
+                CustRole = RoleIdentity.Super
+            };
+            var productStatus = new List<ProductStatusModel>
+            {
+                new ProductStatusModel(
+                    sportType: 208,
+                    betType: 2101,
+                    isDisabled: false,
+                    isDisabledUpline: false,
+                    totalDisabledMasters: 0,
+                    totalEnabledMasters: 100,
+                    totalDisabledAgents: 0,
+                    totalEnabledAgents: 200,
+                    totalDisabledMembers: 0,
+                    totalEnabledMembers: 300)
+            };
+            productStatusService
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId)
+                .Returns(productStatus);
+
+            // Act
+            var actualView = productStatusSettingController.Simple(viewModel) as ViewResult;
+
+            // Assert
+            Assert.True(viewModel.ProductStatus.Any() && null != actualView);
+        }
+
+        [Fact]
+        public void SimpleUpdate_InvalidSimpleUpdateViewModel_ReturnsBadRequest()
+        {
+            // Arrange
+            productStatusActor.Id.Returns(8);
+            var viewModel = new SimpleUpdateViewModel(productStatusActor)
+            {
+                ProductId = ProductIdentity.Casino
+            };
+
+            // Act
+            var actualView = productStatusSettingController.SimpleUpdate(viewModel) as JsonResult;
+            var actualResult = (Result)actualView.Data;
+
+            // Assert
+            Assert.Equal(400, actualResult.Code);
+        }
+
+        [Fact]
+        public void SimpleUpdate_ValidSimpleUpdateViewModel_ReturnsSuccessfulJson()
+        {
+            // Arrange
+            productStatusActor.Id.Returns(8);
+            productStatusActor.Name.Returns("sa");
+            productStatusActor.ClientIP.Returns("127.0.0.1");
+            var viewModel = new SimpleUpdateViewModel(productStatusActor)
+            {
+                ProductId = ProductIdentity.GoldDeluxe,
+                ProductStatus = new[]
+                {
+                    new SimpleProductStatusCommand
+                    {
+                        SportType = 208,
+                        BetType = 2101,
+                        Disable = false,
+                        DisableDownlines = false
+                    }
+                },
+                CustId = 1176083,
+                CustRole = 3
+            };
+            productStatusService.UpdateProductStatus(
+                viewModel.ProductId,
+                viewModel.CustId,
+                viewModel.CustRole,
+                viewModel.ActorId,
+                viewModel.ActorName,
+                viewModel.IP,
+                Arg.Any<IEnumerable<ProductStatusCommand>>())
+            .Returns(new Result(0, string.Empty));
+
+            // Act
+            var actualView = productStatusSettingController.SimpleUpdate(viewModel) as JsonResult;
+            var actualResult = (Result)actualView.Data;
+
+            // Assert
+            Assert.True(actualResult.IsSuccess());
         }
     }
 }

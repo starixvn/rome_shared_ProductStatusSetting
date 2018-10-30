@@ -2,6 +2,7 @@
     $: JQueryStatic;
     $toggleAllArray: HTMLElement[];
     $toggleArray: HTMLElement[];
+    $dialogConfirm: any;
 
     constructor($: JQueryStatic, topWindow: any) {
         super($, topWindow);
@@ -10,6 +11,7 @@
     init() {
         super.init();
         this.registerEvents();
+        this.initDialog();
     }
 
     loadMultiple = () =>
@@ -42,8 +44,55 @@
 
         this.bindingToggleAllEvent();
         this.bindingToggleEvent();
-        this.bindingResetEvent();
-        this.bindingSubmitEvent();
+        this.$("#btnReset").on("click", () => this.$("#product-form").submit());
+        this.$("#btnSubmit").on("click", (e: any) => {
+            e.preventDefault();
+            const updateViewModel = this.getUpdateViewModel();
+
+            updateViewModel.productStatus.length > 0 ?
+                this.$dialogConfirm.dialog("open") :
+                this.showMessage(this.$errorCodeDefault, this.$resources.thereIsNoChange);
+        });
+    }
+
+    initDialog(): void {
+        const self: any = this;
+        const dialogButtons: any = [
+            {
+                text: "Yes",
+                "class": "btn -submit",
+                click: () => {
+                    this.$dialogConfirm.dialog("close");
+
+                    const updateViewModel = self.getUpdateViewModel();
+
+                    self.$.blockUI({
+                        blockMsgClass: "block-ui-loading"
+                    });
+
+                    updateViewModel.productStatus.length > 0 ?
+                        self.callAjax(updateViewModel, self.$resources.updateActionName) :
+                        self.showMessage(self.$errorCodeDefault, self.$resources.thereIsNoChange);
+                }
+            },
+            {
+                text: "No",
+                "class": "btn -normal",
+                click: () => {
+                    this.$dialogConfirm.dialog("close");
+                }
+            }
+        ];
+
+        this.$dialogConfirm = this.$("#dialog-confirm").dialog({
+            autoOpen: false,
+            resizable: false,
+            height: "auto",
+            minHeight: 68,
+            width: 380,
+            modal: true,
+            buttons: dialogButtons
+        });
     }
 
     toogleStatusAll(toogleAll: HTMLElement) {
@@ -69,11 +118,13 @@
 
             this.watchHeader(roleId, false);
 
-            let bettype = this.getBetType(toogle);
-            let enable = this.isChecked(toogle);
-            let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
+            if (roleId > 1) {
+                let bettype = this.getBetType(toogle);
+                let enable = this.isChecked(toogle);
+                let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
 
-            this.toogleStatusDownline(downlineToggle, enable);
+                this.toogleStatusDownline(downlineToggle, enable);
+            }
         }
     }
 
@@ -229,7 +280,7 @@
 
     onSuccess(results: any) {
         if (results.length > 0) {
-            this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results); 
+            this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results);
         }
         else {
             this.showMessage(results.Code, results.Message);

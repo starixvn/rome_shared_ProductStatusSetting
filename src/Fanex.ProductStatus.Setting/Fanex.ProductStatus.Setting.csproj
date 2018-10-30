@@ -56,8 +56,8 @@
       <HintPath>..\..\packages\Fanex.Data.0.5.404.59\lib\net40\Fanex.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.Logging.1.0.0.0\lib\net40\Fanex.Logging.dll</HintPath>
+    <Reference Include="Fanex.Logging, Version=1.0.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Fanex.Logging.Extensions, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
@@ -72,8 +72,8 @@
       <HintPath>..\..\packages\Fanex.NAP.Framework.1.0.0.2\lib\net40\Fanex.NAP.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fanex.RemotingRef, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Fanex.RemotingRef.1.1.0\lib\net461\Fanex.RemotingRef.dll</HintPath>
+    <Reference Include="Fanex.RemotingRef, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -210,12 +210,12 @@
     <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
+    <Compile Include="Models\SimpleProductStatusCommand.cs" />
     <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs" />
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
-    <Compile Include="Services\RefDataServiceProvider.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
@@ -225,6 +225,9 @@
     <Compile Include="ViewModels\MultipleQueryViewModel.cs" />
     <Compile Include="ViewModels\MultipleUpdateViewModel.cs" />
     <Compile Include="ViewModels\ProductStatusViewModel.cs" />
+    <Compile Include="ViewModels\SimpleProductStatusViewModel.cs" />
+    <Compile Include="ViewModels\SimpleQueryViewModel.cs" />
+    <Compile Include="ViewModels\SimpleUpdateViewModel.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
