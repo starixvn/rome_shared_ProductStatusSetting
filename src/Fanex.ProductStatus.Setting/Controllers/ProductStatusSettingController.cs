@@ -100,7 +100,7 @@
             if (viewModel.IsValid())
             {
                 viewModel.SetSimpleProductStatusViewModel(
-                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId));
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId));
             }
 
             return View(SimpleViewPath, viewModel);
@@ -133,7 +133,7 @@
             if (viewModel.IsValid())
             {
                 viewModel.SetProductStatusViewModel(
-                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId));
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId));
             }
         }
 

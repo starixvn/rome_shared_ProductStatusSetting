@@ -61,7 +61,7 @@
             var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
 
             criteriaFactory
-                .CreateSelectCriteria(productId, CustIdTest)
+                .CreateSelectCriteria(productId, CustIdTest, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -75,7 +75,7 @@
             var compareLogic = new CompareLogic();
 
             // Act
-            var actualData = productStatusService.GetProductStatus(productId, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(productId, CustIdTest, 0);
             var actualResults = actualData.ToList();
 
             // Assert
@@ -114,7 +114,7 @@
             var criteria = new SelectProductStatusCriteria(ProductIdentity.Keno, CustIdTest);
 
             criteriaFactory
-                .CreateSelectCriteria(ProductIdentity.Keno, CustIdTest)
+                .CreateSelectCriteria(ProductIdentity.Keno, CustIdTest, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -131,7 +131,7 @@
             var compareLogic = new CompareLogic();
 
             // Act
-            var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest);
+            var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest, 0);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
@@ -169,7 +169,7 @@
             var criteria = new SelectDCSProductStatusCriteria(21, CustIdTest);
 
             criteriaFactory
-                .CreateSelectCriteria(21, CustIdTest)
+                .CreateSelectCriteria(21, CustIdTest, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -184,7 +184,7 @@
                 .Returns("VIP Baccarat");
 
             // Act
-            var actualData = productStatusService.GetProductStatus(21, CustIdTest);
+            var actualData = productStatusService.GetProductStatus(21, CustIdTest, 0);
 
             // Assert
             Assert.True(expectedResults.Count == actualData.Count());
@@ -211,7 +211,7 @@
             var criteria = new SelectDCSProductStatusCriteria(28, CustIdTest);
 
             criteriaFactory
-                .CreateSelectCriteria(28, CustIdTest)
+                .CreateSelectCriteria(28, CustIdTest, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -225,7 +225,7 @@
             var compareLogic = new CompareLogic();
 
             // Act
-            var actualResults = productStatusService.GetProductStatus(28, CustIdTest);
+            var actualResults = productStatusService.GetProductStatus(28, CustIdTest, 0);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);

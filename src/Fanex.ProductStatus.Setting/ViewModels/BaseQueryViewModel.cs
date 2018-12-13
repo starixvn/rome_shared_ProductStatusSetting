@@ -20,6 +20,8 @@
 
         public int CustId { get; set; }
 
+        public int SportTypeId { get; set; }
+
         public byte CustRole { get; set; }
 
         public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }

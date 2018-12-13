@@ -195,6 +195,7 @@
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\SelectCustomerInfo.cs" />
+    <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
@@ -219,6 +220,7 @@
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
+    <Compile Include="Shared\SportTypeIndentity.cs" />
     <Compile Include="Shared\StringExtensions.cs" />
     <Compile Include="ViewModels\BaseQueryViewModel.cs" />
     <Compile Include="ViewModels\DownlineStatusViewModel.cs" />
