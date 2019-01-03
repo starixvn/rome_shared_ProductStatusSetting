@@ -3,11 +3,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using AppResources;
+    using Configuration;
     using Models;
+    using Services;
     using Shared;
 
     public class BaseQueryViewModel
     {
+        private readonly IProductStatusActor productStatusActor;
         protected readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
         {
             [RoleIdentity.Super] = Resources.Super,
@@ -16,6 +19,11 @@
             [RoleIdentity.Member] = Resources.Member,
         };
 
+        public BaseQueryViewModel(IProductStatusActor productStatusActor = null)
+        {
+            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
+        }
+
         public int ProductId { get; set; }
 
         public int CustId { get; set; }
@@ -23,6 +31,9 @@
         public int SportTypeId { get; set; }
 
         public byte CustRole { get; set; }
+
+        public byte SystemId
+            => productStatusActor.SystemId;
 
         public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
             = Enumerable.Empty<ProductStatusViewModel>();

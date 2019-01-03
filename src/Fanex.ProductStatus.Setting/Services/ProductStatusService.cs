@@ -4,13 +4,15 @@ namespace Fanex.ProductStatus.Setting.Services
     using System.Collections.Generic;
     using System.Linq;
     using CommandServices;
+    using Criteria;
     using DataAccess;
     using Models;
+    using NAP.Framework.Data;
     using Shared;
 
     public interface ProductStatusService
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType);
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId);
 
         Result UpdateProductStatus(
             int productId,
@@ -37,36 +39,53 @@ namespace Fanex.ProductStatus.Setting.Services
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
         private readonly RefDataService refDataService;
+        private readonly IProductProfileService productProfileService;       
 
         public ProductStatusServiceImpl(
             ProductStatusDataAccess statusDataAccess = null,
             CriteriaFactoryService criteriaFactory = null,
-            RefDataService refDataService = null)
+            RefDataService refDataService = null,
+            IProductProfileService productProfileService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
             this.refDataService = refDataService ?? new RefDataServiceImpl();
+            this.productProfileService = productProfileService ?? new ProductProfileService();
         }
 
-        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType)
+        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId)
         {
             var criteria = criteriaFactory.CreateSelectCriteria(productId, custId, sportType);
             var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
 
-            return SetProductStatusName(productId, rawData);
+            return SetProductStatusName(productId, systemId, rawData);
         }
 
         private IEnumerable<ProductStatusModel> SetProductStatusName(
             int productId,
+            int systemId,
             IList<ProductStatusModel> rawData)
         {
-            var setNameByBetTypeId = rawData.Count > 1;
+            var settingLevel = productProfileService.GetSettingLevel(productId, systemId);
 
             foreach (var item in rawData)
             {
-                item.Name = productId == ProductIdentity.Sportbook2 ? refDataService.GetSportTypeName(item.SportType) : setNameByBetTypeId
-                    ? refDataService.GetBetTypeName(item.BetType)
-                    : refDataService.GetProductName(productId);
+                if (settingLevel == (int)ProductSettingLevel.Product)
+                {
+                    item.Name = refDataService.GetProductName(productId);
+                }
+                else if (settingLevel == (int)ProductSettingLevel.SportType)
+                {
+                    item.Name = refDataService.GetSportTypeName(item.SportType);
+                }
+                else if (settingLevel == (int)ProductSettingLevel.BetType)
+                {
+                    item.Name = refDataService.GetBetTypeName(item.BetType);
+                }
+                else
+                {
+                    item.Name = refDataService.GetBetTypeName(item.BetType);
+                }
 
                 yield return item;
             }

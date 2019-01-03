@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Configuration;
     using KellermanSoftware.CompareNetObjects;
     using Setting.Shared;
     using Setting.ViewModels;
@@ -16,7 +17,9 @@
             // Arrange & Act
             var custIds = "1,2,3";
             var custNames = "super1,super2,super3";
-            var multipleQueryViewModel = new MultipleQueryViewModel(Enumerable.Empty<KeyValuePair<int, string>>())
+            var multipleQueryViewModel = new MultipleQueryViewModel(
+                Enumerable.Empty<KeyValuePair<int, string>>(),
+                new ProductStatusActorForTesting())
             {
                 CustIds = custIds,
                 CustNames = custNames
@@ -47,7 +50,7 @@
                 new KeyValuePair<int, string>(30, "Bullfighting")
             };
 
-            var multipleQueryViewModel = new MultipleQueryViewModel(expectedResults);
+            var multipleQueryViewModel = new MultipleQueryViewModel(expectedResults, new ProductStatusActorForTesting());
             multipleQueryViewModel.CustRole = RoleIdentity.Super;
 
             var compareLogic = new CompareLogic();
@@ -74,7 +77,7 @@
                 new KeyValuePair<int, string>(22, "Macau Games")
             };
 
-            var multipleQueryViewModel = new MultipleQueryViewModel(expectedResults)
+            var multipleQueryViewModel = new MultipleQueryViewModel(expectedResults, new ProductStatusActorForTesting())
             {
                 ProductIds = "3,6,8,12,15,21,22"
             };

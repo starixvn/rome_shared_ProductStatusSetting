@@ -122,7 +122,7 @@
         public void SetProductStatusViewModel_IsDisabledUpline_ReturnsCorrectAllowUpdate(bool disabledUpline)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,

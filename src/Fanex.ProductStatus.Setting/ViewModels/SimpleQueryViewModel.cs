@@ -3,7 +3,9 @@
     using System.Collections.Generic;
     using System.Linq;
     using AppResources;
+    using Configuration;
     using Models;
+    using Services;
     using Shared;
 
     public class SimpleQueryViewModel
@@ -15,6 +17,22 @@
             [RoleIdentity.Agent] = Resources.Agent,
             [RoleIdentity.Member] = Resources.Member,
         };
+
+        private readonly IProductStatusActor productStatusActor;
+
+        public SimpleQueryViewModel() 
+            : this(null)
+        {
+
+        }
+
+        public SimpleQueryViewModel(IProductStatusActor productStatusActor)
+        {
+            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
+        }
+
+        public byte SystemId
+            => productStatusActor.SystemId;
 
         public int ProductId { get; set; }
 

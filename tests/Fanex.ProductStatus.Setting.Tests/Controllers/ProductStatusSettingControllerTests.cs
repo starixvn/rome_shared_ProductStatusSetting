@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Configuration;
     using NSubstitute;
     using Setting.Controllers;
     using Setting.Models;
@@ -35,7 +36,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Act
@@ -71,7 +72,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
                 .Returns(productStatus);
 
             // Act
@@ -149,7 +150,9 @@
         public void MultipleView_Always_ReturnsView()
         {
             // Arrange
-            var viewModel = new MultipleQueryViewModel(Enumerable.Empty<KeyValuePair<int, string>>());
+            var viewModel = new MultipleQueryViewModel(
+                Enumerable.Empty<KeyValuePair<int, string>>(),
+                new ProductStatusActorForTesting());
             string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
             // Act
@@ -169,7 +172,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Act
@@ -204,7 +207,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
                 .Returns(productStatus);
 
             // Act
@@ -277,13 +280,13 @@
         public void Simple_InvalidSimpleQueryViewModel_ReturnsEmptyData()
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdentity.Casino,
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId)
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Act
@@ -297,7 +300,7 @@
         public void Simple_ValidSimpleQueryViewModel_ReturnsView()
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdentity.Casino,
                 CustId = 1176083,
@@ -319,7 +322,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId)
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId)
                 .Returns(productStatus);
 
             // Act

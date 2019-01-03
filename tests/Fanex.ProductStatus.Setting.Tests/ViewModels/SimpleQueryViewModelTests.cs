@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Configuration;
     using Setting.Models;
     using Setting.Shared;
     using Setting.ViewModels;
@@ -19,7 +20,7 @@
         public void New_Always_AssignsCorrectProperties()
         {
             // Arrange & Act
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -39,7 +40,7 @@
         public void SetSimpleProductStatusViewModel_InputIsEmpty_ReturnsEmpty()
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -59,7 +60,7 @@
         public void SetSimpleProductStatusViewModel_InputHasData_ReturnsCorrectProductStatusViewModel()
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -118,7 +119,7 @@
         public void SetSimpleProductStatusViewModel_IsDisabledUpline_ReturnsCorrectAllowUpdate(bool disabledUpline)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -179,7 +180,7 @@
         public void GetRoleName_Always_ReturnsCorrectName(byte custRole, string roleName)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 CustRole = custRole
             };
@@ -195,7 +196,7 @@
         public void IsValid_CorrectData_ReturnsTrue()
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
@@ -215,7 +216,7 @@
         public void IsValid_InvalidProductId_ReturnsFalse(int productId)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = productId,
                 CustId = CustIdTest,
@@ -235,7 +236,7 @@
         public void IsValid_InvalidCustId_ReturnsFalse(int custId)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = custId,
@@ -256,7 +257,7 @@
         public void IsValid_InvalidCustRole_ReturnsFalse(byte custRole)
         {
             // Arrange
-            var viewModel = new SimpleQueryViewModel
+            var viewModel = new SimpleQueryViewModel(new ProductStatusActorForTesting())
             {
                 ProductId = ProductIdTest,
                 CustId = CustIdTest,
