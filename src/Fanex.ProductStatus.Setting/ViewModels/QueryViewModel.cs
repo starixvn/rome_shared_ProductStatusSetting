@@ -9,22 +9,18 @@
 
     public class QueryViewModel : BaseQueryViewModel
     {
-        private readonly IProductStatusActor productStatusActor;
-
-        public QueryViewModel()
+        public QueryViewModel() 
             : this(null)
         {
+
         }
 
         public QueryViewModel(IProductStatusActor productStatusActor)
+            : base(productStatusActor)
         {
-            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
         }
 
         public string CustName { get; set; }
-
-        public byte SystemId
-            => productStatusActor.SystemId;
 
         public bool HasData { get; private set; }
 

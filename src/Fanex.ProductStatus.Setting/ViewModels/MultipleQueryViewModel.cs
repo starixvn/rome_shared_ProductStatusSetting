@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using Configuration;
+    using Services;
     using Shared;
 
     public class MultipleQueryViewModel : BaseQueryViewModel
@@ -11,13 +12,16 @@
 
         private IEnumerable<KeyValuePair<int, string>> products;
 
-        public MultipleQueryViewModel()
-            : this(null)
+        public MultipleQueryViewModel() 
+            : this(null, null)
         {
+
         }
 
         public MultipleQueryViewModel(
-            IEnumerable<KeyValuePair<int, string>> customerProductList)
+            IEnumerable<KeyValuePair<int, string>> customerProductList,
+            IProductStatusActor productStatusActor)
+            : base(productStatusActor)
         {
             this.customerProductList = customerProductList
                 ?? ProductStatusConfigurationHandler.CustomerProductListGetter();
