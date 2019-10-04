@@ -139,7 +139,7 @@
     <value>You are not allowed to perform this action.</value>
   </data>
   <data name="BetType_2401" xml:space="preserve">
-    <value>Baccarat, Roulette, Sic Bo, Dragon Tiger, Win 3 Cards</value>
+    <value>Baccarat, Roulette, Sic Bo, Dragon Tiger, Win 3 Cards, Bull Bull</value>
   </data>
   <data name="ConfirmBeforeMultipleUpdate" xml:space="preserve">
     <value>The listed product status of all sport/bettypes will be applied for all selected accounts. Do you want to proceed?</value>
