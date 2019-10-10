@@ -24,7 +24,6 @@
         [InlineData(8, 3)]
         [InlineData(3, 1)]
         [InlineData(12, 1)]
-        [InlineData(15, 1)]
         public void GetSettingLevel_NonDCS_ReturnValueFromHardcode(int productId, int exceptedValue)
         {
             // Arrange
@@ -43,10 +42,7 @@
         [InlineData(22)]
         [InlineData(23)]
         [InlineData(24)]
-        [InlineData(26)]
         [InlineData(28)]
-        [InlineData(30)]
-        [InlineData(33)]
         public void GetSettingLevel_DCSProduct_CallRepository(int productId)
         {
             //// Arrange
