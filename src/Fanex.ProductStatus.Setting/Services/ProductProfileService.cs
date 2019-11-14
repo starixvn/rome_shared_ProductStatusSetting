@@ -19,8 +19,7 @@
             new ProductProfile(ProductIdentity.Casino, ProductSettingLevel.Product),
             new ProductProfile(ProductIdentity.Keno, ProductSettingLevel.BetType) ,
             new ProductProfile(ProductIdentity.NumberGame, ProductSettingLevel.Product),
-            new ProductProfile(ProductIdentity.GoldDeluxe, ProductSettingLevel.Product),
-            new ProductProfile(ProductIdentity.ColossusBets, ProductSettingLevel.Product)
+            new ProductProfile(ProductIdentity.GoldDeluxe, ProductSettingLevel.Product)
         };
 
         private static IEnumerable<ProductProfile> DCSProductSetting = new List<ProductProfile>
@@ -31,10 +30,7 @@
             new ProductProfile(ProductIdentity.MacauGames, null, 13),
             new ProductProfile(ProductIdentity.NG2, null, 11),
             new ProductProfile(ProductIdentity.FishingWorld, null, 13),
-            new ProductProfile(ProductIdentity.Lucky3, null, 13),
-            new ProductProfile(ProductIdentity.Lottery, null, 13),
-            new ProductProfile(ProductIdentity.Bullfighting, null, 13),
-            new ProductProfile(ProductIdentity.PokerGames, null, 13),
+            new ProductProfile(ProductIdentity.Lottery, null, 13)
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;

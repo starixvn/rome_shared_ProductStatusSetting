@@ -40,7 +40,6 @@
         [InlineData(ProductIdentity.NumberGame, "Number Game")]
         [InlineData(ProductIdentity.Casino, "Casino")]
         [InlineData(ProductIdentity.GoldDeluxe, "Gold Deluxe")]
-        [InlineData(ProductIdentity.ColossusBets, "Colossus Bets")]
         public void GetProductStatus_SingleRow_ReturnsDataFromDataAccess(int productId, string productName)
         {
             // Arrange

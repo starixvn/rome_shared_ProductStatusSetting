@@ -12,8 +12,7 @@
     {
         private readonly int[] DCSProductMultipleBetTypes = new[]
         {
-            ProductIdentity.Allbet,
-            ProductIdentity.PokerGames
+            ProductIdentity.Allbet
         };
 
         public Result(int code, string message)

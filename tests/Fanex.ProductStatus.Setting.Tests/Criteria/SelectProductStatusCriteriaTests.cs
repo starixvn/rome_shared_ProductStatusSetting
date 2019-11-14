@@ -14,7 +14,6 @@
         [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
         [InlineData(ProductIdentity.GoldDeluxe)]
-        [InlineData(ProductIdentity.ColossusBets)]
         public void GetSettingKey_Always_ReturnsValidSettingKey(int productId)
         {
             // Arrange
@@ -33,7 +32,6 @@
         [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
         [InlineData(ProductIdentity.GoldDeluxe)]
-        [InlineData(ProductIdentity.ColossusBets)]
         public void IsValid_ValidCriteria_ReturnsTrue(int productId)
         {
             // Arrange

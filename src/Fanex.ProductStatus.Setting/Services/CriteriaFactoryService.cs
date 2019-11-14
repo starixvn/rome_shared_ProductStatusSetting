@@ -29,7 +29,6 @@
                 case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
                 case ProductIdentity.GoldDeluxe:
-                case ProductIdentity.ColossusBets:
                     return new SelectProductStatusCriteria(productId, custId);
 
                 case ProductIdentity.NG2:
@@ -61,9 +60,6 @@
 
                 case ProductIdentity.GoldDeluxe:
                     return new UpdateGoldDeluxeStatusCriteria(custId, actorId, ip, commands.First());
-
-                case ProductIdentity.ColossusBets:
-                    return new UpdateColossusBetsStatusCriteria(custId, actorId, ip, commands.First());
 
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
