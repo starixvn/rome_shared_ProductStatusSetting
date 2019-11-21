@@ -4,9 +4,13 @@ namespace Fanex.ProductStatus.Setting.Site.Controllers
     using System.Web.Mvc;
     using System.Web.Security;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class HomeController : Controller
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public ActionResult Index()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             FormsAuthentication.SetAuthCookie("sa", true);
             return View();

@@ -37,10 +37,7 @@
             };
             productStatusService
                 .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
-                .Returns(Enumerable.Empty<ProductStatusModel>());
-
-            // Act
-            var actualView = productStatusSettingController.Index(queryViewModel) as ViewResult;
+                .Returns(Enumerable.Empty<ProductStatusModel>());          
 
             // Assert
             Assert.False(queryViewModel.ProductStatus.Any());
@@ -175,9 +172,6 @@
                 .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
-            // Act
-            var actualView = productStatusSettingController.Index(queryViewModel) as ViewResult;
-
             // Assert
             Assert.False(queryViewModel.ProductStatus.Any());
         }
@@ -288,9 +282,6 @@
             productStatusService
                 .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
-
-            // Act
-            var actualView = productStatusSettingController.Simple(viewModel) as ViewResult;
 
             // Assert
             Assert.False(viewModel.ProductStatus.Any());

@@ -3,9 +3,13 @@ using System.Web.Mvc;
 
 namespace Fanex.ProductStatus.Setting.Site.Controllers
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class JasmineController : Controller
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public ViewResult Run()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             return View("SpecRunner");
         }

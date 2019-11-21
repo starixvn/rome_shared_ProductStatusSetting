@@ -194,6 +194,7 @@
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseTests.cs" />
     <Compile Include="Criteria\UpdateCasinoStatusCriteriaTests.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResultTests.cs" />
     <Compile Include="Models\ProductStatusCommandTests.cs" />
     <Compile Include="Models\SimpleProductStatusCommandTests.cs" />

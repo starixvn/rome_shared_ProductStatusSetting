@@ -10,9 +10,13 @@ namespace Fanex.ProductStatus.Setting.Site
     using RemotingRef;
     using Services;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public static class ProductListConsts
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public static IEnumerable<KeyValuePair<int, string>> Products
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get
             {
@@ -33,11 +37,16 @@ namespace Fanex.ProductStatus.Setting.Site
         }
     }
 
+
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class MvcApplication : System.Web.HttpApplication
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         protected void Application_Start()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             AreaRegistration.RegisterAllAreas();
 
@@ -57,25 +66,41 @@ namespace Fanex.ProductStatus.Setting.Site
         }
     }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ProductStatusAuthorizeService : IProductStatusAuthorizeService
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public bool CanView(AuthorizationContext filterContext)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             => true;
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public bool CanUpdate(AuthorizationContext filterContext)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             => true;
     }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public class ProductStatusActor : IProductStatusActor
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int Id { get; } = 8;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public string Name { get; } = "sa";
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public string ClientIP { get; } = "127.0.0.1";
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
         // NAP = 1
         // Ext-NAP = 4
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public byte SystemId { get; } = 1;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

@@ -10,6 +10,7 @@
 
     public class Result
     {
+        private const int InternalErrorCode = 500;
         private readonly int[] DCSProductMultipleBetTypes = new[]
         {
             ProductIdentity.Allbet
@@ -61,7 +62,7 @@
                 || !outputParams.ContainsKey("errcode")
                 || !outputParams.ContainsKey("errmsg"))
             {
-                Code = 500;
+                Code = InternalErrorCode;
                 Message = Resources.InternalServerError;
             }
             else
