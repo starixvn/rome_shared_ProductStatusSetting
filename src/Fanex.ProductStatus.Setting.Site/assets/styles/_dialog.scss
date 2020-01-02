@@ -7,6 +7,13 @@
   font-style: normal;
 }
 
+@font-face {
+    font-family: 'Tahoma Custom';
+    src: url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/Tahoma Regular font.ttf?3d71m2#iefix') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMA_0.ttf?3d71m2') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMAB0.ttf?3d71m2') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMABD.ttf?3d71m2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 /* 4 corners */
 .ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
     border-bottom-right-radius: 0px !important;

@@ -224,6 +224,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\Tahoma Regular font.ttf" />
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\TAHOMAB0.TTF" />
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\TAHOMABD.TTF" />
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\TAHOMA_0.TTF" />
     <None Include="Assets\styles\simple-product-status-setting.scss" />
     <None Include="Assets\styles\_dialog.scss" />
     <Compile Include="Controllers\HomeController.cs" />
