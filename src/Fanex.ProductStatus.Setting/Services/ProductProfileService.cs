@@ -26,7 +26,7 @@
         {
             new ProductProfile(ProductIdentity.VirtualSports, null, 13),
             new ProductProfile(ProductIdentity.Sportbook2, null, 13),
-            new ProductProfile(ProductIdentity.Allbet, null, 13),
+            new ProductProfile(ProductIdentity.LiveCasino, null, 13),
             new ProductProfile(ProductIdentity.MacauGames, null, 13),
             new ProductProfile(ProductIdentity.NG2, null, 11),
             new ProductProfile(ProductIdentity.FishingWorld, null, 13),

@@ -13,7 +13,7 @@
         private const int InternalErrorCode = 500;
         private readonly int[] DCSProductMultipleBetTypes = new[]
         {
-            ProductIdentity.Allbet
+            ProductIdentity.LiveCasino
         };
 
         public Result(int code, string message)

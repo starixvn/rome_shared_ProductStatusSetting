@@ -93,7 +93,7 @@
 
             // Act
             var result = new MultipleResult(new Result(outputParams), 1176070, "SuperTest1");
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.Allbet, refDataService.GetBetTypeName);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino, refDataService.GetBetTypeName);
 
             // Assert
             Assert.True(

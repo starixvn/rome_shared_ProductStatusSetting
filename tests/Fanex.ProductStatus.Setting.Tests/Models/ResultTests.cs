@@ -94,7 +94,7 @@
 
             // Act
             var result = new Result(outputParams);
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.Allbet, refDataService.GetBetTypeName);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino, refDataService.GetBetTypeName);
 
             // Assert
             Assert.True(
