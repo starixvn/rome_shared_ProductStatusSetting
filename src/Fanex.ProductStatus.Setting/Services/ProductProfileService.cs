@@ -30,7 +30,8 @@
             new ProductProfile(ProductIdentity.MacauGames, null, 13),
             new ProductProfile(ProductIdentity.NG2, null, 11),
             new ProductProfile(ProductIdentity.FishingWorld, null, 13),
-            new ProductProfile(ProductIdentity.Lottery, null, 13)
+            new ProductProfile(ProductIdentity.Lottery, null, 13),
+            new ProductProfile(ProductIdentity.VirtualGames, null, 13),
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;

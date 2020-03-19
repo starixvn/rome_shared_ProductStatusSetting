@@ -13,5 +13,6 @@
         internal const int NG2 = 23;
         internal const int FishingWorld = 24;
         internal const int Lottery = 28;
+        internal const int VirtualGames = 38;
     }
 }
