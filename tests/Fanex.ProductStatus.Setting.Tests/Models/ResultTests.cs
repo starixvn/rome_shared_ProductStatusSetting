@@ -72,7 +72,7 @@
 
             // Act
             var result = new Result(outputParams);
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.NumberGame, null);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.NumberGame);
 
             // Assert
             Assert.True(
@@ -94,12 +94,12 @@
 
             // Act
             var result = new Result(outputParams);
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino, refDataService.GetBetTypeName);
+            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino);
 
             // Assert
             Assert.True(
                 !result.IsSuccess()
-                && "You are not allowed to disable downline's product.<br/>VIP Baccarat" == actualResult);
+                && "You are not allowed to disable downline's product." == actualResult);
         }
 
         [Fact]

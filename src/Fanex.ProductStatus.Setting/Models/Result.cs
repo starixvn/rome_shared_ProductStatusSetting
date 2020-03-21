@@ -11,10 +11,6 @@
     public class Result
     {
         private const int InternalErrorCode = 500;
-        private readonly int[] DCSProductMultipleBetTypes = new[]
-        {
-            ProductIdentity.LiveCasino
-        };
 
         public Result(int code, string message)
         {
@@ -34,7 +30,7 @@
         public bool IsSuccess()
             => Code == 0;
 
-        public string ParseDCSProductMessage(int productId, Func<int, string> getBetTypeName)
+        public string ParseDCSProductMessage(int productId)
         {
             if (IsValidXml())
             {
@@ -42,13 +38,7 @@
 
                 var xmlRoot = XElement.Parse(Message);
                 var errCode = xmlRoot.Attributes("MsgID").FirstOrDefault().Value;
-                errorMessages.Add(Resources.ResourceManager.GetString("Msg" + errCode));
-
-                if (DCSProductMultipleBetTypes.Contains(productId))
-                {
-                    errorMessages.AddRange(
-                        xmlRoot.Elements().Select(row => getBetTypeName(Convert.ToInt32(row.Attributes("BetType").First().Value))));
-                }
+                errorMessages.Add(Resources.ResourceManager.GetString("Msg" + errCode));               
 
                 Message = string.Join("<br/>", errorMessages);
             }
