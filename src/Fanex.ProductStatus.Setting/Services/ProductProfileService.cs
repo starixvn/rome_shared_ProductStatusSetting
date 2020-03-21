@@ -32,6 +32,7 @@
             new ProductProfile(ProductIdentity.FishingWorld, null, 13),
             new ProductProfile(ProductIdentity.Lottery, null, 13),
             new ProductProfile(ProductIdentity.VirtualGames, null, 13),
+            new ProductProfile(ProductIdentity.Sabaclub, null, 13),
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;
