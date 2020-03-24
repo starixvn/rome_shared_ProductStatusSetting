@@ -14,5 +14,6 @@
         internal const int FishingWorld = 24;
         internal const int Lottery = 28;
         internal const int VirtualGames = 38;
+        internal const int Sabaclub = 42;
     }
 }
