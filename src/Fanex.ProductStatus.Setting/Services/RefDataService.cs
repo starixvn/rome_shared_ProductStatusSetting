@@ -1,7 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
     using System.Threading;
-    using AppResources;
     using RemotingRef;
 
     public interface RefDataService
@@ -15,8 +14,6 @@
 
     internal class RefDataServiceImpl : RefDataService
     {
-        private const int FirstBetTypeIdOfAllbets = 2401;
-
         private readonly IRemotingRefService remotingRefService;
 
         public RefDataServiceImpl(IRemotingRefService remotingRefService = null)
@@ -25,18 +22,11 @@
         }
 
         public string GetBetTypeName(int betTypeId)
-        {
-            if (betTypeId == FirstBetTypeIdOfAllbets)
-            {
-                return Resources.BetType_2401;
-            }
+            => remotingRefService.GetBetTypeName(betTypeId.ToString(), LanguageCode);
 
-            return remotingRefService.GetBetTypeName(betTypeId.ToString(), LanguageCode);
-        }
+        public string GetSportTypeName(int sportTypeId)
+           => remotingRefService.GetSportName(sportTypeId.ToString(), LanguageCode);
 
-         public string GetSportTypeName(int sportTypeId)
-            => remotingRefService.GetSportName(sportTypeId.ToString(), LanguageCode);
-            
         public string GetProductName(int productId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(
                 "Product",

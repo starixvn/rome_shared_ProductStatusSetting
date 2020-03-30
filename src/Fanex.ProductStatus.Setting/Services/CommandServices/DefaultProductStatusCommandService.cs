@@ -31,7 +31,7 @@
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
-            result.ParseDCSProductMessage(productId, refDataService.GetBetTypeName);
+            result.ParseDCSProductMessage(productId);
 
             return result;
         }

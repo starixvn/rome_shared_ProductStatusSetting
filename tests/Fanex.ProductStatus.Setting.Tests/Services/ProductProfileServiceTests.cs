@@ -38,7 +38,7 @@
         [Theory]
         [InlineData(5)]
         [InlineData(16)]
-        [InlineData(21)]
+        [InlineData(41)]
         [InlineData(22)]
         [InlineData(23)]
         [InlineData(24)]

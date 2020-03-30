@@ -124,15 +124,6 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Baccarat, Roulette, Sic Bo, Dragon Tiger, Win 3 Cards, Bull Bull.
-        /// </summary>
-        public static string BetType_2401 {
-            get {
-                return ResourceManager.GetString("BetType_2401", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The listed product status of all sport/bettypes will be applied for all selected accounts. Do you want to proceed?.
         /// </summary>
         public static string ConfirmBeforeMultipleUpdate {

@@ -16,20 +16,7 @@
         {
             remotingRefService = Substitute.For<IRemotingRefService>();
             refDataService = new RefDataServiceImpl(remotingRefService);
-        }
-
-        [Fact]
-        public void GetBetTypeName_2401_ReturnsCorrectValue()
-        {
-            // Arrang
-            var expectedBetType = Resources.BetType_2401;
-
-            // Act
-            var actualBetType = refDataService.GetBetTypeName(2401);
-
-            // Assert
-            Assert.Equal(expectedBetType, actualBetType);
-        }
+        }       
 
         [Fact]
         public void GetBetTypeName_ValidBetTypeId_ReturnsCorrectValue()
