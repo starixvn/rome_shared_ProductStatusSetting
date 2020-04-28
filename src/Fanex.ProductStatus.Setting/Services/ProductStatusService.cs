@@ -119,7 +119,7 @@ namespace Fanex.ProductStatus.Setting.Services
                     return new KenoProductStatusCommandService(statusDataAccess, refDataService);
 
                 default:
-                    return new DefaultProductStatusCommandService(statusDataAccess, criteriaFactory, refDataService);
+                    return new DefaultProductStatusCommandService(statusDataAccess, criteriaFactory);
             }
         }
 

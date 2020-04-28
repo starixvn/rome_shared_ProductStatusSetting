@@ -42,7 +42,8 @@
         [InlineData(22)]
         [InlineData(23)]
         [InlineData(24)]
-        [InlineData(28)]
+        [InlineData(44)]
+        [InlineData(42)]
         public void GetSettingLevel_DCSProduct_CallRepository(int productId)
         {
             //// Arrange
