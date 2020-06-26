@@ -15,5 +15,6 @@
         internal const int VirtualGames = 38;
         internal const int Sabaclub = 42;
         internal const int RNGLottery = 44;
+        internal const int SabaVirtualSports = 54;
     }
 }
