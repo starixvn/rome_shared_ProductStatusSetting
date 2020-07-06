@@ -33,7 +33,7 @@
             new ProductProfile(ProductIdentity.RNGLottery, null, 13),
             new ProductProfile(ProductIdentity.VirtualGames, null, 13),
             new ProductProfile(ProductIdentity.Sabaclub, null, 13),
-            new ProductProfile(ProductIdentity.SabaVirtualSports, null, 13)
+            new ProductProfile(ProductIdentity.SabaVirtualSports, null, 4)
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;
