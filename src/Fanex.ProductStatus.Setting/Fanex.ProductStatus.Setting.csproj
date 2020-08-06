@@ -194,6 +194,7 @@
     <Compile Include="Configuration\ProductStatusConfiguration.cs" />
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
+    <Compile Include="Criteria\CheckProducStatusUMCriteria.cs" />
     <Compile Include="Criteria\SelectCustomerInfo.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
@@ -214,12 +215,14 @@
     <Compile Include="Models\MultipleResult.cs" />
     <Compile Include="Models\ProductProfile.cs" />
     <Compile Include="Models\SimpleProductStatusCommand.cs" />
+    <Compile Include="Models\UMMessage.cs" />
     <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs" />
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
+    <Compile Include="Shared\DateTimeExtensions.cs" />
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />

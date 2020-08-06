@@ -6,8 +6,8 @@ namespace Fanex.ProductStatus.Setting.Services
     using CommandServices;
     using Criteria;
     using DataAccess;
+    using Fanex.ProductStatus.Setting.AppResources;
     using Models;
-    using NAP.Framework.Data;
     using Shared;
 
     public interface ProductStatusService
@@ -32,6 +32,8 @@ namespace Fanex.ProductStatus.Setting.Services
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands);
+
+        IEnumerable<string> GetUMMessages(int productId, int custId, IEnumerable<ProductStatusCommand> commands, int systemId);
     }
 
     internal class ProductStatusServiceImpl : ProductStatusService
@@ -39,7 +41,7 @@ namespace Fanex.ProductStatus.Setting.Services
         private readonly ProductStatusDataAccess statusDataAccess;
         private readonly CriteriaFactoryService criteriaFactory;
         private readonly RefDataService refDataService;
-        private readonly IProductProfileService productProfileService;       
+        private readonly IProductProfileService productProfileService;
 
         public ProductStatusServiceImpl(
             ProductStatusDataAccess statusDataAccess = null,
@@ -70,25 +72,29 @@ namespace Fanex.ProductStatus.Setting.Services
 
             foreach (var item in rawData)
             {
-                if (settingLevel == (int)ProductSettingLevel.Product)
-                {
-                    item.Name = refDataService.GetProductName(productId);
-                }
-                else if (settingLevel == (int)ProductSettingLevel.SportType)
-                {
-                    item.Name = refDataService.GetSportTypeName(item.SportType);
-                }
-                else if (settingLevel == (int)ProductSettingLevel.BetType)
-                {
-                    item.Name = refDataService.GetBetTypeName(item.BetType);
-                }
-                else
-                {
-                    item.Name = refDataService.GetBetTypeName(item.BetType);
-                }
-
+                item.Name = SetProductStatusName((byte)settingLevel, productId, item.SportType, item.BetType);
                 yield return item;
             }
+        }
+
+        private string SetProductStatusName(byte settingLevel, int productId, int sportType, int betType)
+        {
+            if (settingLevel == ProductSettingLevel.Product)
+            {
+                return refDataService.GetProductName(productId);
+            }
+
+            if (settingLevel == ProductSettingLevel.SportType)
+            {
+                return refDataService.GetSportTypeName(sportType);
+            }
+
+            if (settingLevel == ProductSettingLevel.BetType)
+            {
+                return refDataService.GetBetTypeName(betType);
+            }
+
+            return refDataService.GetBetTypeName(betType);
         }
 
         public Result UpdateProductStatus(
@@ -145,5 +151,34 @@ namespace Fanex.ProductStatus.Setting.Services
                 yield return new MultipleResult(result, customerId, custNames[i]);
             }
         }
+
+        public IEnumerable<string> GetUMMessages(int productId, int custId, IEnumerable<ProductStatusCommand> commands, int systemId)
+        {
+            var umMessages = statusDataAccess
+                .GetUMMessages(new CheckProducStatusUMCriteria(productId, custId))
+                .ToList();
+
+            if (umMessages.Count > 0)
+            {
+                var settingLevel = (byte)productProfileService.GetSettingLevel(productId, systemId);
+
+                foreach (var item in commands)
+                {
+                    var umMessage = umMessages.FirstOrDefault(m => m.SportType == 0 || m.SportType == item.SportType);
+
+                    if (umMessage != null)
+                    {
+                        yield return BuildUMMessage(umMessage, settingLevel, productId, item.SportType, item.BetType);
+                    }
+                }
+            }
+        }
+
+        private string BuildUMMessage(UMMessage message, byte settingLevel, int productId, int sportType, int betType)
+            => string.Format(
+                Resources.UMProductStatusPattern,
+                SetProductStatusName(settingLevel, productId, sportType, betType),
+                message.BeginTime.ToLongDateWithSlash(),
+                message.EndTime.ToLongDateWithSlash());
     }
 }

@@ -15,6 +15,8 @@ namespace Fanex.ProductStatus.Setting.DataAccess
         Result ExecuteNonQuery(ICriteria criteria);
 
         bool SyncedRnGCasino(ICriteria criteria);
+
+        IEnumerable<UMMessage> GetUMMessages(ICriteria criteria);
     }
 
     internal class ProductStatusDataAccessImpl : ProductStatusDataAccess
@@ -71,5 +73,27 @@ namespace Fanex.ProductStatus.Setting.DataAccess
                 Convert.ToInt32(reader["totalenabledagents"]),
                 Convert.ToInt32(reader["totaldisabledmembers"]),
                 Convert.ToInt32(reader["totalenabledmembers"]));
+
+        public IEnumerable<UMMessage> GetUMMessages(ICriteria criteria)
+        {
+            using (var db = new ObjectDb(criteria.GetSettingKey()))
+            {
+                using (var reader = db.ExecuteReader(criteria.GetSpParams()))
+                {
+                    if (reader.Read())
+                    {
+                        yield return GetUMMessage(reader);
+                    }
+                }
+            }
+        }
+
+        private static UMMessage GetUMMessage(IDataReader reader)
+            => new UMMessage(
+                Convert.ToInt32(reader["productid"]),
+                Convert.ToInt32(reader["sporttype"]),
+                Convert.ToDateTime(reader["begintime"]),
+                Convert.ToDateTime(reader["endtime"]));
+
     }
 }
