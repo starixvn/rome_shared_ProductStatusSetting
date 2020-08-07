@@ -11,6 +11,7 @@
     public class Result
     {
         private const int InternalErrorCode = 500;
+        public const int UMErrorCode = 90014;
 
         public Result(int code, string message)
         {
@@ -29,6 +30,9 @@
 
         public bool IsSuccess()
             => Code == 0;
+
+        public bool IsUM()
+            => Code == UMErrorCode;
 
         public string ParseDCSProductMessage(int productId)
         {

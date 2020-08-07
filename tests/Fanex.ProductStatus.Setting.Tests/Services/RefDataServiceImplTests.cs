@@ -53,6 +53,40 @@
         }
 
         [Fact]
+        public void GetSportTypeName_ValidSportTypeId_ReturnsCorrectValue()
+        {
+            // Arrang
+            var sportTypeId = 4;
+            var expectedSportType = "Allbets";
+            remotingRefService
+                .GetSportName(sportTypeId.ToString(), "en-US")
+                .Returns(expectedSportType);
+
+            // Act
+            var actualSportType = refDataService.GetSportTypeName(sportTypeId);
+
+            // Assert
+            Assert.Equal(expectedSportType, actualSportType);
+        }
+
+        [Fact]
+        public void GetSportTypeName_InvalidSportTypeId_ReturnsEmpty()
+        {
+            // Arrang
+            var sportTypeId = -1;
+            var expectedSportType = string.Empty;
+            remotingRefService
+                .GetSportName(sportTypeId.ToString(), "en-US")
+                .Returns(expectedSportType);
+
+            // Act
+            var actualSportType = refDataService.GetSportTypeName(sportTypeId);
+
+            // Assert
+            Assert.Equal(expectedSportType, actualSportType);
+        }
+
+        [Fact]
         public void GetProductName_ValidProductId_ReturnsCorrectValue()
         {
             // Arrang

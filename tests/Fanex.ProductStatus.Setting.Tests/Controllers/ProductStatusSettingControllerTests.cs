@@ -132,7 +132,8 @@
                 updateViewModel.ActorId,
                 updateViewModel.ActorName,
                 updateViewModel.IP,
-                Arg.Any<IEnumerable<ProductStatusCommand>>())
+                Arg.Any<IEnumerable<ProductStatusCommand>>(),
+                updateViewModel.SystemId)
             .Returns(new Result(0, string.Empty));
 
             // Act
@@ -258,9 +259,17 @@
                 CustNames = "member01,member012",
                 CustRole = RoleIdentity.Super
             };
-            productStatusService
-                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRole, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
-                .Returns(new[] { new Result(0, string.Empty) });
+            productStatusService.MultipleUpdateProductStatus(
+                updateViewModel.ProductId,
+                updateViewModel.CustRole,
+                updateViewModel.CustomerIds,
+                updateViewModel.CustomerNames,
+                updateViewModel.ActorId,
+                updateViewModel.ActorName,
+                updateViewModel.IP,
+                updateViewModel.ProductStatus,
+                updateViewModel.SystemId)
+            .Returns(new[] { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.MultipleUpdate(updateViewModel) as JsonResult;
@@ -371,7 +380,8 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                Arg.Any<IEnumerable<ProductStatusCommand>>())
+                Arg.Any<IEnumerable<ProductStatusCommand>>(),
+                viewModel.SystemId)
             .Returns(new Result(0, string.Empty));
 
             // Act

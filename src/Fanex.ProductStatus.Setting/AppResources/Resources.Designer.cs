@@ -349,11 +349,29 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Product Status failed since the product(s) is under maintenance (GMT+8).
+        /// </summary>
+        public static string UMProductStatusMultiple {
+            get {
+                return ResourceManager.GetString("UMProductStatusMultiple", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} is under maintenance for Product Status from {1} (GMT+8) to {2} (GMT+8): Update failed.
         /// </summary>
         public static string UMProductStatusPattern {
             get {
                 return ResourceManager.GetString("UMProductStatusPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - {0}: from {1}  to {2}.
+        /// </summary>
+        public static string UMProductStatusPatternMultiple {
+            get {
+                return ResourceManager.GetString("UMProductStatusPatternMultiple", resourceCulture);
             }
         }
         

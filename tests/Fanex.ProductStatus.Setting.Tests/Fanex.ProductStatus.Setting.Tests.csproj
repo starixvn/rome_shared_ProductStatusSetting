@@ -182,6 +182,7 @@
     <Compile Include="Configuration\ProductStatusActorForTesting.cs" />
     <Compile Include="Controllers\ProductStatusSettingControllerTests.cs" />
     <Compile Include="Criteria\AllowedDownlinesByLevelCriteriaTests.cs" />
+    <Compile Include="Criteria\CheckProducStatusUMCriteriaTests.cs" />
     <Compile Include="Criteria\SelectCustomerInfoTests.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />

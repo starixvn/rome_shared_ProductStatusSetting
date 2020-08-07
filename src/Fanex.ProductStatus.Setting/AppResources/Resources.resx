@@ -213,8 +213,14 @@
   <data name="ThereIsNoData" xml:space="preserve">
     <value>There Is No Data.</value>
   </data>
+  <data name="UMProductStatusMultiple" xml:space="preserve">
+    <value>Update Product Status failed since the product(s) is under maintenance (GMT+8)</value>
+  </data>
   <data name="UMProductStatusPattern" xml:space="preserve">
     <value>{0} is under maintenance for Product Status from {1} (GMT+8) to {2} (GMT+8): Update failed</value>
+  </data>
+  <data name="UMProductStatusPatternMultiple" xml:space="preserve">
+    <value>- {0}: from {1}  to {2}</value>
   </data>
   <data name="UnauthorizeMessage" xml:space="preserve">
     <value>You are not authorized on this function.</value>
