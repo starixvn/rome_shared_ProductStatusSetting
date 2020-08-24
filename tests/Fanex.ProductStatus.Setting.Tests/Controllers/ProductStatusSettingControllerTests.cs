@@ -134,14 +134,14 @@
                 updateViewModel.IP,
                 Arg.Any<IEnumerable<ProductStatusCommand>>(),
                 updateViewModel.SystemId)
-            .Returns(new Result(0, string.Empty));
+            .Returns(new List<Result> { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.Update(updateViewModel) as JsonResult;
-            var actualResult = (Result)actualView.Data;
+            var actualResult = (IEnumerable<Result>)actualView.Data;
 
             // Assert
-            Assert.True(actualResult.IsSuccess());
+            Assert.True(actualResult.FirstOrDefault().IsSuccess());
         }
 
         [Fact]
@@ -382,14 +382,14 @@
                 viewModel.IP,
                 Arg.Any<IEnumerable<ProductStatusCommand>>(),
                 viewModel.SystemId)
-            .Returns(new Result(0, string.Empty));
+            .Returns(new List<Result> { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.SimpleUpdate(viewModel) as JsonResult;
-            var actualResult = (Result)actualView.Data;
+            var actualResult = (IEnumerable<Result>)actualView.Data;
 
             // Assert
-            Assert.True(actualResult.IsSuccess());
+            Assert.True(actualResult.FirstOrDefault().IsSuccess());
         }
     }
 }

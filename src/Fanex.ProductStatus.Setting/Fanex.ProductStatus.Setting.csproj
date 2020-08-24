@@ -221,7 +221,7 @@
     <Compile Include="Models\SimpleProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusUM.cs" />
     <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs">
-	  <SonarQubeExclude>true</SonarQubeExclude>
+      <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
@@ -229,7 +229,7 @@
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
     <Compile Include="Shared\DateTimeExtensions.cs">
-	  <SonarQubeExclude>true</SonarQubeExclude>
+      <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
@@ -246,7 +246,7 @@
     <Compile Include="ViewModels\SimpleQueryViewModel.cs" />
     <Compile Include="ViewModels\SimpleUpdateViewModel.cs" />
     <Compile Include="Web\ProductStatusAuthorizeAttribute.cs">
-	  <SonarQubeExclude>true</SonarQubeExclude>
+      <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
@@ -255,13 +255,13 @@
     <Compile Include="Services\IProductStatusAuthorizeService.cs" />
     <Compile Include="Services\CriteriaFactoryService.cs" />
     <Compile Include="Services\ProductStatusService.cs">
-	  <SonarQubeExclude>true</SonarQubeExclude>
+      <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
     <Compile Include="Services\RefDataService.cs" />
     <Compile Include="ViewModels\QueryViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
     <Compile Include="Web\ProductStatusValidateAntiForgeryTokenAttribute.cs">
-	  <SonarQubeExclude>true</SonarQubeExclude>
+      <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -106,6 +106,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All products.
+        /// </summary>
+        public static string AllProducts {
+            get {
+                return ResourceManager.GetString("AllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Supers.
         /// </summary>
         public static string AllSupers {
@@ -138,6 +147,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string CopyAllTooltip {
             get {
                 return ResourceManager.GetString("CopyAllTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Settings.
+        /// </summary>
+        public static string CustomerSettings {
+            get {
+                return ResourceManager.GetString("CustomerSettings", resourceCulture);
             }
         }
         
@@ -259,6 +277,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Status.
+        /// </summary>
+        public static string ProductStatus {
+            get {
+                return ResourceManager.GetString("ProductStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -349,29 +376,20 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Update Product Status failed since the product(s) is under maintenance (GMT+8).
+        ///   Looks up a localized string similar to Unable to Update because of the maintenance of the settings below (GMT +8):.
         /// </summary>
-        public static string UMProductStatusMultiple {
+        public static string UMProductStatus {
             get {
-                return ResourceManager.GetString("UMProductStatusMultiple", resourceCulture);
+                return ResourceManager.GetString("UMProductStatus", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is under maintenance for Product Status from {1} (GMT+8) to {2} (GMT+8): Update failed.
+        ///   Looks up a localized string similar to - {0}: {1} ({2} to {3}).
         /// </summary>
         public static string UMProductStatusPattern {
             get {
                 return ResourceManager.GetString("UMProductStatusPattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to - {0}: from {1}  to {2}.
-        /// </summary>
-        public static string UMProductStatusPatternMultiple {
-            get {
-                return ResourceManager.GetString("UMProductStatusPatternMultiple", resourceCulture);
             }
         }
         

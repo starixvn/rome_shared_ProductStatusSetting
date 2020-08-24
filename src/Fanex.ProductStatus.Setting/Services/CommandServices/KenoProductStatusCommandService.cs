@@ -42,7 +42,7 @@
                 {
                     errorCode = result.Code;
 
-                    if (!result.IsUM())
+                    if (!result.IsUMOfNonDCS())
                     {
                         errorMessages.Append($"{result.Message}: {refDataService.GetBetTypeName(item.BetType)}<br/>");
                     }

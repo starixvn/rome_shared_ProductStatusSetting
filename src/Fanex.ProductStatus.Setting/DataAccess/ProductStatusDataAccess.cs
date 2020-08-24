@@ -93,6 +93,7 @@
                 Convert.ToInt32(reader["productid"]),
                 Convert.ToInt32(reader["sporttype"]),
                 Convert.ToInt32(reader["bettype"]),
+                Convert.ToByte(reader["settingtype"]),
                 Convert.ToDateTime(reader["begintime"]),
                 Convert.ToDateTime(reader["endtime"]));
 

@@ -132,6 +132,9 @@
   <data name="AllMembers" xml:space="preserve">
     <value>All Members</value>
   </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>All products</value>
+  </data>
   <data name="AllSupers" xml:space="preserve">
     <value>All Supers</value>
   </data>
@@ -143,6 +146,9 @@
   </data>
   <data name="CopyAllTooltip" xml:space="preserve">
     <value>Click to duplicate the values</value>
+  </data>
+  <data name="CustomerSettings" xml:space="preserve">
+    <value>Customer Settings</value>
   </data>
   <data name="Disable" xml:space="preserve">
     <value>Disable</value>
@@ -183,6 +189,9 @@
   <data name="Msg90012" xml:space="preserve">
     <value>You are not allowed to perform this action.</value>
   </data>
+  <data name="ProductStatus" xml:space="preserve">
+    <value>Product Status</value>
+  </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
   </data>
@@ -213,14 +222,11 @@
   <data name="ThereIsNoData" xml:space="preserve">
     <value>There Is No Data.</value>
   </data>
-  <data name="UMProductStatusMultiple" xml:space="preserve">
-    <value>Update Product Status failed since the product(s) is under maintenance (GMT+8)</value>
+  <data name="UMProductStatus" xml:space="preserve">
+    <value>Unable to Update because of the maintenance of the settings below (GMT +8):</value>
   </data>
   <data name="UMProductStatusPattern" xml:space="preserve">
-    <value>{0} is under maintenance for Product Status from {1} (GMT+8) to {2} (GMT+8): Update failed</value>
-  </data>
-  <data name="UMProductStatusPatternMultiple" xml:space="preserve">
-    <value>- {0}: from {1}  to {2}</value>
+    <value>- {0}: {1} ({2} to {3})</value>
   </data>
   <data name="UnauthorizeMessage" xml:space="preserve">
     <value>You are not authorized on this function.</value>

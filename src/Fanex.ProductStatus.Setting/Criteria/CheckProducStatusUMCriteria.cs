@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
     using Fanex.NAP.Framework.Data;
+    using Fanex.ProductStatus.Setting.Shared;
 
     internal class CheckProducStatusUMCriteria : CriteriaBase
     {
@@ -11,7 +12,9 @@
 
         public CheckProducStatusUMCriteria(int productId, string custIds)
         {
-            ProductId = productId;
+            ProductId = productId == ProductIdentity.NumberGame
+                ? ProductIdentity.Sportsbook
+                : productId;
             CustIds = custIds;
         }
 

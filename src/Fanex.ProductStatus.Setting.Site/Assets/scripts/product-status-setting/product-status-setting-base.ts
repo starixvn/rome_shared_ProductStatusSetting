@@ -150,9 +150,29 @@
             error: this.onDefaultError
         });
 
-    protected onSuccess(result: any) {
-        this.showMessage(result.Code, result.Message);
-        if (result.Code == 0 && this.$topWindow.reloadLeftPanel) {
+    protected onSuccess(data: any) {
+        let html = [];
+        let isSuccess = true;
+        this.$.each(data, function (index, result) {
+            let className;
+
+            if (result.Code !== 0) {
+                className = "alerterror";
+                isSuccess = false;
+            } else {
+                className = "alertsuccess";
+            }
+
+            html.push('<div class="');
+            html.push(className);
+            html.push('"><div>');
+            html.push(result.Message);
+            html.push("</div></div>");
+        });
+
+        this.showMixedMessages(html.join(""));
+
+        if (isSuccess && this.$topWindow.reloadLeftPanel) {
             setTimeout(() => this.$topWindow.reloadLeftPanel(), this.$timeoutDefault);
         }
     }
@@ -168,6 +188,12 @@
 
     protected showMessage(code: any, message: string) {
         let html = ['<div class="', code === 0 ? "alertsuccess" : "alerterror", '"><div>', message, "</div></div>"].join("");
+        let messageDiv = this.$("#sectionMessage");
+        messageDiv.html(html).removeClass("hide");
+        this.$.unblockUI();
+    }
+
+    protected showMixedMessages(html: string) {
         let messageDiv = this.$("#sectionMessage");
         messageDiv.html(html).removeClass("hide");
         this.$.unblockUI();

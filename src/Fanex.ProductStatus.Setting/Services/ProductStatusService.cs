@@ -1,6 +1,5 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using CommandServices;
@@ -14,7 +13,7 @@
     {
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId);
 
-        Result UpdateProductStatus(
+        IEnumerable<Result> UpdateProductStatus(
             int productId,
             int custId,
             byte custRole,
@@ -22,8 +21,7 @@
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands,
-            byte systemId,
-            bool isMultiple = false);
+            byte systemId);
 
         IEnumerable<Result> MultipleUpdateProductStatus(
             int productId,
@@ -98,7 +96,7 @@
             return refDataService.GetBetTypeName(betType);
         }
 
-        public Result UpdateProductStatus(
+        public IEnumerable<Result> UpdateProductStatus(
             int productId,
             int custId,
             byte custRole,
@@ -106,10 +104,46 @@
             string actorName,
             string ip,
             IEnumerable<ProductStatusCommand> commands,
-            byte systemId,
-            bool isMultiple = false)
+            byte systemId)
         {
-            var result = ProductStatusCommandServiceFactory(productId).UpdateProductStatus(
+            var result = UpdateProductStatus(productId, custId, custRole, actorId, actorName, ip, commands);
+
+            if (IsNonDCS(productId))
+            {
+                return new[] { result };
+            }
+
+            if (!result.IsSuccess() && !result.IsDoNothing())
+            {
+                return new[] { result };
+            }
+
+            var results = new List<Result>();
+
+            if (result.IsSuccess())
+            {
+                results.Add(result);
+            }
+
+            var umMessage = GetUMMessageForEditSingle(productId, custId, systemId, commands);
+
+            if (!string.IsNullOrWhiteSpace(umMessage))
+            {
+                results.Add(new Result(Result.UMNonDCSErrorCode, umMessage));
+            }
+
+            return results;
+        }
+
+        private Result UpdateProductStatus(
+            int productId,
+            int custId,
+            byte custRole,
+            int actorId,
+            string actorName,
+            string ip,
+            IEnumerable<ProductStatusCommand> commands)
+            => ProductStatusCommandServiceFactory(productId).UpdateProductStatus(
                 productId,
                 custId,
                 custRole,
@@ -117,19 +151,6 @@
                 actorName,
                 ip,
                 commands);
-
-            if (result.IsSuccess() && IsDCSProduct(productId) && !isMultiple)
-            {
-                var umMessage = GetUMMessage(productId, custId, commands, systemId);
-
-                if (!string.IsNullOrWhiteSpace(umMessage))
-                {
-                    result = new Result(Result.UMErrorCode, umMessage);
-                }
-            }
-
-            return result;
-        }
 
         private ProductStatusCommandService ProductStatusCommandServiceFactory(int productId)
         {
@@ -157,9 +178,9 @@
             IEnumerable<ProductStatusCommand> commands,
             byte systemId)
         {
-            var umResults = new List<MultipleResult>();
-            var otherResults = new List<MultipleResult>();
             var custNameHash = new Dictionary<int, string>();
+            Result successResult = null;
+            var successCustName = new List<string>();
 
             for (int i = 0, custIdsLength = custIds.Length; i < custIdsLength; i++)
             {
@@ -167,33 +188,38 @@
                 var customerName = custNames[i];
                 custNameHash[customerId] = customerName;
 
-                var result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, commands, systemId, true);
+                var result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, commands);
 
-                if (result.IsUM())
+                if (result.IsSuccess())
                 {
-                    umResults.Add(new MultipleResult(result, customerId, customerName));
-                }
-                else
-                {
-                    otherResults.Add(new MultipleResult(result, customerId, customerName));
+                    successResult = result;
+                    successCustName.Add(customerName);
                 }
             }
 
-            if (IsDCSProduct(productId))
+            var multipleResults = new List<MultipleResult>();
+
+            if (successResult != null && successCustName.Count > 0)
             {
-                umResults.AddRange(GetUMMessage(productId, custIds, custNameHash, commands, systemId));
-            }
-            else if (umResults.Count > 0)
-            {
-                umResults = GetUMMessage(productId, umResults.Select(r => r.CustId).ToArray(), custNameHash, commands, systemId).ToList();
+                multipleResults.Add(new MultipleResult(successResult, 0, string.Join(", ", successCustName)));
             }
 
-            otherResults.AddRange(umResults);
+            GetUMMessageForEditMultiple(productId, custIds, custNameHash, systemId, commands)
+                .GroupBy(r => r.Message).ToList().ForEach(group =>
+                {
+                    var mulResult = new MultipleResult(
+                        new Result(Result.UMNonDCSErrorCode, group.Key),
+                        0,
+                        string.Join(", ", group.Select(r => r.CustName)));
+                    multipleResults.Add(mulResult);
+                });
 
-            return otherResults;
+            return multipleResults;
         }
 
-        private string GetUMMessage(int productId, int custId, IEnumerable<ProductStatusCommand> commands, byte systemId)
+        #region UM Functions
+
+        private string GetUMMessageForEditSingle(int productId, int custId, byte systemId, IEnumerable<ProductStatusCommand> commands)
         {
             var productStatusUM = statusDataAccess
                 .GetProductStatusUM(new CheckProducStatusUMCriteria(productId, custId))
@@ -204,39 +230,74 @@
                 return string.Empty;
             }
 
-            IList<string> umMessages = new List<string>();
             var settingLevel = (byte)productProfileService.GetSettingLevel(productId, systemId);
 
-            foreach (var item in commands)
-            {
-                var message = productStatusUM.FirstOrDefault(m => m.SportType == 0 || m.SportType == item.SportType);
+            return BuildUMMessages(productStatusUM, settingLevel, commands);
+        }
 
-                if (message != null)
+        private string BuildUMMessages(IEnumerable<ProductStatusUM> productStatusUM, byte settingLevel, IEnumerable<ProductStatusCommand> commands)
+        {
+            var allProductOrSportType = productStatusUM.SingleOrDefault(m => m.ProductId == 0 || m.SportType == 0);
+
+            if (allProductOrSportType != null)
+            {
+                return $"{Resources.UMProductStatus}<br/>{BuildUMMessage(allProductOrSportType, 0)}";
+            }
+
+            var umMessages = new List<string>();
+
+            foreach (var message in productStatusUM)
+            {
+                if (commands.Any(p => p.SportType == message.SportType))
                 {
-                    umMessages.Add(BuildUMMessage(message, settingLevel, productId, item.SportType, item.BetType));
+                    umMessages.Add(BuildUMMessage(message, settingLevel));
                 }
             }
 
-            return string.Join("<br/>", umMessages);
+            return umMessages.Count == 0
+                ? string.Empty
+                : $"{Resources.UMProductStatus}<br/>{string.Join("<br>", umMessages)}";
         }
 
-        private string BuildUMMessage(ProductStatusUM message, byte settingLevel, int productId, int sportType, int betType)
+        private string BuildUMMessage(ProductStatusUM message, byte settingLevel)
             => string.Format(
                 Resources.UMProductStatusPattern,
-                SetProductStatusName(settingLevel, productId, sportType, betType),
+                SetProductStatusName(message, settingLevel),
+                message.SettingType == 0 ? Resources.CustomerSettings : Resources.ProductStatus,
                 message.BeginTime.ToLongDateWithSlash(),
                 message.EndTime.ToLongDateWithSlash());
 
-        private IEnumerable<MultipleResult> GetUMMessage(
+        private string SetProductStatusName(ProductStatusUM message, byte settingLevel)
+        {
+            if (message.ProductId == 0)
+            {
+                return Resources.AllProducts;
+            }
+
+            if (message.SportType == 0)
+            {
+                return refDataService.GetProductName(message.ProductId);
+            }
+
+            return SetProductStatusName(settingLevel, message.ProductId, message.SportType, message.BetType);
+        }
+
+        private static bool IsNonDCS(int productId)
+            => productId == ProductIdentity.NumberGame
+            || productId == ProductIdentity.Casino
+            || productId == ProductIdentity.Keno
+            || productId == ProductIdentity.GoldDeluxe;
+
+        private IEnumerable<MultipleResult> GetUMMessageForEditMultiple(
             int productId,
             int[] custIds,
             IDictionary<int, string> custNameHash,
-            IEnumerable<ProductStatusCommand> commands,
-            byte systemId)
+            byte systemId,
+            IEnumerable<ProductStatusCommand> commands)
         {
             var productStatusUM = statusDataAccess
                 .GetProductStatusUM(new CheckProducStatusUMCriteria(productId, string.Join(",", custIds)))
-                .GroupBy(m => new { m.BeginTime, m.EndTime, m.SportType, m.BetType })
+                .GroupBy(m => m.CustId)
                 .ToList();
 
             if (productStatusUM.Count == 0)
@@ -246,65 +307,17 @@
 
             var settingLevel = (byte)productProfileService.GetSettingLevel(productId, systemId);
 
-            foreach (var grp in productStatusUM)
+            foreach (var group in productStatusUM)
             {
-                var umMessages = new List<string> { Resources.UMProductStatusMultiple };
+                var message = BuildUMMessages(group, settingLevel, commands);
 
-                if (productId == ProductIdentity.Keno)
+                if (!string.IsNullOrWhiteSpace(message))
                 {
-                    umMessages.Add(BuildUMMessage(ProductSettingLevel.Product, productId, 0,0, grp.Key.BeginTime, grp.Key.EndTime));
+                    yield return new MultipleResult(new Result(Result.UMNonDCSErrorCode, message), group.Key, custNameHash[group.Key]);
                 }
-                else
-                {
-                    umMessages.AddRange(
-                        commands.Select(cmd => BuildUMMessage(settingLevel, productId, cmd.SportType, cmd.BetType, grp.Key.BeginTime, grp.Key.EndTime)));
-                }
-
-                yield return new MultipleResult(
-                    new Result(Result.UMErrorCode, string.Join("<br/>", umMessages)),
-                    0,
-                    GetCustomerNameFromCustIds(grp.Select(m => m.CustId), custNameHash));
             }
         }
 
-        private string BuildUMMessage(
-            byte settingLevel,
-            int productId,
-            int sportType,
-            int betType,
-            DateTime beginTime,
-            DateTime endTime)
-            => string.Format(
-                Resources.UMProductStatusPatternMultiple,
-                SetProductStatusName(settingLevel, productId, sportType, betType),
-                beginTime.ToLongDateWithSlash(),
-                endTime.ToLongDateWithSlash());
-
-        private static string GetCustomerNameFromCustIds(IEnumerable<int> custIds, IDictionary<int, string> custNameHash)
-        {
-            string custName;
-            IList<string> customerNames = new List<string>();
-
-            foreach (var item in custIds)
-            {
-                if (!custNameHash.TryGetValue(item, out custName))
-                {
-                    custName = item.ToString();
-                }
-
-                customerNames.Add(custName);
-            }
-
-            return string.Join(", ", customerNames);
-        }
-
-        private static bool IsDCSProduct(int productId)
-            => !IsNonDCSProduct(productId);
-
-        private static bool IsNonDCSProduct(int productId)
-            => productId == ProductIdentity.Casino
-            || productId == ProductIdentity.Keno
-            || productId == ProductIdentity.NumberGame
-            || productId == ProductIdentity.GoldDeluxe;
+        #endregion
     }
 }

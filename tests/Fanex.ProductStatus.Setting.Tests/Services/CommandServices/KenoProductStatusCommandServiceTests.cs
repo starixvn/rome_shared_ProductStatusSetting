@@ -153,7 +153,7 @@
                 },
             };
 
-            var errorResult = new Result(Result.UMErrorCode, "Product is UM");
+            var errorResult = new Result(Result.UMNonDCSErrorCode, "Product is UM");
             productStatusDataAccess
                 .ExecuteNonQuery(Arg.Any<ICriteria>())
                 .Returns(errorResult);
@@ -164,7 +164,7 @@
             var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
 
             // Assert
-            Assert.True(actualResult.IsUM() && actualResult.Message == errorResult.Message);
+            Assert.True(actualResult.IsUMOfNonDCS() && actualResult.Message == errorResult.Message);
         }
     }
 }

@@ -6,12 +6,12 @@
     using System.Linq;
     using System.Xml.Linq;
     using AppResources;
-    using Shared;
 
     public class Result
     {
         private const int InternalErrorCode = 500;
-        public const int UMErrorCode = 90014;
+        public const int UMNonDCSErrorCode = 90014;
+        private const int DoNothingErrorCode = 90017;
 
         public Result(int code, string message)
         {
@@ -31,8 +31,11 @@
         public bool IsSuccess()
             => Code == 0;
 
-        public bool IsUM()
-            => Code == UMErrorCode;
+        public bool IsUMOfNonDCS()
+            => Code == UMNonDCSErrorCode;
+
+        public bool IsDoNothing()
+            => Code == DoNothingErrorCode;
 
         public string ParseDCSProductMessage(int productId)
         {

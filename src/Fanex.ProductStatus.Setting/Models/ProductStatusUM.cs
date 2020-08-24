@@ -9,6 +9,7 @@
             int productId,
             int sportType,
             int betType,
+            byte settingType,
             DateTime beginTime,
             DateTime endTime)
         {
@@ -16,6 +17,7 @@
             ProductId = productId;
             SportType = sportType;
             BetType = betType;
+            SettingType = settingType;
             BeginTime = beginTime;
             EndTime = endTime;
         }
@@ -27,6 +29,8 @@
         public int SportType { get; }
 
         public int BetType { get; }
+
+        public byte SettingType { get; }
 
         public DateTime BeginTime { get; }
 
