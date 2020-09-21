@@ -2,6 +2,7 @@
 {
     internal static class ProductIdentity
     {
+        internal const int Sportsbook = 1;
         internal const int NumberGame = 3;
         internal const int VirtualSports = 5;
         internal const int Casino = 6;

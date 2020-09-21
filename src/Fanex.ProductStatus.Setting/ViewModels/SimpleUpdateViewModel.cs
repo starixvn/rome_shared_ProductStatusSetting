@@ -38,6 +38,9 @@
         public string ActorName
            => productStatusActor.Name;
 
+        public byte SystemId
+           => productStatusActor.SystemId;
+
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0

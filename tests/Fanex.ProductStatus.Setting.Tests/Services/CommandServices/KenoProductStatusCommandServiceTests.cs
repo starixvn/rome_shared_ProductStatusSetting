@@ -6,10 +6,10 @@
     using NAP.Framework.Data;
     using NSubstitute;
     using Setting.Models;
+    using Setting.Services;
     using Setting.Services.CommandServices;
     using Setting.Shared;
     using Xunit;
-    using Setting.Services;
 
     [Trait("Services", "CommandServices")]
     public class KenoProductStatusCommandServiceTests
@@ -119,6 +119,52 @@
 
             // Assert
             Assert.False(actualResult.IsSuccess());
+        }
+
+        [Fact]
+        public void UpdateProductStatus_IsUM_ReturnsErrorMsgWithoutBetTypeName()
+        {
+            // Arrange
+            var commands = new List<ProductStatusCommand>
+            {
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1501,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+                new ProductStatusCommand
+                {
+                    SportType = 202,
+                    BetType = 1503,
+                    Disable = true,
+                    UpdateAllMasters = true,
+                    DisableAllMasters = true,
+                    UpdateAllAgents = true,
+                    DisableAllAgents = true,
+                    UpdateAllMembers = true,
+                    DisableAllMembers = true
+                },
+            };
+
+            var errorResult = new Result(Result.UMNonDCSErrorCode, "Product is UM");
+            productStatusDataAccess
+                .ExecuteNonQuery(Arg.Any<ICriteria>())
+                .Returns(errorResult);
+            refDataService.GetBetTypeName(1501).Returns(string.Empty);
+            refDataService.GetBetTypeName(1503).Returns(string.Empty);
+
+            // Act
+            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+
+            // Assert
+            Assert.True(actualResult.IsUMOfNonDCS() && actualResult.Message == errorResult.Message);
         }
     }
 }

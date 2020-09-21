@@ -194,6 +194,7 @@
     <Compile Include="Configuration\ProductStatusConfiguration.cs" />
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
+    <Compile Include="Criteria\CheckProducStatusUMCriteria.cs" />
     <Compile Include="Criteria\SelectCustomerInfo.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
@@ -208,18 +209,28 @@
     <Compile Include="Criteria\AllowedDownlinesByLevelCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
-    <Compile Include="DataAccess\ProductProfileDataAccess.cs" />
-    <Compile Include="DataAccess\ProductStatusDataAccess.cs" />
+    <Compile Include="DataAccess\ProductProfileDataAccess.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
+    <Compile Include="DataAccess\ProductStatusDataAccess.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
     <Compile Include="Models\ProductProfile.cs" />
     <Compile Include="Models\SimpleProductStatusCommand.cs" />
-    <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs" />
+    <Compile Include="Models\ProductStatusUM.cs" />
+    <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
+    <Compile Include="Shared\DateTimeExtensions.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Shared\ProductIdentity.cs" />
     <Compile Include="Services\IProductStatusActor.cs" />
     <Compile Include="Shared\RoleIdentity.cs" />
@@ -234,18 +245,24 @@
     <Compile Include="ViewModels\SimpleProductStatusViewModel.cs" />
     <Compile Include="ViewModels\SimpleQueryViewModel.cs" />
     <Compile Include="ViewModels\SimpleUpdateViewModel.cs" />
-    <Compile Include="Web\ProductStatusAuthorizeAttribute.cs" />
+    <Compile Include="Web\ProductStatusAuthorizeAttribute.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Models\ProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusModel.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IProductStatusAuthorizeService.cs" />
     <Compile Include="Services\CriteriaFactoryService.cs" />
-    <Compile Include="Services\ProductStatusService.cs" />
+    <Compile Include="Services\ProductStatusService.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
     <Compile Include="Services\RefDataService.cs" />
     <Compile Include="ViewModels\QueryViewModel.cs" />
     <Compile Include="ViewModels\UpdateViewModel.cs" />
-    <Compile Include="Web\ProductStatusValidateAntiForgeryTokenAttribute.cs" />
+    <Compile Include="Web\ProductStatusValidateAntiForgeryTokenAttribute.cs">
+      <SonarQubeExclude>true</SonarQubeExclude>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AppResources\Resources.resx">

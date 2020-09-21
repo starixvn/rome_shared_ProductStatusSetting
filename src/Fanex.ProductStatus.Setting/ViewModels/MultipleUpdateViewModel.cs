@@ -43,6 +43,9 @@
         public string ActorName
             => productStatusActor.Name;
 
+        public byte SystemId
+            => productStatusActor.SystemId;
+
         public int[] CustomerIds
         {
             get

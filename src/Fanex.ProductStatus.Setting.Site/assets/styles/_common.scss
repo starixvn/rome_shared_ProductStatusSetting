@@ -92,12 +92,14 @@ body {
         border: 1px solid $msg-error-color;
         color: $msg-error-color;
         background: 6px 6px no-repeat url(../../Areas/ProductStatusSetting/Styles/images/error.png);
+        margin-top: 7px;
     }
 
     .alertsuccess {
         border: 1px solid $msg-success-color;
         color: $msg-success-color;
         background: 6px 6px no-repeat url(../../Areas/ProductStatusSetting/Styles/images/success.png);
+        margin-bottom: 7px;
     }
 }
 

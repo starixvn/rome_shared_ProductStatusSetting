@@ -51,7 +51,8 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)));
+                viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)).ToList(),
+                viewModel.SystemId);
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }
@@ -85,7 +86,8 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                viewModel.ProductStatus);
+                viewModel.ProductStatus,
+                viewModel.SystemId);
 
             return Json(results, JsonRequestBehavior.DenyGet);
         }
@@ -121,7 +123,8 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                viewModel.ProductStatus.Select(product => product.ToProductStatusCommand(viewModel.CustRole)));
+                viewModel.ProductStatus.Select(product => product.ToProductStatusCommand(viewModel.CustRole)).ToList(),
+                viewModel.SystemId);
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }

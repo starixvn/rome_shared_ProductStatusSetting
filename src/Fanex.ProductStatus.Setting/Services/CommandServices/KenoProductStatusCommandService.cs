@@ -41,7 +41,15 @@
                 if(!result.IsSuccess())
                 {
                     errorCode = result.Code;
-                    errorMessages.Append($"{result.Message}: {refDataService.GetBetTypeName(Converter.ToInt(item.BetType))} <br/>");
+
+                    if (!result.IsUMOfNonDCS())
+                    {
+                        errorMessages.Append($"{result.Message}: {refDataService.GetBetTypeName(item.BetType)}<br/>");
+                    }
+                    else if (errorMessages.Length == 0)
+                    {
+                        errorMessages.Append(result.Message);
+                    }
                 }
             }
 

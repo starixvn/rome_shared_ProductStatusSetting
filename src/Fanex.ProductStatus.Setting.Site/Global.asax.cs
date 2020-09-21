@@ -33,7 +33,8 @@ namespace Fanex.ProductStatus.Setting.Site
                     new KeyValuePair<int, string>(5, "Virtual Sports"),
                     new KeyValuePair<int, string>(28, "Lottery"),
                     new KeyValuePair<int, string>(41, "Live Casino"),
-                    new KeyValuePair<int, string>(44, "RNG Lottery")
+                    new KeyValuePair<int, string>(44, "RNG Lottery"),
+                    new KeyValuePair<int, string>(38, "Virtual Games")
                 };
             }
         }

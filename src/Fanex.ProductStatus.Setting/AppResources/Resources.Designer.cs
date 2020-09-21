@@ -106,6 +106,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All products.
+        /// </summary>
+        public static string AllProducts {
+            get {
+                return ResourceManager.GetString("AllProducts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All Supers.
         /// </summary>
         public static string AllSupers {
@@ -138,6 +147,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string CopyAllTooltip {
             get {
                 return ResourceManager.GetString("CopyAllTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customer Settings.
+        /// </summary>
+        public static string CustomerSettings {
+            get {
+                return ResourceManager.GetString("CustomerSettings", resourceCulture);
             }
         }
         
@@ -259,6 +277,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Status.
+        /// </summary>
+        public static string ProductStatus {
+            get {
+                return ResourceManager.GetString("ProductStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset.
         /// </summary>
         public static string Reset {
@@ -345,6 +372,24 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         public static string ThereIsNoData {
             get {
                 return ResourceManager.GetString("ThereIsNoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to Update because of the maintenance of the settings below (GMT +8):.
+        /// </summary>
+        public static string UMProductStatus {
+            get {
+                return ResourceManager.GetString("UMProductStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to - {0}: {1} ({2} to {3}).
+        /// </summary>
+        public static string UMProductStatusPattern {
+            get {
+                return ResourceManager.GetString("UMProductStatusPattern", resourceCulture);
             }
         }
         

@@ -280,7 +280,7 @@
 
     onSuccess(results: any) {
         if (results.length > 0) {
-            this.isUpdateSuccess(results) ? super.onSuccess(results[0]) : this.onError(results);
+            this.isUpdateSuccess(results) ? super.onSuccess([results[0]]) : this.onError(results);
         }
         else {
             this.showMessage(results.Code, results.Message);
@@ -288,14 +288,18 @@
     }
 
     onError(results: any) {
-        let html = '';
-        results.forEach((result) => {
-            if (result.Code != 0) {
-                html += [result.CustName, ": ", result.Message, "<br>"].join("");
-            }
+        let html = [];
+        this.$.each(results, function (index, result) {
+            html.push('<div class="');
+            html.push(result.Code !== 0 ? "alerterror" : "alertsuccess");
+            html.push('"><div>');
+            html.push(result.CustName);
+            html.push(": ");
+            html.push(result.Message);
+            html.push("</div></div>");
         });
 
-        super.showMessage(this.$errorCodeDefault, html);
+        this.showMixedMessages(html.join(""));
     }
 
     isUpdateSuccess = (results: any): boolean =>

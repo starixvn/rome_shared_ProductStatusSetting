@@ -132,15 +132,16 @@
                 updateViewModel.ActorId,
                 updateViewModel.ActorName,
                 updateViewModel.IP,
-                Arg.Any<IEnumerable<ProductStatusCommand>>())
-            .Returns(new Result(0, string.Empty));
+                Arg.Any<IEnumerable<ProductStatusCommand>>(),
+                updateViewModel.SystemId)
+            .Returns(new List<Result> { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.Update(updateViewModel) as JsonResult;
-            var actualResult = (Result)actualView.Data;
+            var actualResult = (IEnumerable<Result>)actualView.Data;
 
             // Assert
-            Assert.True(actualResult.IsSuccess());
+            Assert.True(actualResult.FirstOrDefault().IsSuccess());
         }
 
         [Fact]
@@ -258,9 +259,17 @@
                 CustNames = "member01,member012",
                 CustRole = RoleIdentity.Super
             };
-            productStatusService
-                .MultipleUpdateProductStatus(updateViewModel.ProductId, updateViewModel.CustRole, updateViewModel.CustomerIds, updateViewModel.CustomerNames, updateViewModel.ActorId, updateViewModel.ActorName, updateViewModel.IP, updateViewModel.ProductStatus)
-                .Returns(new[] { new Result(0, string.Empty) });
+            productStatusService.MultipleUpdateProductStatus(
+                updateViewModel.ProductId,
+                updateViewModel.CustRole,
+                updateViewModel.CustomerIds,
+                updateViewModel.CustomerNames,
+                updateViewModel.ActorId,
+                updateViewModel.ActorName,
+                updateViewModel.IP,
+                updateViewModel.ProductStatus,
+                updateViewModel.SystemId)
+            .Returns(new[] { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.MultipleUpdate(updateViewModel) as JsonResult;
@@ -371,15 +380,16 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
-                Arg.Any<IEnumerable<ProductStatusCommand>>())
-            .Returns(new Result(0, string.Empty));
+                Arg.Any<IEnumerable<ProductStatusCommand>>(),
+                viewModel.SystemId)
+            .Returns(new List<Result> { new Result(0, string.Empty) });
 
             // Act
             var actualView = productStatusSettingController.SimpleUpdate(viewModel) as JsonResult;
-            var actualResult = (Result)actualView.Data;
+            var actualResult = (IEnumerable<Result>)actualView.Data;
 
             // Assert
-            Assert.True(actualResult.IsSuccess());
+            Assert.True(actualResult.FirstOrDefault().IsSuccess());
         }
     }
 }
