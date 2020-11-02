@@ -102,7 +102,7 @@
             if (viewModel.IsValid())
             {
                 viewModel.SetSimpleProductStatusViewModel(
-                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId));
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, ProductStatusConfigurationHandler.Actor.SettingStatus));
             }
 
             return View(SimpleViewPath, viewModel);
@@ -136,7 +136,7 @@
             if (viewModel.IsValid())
             {
                 viewModel.SetProductStatusViewModel(
-                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId));
+                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, ProductStatusConfigurationHandler.Actor.SettingStatus));
             }
         }
 

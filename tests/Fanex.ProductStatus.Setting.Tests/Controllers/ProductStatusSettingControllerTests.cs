@@ -36,7 +36,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
                 .Returns(Enumerable.Empty<ProductStatusModel>());          
 
             // Assert
@@ -69,7 +69,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
                 .Returns(productStatus);
 
             // Act
@@ -170,7 +170,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Assert
@@ -202,7 +202,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId)
+                .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
                 .Returns(productStatus);
 
             // Act
@@ -289,7 +289,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService
-                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId)
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, viewModel.SettingStatus)
                 .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Assert
@@ -322,7 +322,7 @@
                     totalEnabledMembers: 300)
             };
             productStatusService
-                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId)
+                .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, viewModel.SettingStatus)
                 .Returns(productStatus);
 
             // Act

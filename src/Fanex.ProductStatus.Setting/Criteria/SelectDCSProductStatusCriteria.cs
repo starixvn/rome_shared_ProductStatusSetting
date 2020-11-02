@@ -2,8 +2,8 @@
 {
     internal class SelectDCSProductStatusCriteria : SelectProductStatusCriteria
     {
-        public SelectDCSProductStatusCriteria(int productId, int custId)
-            : base(productId, custId)
+        public SelectDCSProductStatusCriteria(int productId, int custId, byte settingStatus)
+            : base(productId, custId, settingStatus)
         {
         }
 

@@ -11,7 +11,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, 1176083);
+            var criteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, 1176083, 0);
             var expectedSettingKey = "Acc_Admin_DisableGameStatusSelect";
 
             // Act

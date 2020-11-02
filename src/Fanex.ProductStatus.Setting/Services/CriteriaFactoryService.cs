@@ -9,7 +9,7 @@
 
     public interface CriteriaFactoryService
     {
-        ICriteria CreateSelectCriteria(int productId, int custId, int sportType);
+        ICriteria CreateSelectCriteria(int productId, int custId, int sportType, byte settingStatus);
 
         ICriteria CreateUpdateCriteria(
             int productId,
@@ -21,7 +21,7 @@
 
     internal class CriteriaFactoryServiceImpl : CriteriaFactoryService
     {
-        public ICriteria CreateSelectCriteria(int productId, int custId, int sportType)
+        public ICriteria CreateSelectCriteria(int productId, int custId, int sportType, byte settingStatus)
         {
             switch (productId)
             {
@@ -29,20 +29,20 @@
                 case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
                 case ProductIdentity.GoldDeluxe:
-                    return new SelectProductStatusCriteria(productId, custId);
+                    return new SelectProductStatusCriteria(productId, custId, settingStatus);
 
                 case ProductIdentity.NG2:
-                    return new SelectNG2StatusCriteria(productId, custId);
+                    return new SelectNG2StatusCriteria(productId, custId, settingStatus);
 
                 case ProductIdentity.Sportbook2:
                     if (sportType == SportTypeIndentity.Esports)
                     {
-                        return new SelectEsportProductStatusCriteria(productId, custId);
+                        return new SelectEsportProductStatusCriteria(productId, custId, settingStatus);
                     }
-                    return new SelectDCSProductStatusCriteria(productId, custId);
+                    return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
 
                 default:
-                    return new SelectDCSProductStatusCriteria(productId, custId);
+                    return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
             }
         }
 

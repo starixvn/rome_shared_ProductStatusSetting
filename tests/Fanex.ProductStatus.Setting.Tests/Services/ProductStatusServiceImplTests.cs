@@ -57,10 +57,10 @@
                     30,
                     300)
             };
-            var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
+            var criteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
 
             criteriaFactory
-                .CreateSelectCriteria(productId, CustIdTest, 0)
+                .CreateSelectCriteria(productId, CustIdTest, 0, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -74,7 +74,7 @@
             var compareLogic = new CompareLogic();
 
             // Act
-            var actualData = productStatusService.GetProductStatus(productId, CustIdTest, 0, 4);
+            var actualData = productStatusService.GetProductStatus(productId, CustIdTest, 0, 4, 0);
             var actualResults = actualData.ToList();
 
             // Assert
@@ -110,10 +110,10 @@
                     30,
                     300)
             };
-            var criteria = new SelectProductStatusCriteria(ProductIdentity.Keno, CustIdTest);
+            var criteria = new SelectProductStatusCriteria(ProductIdentity.Keno, CustIdTest, 0);
 
             criteriaFactory
-                .CreateSelectCriteria(ProductIdentity.Keno, CustIdTest, 0)
+                .CreateSelectCriteria(ProductIdentity.Keno, CustIdTest, 0, 0)
                 .Returns(criteria);
 
             productStatusDataAccess
@@ -130,7 +130,7 @@
             var compareLogic = new CompareLogic();
 
             // Act
-            var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest, 0, 4);
+            var actualResults = productStatusService.GetProductStatus(ProductIdentity.Keno, CustIdTest, 0, 4, 0);
 
             // Assert
             Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);

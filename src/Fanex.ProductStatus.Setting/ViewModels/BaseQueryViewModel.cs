@@ -35,6 +35,9 @@
         public byte SystemId
             => productStatusActor.SystemId;
 
+        public byte SettingStatus
+            => productStatusActor.SettingStatus;
+
         public IEnumerable<ProductStatusViewModel> ProductStatus { get; private set; }
             = Enumerable.Empty<ProductStatusViewModel>();
 

@@ -2,8 +2,8 @@
 {
     internal class SelectNG2StatusCriteria : SelectProductStatusCriteria
     {
-        public SelectNG2StatusCriteria(int productId, int custId)
-            : base(productId, custId)
+        public SelectNG2StatusCriteria(int productId, int custId, byte settingStatus)
+            : base(productId, custId, settingStatus)
         {
         }
 

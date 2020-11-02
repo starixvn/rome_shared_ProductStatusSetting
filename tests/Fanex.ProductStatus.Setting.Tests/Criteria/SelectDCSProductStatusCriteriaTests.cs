@@ -10,7 +10,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new SelectDCSProductStatusCriteria(21, 1176083);
+            var criteria = new SelectDCSProductStatusCriteria(21, 1176083, 0);
             var expectedSettingKey = "Acc_Admin_DisableNewProductStatusSelect";
 
             // Act

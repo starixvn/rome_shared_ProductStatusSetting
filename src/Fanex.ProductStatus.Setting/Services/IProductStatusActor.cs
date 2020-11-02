@@ -9,5 +9,7 @@
         string ClientIP { get; }
 
         byte SystemId { get; }
+
+        byte SettingStatus { get; }
     }
 }

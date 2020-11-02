@@ -105,5 +105,11 @@ namespace Fanex.ProductStatus.Setting.Site
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public byte SystemId { get; } = 1;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+
+        // 0: Production
+        // 1: UAT
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public byte SettingStatus { get; } = 0;
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
