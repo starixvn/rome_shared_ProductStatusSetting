@@ -144,7 +144,6 @@
             cache: false,
             headers: this.setupAntiXSRF(),
             data: JSON.stringify(updateViewModel),
-            dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: (data) => this.onSuccess(data),
             error: this.onDefaultError

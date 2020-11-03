@@ -279,6 +279,8 @@
     }
 
     onSuccess(results: any) {
+        if (typeof this.$topWindow.onPruductStatusSettingSuccess === "function" && !this.$topWindow.onPruductStatusSettingSuccess(results, this.$.unblockUI)) { return; }
+
         if (results.length > 0) {
             this.isUpdateSuccess(results) ? super.onSuccess([results[0]]) : this.onError(results);
         }
