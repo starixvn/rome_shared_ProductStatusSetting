@@ -15,6 +15,8 @@
         // Ext-NAP = 4
         public byte SystemId { get; } = 1;
 
+        public byte SettingStatus { get; } = 0;
+
         public IEnumerable<KeyValuePair<int, string>> GetProductList()
             => new List<KeyValuePair<int, string>>
             {

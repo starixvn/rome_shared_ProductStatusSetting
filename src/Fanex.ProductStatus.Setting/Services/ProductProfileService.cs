@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using DataAccess;
+    using Fanex.ProductStatus.Setting.Configuration;
     using Fanex.ProductStatus.Setting.Criteria;
     using Fanex.ProductStatus.Setting.Models;
     using Fanex.ProductStatus.Setting.Shared;
@@ -14,6 +15,8 @@
 
     public class ProductProfileService : IProductProfileService
     {
+        private readonly IProductStatusActor productStatusActor;
+
         private static IEnumerable<ProductProfile> NonDCSProductSetting = new List<ProductProfile>
         {
             new ProductProfile(ProductIdentity.Casino, ProductSettingLevel.Product),
@@ -38,9 +41,10 @@
 
         private readonly ProductProfileDataAccess productProfileDataAccess;
 
-        public ProductProfileService(ProductProfileDataAccess productProfileDataAccess = null)
+        public ProductProfileService(ProductProfileDataAccess productProfileDataAccess = null, IProductStatusActor productStatusActor = null)
         {
             this.productProfileDataAccess = productProfileDataAccess ?? new ProductProfileDataAccessImpl();
+            this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
         }
 
         public int GetSettingLevel(int productId, int systemId)
@@ -55,7 +59,8 @@
                 new SelectProductProfileCriteria(
                     productId,
                     DCSProductSetting.First(i => i.ProductId == productId).SettingType.Value,
-                    systemId));            
+                    systemId,
+                    productStatusActor.SettingStatus));            
 
             return productProfile.SettingLevel.Value;
         }

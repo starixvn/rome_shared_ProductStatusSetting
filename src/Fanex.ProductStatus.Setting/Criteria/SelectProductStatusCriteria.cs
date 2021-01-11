@@ -4,15 +4,18 @@
 
     internal class SelectProductStatusCriteria : CriteriaBase
     {
-        public SelectProductStatusCriteria(int productId, int custId)
+        public SelectProductStatusCriteria(int productId, int custId, byte settingStatus)
         {
             ProductId = productId;
             CustId = custId;
+            SettingStatus = settingStatus;
         }
 
         public int ProductId { get; }
 
         public int CustId { get; }
+
+        public byte SettingStatus { get; }
 
         public override string GetSettingKey() => "Acc_AdminSelStatusByProductId";
 

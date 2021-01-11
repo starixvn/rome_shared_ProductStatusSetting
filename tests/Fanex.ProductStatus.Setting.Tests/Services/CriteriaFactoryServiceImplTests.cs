@@ -29,10 +29,10 @@
         public void CreateSelectCriteria_ValidProductId_ReturnsSelectProductStatusCriteria(int productId)
         {
             // Arrange
-            var expectedCriteria = new SelectProductStatusCriteria(productId, CustIdTest);
+            var expectedCriteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -42,10 +42,10 @@
         public void CreateSelectCriteria_NG2_ReturnsSSelectNG2StatusCriteria()
         {
             // Arrange
-            var expectedCriteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest);
+            var expectedCriteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest, 0);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest, 0);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest, 0, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -60,10 +60,10 @@
         public void CreateSelectCriteria_DCSProducts_ReturnsSelectDCSProductStatusCriteria(int productId)
         {
             // Arrange
-            var expectedCriteria = new SelectDCSProductStatusCriteria(productId, CustIdTest);
+            var expectedCriteria = new SelectDCSProductStatusCriteria(productId, CustIdTest, 0);
 
             // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0);
+            var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0, 0);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());

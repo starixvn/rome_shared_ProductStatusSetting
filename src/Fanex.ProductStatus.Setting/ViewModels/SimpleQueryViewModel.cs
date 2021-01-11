@@ -34,6 +34,9 @@
         public byte SystemId
             => productStatusActor.SystemId;
 
+        public byte SettingStatus
+            => productStatusActor.SettingStatus;
+
         public int ProductId { get; set; }
 
         public int CustId { get; set; }

@@ -2,8 +2,8 @@
 {
     internal class SelectEsportProductStatusCriteria : SelectProductStatusCriteria
     {
-        public SelectEsportProductStatusCriteria(int productId, int custId)
-            : base(productId, custId)
+        public SelectEsportProductStatusCriteria(int productId, int custId, byte settingStatus)
+            : base(productId, custId, settingStatus)
         {
         }
 

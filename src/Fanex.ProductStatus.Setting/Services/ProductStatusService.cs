@@ -11,7 +11,7 @@
 
     public interface ProductStatusService
     {
-        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId);
+        IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId, byte settingStatus);
 
         IEnumerable<Result> UpdateProductStatus(
             int productId,
@@ -54,9 +54,9 @@
             this.productProfileService = productProfileService ?? new ProductProfileService();
         }
 
-        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId)
+        public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId, byte settingStatus)
         {
-            var criteria = criteriaFactory.CreateSelectCriteria(productId, custId, sportType);
+            var criteria = criteriaFactory.CreateSelectCriteria(productId, custId, sportType, settingStatus);
             var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
 
             return SetProductStatusName(productId, systemId, rawData);

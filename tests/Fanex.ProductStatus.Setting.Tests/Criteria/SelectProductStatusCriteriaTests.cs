@@ -17,7 +17,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey(int productId)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
+            var criteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
             var expectedSettingKey = "Acc_AdminSelStatusByProductId";
 
             // Act
@@ -35,7 +35,7 @@
         public void IsValid_ValidCriteria_ReturnsTrue(int productId)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
+            var criteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
             var expectedResult = true;
 
             // Act
@@ -52,7 +52,7 @@
         public void IsValid_ProductId_ReturnsExpectedResult(int productId, bool expectedResult)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria(productId, CustIdTest);
+            var criteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
 
             // Act
             var actualResult = criteria.IsValid();
@@ -68,7 +68,7 @@
         public void IsValid_CustId_ReturnsExpectedResult(int custId, bool expectedResult)
         {
             // Arrange
-            var criteria = new SelectProductStatusCriteria(ProductIdentity.NumberGame, custId);
+            var criteria = new SelectProductStatusCriteria(ProductIdentity.NumberGame, custId, 0);
 
             // Act
             var actualResult = criteria.IsValid();
