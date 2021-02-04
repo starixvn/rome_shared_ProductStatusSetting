@@ -1,8 +1,10 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Services
 {
+    using Fanex.ProductStatus.Setting.Configuration;
     using Fanex.ProductStatus.Setting.Criteria;
     using Fanex.ProductStatus.Setting.DataAccess;
     using Fanex.ProductStatus.Setting.Services;
+    using Fanex.ProductStatus.Setting.Tests.Configuration;
     using NSubstitute;
     using Setting.Models;
     using Xunit;
@@ -12,11 +14,20 @@
     {
         private readonly ProductProfileDataAccess productProfileDataAccess;
         private readonly ProductProfileService productProfileService;
+        private readonly IProductStatusActor productStatusActor;
 
         public ProductProfileServiceTests()
         {
+            //// Arrange
+            var configuration = new ProductStatusConfiguration()
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
+                .UseProductStatusActor(new ProductStatusActorForTesting())
+                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
+
+            ProductStatusConfigurationHandler.UseConfig(configuration);
             productProfileDataAccess = Substitute.For<ProductProfileDataAccess>();
-            productProfileService = new ProductProfileService(productProfileDataAccess);
+            productStatusActor = Substitute.For<IProductStatusActor>();
+            productProfileService = new ProductProfileService(productProfileDataAccess, productStatusActor);
         }
 
         [Theory]
@@ -26,8 +37,6 @@
         [InlineData(12, 1)]
         public void GetSettingLevel_NonDCS_ReturnValueFromHardcode(int productId, int exceptedValue)
         {
-            // Arrange
-
             // Act
             var act = productProfileService.GetSettingLevel(productId, 4);
 
@@ -46,10 +55,9 @@
         [InlineData(42)]
         public void GetSettingLevel_DCSProduct_CallRepository(int productId)
         {
-            //// Arrange
             productProfileDataAccess
                 .GetProductProfile(Arg.Any<SelectProductProfileCriteria>())
-                .Returns(new ProductProfile(33, 1, 1));
+                .Returns(new ProductProfile(productId, 1, 1));
 
             //// Act
             var act = productProfileService.GetSettingLevel(productId, 4);

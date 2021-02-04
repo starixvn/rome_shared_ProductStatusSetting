@@ -21,13 +21,18 @@
             => new List<KeyValuePair<int, string>>
             {
                 new KeyValuePair<int, string>(3, "Number Game"),
+                new KeyValuePair<int, string>(5, "Virtual Sports"),
                 new KeyValuePair<int, string>(6, "Casino"),
                 new KeyValuePair<int, string>(8, "Keno"),
                 new KeyValuePair<int, string>(12, "Gold Deluxe"),
+                new KeyValuePair<int, string>(16, "SB2"),
                 new KeyValuePair<int, string>(21, "Allbets"),
                 new KeyValuePair<int, string>(22, "Macau Games"),
                 new KeyValuePair<int, string>(23, "NG2"),
                 new KeyValuePair<int, string>(24, "Fishing World"),
+                new KeyValuePair<int, string>(41, "Live Casino"),
+                new KeyValuePair<int, string>(42, "Saba.club"),
+                new KeyValuePair<int, string>(44, "RNG Lottery"),
             };
     }
 }

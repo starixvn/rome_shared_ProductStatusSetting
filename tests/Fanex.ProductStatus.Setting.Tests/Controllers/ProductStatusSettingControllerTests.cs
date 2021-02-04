@@ -1,15 +1,16 @@
 ﻿namespace Fanex.ProductStatus.Setting.Tests.Controllers
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Mvc;
     using Configuration;
+    using Fanex.ProductStatus.Setting.Configuration;
     using NSubstitute;
     using Setting.Controllers;
     using Setting.Models;
     using Setting.Services;
     using Setting.Shared;
     using Setting.ViewModels;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
     using Xunit;
 
     [Trait("Controllers", "ProductStatusSettingController")]
@@ -21,6 +22,12 @@
 
         public ProductStatusSettingControllerTests()
         {
+            var configuration = new ProductStatusConfiguration()
+                .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
+                .UseProductStatusActor(new ProductStatusActorForTesting())
+                .SetUnAuthorizedUrl("~/Error/UnAuthorized");
+
+            ProductStatusConfigurationHandler.UseConfig(configuration);
             productStatusActor = Substitute.For<IProductStatusActor>();
             productStatusService = Substitute.For<ProductStatusService>();
             productStatusSettingController = new ProductStatusSettingController(productStatusService);
