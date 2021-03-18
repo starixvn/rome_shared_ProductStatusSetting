@@ -43,7 +43,7 @@
                 response.Clear();
                 filterContext.Result = new JsonResult
                 {
-                    Data = new Result((int)HttpStatusCode.Forbidden, Resources.UnauthorizeMessage),
+                    Data = new[] { new Result((int)HttpStatusCode.Forbidden, Resources.UnauthorizeMessage) },
                     JsonRequestBehavior = JsonRequestBehavior.DenyGet
                 }; 
                 filterContext.Result.ExecuteResult(filterContext.Controller.ControllerContext);
