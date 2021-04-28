@@ -36,7 +36,8 @@
             new ProductProfile(ProductIdentity.RNGLottery, null, 13),
             new ProductProfile(ProductIdentity.VirtualGames, null, 13),
             new ProductProfile(ProductIdentity.Sabaclub, null, 13),
-            new ProductProfile(ProductIdentity.SabaVirtualSports, null, 4)
+            new ProductProfile(ProductIdentity.SabaVirtualSports, null, 4),
+            new ProductProfile(ProductIdentity.VGaming, null, 13)
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;
