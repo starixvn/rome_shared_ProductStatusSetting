@@ -18,5 +18,6 @@
         internal const int RNGLottery = 44;
         internal const int SabaVirtualSports = 54;
         internal const int VGaming = 66;
+        internal const int BitcoinBetting = 69;
     }
 }
