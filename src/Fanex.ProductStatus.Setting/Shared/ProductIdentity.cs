@@ -19,5 +19,6 @@
         internal const int SabaVirtualSports = 54;
         internal const int VGaming = 66;
         internal const int BitcoinBetting = 69;
+        internal const int Cashout = 25;
     }
 }
