@@ -19,7 +19,6 @@
 
         private static IEnumerable<ProductProfile> NonDCSProductSetting = new List<ProductProfile>
         {
-            new ProductProfile(ProductIdentity.Casino, ProductSettingLevel.Product),
             new ProductProfile(ProductIdentity.Keno, ProductSettingLevel.BetType) ,
             new ProductProfile(ProductIdentity.NumberGame, ProductSettingLevel.Product),
             new ProductProfile(ProductIdentity.GoldDeluxe, ProductSettingLevel.Product)
@@ -27,6 +26,7 @@
 
         private static IEnumerable<ProductProfile> DCSProductSetting = new List<ProductProfile>
         {
+            new ProductProfile(ProductIdentity.Casino, null, 13),
             new ProductProfile(ProductIdentity.VirtualSports, null, 13),
             new ProductProfile(ProductIdentity.Sportbook2, null, 13),
             new ProductProfile(ProductIdentity.LiveCasino, null, 13),
@@ -63,7 +63,7 @@
                     productId,
                     DCSProductSetting.First(i => i.ProductId == productId).SettingType.Value,
                     systemId,
-                    productStatusActor.SettingStatus));            
+                    productStatusActor.SettingStatus));
 
             return productProfile.SettingLevel.Value;
         }
