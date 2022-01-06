@@ -38,7 +38,8 @@
             new ProductProfile(ProductIdentity.Sabaclub, null, 13),
             new ProductProfile(ProductIdentity.SabaVirtualSports, null, 4),
             new ProductProfile(ProductIdentity.VGaming, null, 13),
-            new ProductProfile(ProductIdentity.BitcoinBetting, null, 13)
+            new ProductProfile(ProductIdentity.BitcoinBetting, null, 13),
+            new ProductProfile(ProductIdentity.Cashout, null, 4),
         };
 
         private readonly ProductProfileDataAccess productProfileDataAccess;
