@@ -26,7 +26,6 @@
             switch (productId)
             {
                 case ProductIdentity.NumberGame:
-                case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
                 case ProductIdentity.GoldDeluxe:
                     return new SelectProductStatusCriteria(productId, custId, settingStatus);

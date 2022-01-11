@@ -36,18 +36,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CasinoLibrary, Version=2.0.2.28015, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CasinoLibrary.2.0.2.28015\lib\net40\CasinoLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CasinoSetting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CasinoLibrary.2.0.2.28015\lib\net40\CasinoSetting.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="CasinoUtility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CasinoLibrary.2.0.2.28015\lib\net40\CasinoUtility.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll</HintPath>
       <Private>True</Private>
@@ -76,16 +64,8 @@
       <HintPath>..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="HandHistoryLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\CasinoLibrary.2.0.2.28015\lib\net40\HandHistoryLibrary.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="IBCCrypt, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\IBCCrypt.1.1.0.0\lib\IBCCrypt.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\log4net.2.0.8\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MessagePack, Version=1.7.3.4, Culture=neutral, PublicKeyToken=b4a0369545f0a1be, processorArchitecture=MSIL">
@@ -195,18 +175,15 @@
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\CheckProducStatusUMCriteria.cs" />
-    <Compile Include="Criteria\SelectCustomerInfo.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
     <Compile Include="Criteria\SelectProductProfileCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
-    <Compile Include="Criteria\UpdateCasinoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateGoldDeluxeStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateNumberGameStatusCriteria.cs" />
-    <Compile Include="Criteria\AllowedDownlinesByLevelCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\ProductProfileDataAccess.cs">
@@ -220,10 +197,6 @@
     <Compile Include="Models\ProductProfile.cs" />
     <Compile Include="Models\SimpleProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusUM.cs" />
-    <Compile Include="Services\CommandServices\RngCasinoAPIWrapper.cs">
-      <SonarQubeExclude>true</SonarQubeExclude>
-    </Compile>
-    <Compile Include="Services\CommandServices\CasinoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />

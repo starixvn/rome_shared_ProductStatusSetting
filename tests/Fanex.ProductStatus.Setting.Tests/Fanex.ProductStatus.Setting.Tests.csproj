@@ -181,9 +181,7 @@
     <Compile Include="Configuration\ProductStatusConfigurationTests.cs" />
     <Compile Include="Configuration\ProductStatusActorForTesting.cs" />
     <Compile Include="Controllers\ProductStatusSettingControllerTests.cs" />
-    <Compile Include="Criteria\AllowedDownlinesByLevelCriteriaTests.cs" />
     <Compile Include="Criteria\CheckProducStatusUMCriteriaTests.cs" />
-    <Compile Include="Criteria\SelectCustomerInfoTests.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteriaTests.cs" />
@@ -194,13 +192,11 @@
     <Compile Include="Criteria\UpdateNumberGameStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseTests.cs" />
-    <Compile Include="Criteria\UpdateCasinoStatusCriteriaTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResultTests.cs" />
     <Compile Include="Models\ProductStatusCommandTests.cs" />
     <Compile Include="Models\SimpleProductStatusCommandTests.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandServiceTests.cs" />
-    <Compile Include="Services\CommandServices\CasinoProductStatusCommandServiceTests.cs" />
     <Compile Include="Services\CommandServices\KenoProductStatusCommandServiceTests.cs" />
     <Compile Include="Services\ProductProfileServiceTests.cs" />
     <Compile Include="Shared\StringExtensionsTests.cs" />
