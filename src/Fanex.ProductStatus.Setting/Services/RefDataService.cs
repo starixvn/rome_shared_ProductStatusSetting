@@ -25,7 +25,11 @@
             => remotingRefService.GetBetTypeName(betTypeId.ToString(), LanguageCode);
 
         public string GetSportTypeName(int sportTypeId)
-           => remotingRefService.GetSportName(sportTypeId.ToString(), LanguageCode);
+           => remotingRefService.GetSportName(sportTypeId.ToString(), LanguageCode, null) ?? remotingRefService.GetResourceDataByRefIdAndResourceId(
+                "DummySport",
+                sportTypeId.ToString(),
+                LanguageCode,
+                string.Empty);
 
         public string GetProductName(int productId)
             => remotingRefService.GetResourceDataByRefIdAndResourceId(
