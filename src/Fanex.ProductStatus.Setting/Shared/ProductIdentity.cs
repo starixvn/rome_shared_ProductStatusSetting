@@ -13,7 +13,7 @@
         internal const int MacauGames = 22;
         internal const int NG2 = 23;
         internal const int FishingWorld = 24;
-        internal const int VirtualGames = 38;
+        internal const int VirtualGames = 64;
         internal const int Sabaclub = 42;
         internal const int RNGLottery = 44;
         internal const int SabaVirtualSports = 54;
