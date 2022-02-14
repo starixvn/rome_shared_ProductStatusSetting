@@ -289,8 +289,7 @@
 
         private static bool IsNonDCS(int productId)
             => productId == ProductIdentity.NumberGame
-            || productId == ProductIdentity.Keno
-            || productId == ProductIdentity.GoldDeluxe;
+            || productId == ProductIdentity.Keno;
 
         private IEnumerable<MultipleResult> GetUMMessageForEditMultiple(
             int productId,

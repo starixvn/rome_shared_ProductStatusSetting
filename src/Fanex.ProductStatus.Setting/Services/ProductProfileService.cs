@@ -21,7 +21,6 @@
         {
             new ProductProfile(ProductIdentity.Keno, ProductSettingLevel.BetType) ,
             new ProductProfile(ProductIdentity.NumberGame, ProductSettingLevel.Product),
-            new ProductProfile(ProductIdentity.GoldDeluxe, ProductSettingLevel.Product)
         };
 
         private static IEnumerable<ProductProfile> DCSProductSetting = new List<ProductProfile>

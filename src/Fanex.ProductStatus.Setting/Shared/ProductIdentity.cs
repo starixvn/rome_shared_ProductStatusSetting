@@ -7,7 +7,6 @@
         internal const int VirtualSports = 5;
         internal const int Casino = 6;
         internal const int Keno = 8;
-        internal const int GoldDeluxe = 12;
         internal const int Sportbook2 = 16;
         internal const int LiveCasino = 41;
         internal const int MacauGames = 22;

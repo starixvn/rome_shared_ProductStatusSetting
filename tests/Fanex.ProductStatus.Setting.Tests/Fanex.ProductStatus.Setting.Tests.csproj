@@ -186,7 +186,6 @@
     <Compile Include="Criteria\SelectNG2StatusCriteriaTests.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteriaTests.cs" />
-    <Compile Include="Criteria\UpdateGoldDeluxeStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateNumberGameStatusCriteriaTests.cs" />

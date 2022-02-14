@@ -181,7 +181,6 @@
     <Compile Include="Criteria\SelectProductProfileCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
-    <Compile Include="Criteria\UpdateGoldDeluxeStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateNumberGameStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />

@@ -113,7 +113,7 @@
             productStatusActor.ClientIP.Returns("127.0.0.1");
             var updateViewModel = new UpdateViewModel(productStatusActor)
             {
-                ProductId = ProductIdentity.GoldDeluxe,
+                ProductId = ProductIdentity.Keno,
                 ProductStatus = new[]
                 {
                     new ProductStatusCommand
@@ -366,7 +366,7 @@
             productStatusActor.ClientIP.Returns("127.0.0.1");
             var viewModel = new SimpleUpdateViewModel(productStatusActor)
             {
-                ProductId = ProductIdentity.GoldDeluxe,
+                ProductId = ProductIdentity.Keno,
                 ProductStatus = new[]
                 {
                     new SimpleProductStatusCommand
