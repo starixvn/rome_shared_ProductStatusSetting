@@ -85,8 +85,8 @@
     isChangeState = (originValue: number, currentValue: number): boolean =>
         originValue != currentValue;
 
-    buildElementId = (className: string, roleId: number, betType: number): string =>
-        ["#", className, "_", roleId, "_", betType].join("");
+    buildElementId = (className: string, roleId: number, sportType: number, betType: number): string =>
+        ["#", className, "_", roleId, "_", sportType, "_", betType].join("");
 
     parseInt = (value: string): number => parseInt(value.replace(/,/g, ""));
 

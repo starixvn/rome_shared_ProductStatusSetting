@@ -109,7 +109,7 @@
                 .attr('class', labelText.toLowerCase())
                 .text(labelText);
 
-            this.toggleStatusDownlines(this.getRoleId(toggle) - 1, enable, this.getBetType(toggle));
+            this.toggleStatusDownlines(this.getRoleId(toggle) - 1, enable, this.getSportType(toggle), this.getBetType(toggle));
         }
     }
 
@@ -118,9 +118,9 @@
             let enable = this.isEnabledElement(toggle);
             let roleId = this.getRoleId(toggle);
             let betType = this.getBetType(toggle);
-
+            let sportType = this.getSportType(toggle);
             let oppositeClassName = enable ? this.$resources.disabledClass : this.$resources.enabledClass;
-            let oppositeId = this.buildElementId(oppositeClassName, roleId, betType);
+            let oppositeId = this.buildElementId(oppositeClassName, roleId, sportType, betType);
             let oppositeStatusSpan = this.$(oppositeId);
             let oppositeTotal = this.parseInt(oppositeStatusSpan.text());
 
@@ -128,8 +128,8 @@
                 oppositeStatusSpan.text("0");
                 this.$(toggle).text(this.getTotalStatus(toggle, "total"));
             }
-
-            this.toggleStatusDownlines(roleId - 1, enable, betType);
+             
+            this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
         }
     }
 
@@ -138,7 +138,7 @@
             this.toogleHeader(roleId);
         }
     }
-
+    
     isDisableHeader = (toggles: HTMLElement[], isUplineCheckbox: boolean): boolean =>
         toggles.every((toggle) => {
             if (isUplineCheckbox) {
@@ -165,10 +165,10 @@
         }
     }
 
-    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, betType: number, totalDisabledUpline: number = 0) => {
+    toggleStatusDownlines = (downlineRoleId: number, enable: boolean, sportType: number, betType: number, totalDisabledUpline: number = 0) => {
         if (downlineRoleId > 0) {
-            let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, betType);
-            let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId, betType);
+            let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, sportType, betType);
+            let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId,sportType, betType);
             let total = this.getTotalStatus(enabledToggle, "total");
 
             if (enable && total > 0) {
@@ -188,13 +188,13 @@
             let enableDownline = enable ? (this.parseInt(currentTotalEnabled) > 0) : false;
             let currentTotalDisabled = this.parseInt(this.$(disabledToggle).text());
 
-            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, betType, currentTotalDisabled);
+            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, sportType, betType, currentTotalDisabled);
         }
     }
 
-    getDownlineElement = (elements: HTMLElement[], roleId: number, bettype: number): HTMLElement => {
+    getDownlineElement = (elements: HTMLElement[], roleId: number, sportType: number, bettype: number): HTMLElement => {
         for (let index = 0; index < elements.length; index++) {
-            if (this.getRoleId(elements[index]) == roleId && this.getBetType(elements[index]) == bettype) {
+            if (this.getRoleId(elements[index]) == roleId && this.getSportType(elements[index]) == sportType && this.getBetType(elements[index]) == bettype) {
                 return elements[index];
             }
         }

@@ -119,9 +119,10 @@
             this.watchHeader(roleId, false);
 
             if (roleId > 1) {
+                let sportType = this.getSportType(toogle);
                 let bettype = this.getBetType(toogle);
                 let enable = this.isChecked(toogle);
-                let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
+                let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
 
                 this.toogleStatusDownline(downlineToggle, enable);
             }
@@ -136,18 +137,19 @@
         this.watchHeader(roleId, true);
 
         if (roleId > 1) {
+            let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
-            let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, bettype);
+            let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
 
             this.toogleStatusDownline(downlineToggle, enable);
         }
     }
 
-    getToggleElements(toggleArray: HTMLElement[], roleId: number, bettype: number): HTMLElement {
+    getToggleElements(toggleArray: HTMLElement[], roleId: number, sportType: number, bettype: number): HTMLElement {
         for (let index = 0; index < toggleArray.length; index++) {
             let toggle = toggleArray[index];
-            if (this.getRoleId(toggle) == roleId && this.getBetType(toggle) == bettype) {
+            if (this.getRoleId(toggle) == roleId && this.getBetType(toggle) == bettype && this.getSportType(toggle) == sportType) {
                 return toggle;
             }
         }
