@@ -180,7 +180,10 @@
         {
             var custNameHash = new Dictionary<int, string>();
             Result successResult = null;
+            Result errorResult = null;
             var successCustName = new List<string>();
+            var errorCustName = new List<string>();
+            var multipleResults = new List<MultipleResult>();
 
             for (int i = 0, custIdsLength = custIds.Length; i < custIdsLength; i++)
             {
@@ -195,13 +198,20 @@
                     successResult = result;
                     successCustName.Add(customerName);
                 }
+                else
+                {
+                    errorResult = result;
+                    errorCustName.Add(customerName);
+                }
             }
-
-            var multipleResults = new List<MultipleResult>();
 
             if (successResult != null && successCustName.Count > 0)
             {
                 multipleResults.Add(new MultipleResult(successResult, 0, string.Join(", ", successCustName)));
+            }
+            else
+            {
+                multipleResults.Add(new MultipleResult(errorResult, 0, string.Join(", ", errorCustName)));
             }
 
             GetUMMessageForEditMultiple(productId, custIds, custNameHash, systemId, commands)
