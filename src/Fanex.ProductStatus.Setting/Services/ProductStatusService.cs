@@ -154,17 +154,12 @@
 
         private ProductStatusCommandService ProductStatusCommandServiceFactory(int productId)
         {
-            switch (productId)
+            if (productId == ProductIdentity.Keno)
             {
-                case ProductIdentity.Casino:
-                    return new CasinoProductStatusCommandService(statusDataAccess);
-
-                case ProductIdentity.Keno:
-                    return new KenoProductStatusCommandService(statusDataAccess, refDataService);
-
-                default:
-                    return new DefaultProductStatusCommandService(statusDataAccess, criteriaFactory);
+                return new KenoProductStatusCommandService(statusDataAccess, refDataService);
             }
+
+            return new DefaultProductStatusCommandService(statusDataAccess, criteriaFactory);
         }
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
@@ -294,9 +289,7 @@
 
         private static bool IsNonDCS(int productId)
             => productId == ProductIdentity.NumberGame
-            || productId == ProductIdentity.Casino
-            || productId == ProductIdentity.Keno
-            || productId == ProductIdentity.GoldDeluxe;
+            || productId == ProductIdentity.Keno;
 
         private IEnumerable<MultipleResult> GetUMMessageForEditMultiple(
             int productId,

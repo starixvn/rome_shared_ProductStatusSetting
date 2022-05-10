@@ -39,7 +39,6 @@
         [Theory]
         [InlineData(ProductIdentity.NumberGame, "Number Game")]
         [InlineData(ProductIdentity.Casino, "Casino")]
-        [InlineData(ProductIdentity.GoldDeluxe, "Gold Deluxe")]
         public void GetProductStatus_SingleRow_ReturnsDataFromDataAccess(int productId, string productName)
         {
             // Arrange
@@ -135,99 +134,5 @@
             // Assert
             Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
         }
-
-        //[Fact]
-        //public void GetProductStatus_DCSMultipleRows_ReturnsDataFromDataAccess()
-        //{
-        //    // Arrange
-        //    var expectedResults = new List<ProductStatusModel>
-        //    {
-        //        new ProductStatusModel(
-        //            211,
-        //            2401,
-        //            false,
-        //            false,
-        //            10,
-        //            100,
-        //            20,
-        //            200,
-        //            30,
-        //            300),
-        //        new ProductStatusModel(
-        //            211,
-        //            2402,
-        //            false,
-        //            false,
-        //            10,
-        //            100,
-        //            20,
-        //            200,
-        //            30,
-        //            300)
-        //    };
-        //    var criteria = new SelectDCSProductStatusCriteria(21, CustIdTest);
-
-        //    criteriaFactory
-        //        .CreateSelectCriteria(21, CustIdTest, 0)
-        //        .Returns(criteria);
-
-        //    productStatusDataAccess
-        //        .GetProductStatus(criteria)
-        //        .Returns(expectedResults);
-
-        //    refDataService
-        //        .GetBetTypeName(2401)
-        //        .Returns("Baccarat, Roulette, Sic Bo, Dragon Tiger");
-        //    refDataService
-        //        .GetBetTypeName(2402)
-        //        .Returns("VIP Baccarat");
-
-        //    // Act
-        //    var actualData = productStatusService.GetProductStatus(21, CustIdTest, 0, 4);
-
-        //    // Assert
-        //    Assert.True(expectedResults.Count == actualData.Count());
-        //}
-
-        //[Fact]
-        //public void GetProductStatus_DCSSingleRow_ReturnsDataFromDataAccess()
-        //{
-        //    // Arrange
-        //    var expectedResults = new List<ProductStatusModel>
-        //    {
-        //        new ProductStatusModel(
-        //            220,
-        //            1021,
-        //            false,
-        //            false,
-        //            10,
-        //            100,
-        //            20,
-        //            200,
-        //            30,
-        //            300)
-        //    };
-        //    var criteria = new SelectDCSProductStatusCriteria(28, CustIdTest);
-
-        //    criteriaFactory
-        //        .CreateSelectCriteria(28, CustIdTest, 0)
-        //        .Returns(criteria);
-
-        //    productStatusDataAccess
-        //        .GetProductStatus(criteria)
-        //        .Returns(expectedResults);
-
-        //    refDataService
-        //        .GetProductName(28)
-        //        .Returns("Lottery");
-
-        //    var compareLogic = new CompareLogic();
-
-        //    // Act
-        //    var actualResults = productStatusService.GetProductStatus(28, CustIdTest, 0, 4);
-
-        //    // Assert
-        //    Assert.True(compareLogic.Compare(expectedResults, actualResults.ToList()).AreEqual);
-        //}
     }
 }

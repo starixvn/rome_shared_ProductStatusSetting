@@ -26,9 +26,7 @@
             switch (productId)
             {
                 case ProductIdentity.NumberGame:
-                case ProductIdentity.Casino:
                 case ProductIdentity.Keno:
-                case ProductIdentity.GoldDeluxe:
                     return new SelectProductStatusCriteria(productId, custId, settingStatus);
 
                 case ProductIdentity.NG2:
@@ -57,10 +55,6 @@
             {
                 case ProductIdentity.NumberGame:
                     return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
-
-                case ProductIdentity.GoldDeluxe:
-                    return new UpdateGoldDeluxeStatusCriteria(custId, actorId, ip, commands.First());
-
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
 

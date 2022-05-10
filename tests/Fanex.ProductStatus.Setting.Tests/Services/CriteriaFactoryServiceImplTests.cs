@@ -25,7 +25,6 @@
         [InlineData(ProductIdentity.NumberGame)]
         [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
-        [InlineData(ProductIdentity.GoldDeluxe)]
         public void CreateSelectCriteria_ValidProductId_ReturnsSelectProductStatusCriteria(int productId)
         {
             // Arrange
@@ -90,36 +89,6 @@
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
                 ProductIdentity.NumberGame,
-                CustIdTest,
-                ActorIdTest,
-                IPTest,
-                new List<ProductStatusCommand> { command });
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
-        public void CreateUpdateCriteria_GoldDeluxe_ReturnsUpdateGoldDeluxeStatusCriteria()
-        {
-            // Arrange
-            var command = new ProductStatusCommand
-            {
-                SportType = 255,
-                BetType = 1700,
-                Disable = false,
-                UpdateAllMasters = true,
-                DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = false,
-                UpdateAllMembers = true,
-                DisableAllMembers = false
-            };
-            var expectedCriteria = new UpdateGoldDeluxeStatusCriteria(CustIdTest, ActorIdTest, IPTest, command);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateUpdateCriteria(
-                ProductIdentity.GoldDeluxe,
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
