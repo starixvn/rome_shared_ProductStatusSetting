@@ -115,16 +115,41 @@
         if (this.allowActionOnElement(toogle)) {
             this.toggleStatus(toogle);
             let roleId = this.getRoleId(toogle);
-
+            let sportType = this.getSportType(toogle);
+            let bettype = this.getBetType(toogle);
+            let enable = this.isChecked(toogle);
+            let isMacauGames = this.$("#productId").val() == "22";
             this.watchHeader(roleId, false);
 
             if (roleId > 1) {
-                let sportType = this.getSportType(toogle);
-                let bettype = this.getBetType(toogle);
-                let enable = this.isChecked(toogle);
                 let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
 
                 this.toogleStatusDownline(downlineToggle, enable);
+            }
+
+            if (isMacauGames && this.isParentRow(toogle)) {
+                let parentSportType = this.getParentSportType(toogle);
+                let parentBettype = this.getParentBetType(toogle);
+                let childToggles = this.getTogglesByParentSportTypeBetType(this.$toggleArray, roleId, sportType, bettype);
+                childToggles.forEach((childToogle) => {
+                    if (!enable) {
+                        this.toggleStatusByValue(childToogle, enable);
+                        this.toogleStatus(childToogle);
+                        this.disableElement(childToogle);
+                    }
+                    else {
+                        if (roleId < 4) {
+                            let uplineToggle = this.getToggleElements(this.$toggleArray, roleId + 1, this.getSportType(childToogle), this.getBetType(childToogle));
+                            let uplineEnable = this.isChecked(uplineToggle);
+                            if (uplineEnable) {
+                                this.enableElement(childToogle);
+                            }
+                        } else {
+                            this.enableElement(childToogle);
+                        }
+                    }
+                });
+
             }
         }
     }

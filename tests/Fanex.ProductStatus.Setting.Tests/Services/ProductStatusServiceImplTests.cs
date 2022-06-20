@@ -46,7 +46,9 @@
             {
                 new ProductStatusModel(
                     1,
+                    0,
                     1,
+                    0,
                     false,
                     false,
                     10,
@@ -88,7 +90,9 @@
             {
                 new ProductStatusModel(
                     202,
+                    0,
                     1501,
+                    0,
                     false,
                     false,
                     10,
@@ -99,7 +103,9 @@
                     300),
                 new ProductStatusModel(
                     202,
+                    0,
                     1503,
+                    0,
                     false,
                     false,
                     10,

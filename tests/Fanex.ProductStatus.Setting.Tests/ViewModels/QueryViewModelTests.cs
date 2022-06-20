@@ -74,7 +74,9 @@
             {
                 new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 12,
+                    parentBetType: 0,
                     isDisabled: true,
                     isDisabledUpline: false,
                     totalDisabledMasters: 12,
@@ -85,7 +87,9 @@
                     totalEnabledMembers: 46),
                 new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 13,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 12,
@@ -96,7 +100,9 @@
                     totalEnabledMembers: 0),
                   new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 14,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 12,
@@ -134,7 +140,9 @@
             {
                 new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 12,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: disabledUpline,
                     totalDisabledMasters: 12,
@@ -145,7 +153,9 @@
                     totalEnabledMembers: 46),
                 new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 13,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: disabledUpline,
                     totalDisabledMasters: 12,
@@ -156,7 +166,9 @@
                     totalEnabledMembers: 0),
                   new ProductStatusModel(
                     sportType: 5,
+                    parentSportType: 0,
                     betType: 14,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: disabledUpline,
                     totalDisabledMasters: 12,

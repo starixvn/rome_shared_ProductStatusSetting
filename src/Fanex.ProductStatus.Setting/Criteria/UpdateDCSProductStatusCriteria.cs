@@ -13,18 +13,21 @@
         private readonly int actorId;
         private readonly string ip;
         private readonly IEnumerable<ProductStatusCommand> productStatusCommands;
+        private readonly int? settingType;
 
         public UpdateDCSProductStatusCriteria(
             int custId,
             int actorId,
             string ip,
-            IEnumerable<ProductStatusCommand> commands)
+            IEnumerable<ProductStatusCommand> commands,
+            int? settingType = null)
         {
             this.custId = custId;
             this.actorId = actorId;
             this.ip = ip;
 
             productStatusCommands = commands;
+            this.settingType = settingType;
         }
 
         public override string GetSettingKey() => "Acc_Admin_DisableNewProductStatusUpd";
@@ -37,7 +40,8 @@
             ["custid"] = custId,
             ["isdisabled"] = GetIsDisabledXmlParam(),
             ["userid"] = actorId,
-            ["ip"] = ip
+            ["ip"] = ip,
+            ["settingtype"] = settingType
         };
 
         private string GetIsDisabledXmlParam()

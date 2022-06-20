@@ -4,7 +4,9 @@
     {
         public ProductStatusModel(
             int sportType,
+            int parentSportType,
             int betType,
+            int parentBetType,
             bool isDisabled,
             bool isDisabledUpline,
             int totalDisabledMasters,
@@ -25,6 +27,9 @@
 
             TotalDisabledMembers = totalDisabledMembers;
             TotalEnabledMembers = totalEnabledMembers;
+
+            ParentSportType = parentSportType;
+            ParentBetType = parentBetType;
         }
 
         public ProductStatusModel(int sportType, int betType)
@@ -35,7 +40,11 @@
 
         public int SportType { get; }
 
+        public int ParentSportType { get; }
+
         public int BetType { get; }
+
+        public int ParentBetType { get; }
 
         public bool IsDisabled { get; }
 

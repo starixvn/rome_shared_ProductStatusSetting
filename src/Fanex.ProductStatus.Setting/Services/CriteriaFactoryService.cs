@@ -21,6 +21,8 @@
 
     internal class CriteriaFactoryServiceImpl : CriteriaFactoryService
     {
+        private const int MacauGamesStatusSettingType = 21;
+
         public ICriteria CreateSelectCriteria(int productId, int custId, int sportType, byte settingStatus)
         {
             switch (productId)
@@ -38,7 +40,8 @@
                         return new SelectEsportProductStatusCriteria(productId, custId, settingStatus);
                     }
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
-
+                case ProductIdentity.MacauGames:
+                    return new SelectDCSProductStatusCriteria(productId, custId, settingStatus, MacauGamesStatusSettingType);
                 default:
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
             }
@@ -57,7 +60,8 @@
                     return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
-
+                case ProductIdentity.MacauGames:
+                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, MacauGamesStatusSettingType);
                 default:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands);
             }

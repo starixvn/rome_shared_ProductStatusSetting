@@ -14,7 +14,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 true,
                 0,
@@ -39,7 +41,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 isDisabled,
                 false,
                 0,
@@ -62,7 +66,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 0,
@@ -88,7 +94,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 0,
@@ -113,7 +121,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 0,
@@ -136,7 +146,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 0,
@@ -159,7 +171,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 30,
@@ -194,7 +208,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 30,
@@ -217,7 +233,9 @@
             // Arrange
             var model = new ProductStatusModel(
                 161,
+                0,
                 81,
+                0,
                 false,
                 false,
                 30,

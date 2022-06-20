@@ -78,7 +78,11 @@
 
     getBetType = (element: HTMLElement): number => this.$(element).data("bettype");
 
+    getParentBetType = (element: HTMLElement): number => this.$(element).data("parent-bettype");
+
     getSportType = (element: HTMLElement): number => this.$(element).data("sporttype");
+
+    getParentSportType = (element: HTMLElement): number => this.$(element).data("parent-sporttype");
 
     isChecked = (element: HTMLElement): boolean => this.$(element).is(":checked");
 
@@ -104,6 +108,15 @@
 
     getFirstToggle = (toggles: HTMLElement[], roleId: number): HTMLElement =>
         this.getToggles(toggles, roleId)[0];
+
+    getTogglesByParentSportTypeBetType = (toggles: HTMLElement[], roleId: number, parentSportType: number, parentBetType: number): HTMLElement[] =>
+        toggles.filter((toggle) => {
+            if (this.getRoleId(toggle) == roleId && this.getParentSportType(toggle) == parentSportType && this.getParentBetType(toggle) == parentBetType) {
+                return toggle;
+            }
+        });
+
+    isParentRow = (toggles: HTMLElement): boolean => this.getParentSportType(toggles) === 0 && this.getParentBetType(toggles) === 0;
 
     protected getUpdateViewModel() {
         return {
