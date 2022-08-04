@@ -9,7 +9,9 @@
         {
             Name = model.Name;
             SportType = model.SportType;
+            ParentSportType = model.ParentSportType;
             BetType = model.BetType;
+            ParentBetType = model.ParentBetType;
             IsDisabled = model.IsDisabledUpline || model.IsDisabled;
             IsDisabledUpline = model.IsDisabledUpline;
 
@@ -42,7 +44,11 @@
 
         public int SportType { get; }
 
+        public int ParentSportType { get; }
+
         public int BetType { get; }
+
+        public int ParentBetType { get; }
 
         public bool IsDisabled { get; }
 

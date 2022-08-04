@@ -65,7 +65,9 @@
             {
                 new ProductStatusModel(
                     sportType: 208,
+                    parentSportType: 0,
                     betType: 2101,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 0,
@@ -198,7 +200,9 @@
             {
                 new ProductStatusModel(
                     sportType: 208,
+                    parentSportType: 0,
                     betType: 2101,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 0,
@@ -318,7 +322,9 @@
             {
                 new ProductStatusModel(
                     sportType: 208,
+                    parentSportType: 0,
                     betType: 2101,
+                    parentBetType: 0,
                     isDisabled: false,
                     isDisabledUpline: false,
                     totalDisabledMasters: 0,

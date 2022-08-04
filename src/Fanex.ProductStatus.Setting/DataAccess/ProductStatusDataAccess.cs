@@ -1,11 +1,12 @@
 ﻿namespace Fanex.ProductStatus.Setting.DataAccess
 {
+    using Data;
+    using Fanex.ProductStatus.Setting.Shared;
+    using Models;
+    using NAP.Framework.Data;
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using Data;
-    using Models;
-    using NAP.Framework.Data;
 
     public interface ProductStatusDataAccess
     {
@@ -45,7 +46,9 @@
         private static ProductStatusModel ToProductStatusModel(IDataReader reader)
             => new ProductStatusModel(
                 Convert.ToInt32(reader["sporttype"]),
+                reader.HasColumn("parentsporttype") ? DataReaderExtensions.ToInt32(reader["parentsporttype"]) : 0,
                 Convert.ToInt32(reader["bettype"]),
+                reader.HasColumn("parentbettype") ? DataReaderExtensions.ToInt32(reader["parentbettype"]) : 0,
                 Convert.ToBoolean(reader["isdisabled"]),
                 Convert.ToBoolean(reader["isdisabledupline"]),
                 Convert.ToInt32(reader["totaldisabledmasters"]),

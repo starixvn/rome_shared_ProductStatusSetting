@@ -5,7 +5,7 @@
     <Setting Key="Acc_CustSetting_ProductProfileSelect" SpName="Acc_CustSetting_ProductProfileSelect" DbName="DBCust.CustDB.bodbAdminNet" />
     <Setting Key="Acc_AdminSelStatusByProductId" SpName="Acc_AdminSelStatusByProductId" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
     <Setting Key="Acc_Admin_DisableGameStatusSelect" SpName="Acc_Admin_DisableGameStatusSelect" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
-    <Setting Key="Acc_Admin_DisableNewProductStatusSelect" SpName="Acc_Admin_DisableNewProductStatusSelect" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
+    <Setting Key="Acc_Admin_DisableNewProductStatusSelect" SpName="Acc_Admin_DisableNewProductStatusSelect_UAT1" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
     <Setting Key="Acc_AdminCheckAllowedDownlinesByLevel" SpName="Acc_AdminCheckAllowedDownlinesByLevel" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
     <Setting Key="Acc_CheckUM_MultipleCustProductStatus" SpName="Acc_CheckUM_MultipleCustProductStatus" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
   </Function>
@@ -14,6 +14,6 @@
     <Setting Key="Acc_AdminUpdCSStatus_Cust" SpName="Acc_AdminUpdCSStatus_Cust" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
     <Setting Key="Acc_AdminUpdDisableKeno" SpName="Acc_AdminUpdDisableKeno" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
     <Setting Key="Acc_Admin_DisableGameStatusUpd" SpName="Acc_Admin_DisableGameStatusUpd" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
-    <Setting Key="Acc_Admin_DisableNewProductStatusUpd" SpName="Acc_Admin_DisableNewProductStatusUpd" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
+    <Setting Key="Acc_Admin_DisableNewProductStatusUpd" SpName="Acc_Admin_DisableNewProductStatusUpd_UAT1" DbName="DBCust.CustDB.bodbAdminNet" Plain="0" />
   </Function>
 </Functions>

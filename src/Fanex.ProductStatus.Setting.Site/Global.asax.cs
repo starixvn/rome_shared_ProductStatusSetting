@@ -109,7 +109,7 @@ namespace Fanex.ProductStatus.Setting.Site
         // 0: Production
         // 1: UAT
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public byte SettingStatus { get; } = 0;
+        public byte SettingStatus { get; } = 1;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

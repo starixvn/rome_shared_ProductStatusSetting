@@ -28,21 +28,21 @@ else
             {
                 <tr>
                     <td class="bettype-name">@item.Name</td>
-                    <td>@RenderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
+                    <td>@RenderStatus(item.SportType, item.ParentSportType, item.BetType, item.ParentBetType, item.IsDisabled, item.IsDisabledUpline, Model.CustRole)</td>
 
                     @if (item.Master != null)
                     {
-                        <td>@RenderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, 3)</td>
+                        <td>@RenderStatus(item.SportType, item.ParentSportType, item.BetType, item.ParentBetType, item.IsDisabled, item.IsDisabledUpline, 3)</td>
                     }
 
                     @if (item.Agent != null)
                     {
-                        <td>@RenderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, 2)</td>
+                        <td>@RenderStatus(item.SportType, item.ParentSportType, item.BetType, item.ParentBetType, item.IsDisabled, item.IsDisabledUpline, 2)</td>
                     }
 
                     @if (item.Member != null)
                     {
-                        <td>@RenderStatus(item.SportType, item.BetType, item.IsDisabled, item.IsDisabledUpline, 1)</td>
+                        <td>@RenderStatus(item.SportType, item.ParentSportType, item.BetType, item.ParentBetType, item.IsDisabled, item.IsDisabledUpline, 1)</td>
                     }
                 </tr>
             }
@@ -102,7 +102,9 @@ else
 
 @helper RenderStatus(
     int sportType,
+    int parentSportType,
     int betType,
+    int parentBettype,
     bool isDisabled,
     bool isDisabledUpline,
     byte roleId)
@@ -118,6 +120,8 @@ else
            data-sporttype="@sportType"
            data-bettype="@betType"
            data-originstatus="@isDisabled"
+           data-parent-sporttype="@parentSportType"
+           data-parent-bettype="@parentBettype"
            checked="checked"
            @(isDisabledUpline ? "disabled " : string.Empty) />
 

@@ -13,7 +13,7 @@
         public void New_IsDisabledUpline_ReturnsCorrectIsDisabled(bool disabledUpline)
         {
             // Arrange
-            var productStatus = new ProductStatusModel(163, 1401, true, disabledUpline, 0, 0, 0, 0, 0, 0)
+            var productStatus = new ProductStatusModel(163, 0, 1401, 0, true, disabledUpline, 0, 0, 0, 0, 0, 0)
             {
                 Name = "Kentucky"
             };
@@ -33,7 +33,7 @@
         public void New_AllDownlinesEnable_ReturnsCorrectIsDisabledDownlines()
         {
             // Arrange
-            var productStatus = new ProductStatusModel(163, 1401, false, false, 0, 1, 0, 2, 0, 3);
+            var productStatus = new ProductStatusModel(163, 0, 1401, 0, false, false, 0, 1, 0, 2, 0, 3);
 
             // Act
             var actual = new SimpleProductStatusViewModel(productStatus);
@@ -49,7 +49,7 @@
         public void New_AtleastOneDisable_ReturnsCorrectIsDisabledDownlines(int totalDisabledMasters, int totalDisabledAgents, int totalDisabledMembers)
         {
             // Arrange
-            var productStatus = new ProductStatusModel(163, 1401, false, false, totalDisabledMasters, 0, totalDisabledAgents, 0, totalDisabledMembers, 0)
+            var productStatus = new ProductStatusModel(163, 0, 1401, 0, false, false, totalDisabledMasters, 0, totalDisabledAgents, 0, totalDisabledMembers, 0)
             {
                 Name = "Slovakia"
             };
@@ -68,7 +68,7 @@
         public void New_HasDownlines_ReturnsCorrectHasDownlines()
         {
             // Arrange
-            var productStatus = new ProductStatusModel(163, 1401, false, false, 0, 1, 0, 2, 0, 3)
+            var productStatus = new ProductStatusModel(163, 0, 1401, 0, false, false, 0, 1, 0, 2, 0, 3)
             {
                 Name = "Michigan"
             };
@@ -87,7 +87,7 @@
         public void New_NoDownline_ReturnsCorrectHasDownlines()
         {
             // Arrange
-            var productStatus = new ProductStatusModel(163, 1401, false, false, 0, 0, 0, 0, 0, 0);
+            var productStatus = new ProductStatusModel(163, 0, 1401, 0, false, false, 0, 0, 0, 0, 0, 0);
 
             // Act
             var actual = new SimpleProductStatusViewModel(productStatus);

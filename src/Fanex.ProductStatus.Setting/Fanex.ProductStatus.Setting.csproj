@@ -200,6 +200,7 @@
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
+    <Compile Include="Shared\DataReaderExtensions.cs" />
     <Compile Include="Shared\DateTimeExtensions.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>

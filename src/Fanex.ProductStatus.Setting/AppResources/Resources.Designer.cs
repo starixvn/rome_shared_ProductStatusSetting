@@ -268,6 +268,15 @@ namespace Fanex.ProductStatus.Setting.AppResources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You cannot Enable {0} when {1} is Disabled. .
+        /// </summary>
+        public static string Msg60037 {
+            get {
+                return ResourceManager.GetString("Msg60037", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You are not allowed to perform this action..
         /// </summary>
         public static string Msg90012 {
