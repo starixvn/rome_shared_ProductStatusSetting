@@ -40,7 +40,7 @@
                         return new SelectEsportProductStatusCriteria(productId, custId, settingStatus);
                     }
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
-                case ProductIdentity.MacauGames:
+                case ProductIdentity.RNGSlot:
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus, MacauGamesStatusSettingType);
                 default:
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
@@ -60,7 +60,7 @@
                     return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
-                case ProductIdentity.MacauGames:
+                case ProductIdentity.RNGSlot:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, MacauGamesStatusSettingType);
                 default:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands);
