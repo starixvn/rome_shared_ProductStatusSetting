@@ -44,8 +44,7 @@
                 new KeyValuePair<int, string>(12, "Gold Deluxe"),
                 new KeyValuePair<int, string>(21, "Allbets"),
                 new KeyValuePair<int, string>(22, "Macau Games"),
-                new KeyValuePair<int, string>(23, "NG2"),
-                new KeyValuePair<int, string>(24, "Fishing World"),
+                new KeyValuePair<int, string>(23, "NG2")
             };
 
             var multipleQueryViewModel = new MultipleQueryViewModel(expectedResults, new ProductStatusActorForTesting());
