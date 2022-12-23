@@ -24,9 +24,10 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands)
         {
-            var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, commands);
+            var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, settingStatus, commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
             result.ParseDCSProductMessage(productId);
 

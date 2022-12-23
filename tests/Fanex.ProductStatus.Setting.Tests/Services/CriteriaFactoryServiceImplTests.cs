@@ -92,6 +92,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
+                0,
                 new List<ProductStatusCommand> { command });
 
             // Assert
@@ -117,7 +118,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, 0, commands);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -125,6 +126,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
+                0,
                 commands);
 
             // Assert
@@ -167,7 +169,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands, 0);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -175,6 +177,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
+                0,
                 commands);
 
             // Assert

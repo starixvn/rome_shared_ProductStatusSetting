@@ -41,6 +41,9 @@
         public byte SystemId
            => productStatusActor.SystemId;
 
+        public byte SettingStatus
+           => productStatusActor.SettingStatus;
+
         public virtual bool IsValid()
             => ProductId > 0
             && CustId > 0

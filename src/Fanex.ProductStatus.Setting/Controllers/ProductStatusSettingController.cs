@@ -51,6 +51,7 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
+                viewModel.SettingStatus,
                 viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)).ToList(),
                 viewModel.SystemId);
 
@@ -86,6 +87,7 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
+                viewModel.SettingStatus,
                 viewModel.ProductStatus,
                 viewModel.SystemId);
 
@@ -123,6 +125,7 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
+                viewModel.SettingStatus,
                 viewModel.ProductStatus.Select(product => product.ToProductStatusCommand(viewModel.CustRole)).ToList(),
                 viewModel.SystemId);
 

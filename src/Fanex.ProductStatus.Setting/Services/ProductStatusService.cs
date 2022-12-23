@@ -20,6 +20,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands,
             byte systemId);
 
@@ -31,6 +32,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands,
             byte systemId);
     }
@@ -103,10 +105,11 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands,
             byte systemId)
         {
-            var result = UpdateProductStatus(productId, custId, custRole, actorId, actorName, ip, commands);
+            var result = UpdateProductStatus(productId, custId, custRole, actorId, actorName, ip, settingStatus, commands);
 
             if (IsNonDCS(productId))
             {
@@ -142,6 +145,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands)
             => ProductStatusCommandServiceFactory(productId).UpdateProductStatus(
                 productId,
@@ -150,6 +154,7 @@
                 actorId,
                 actorName,
                 ip,
+                settingStatus,
                 commands);
 
         private ProductStatusCommandService ProductStatusCommandServiceFactory(int productId)
@@ -170,6 +175,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands,
             byte systemId)
         {
@@ -186,7 +192,7 @@
                 var customerName = custNames[i];
                 custNameHash[customerId] = customerName;
 
-                var result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, commands);
+                var result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, settingStatus, commands);
 
                 if (result.IsSuccess())
                 {

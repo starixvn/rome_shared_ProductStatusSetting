@@ -141,6 +141,7 @@
                 updateViewModel.ActorId,
                 updateViewModel.ActorName,
                 updateViewModel.IP,
+                0,
                 Arg.Any<IEnumerable<ProductStatusCommand>>(),
                 updateViewModel.SystemId)
             .Returns(new List<Result> { new Result(0, string.Empty) });
@@ -278,6 +279,7 @@
                 updateViewModel.ActorId,
                 updateViewModel.ActorName,
                 updateViewModel.IP,
+                0,
                 updateViewModel.ProductStatus,
                 updateViewModel.SystemId)
             .Returns(new[] { new Result(0, string.Empty) });
@@ -393,6 +395,7 @@
                 viewModel.ActorId,
                 viewModel.ActorName,
                 viewModel.IP,
+                0,
                 Arg.Any<IEnumerable<ProductStatusCommand>>(),
                 viewModel.SystemId)
             .Returns(new List<Result> { new Result(0, string.Empty) });
