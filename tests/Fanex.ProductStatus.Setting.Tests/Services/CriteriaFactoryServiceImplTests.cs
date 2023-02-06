@@ -69,37 +69,6 @@
         }
 
         [Fact]
-        public void CreateUpdateCriteria_NumberGame_ReturnsUpdateNumberGameStatusCriteria()
-        {
-            // Arrange
-            var command = new ProductStatusCommand
-            {
-                SportType = 161,
-                BetType = 81,
-                Disable = false,
-                UpdateAllMasters = true,
-                DisableAllMasters = false,
-                UpdateAllAgents = true,
-                DisableAllAgents = false,
-                UpdateAllMembers = true,
-                DisableAllMembers = false
-            };
-            var expectedCriteria = new UpdateNumberGameStatusCriteria(CustIdTest, ActorIdTest, IPTest, command);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateUpdateCriteria(
-                ProductIdentity.NumberGame,
-                CustIdTest,
-                ActorIdTest,
-                IPTest,
-                0,
-                new List<ProductStatusCommand> { command });
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
         public void CreateUpdateCriteria_NG2_ReturnsUpdateNG2StatusCriteria()
         {
             // Arrange
@@ -118,7 +87,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, 0, commands);
+            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -126,7 +95,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
-                0,
+			0,
                 commands);
 
             // Assert
@@ -169,7 +138,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands, 0);
+            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -177,7 +146,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
-                0,
+			0,
                 commands);
 
             // Assert
