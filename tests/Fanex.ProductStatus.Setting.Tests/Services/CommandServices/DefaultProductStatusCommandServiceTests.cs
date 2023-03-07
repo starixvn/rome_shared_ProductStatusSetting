@@ -68,7 +68,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = productStatusCommand.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusCommand.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, 0, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -112,7 +112,7 @@
                 .Returns(errorResult);
 
             // Act
-            var actualResult = productStatusCommand.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = productStatusCommand.UpdateProductStatus(21, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, 0, commands);
 
             // Assert
             Assert.False(errorResult.IsSuccess());

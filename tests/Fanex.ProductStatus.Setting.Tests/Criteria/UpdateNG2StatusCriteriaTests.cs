@@ -30,7 +30,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest);
+            var criteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, 0, CommandsTest);
             var expectedSettingKey = "Acc_Admin_DisableGameStatusUpd";
 
             // Act

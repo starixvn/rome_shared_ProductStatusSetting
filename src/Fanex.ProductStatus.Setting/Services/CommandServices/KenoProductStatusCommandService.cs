@@ -28,6 +28,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands)
         {
             var criteria = CreateUpdateCriteria(custId, actorId, ip, commands);

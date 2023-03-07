@@ -14,17 +14,20 @@
         private readonly string ip;
         private readonly IEnumerable<ProductStatusCommand> productStatusCommands;
         private readonly int? settingType;
+        private readonly byte settingStatus;
 
         public UpdateDCSProductStatusCriteria(
             int custId,
             int actorId,
             string ip,
             IEnumerable<ProductStatusCommand> commands,
+            byte settingStatus,
             int? settingType = null)
         {
             this.custId = custId;
             this.actorId = actorId;
             this.ip = ip;
+            this.settingStatus = settingStatus;
 
             productStatusCommands = commands;
             this.settingType = settingType;
@@ -41,7 +44,8 @@
             ["isdisabled"] = GetIsDisabledXmlParam(),
             ["userid"] = actorId,
             ["ip"] = ip,
-            ["settingtype"] = settingType
+            ["settingtype"] = settingType,
+            ["settingstatus"] = settingStatus
         };
 
         private string GetIsDisabledXmlParam()

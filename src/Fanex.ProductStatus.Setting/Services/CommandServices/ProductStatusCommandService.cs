@@ -12,6 +12,7 @@
             int actorId,
             string actorName,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands);
     }
 }

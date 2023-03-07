@@ -69,7 +69,7 @@
                 .Returns(successfulResult);
 
             // Act
-            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, 0, commands);
 
             // Assert
             Assert.True(actualResult.IsSuccess());
@@ -115,7 +115,7 @@
             refDataService.GetBetTypeName(1503).Returns(string.Empty);
 
             // Act
-            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, 0, commands);
 
             // Assert
             Assert.False(actualResult.IsSuccess());
@@ -161,7 +161,7 @@
             refDataService.GetBetTypeName(1503).Returns(string.Empty);
 
             // Act
-            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, commands);
+            var actualResult = kenoProductStatusCommand.UpdateProductStatus(ProductIdentity.Keno, CustIdTest, CustRoleTest, ActorIdTest, ActorNameTest, IPTest, 0, commands);
 
             // Assert
             Assert.True(actualResult.IsUMOfNonDCS() && actualResult.Message == errorResult.Message);

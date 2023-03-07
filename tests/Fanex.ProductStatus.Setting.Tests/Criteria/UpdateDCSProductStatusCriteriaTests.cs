@@ -42,7 +42,7 @@
         public void GetSettingKey_Always_ReturnsValidSettingKey()
         {
             // Arrange
-            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest);
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest, 0);
             var expectedSettingKey = "Acc_Admin_DisableNewProductStatusUpd";
 
             // Act
@@ -59,7 +59,7 @@
         public void IsValid_CustId_ReturnsExpectedResult(int custId, bool expectedResult)
         {
             // Arrange
-            var updateCriteriaBase = new UpdateDCSProductStatusCriteria(custId, ActorIdTest, IPTest, CommandsTest);
+            var updateCriteriaBase = new UpdateDCSProductStatusCriteria(custId, ActorIdTest, IPTest, CommandsTest, 0);
 
             // Act
             var actualResult = updateCriteriaBase.IsValid();
@@ -75,7 +75,7 @@
         public void IsValid_ActorId_ReturnsExpectedResult(int actorId, bool expectedResult)
         {
             // Arrange
-            var updateCriteriaBase = new UpdateDCSProductStatusCriteria(CustIdTest, actorId, IPTest, CommandsTest);
+            var updateCriteriaBase = new UpdateDCSProductStatusCriteria(CustIdTest, actorId, IPTest, CommandsTest, 0);
 
             // Act
             var actualResult = updateCriteriaBase.IsValid();
@@ -88,7 +88,7 @@
         public void GetSpParams_Always_ContainsCorrectData()
         {
             // Arrange
-            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest);
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest, 0);
 
             // Act
             var actualSpParams = criteria.GetSpParams();
@@ -105,7 +105,7 @@
         public void GetSpParams_Always_ReturnsCorrectIsDisabledXmlFormat()
         {
             // Arrange
-            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest);
+            var criteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, CommandsTest, 0);
             var expectedIsDisabledXml =
                 "<ROOT>"
                 + "<ProductStatus SportType=\"211\" BetType=\"2401\" IsDisabled=\"0\" UpdateAllMasters=\"1\" UpdateAllAgents=\"1\" UpdateAllMembers=\"1\" DisableAllMasters=\"0\" DisableAllAgents=\"0\" DisableAllMembers=\"0\"/>"

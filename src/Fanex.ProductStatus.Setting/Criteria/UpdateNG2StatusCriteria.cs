@@ -9,8 +9,9 @@
             int custId,
             int actorId,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands)
-            : base(custId, actorId, ip, commands)
+            : base(custId, actorId, ip, commands, settingStatus)
         {
         }
 

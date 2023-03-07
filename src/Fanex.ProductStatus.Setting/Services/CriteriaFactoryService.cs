@@ -16,6 +16,7 @@
             int custId,
             int actorId,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands);
     }
 
@@ -52,6 +53,7 @@
             int custId,
             int actorId,
             string ip,
+            byte settingStatus,
             IEnumerable<ProductStatusCommand> commands)
         {
             switch (productId)
@@ -59,11 +61,11 @@
                 case ProductIdentity.NumberGame:
                     return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
                 case ProductIdentity.NG2:
-                    return new UpdateNG2StatusCriteria(custId, actorId, ip, commands);
+                    return new UpdateNG2StatusCriteria(custId, actorId, ip, settingStatus, commands);
                 case ProductIdentity.RNGSlot:
-                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, MacauGamesStatusSettingType);
+                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, settingStatus, MacauGamesStatusSettingType);
                 default:
-                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands);
+                    return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, settingStatus);
             }
         }
     }
