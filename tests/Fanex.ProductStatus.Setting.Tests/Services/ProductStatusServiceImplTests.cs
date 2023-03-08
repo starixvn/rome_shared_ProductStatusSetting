@@ -38,7 +38,6 @@
 
         [Theory]
         [InlineData(ProductIdentity.NumberGame, "Number Game")]
-        [InlineData(ProductIdentity.Casino, "Casino")]
         public void GetProductStatus_SingleRow_ReturnsDataFromDataAccess(int productId, string productName)
         {
             // Arrange

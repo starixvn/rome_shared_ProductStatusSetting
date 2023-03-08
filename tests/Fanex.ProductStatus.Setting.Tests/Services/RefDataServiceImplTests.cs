@@ -59,7 +59,7 @@
             var sportTypeId = 4;
             var expectedSportType = "Allbets";
             remotingRefService
-                .GetSportName(sportTypeId.ToString(), "en-US")
+                .GetSportName(sportTypeId.ToString(), "en-US", null)
                 .Returns(expectedSportType);
 
             // Act

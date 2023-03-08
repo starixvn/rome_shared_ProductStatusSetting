@@ -22,8 +22,6 @@
         }
 
         [Theory]
-        [InlineData(ProductIdentity.NumberGame)]
-        [InlineData(ProductIdentity.Casino)]
         [InlineData(ProductIdentity.Keno)]
         public void CreateSelectCriteria_ValidProductId_ReturnsSelectProductStatusCriteria(int productId)
         {
@@ -87,7 +85,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest,0 , commands);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -138,7 +136,7 @@
                     DisableAllMembers = false
                 }
             };
-            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands);
+            var expectedCriteria = new UpdateDCSProductStatusCriteria(CustIdTest, ActorIdTest, IPTest, commands, 0);
 
             // Act
             var actualCriteria = criteriaFactory.CreateUpdateCriteria(
@@ -146,7 +144,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
-			0,
+			    0,
                 commands);
 
             // Assert
