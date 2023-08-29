@@ -28,7 +28,6 @@
         {
             switch (productId)
             {
-                case ProductIdentity.NumberGame:
                 case ProductIdentity.Keno:
                     return new SelectProductStatusCriteria(productId, custId, settingStatus);
 
@@ -58,8 +57,6 @@
         {
             switch (productId)
             {
-                case ProductIdentity.NumberGame:
-                    return new UpdateNumberGameStatusCriteria(custId, actorId, ip, commands.First());
                 case ProductIdentity.NG2:
                     return new UpdateNG2StatusCriteria(custId, actorId, ip, settingStatus, commands);
                 case ProductIdentity.RNGSlot:

@@ -31,10 +31,8 @@
         }
 
         [Theory]
-        [InlineData(6, 1)]
         [InlineData(8, 3)]
         [InlineData(3, 1)]
-        [InlineData(12, 1)]
         public void GetSettingLevel_NonDCS_ReturnValueFromHardcode(int productId, int exceptedValue)
         {
             // Act
@@ -48,7 +46,6 @@
         [InlineData(5)]
         [InlineData(16)]
         [InlineData(41)]
-        [InlineData(22)]
         [InlineData(23)]
         [InlineData(24)]
         [InlineData(44)]

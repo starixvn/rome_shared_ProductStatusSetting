@@ -188,7 +188,6 @@
     <Compile Include="Criteria\UpdateDCSProductStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateNG2StatusCriteriaTests.cs" />
-    <Compile Include="Criteria\UpdateNumberGameStatusCriteriaTests.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseForTesting.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBaseTests.cs" />
     <Compile Include="GlobalSuppressions.cs" />
