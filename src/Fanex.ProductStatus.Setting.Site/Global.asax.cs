@@ -29,7 +29,6 @@ namespace Fanex.ProductStatus.Setting.Site
                     new KeyValuePair<int, string>(21, "Allbets"),
                     new KeyValuePair<int, string>(22, "Macau Games"),
                     new KeyValuePair<int, string>(23, "NG2"),
-                    new KeyValuePair<int, string>(24, "Fishing World"),
                     new KeyValuePair<int, string>(5, "Virtual Sports"),
                     new KeyValuePair<int, string>(28, "Lottery"),
                     new KeyValuePair<int, string>(41, "Live Casino"),

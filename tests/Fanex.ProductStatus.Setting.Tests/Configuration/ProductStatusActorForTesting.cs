@@ -29,7 +29,6 @@
                 new KeyValuePair<int, string>(21, "Allbets"),
                 new KeyValuePair<int, string>(22, "Macau Games"),
                 new KeyValuePair<int, string>(23, "NG2"),
-                new KeyValuePair<int, string>(24, "Fishing World"),
                 new KeyValuePair<int, string>(41, "Live Casino"),
                 new KeyValuePair<int, string>(42, "Saba.club"),
                 new KeyValuePair<int, string>(44, "RNG Lottery"),

@@ -11,7 +11,6 @@
         internal const int LiveCasino = 41;
         internal const int RNGSlot = 18;
         internal const int NG2 = 23;
-        internal const int FishingWorld = 24;
         internal const int VirtualGames = 64;
         internal const int Sabaclub = 42;
         internal const int RNGLottery = 44;
