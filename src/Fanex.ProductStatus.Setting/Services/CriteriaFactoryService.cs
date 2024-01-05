@@ -1,7 +1,6 @@
 ﻿namespace Fanex.ProductStatus.Setting.Services
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Criteria;
     using Models;
     using NAP.Framework.Data;
@@ -31,17 +30,9 @@
                 case ProductIdentity.Keno:
                     return new SelectProductStatusCriteria(productId, custId, settingStatus);
 
-                case ProductIdentity.NG2:
-                    return new SelectNG2StatusCriteria(productId, custId, settingStatus);
-
-                case ProductIdentity.Sportbook2:
-                    if (sportType == SportTypeIndentity.Esports)
-                    {
-                        return new SelectEsportProductStatusCriteria(productId, custId, settingStatus);
-                    }
-                    return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
                 case ProductIdentity.RNGSlot:
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus, MacauGamesStatusSettingType);
+
                 default:
                     return new SelectDCSProductStatusCriteria(productId, custId, settingStatus);
             }
@@ -57,10 +48,9 @@
         {
             switch (productId)
             {
-                case ProductIdentity.NG2:
-                    return new UpdateNG2StatusCriteria(custId, actorId, ip, settingStatus, commands);
                 case ProductIdentity.RNGSlot:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, settingStatus, MacauGamesStatusSettingType);
+
                 default:
                     return new UpdateDCSProductStatusCriteria(custId, actorId, ip, commands, settingStatus);
             }

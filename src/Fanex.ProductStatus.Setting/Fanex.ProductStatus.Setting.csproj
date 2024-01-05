@@ -177,13 +177,11 @@
     <Compile Include="Criteria\CheckProducStatusUMCriteria.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
-    <Compile Include="Criteria\SelectNG2StatusCriteria.cs" />
     <Compile Include="Criteria\SelectProductProfileCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
-    <Compile Include="Criteria\UpdateNG2StatusCriteria.cs" />
     <Compile Include="DataAccess\ProductProfileDataAccess.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -198,6 +196,7 @@
     <Compile Include="Services\CommandServices\KenoProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
+    <Compile Include="Services\CriteriaFactoryService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
     <Compile Include="Shared\DataReaderExtensions.cs" />
     <Compile Include="Shared\DateTimeExtensions.cs">
@@ -225,7 +224,6 @@
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IProductStatusAuthorizeService.cs" />
-    <Compile Include="Services\CriteriaFactoryService.cs" />
     <Compile Include="Services\ProductStatusService.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
