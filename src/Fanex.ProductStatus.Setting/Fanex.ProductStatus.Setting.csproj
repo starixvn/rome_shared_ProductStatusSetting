@@ -100,6 +100,9 @@
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Sunplus.Libraries.AOP, Version=1.0.4218.28561, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll</HintPath>
       <Private>True</Private>
@@ -175,12 +178,14 @@
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
     <Compile Include="Criteria\CheckProducStatusUMCriteria.cs" />
+    <Compile Include="Criteria\GetProductStatusByGroupIdCriteria.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectProductProfileCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
+    <Compile Include="Criteria\UpdateProductStatusByGroupCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
     <Compile Include="DataAccess\ProductProfileDataAccess.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
@@ -252,6 +257,7 @@
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.CSharp.dll" />
     <Analyzer Include="..\..\packages\SonarAnalyzer.CSharp.7.14.0.8411\analyzers\SonarAnalyzer.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

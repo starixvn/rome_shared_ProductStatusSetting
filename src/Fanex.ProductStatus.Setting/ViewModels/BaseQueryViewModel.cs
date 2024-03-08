@@ -11,6 +11,7 @@
     public class BaseQueryViewModel
     {
         private readonly IProductStatusActor productStatusActor;
+
         protected readonly IDictionary<byte, string> roleDictionary = new Dictionary<byte, string>
         {
             [RoleIdentity.Super] = Resources.Super,
@@ -23,6 +24,8 @@
         {
             this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
         }
+
+        public bool IsGroup { get; set; }
 
         public int ProductId { get; set; }
 

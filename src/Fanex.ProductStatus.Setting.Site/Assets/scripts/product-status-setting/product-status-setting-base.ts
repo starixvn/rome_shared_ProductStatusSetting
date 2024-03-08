@@ -16,6 +16,7 @@
     $popupId: string;
     $isMultipleBetTypes: boolean;
     $isReloadLeftPanel: boolean;
+    $isGroup: boolean;
 
     constructor($: JQueryStatic, topWindow: any) {
         this.$ = $;
@@ -30,6 +31,7 @@
         this.$custRole = this.$('#custRole').val();
         this.$productId = this.$('#productId').val();
         this.$isMultipleBetTypes = this.parseBoolean(this.$("#isMultipleBetTypes").val());
+        this.$isGroup = this.parseBoolean(this.$("#isGroup").val())
 
         this.$errorCodeDefault = 101;
         this.$timeoutDefault = 3000;
@@ -125,7 +127,8 @@
             custRole: this.$custRole,
             custIds: [],
             custNames: [],
-            productStatus: []
+            productStatus: [],
+            isGroup: this.$isGroup
         }
     }
 

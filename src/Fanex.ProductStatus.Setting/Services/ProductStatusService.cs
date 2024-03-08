@@ -7,13 +7,17 @@
     using DataAccess;
     using Fanex.ProductStatus.Setting.AppResources;
     using Models;
+    using Newtonsoft.Json;
     using Shared;
 
     public interface ProductStatusService
     {
+        IEnumerable<ProductStatusModel> GetProductStatusByGroup(int groupId, int custId, int system, byte settingStatus);
+
         IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId, byte settingStatus);
 
         IEnumerable<Result> UpdateProductStatus(
+            bool isGroup,
             int productId,
             int custId,
             byte custRole,
@@ -25,6 +29,7 @@
             byte systemId);
 
         IEnumerable<Result> MultipleUpdateProductStatus(
+            bool isGroup,
             int productId,
             byte custRole,
             int[] custIds,
@@ -54,6 +59,32 @@
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
             this.refDataService = refDataService ?? new RefDataServiceImpl();
             this.productProfileService = productProfileService ?? new ProductProfileService();
+        }
+
+        private Result UpdateProductStatusByGroup(
+            int groupId,
+            int custId,
+            int actorId,
+            string ip,
+            byte settingStatus,
+            IEnumerable<ProductStatusCommand> commands)
+        {
+            var criteria = new UpdateProductStatusByGroupCriteria(custId, JsonConvert.SerializeObject(commands), actorId, ip, groupId, settingStatus);
+            var result = statusDataAccess.ExecuteNonQuery(criteria);
+            result.ParseDCSProductMessage();
+
+            return result;
+        }
+
+        public IEnumerable<ProductStatusModel> GetProductStatusByGroup(int groupId, int custId, int system, byte settingStatus)
+        {
+            var criteria = new GetProductStatusByGroupIdCriteria(custId, groupId, settingStatus);
+            var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
+            foreach (var item in rawData)
+            {
+                item.Name = refDataService.GetSportTypeName(item.SportType);
+                yield return item;
+            }
         }
 
         public IEnumerable<ProductStatusModel> GetProductStatus(int productId, int custId, int sportType, int systemId, byte settingStatus)
@@ -99,6 +130,7 @@
         }
 
         public IEnumerable<Result> UpdateProductStatus(
+            bool isGroup,
             int productId,
             int custId,
             byte custRole,
@@ -109,12 +141,9 @@
             IEnumerable<ProductStatusCommand> commands,
             byte systemId)
         {
-            var result = UpdateProductStatus(productId, custId, custRole, actorId, actorName, ip, settingStatus, commands);
-
-            if (IsNonDCS(productId))
-            {
-                return new[] { result };
-            }
+            var result = isGroup
+                ? UpdateProductStatusByGroup(productId, custId, actorId, ip, settingStatus, commands)
+                : UpdateProductStatus(productId, custId, custRole, actorId, actorName, ip, settingStatus, commands);
 
             if (!result.IsSuccess() && !result.IsDoNothing())
             {
@@ -128,7 +157,7 @@
                 results.Add(result);
             }
 
-            var umMessage = GetUMMessageForEditSingle(productId, custId, systemId, commands);
+            var umMessage = GetUMMessageForEditSingle(isGroup, productId, custId, systemId, commands, settingStatus);
 
             if (!string.IsNullOrWhiteSpace(umMessage))
             {
@@ -168,6 +197,7 @@
         }
 
         public IEnumerable<Result> MultipleUpdateProductStatus(
+            bool isGroup,
             int productId,
             byte custRole,
             int[] custIds,
@@ -192,7 +222,9 @@
                 var customerName = custNames[i];
                 custNameHash[customerId] = customerName;
 
-                var result = UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, settingStatus, commands);
+                var result = isGroup
+                    ? UpdateProductStatusByGroup(productId, customerId, actorId, ip, settingStatus, commands)
+                    : UpdateProductStatus(productId, customerId, custRole, actorId, actorName, ip, settingStatus, commands);
 
                 if (result.IsSuccess())
                 {
@@ -206,16 +238,11 @@
                 }
             }
 
-            if (successResult != null && successCustName.Count > 0)
-            {
-                multipleResults.Add(new MultipleResult(successResult, 0, string.Join(", ", successCustName)));
-            }
-            else
-            {
-                multipleResults.Add(new MultipleResult(errorResult, 0, string.Join(", ", errorCustName)));
-            }
+            multipleResults.Add(successResult != null && successCustName.Count > 0
+                ? new MultipleResult(successResult, 0, string.Join(", ", successCustName))
+                : new MultipleResult(errorResult, 0, string.Join(", ", errorCustName)));
 
-            GetUMMessageForEditMultiple(productId, custIds, custNameHash, systemId, commands)
+            GetUMMessageForEditMultiple(isGroup, productId, custIds, custNameHash, systemId, commands, settingStatus)
                 .GroupBy(r => r.Message).ToList().ForEach(group =>
                 {
                     var mulResult = new MultipleResult(
@@ -230,10 +257,14 @@
 
         #region UM Functions
 
-        private string GetUMMessageForEditSingle(int productId, int custId, byte systemId, IEnumerable<ProductStatusCommand> commands)
+        private string GetUMMessageForEditSingle(bool isGroup, int productId, int custId, byte systemId, IEnumerable<ProductStatusCommand> commands, byte settingStatus)
         {
+            var criteria = isGroup
+                ? new CheckProducStatusUMCriteria(custId, functionType: 2, groupId: productId, settingStatus: settingStatus)
+                : new CheckProducStatusUMCriteria(custId, productId: productId, settingStatus: settingStatus);
+
             var productStatusUM = statusDataAccess
-                .GetProductStatusUM(new CheckProducStatusUMCriteria(productId, custId))
+                .GetProductStatusUM(criteria)
                 .ToList();
 
             if (productStatusUM.Count == 0)
@@ -293,19 +324,20 @@
             return SetProductStatusName(settingLevel, message.ProductId, message.SportType, message.BetType);
         }
 
-        private static bool IsNonDCS(int productId)
-            => productId == ProductIdentity.NumberGame
-            || productId == ProductIdentity.Keno;
-
         private IEnumerable<MultipleResult> GetUMMessageForEditMultiple(
+            bool isGroup,
             int productId,
             int[] custIds,
             IDictionary<int, string> custNameHash,
             byte systemId,
-            IEnumerable<ProductStatusCommand> commands)
+            IEnumerable<ProductStatusCommand> commands,
+            byte settingStatus)
         {
+            var criteria = isGroup
+                ? new CheckProducStatusUMCriteria(string.Join(",", custIds), functionType: 2, groupId: productId, settingStatus: settingStatus)
+                : new CheckProducStatusUMCriteria(string.Join(",", custIds), productId);
             var productStatusUM = statusDataAccess
-                .GetProductStatusUM(new CheckProducStatusUMCriteria(productId, string.Join(",", custIds)))
+                .GetProductStatusUM(criteria)
                 .GroupBy(m => m.CustId)
                 .ToList();
 
@@ -327,6 +359,6 @@
             }
         }
 
-        #endregion
+        #endregion UM Functions
     }
 }

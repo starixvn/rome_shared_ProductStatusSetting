@@ -45,15 +45,16 @@
             }
 
             var result = productStatusService.UpdateProductStatus(
-                viewModel.ProductId,
-                viewModel.CustId,
-                viewModel.CustRole,
-                viewModel.ActorId,
-                viewModel.ActorName,
-                viewModel.IP,
-                viewModel.SettingStatus,
-                viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)).ToList(),
-                viewModel.SystemId);
+                    viewModel.IsGroup,
+                    viewModel.ProductId,
+                    viewModel.CustId,
+                    viewModel.CustRole,
+                    viewModel.ActorId,
+                    viewModel.ActorName,
+                    viewModel.IP,
+                    viewModel.SettingStatus,
+                    viewModel.ProductStatus.Select(product => product.CorrectProperties(viewModel.CustRole)).ToList(),
+                    viewModel.SystemId);
 
             return Json(result, JsonRequestBehavior.DenyGet);
         }
@@ -80,6 +81,7 @@
             }
 
             var results = productStatusService.MultipleUpdateProductStatus(
+                viewModel.IsGroup,
                 viewModel.ProductId,
                 viewModel.CustRole,
                 viewModel.CustomerIds,
@@ -94,7 +96,7 @@
             return Json(results, JsonRequestBehavior.DenyGet);
         }
 
-        #endregion
+        #endregion Multiple Update
 
         #region Old Behavior
 
@@ -119,6 +121,7 @@
             }
 
             var result = productStatusService.UpdateProductStatus(
+                viewModel.IsGroup,
                 viewModel.ProductId,
                 viewModel.CustId,
                 viewModel.CustRole,
@@ -132,14 +135,16 @@
             return Json(result, JsonRequestBehavior.DenyGet);
         }
 
-        #endregion
+        #endregion Old Behavior
 
         private void PopulateQueryViewModel(BaseQueryViewModel viewModel)
         {
             if (viewModel.IsValid())
             {
                 viewModel.SetProductStatusViewModel(
-                    productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, ProductStatusConfigurationHandler.Actor.SettingStatus));
+                    viewModel.IsGroup
+                    ? productStatusService.GetProductStatusByGroup(viewModel.ProductId, viewModel.CustId, viewModel.SystemId, ProductStatusConfigurationHandler.Actor.SettingStatus)
+                    : productStatusService.GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, ProductStatusConfigurationHandler.Actor.SettingStatus));
             }
         }
 

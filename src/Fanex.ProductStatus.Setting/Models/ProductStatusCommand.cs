@@ -1,4 +1,5 @@
 ﻿using Fanex.ProductStatus.Setting.Shared;
+using Newtonsoft.Json;
 
 namespace Fanex.ProductStatus.Setting.Models
 {
@@ -8,6 +9,7 @@ namespace Fanex.ProductStatus.Setting.Models
 
         public int BetType { get; set; }
 
+        [JsonProperty("IsDisabled")]
         public bool Disable { get; set; }
 
         public bool UpdateAllMasters { get; set; }

@@ -29,7 +29,7 @@
         {
             var criteria = criteriaFactory.CreateUpdateCriteria(productId, custId, actorId, ip, settingStatus, commands);
             var result = statusDataAccess.ExecuteNonQuery(criteria);
-            result.ParseDCSProductMessage(productId);
+            result.ParseDCSProductMessage();
 
             return result;
         }

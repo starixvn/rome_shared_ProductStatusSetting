@@ -1,6 +1,7 @@
 ﻿namespace Fanex.ProductStatus.Setting.DataAccess
 {
     using Data;
+    using Fanex.ProductStatus.Setting.Criteria;
     using Fanex.ProductStatus.Setting.Shared;
     using Models;
     using NAP.Framework.Data;
@@ -81,6 +82,5 @@
                 Convert.ToByte(reader["settingtype"]),
                 Convert.ToDateTime(reader["begintime"]),
                 Convert.ToDateTime(reader["endtime"]));
-
     }
 }
