@@ -35,19 +35,6 @@
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
         }
 
-        [Fact]
-        public void CreateSelectCriteria_NG2_ReturnsSSelectNG2StatusCriteria()
-        {
-            // Arrange
-            var expectedCriteria = new SelectNG2StatusCriteria(ProductIdentity.NG2, CustIdTest, 0);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateSelectCriteria(ProductIdentity.NG2, CustIdTest, 0, 0);
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
         [Theory]
         [InlineData(21)]
         [InlineData(30)]
@@ -61,40 +48,6 @@
 
             // Act
             var actualCriteria = criteriaFactory.CreateSelectCriteria(productId, CustIdTest, 0, 0);
-
-            // Assert
-            Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
-        }
-
-        [Fact]
-        public void CreateUpdateCriteria_NG2_ReturnsUpdateNG2StatusCriteria()
-        {
-            // Arrange
-            var commands = new[]
-            {
-                new ProductStatusCommand
-                {
-                    SportType = 213,
-                    BetType = 2501,
-                    Disable = false,
-                    UpdateAllMasters = true,
-                    DisableAllMasters = false,
-                    UpdateAllAgents = true,
-                    DisableAllAgents = false,
-                    UpdateAllMembers = true,
-                    DisableAllMembers = false
-                }
-            };
-            var expectedCriteria = new UpdateNG2StatusCriteria(CustIdTest, ActorIdTest, IPTest,0 , commands);
-
-            // Act
-            var actualCriteria = criteriaFactory.CreateUpdateCriteria(
-                ProductIdentity.NG2,
-                CustIdTest,
-                ActorIdTest,
-                IPTest,
-			0,
-                commands);
 
             // Assert
             Assert.Equal(expectedCriteria.GetSettingKey(), actualCriteria.GetSettingKey());
@@ -144,7 +97,7 @@
                 CustIdTest,
                 ActorIdTest,
                 IPTest,
-			    0,
+                0,
                 commands);
 
             // Assert

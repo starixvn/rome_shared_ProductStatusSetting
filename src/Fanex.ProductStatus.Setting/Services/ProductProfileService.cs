@@ -8,7 +8,7 @@
     using Fanex.ProductStatus.Setting.Models;
     using Fanex.ProductStatus.Setting.Shared;
 
-    interface IProductProfileService
+    internal interface IProductProfileService
     {
         int GetSettingLevel(int productId, int systemId);
     }
@@ -17,20 +17,13 @@
     {
         private readonly IProductStatusActor productStatusActor;
 
-        private static IEnumerable<ProductProfile> NonDCSProductSetting = new List<ProductProfile>
-        {
-            new ProductProfile(ProductIdentity.Keno, ProductSettingLevel.BetType) ,
-            new ProductProfile(ProductIdentity.NumberGame, ProductSettingLevel.Product),
-        };
-
         private static IEnumerable<ProductProfile> DCSProductSetting = new List<ProductProfile>
         {
+            new ProductProfile(ProductIdentity.Sportsbook, null, 13),
             new ProductProfile(ProductIdentity.Casino, null, 13),
             new ProductProfile(ProductIdentity.VirtualSports, null, 13),
-            new ProductProfile(ProductIdentity.Sportbook2, null, 13),
             new ProductProfile(ProductIdentity.LiveCasino, null, 13),
             new ProductProfile(ProductIdentity.RNGSlot, null, 21),
-            new ProductProfile(ProductIdentity.NG2, null, 11),
             new ProductProfile(ProductIdentity.RNGLottery, null, 13),
             new ProductProfile(ProductIdentity.VirtualGames, null, 13),
             new ProductProfile(ProductIdentity.Sabaclub, null, 13),
@@ -50,12 +43,6 @@
 
         public int GetSettingLevel(int productId, int systemId)
         {
-            var isNonDscProduct = NonDCSProductSetting.Any(i => i.ProductId == productId);
-            if (isNonDscProduct)
-            {
-                return NonDCSProductSetting.First(i => i.ProductId == productId).SettingLevel.Value;
-            }
-
             var productProfile = productProfileDataAccess.GetProductProfile(
                 new SelectProductProfileCriteria(
                     productId,
