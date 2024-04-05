@@ -4,16 +4,15 @@
 
     internal class CheckProducStatusUMCriteria : CriteriaBase
     {
-        public CheckProducStatusUMCriteria(int custId, int productId = 0, byte functionType = 1, int groupId = 0, byte settingStatus = 0)
-            : this(custId.ToString(), productId, functionType, groupId, settingStatus)
+        public CheckProducStatusUMCriteria(int custId, int productId = 0, int groupId = 0, byte settingStatus = 0)
+            : this(custId.ToString(), productId, groupId, settingStatus)
         {
         }
 
-        public CheckProducStatusUMCriteria(string custIds, int productId = 0, byte functionType = 1, int groupId = 0, byte settingStatus = 0)
+        public CheckProducStatusUMCriteria(string custIds, int productId = 0, int groupId = 0, byte settingStatus = 0)
         {
             ProductId = productId;
             CustIds = custIds;
-            FunctionType = functionType;
             GroupId = groupId;
             SettingStatus = settingStatus;
         }
@@ -21,8 +20,6 @@
         public int ProductId { get; }
 
         public string CustIds { get; }
-
-        public byte FunctionType { get; }
 
         public int GroupId { get; }
 

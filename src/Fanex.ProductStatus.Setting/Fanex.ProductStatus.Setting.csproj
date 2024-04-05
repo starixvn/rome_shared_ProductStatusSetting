@@ -181,12 +181,14 @@
     <Compile Include="Criteria\GetProductStatusByGroupIdCriteria.cs" />
     <Compile Include="Criteria\SelectEsportProductStatusCriteria.cs" />
     <Compile Include="Criteria\SelectDCSProductStatusCriteria.cs" />
+    <Compile Include="Criteria\SelectProductProfileByGroupCriteria.cs" />
     <Compile Include="Criteria\SelectProductProfileCriteria.cs" />
     <Compile Include="Criteria\SelectProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateDCSProductStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateKenoStatusCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusByGroupCriteria.cs" />
     <Compile Include="Criteria\UpdateProductStatusCriteriaBase.cs" />
+    <Compile Include="DataAccess\ProductGroupProfileDataAccess.cs" />
     <Compile Include="DataAccess\ProductProfileDataAccess.cs">
       <SonarQubeExclude>true</SonarQubeExclude>
     </Compile>
@@ -195,6 +197,7 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Models\MultipleResult.cs" />
+    <Compile Include="Models\ProductGroupProfile.cs" />
     <Compile Include="Models\ProductProfile.cs" />
     <Compile Include="Models\SimpleProductStatusCommand.cs" />
     <Compile Include="Models\ProductStatusUM.cs" />
@@ -202,6 +205,7 @@
     <Compile Include="Services\CommandServices\DefaultProductStatusCommandService.cs" />
     <Compile Include="Services\CommandServices\ProductStatusCommandService.cs" />
     <Compile Include="Services\CriteriaFactoryService.cs" />
+    <Compile Include="Services\ProductProfileByGroupService.cs" />
     <Compile Include="Services\ProductProfileService.cs" />
     <Compile Include="Shared\DataReaderExtensions.cs" />
     <Compile Include="Shared\DateTimeExtensions.cs">

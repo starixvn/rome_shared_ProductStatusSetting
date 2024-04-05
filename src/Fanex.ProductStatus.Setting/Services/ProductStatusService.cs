@@ -48,17 +48,20 @@
         private readonly CriteriaFactoryService criteriaFactory;
         private readonly RefDataService refDataService;
         private readonly IProductProfileService productProfileService;
+        private readonly IProductProfileByGroupService productByGroupProfileService;
 
         public ProductStatusServiceImpl(
             ProductStatusDataAccess statusDataAccess = null,
             CriteriaFactoryService criteriaFactory = null,
             RefDataService refDataService = null,
-            IProductProfileService productProfileService = null)
+            IProductProfileService productProfileService = null,
+            IProductProfileByGroupService productByGroupProfileService = null)
         {
             this.statusDataAccess = statusDataAccess ?? new ProductStatusDataAccessImpl();
             this.criteriaFactory = criteriaFactory ?? new CriteriaFactoryServiceImpl();
             this.refDataService = refDataService ?? new RefDataServiceImpl();
             this.productProfileService = productProfileService ?? new ProductProfileService();
+            this.productByGroupProfileService = productByGroupProfileService ?? new ProductProfileByGroupService();
         }
 
         private Result UpdateProductStatusByGroup(
@@ -260,7 +263,7 @@
         private string GetUMMessageForEditSingle(bool isGroup, int productId, int custId, byte systemId, IEnumerable<ProductStatusCommand> commands, byte settingStatus)
         {
             var criteria = isGroup
-                ? new CheckProducStatusUMCriteria(custId, functionType: 2, groupId: productId, settingStatus: settingStatus)
+                ? new CheckProducStatusUMCriteria(custId, groupId: productId, settingStatus: settingStatus)
                 : new CheckProducStatusUMCriteria(custId, productId: productId, settingStatus: settingStatus);
 
             var productStatusUM = statusDataAccess
@@ -272,7 +275,9 @@
                 return string.Empty;
             }
 
-            var settingLevel = (byte)productProfileService.GetSettingLevel(productId, systemId);
+            var settingLevel = isGroup ?
+                (byte)productByGroupProfileService.GetSettingLevel(productId, systemId, settingStatus)
+                : (byte)productProfileService.GetSettingLevel(productId, systemId);
 
             return BuildUMMessages(productStatusUM, settingLevel, commands);
         }
@@ -334,7 +339,7 @@
             byte settingStatus)
         {
             var criteria = isGroup
-                ? new CheckProducStatusUMCriteria(string.Join(",", custIds), functionType: 2, groupId: productId, settingStatus: settingStatus)
+                ? new CheckProducStatusUMCriteria(string.Join(",", custIds), groupId: productId, settingStatus: settingStatus)
                 : new CheckProducStatusUMCriteria(string.Join(",", custIds), productId);
             var productStatusUM = statusDataAccess
                 .GetProductStatusUM(criteria)
@@ -346,7 +351,9 @@
                 yield break;
             }
 
-            var settingLevel = (byte)productProfileService.GetSettingLevel(productId, systemId);
+            var settingLevel = isGroup ?
+                (byte)productByGroupProfileService.GetSettingLevel(productId, systemId, settingStatus)
+                : (byte)productProfileService.GetSettingLevel(productId, systemId);
 
             foreach (var group in productStatusUM)
             {
