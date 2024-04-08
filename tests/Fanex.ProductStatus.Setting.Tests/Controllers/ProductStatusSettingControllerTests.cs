@@ -160,7 +160,7 @@
         {
             // Arrange
             var viewModel = new MultipleQueryViewModel(
-                Enumerable.Empty<KeyValuePair<int, string>>(),
+                Enumerable.Empty<Product>(),
                 new ProductStatusActorForTesting());
             string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 

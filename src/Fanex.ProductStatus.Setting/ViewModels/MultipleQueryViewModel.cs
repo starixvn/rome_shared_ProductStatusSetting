@@ -8,18 +8,17 @@
 
     public class MultipleQueryViewModel : BaseQueryViewModel
     {
-        private readonly IEnumerable<KeyValuePair<int, string>> customerProductList;
+        private readonly IEnumerable<Product> customerProductList;
 
-        private IEnumerable<KeyValuePair<int, string>> products;
+        private IEnumerable<Product> products;
 
-        public MultipleQueryViewModel() 
+        public MultipleQueryViewModel()
             : this(null, null)
         {
-
         }
 
         public MultipleQueryViewModel(
-            IEnumerable<KeyValuePair<int, string>> customerProductList,
+            IEnumerable<Product> customerProductList,
             IProductStatusActor productStatusActor)
             : base(productStatusActor)
         {
@@ -33,7 +32,7 @@
 
         public string CustNames { get; set; }
 
-        public IEnumerable<KeyValuePair<int, string>> Products
+        public IEnumerable<Product> Products
         {
             get
             {
@@ -44,7 +43,7 @@
                     if (!string.IsNullOrWhiteSpace(ProductIds))
                     {
                         var includedProducts = ProductIds.ToDictionary();
-                        products = products.Where(p => includedProducts.ContainsKey(p.Key));
+                        products = products.Where(p => includedProducts.ContainsKey(p.Id));
                     }
                 }
 

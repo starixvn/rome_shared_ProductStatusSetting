@@ -3,6 +3,7 @@
     $toggleAllArray: HTMLElement[];
     $toggleArray: HTMLElement[];
     $dialogConfirm: any;
+    $products: any[];
 
     constructor($: JQueryStatic, topWindow: any) {
         super($, topWindow);
@@ -16,7 +17,10 @@
 
     loadMultiple = () =>
         this.$("#productIds").change(() => {
-            this.$("#productId").val(this.$("#productIds").val());
+            var productId = this.$("#productIds").val();
+            this.$("#productId").val(productId);
+            var isGroup = this.$products.filter(x => x.Id == productId && x.IsGroup)?.length > 0;
+            this.$("#isGroup").val(isGroup.toString())
             this.$("#product-form").submit();
         });
 
@@ -29,6 +33,7 @@
         this.$resources.enabled = this.$('#enableAll').val();
         this.$resources.disabled = this.$('#disableAll').val();
         this.$resources.updateActionName = "MultipleUpdate";
+        this.$products = JSON.parse(this.$("#productsList").val());
     }
 
     bindingToggleEvent = () =>
@@ -118,7 +123,7 @@
             let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
-            let isMacauGames = this.$("#productId").val() == "22";
+            let isMacauGames = this.$("#productId").val() == "18";
             this.watchHeader(roleId, false);
 
             if (roleId > 1) {
@@ -149,7 +154,6 @@
                         }
                     }
                 });
-
             }
         }
     }
@@ -322,8 +326,12 @@
             html.push('<div class="');
             html.push(result.Code !== 0 ? "alerterror" : "alertsuccess");
             html.push('"><div>');
-            html.push(result.CustName);
-            html.push(": ");
+
+            if (result.CustName) {
+                html.push(result.CustName);
+                html.push(": ");
+            }
+
             html.push(result.Message);
             html.push("</div></div>");
         });

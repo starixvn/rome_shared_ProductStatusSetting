@@ -174,6 +174,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Configuration\Product.cs" />
     <Compile Include="Configuration\ProductStatusConfiguration.cs" />
     <Compile Include="Configuration\ProductStatusConfigurationHandler.cs" />
     <Compile Include="Controllers\ProductStatusSettingController.cs" />
