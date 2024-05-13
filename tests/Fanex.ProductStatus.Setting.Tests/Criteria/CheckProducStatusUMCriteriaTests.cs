@@ -43,7 +43,7 @@
         public void IsValid_CustIds_ReturnsCorrectExpectedResult(string custIds, bool expected)
         {
             // Arrange
-            var criteria = new CheckProducStatusUMCriteria(22, custIds);
+            var criteria = new CheckProducStatusUMCriteria(custIds, 22);
 
             // Act
             var actual = criteria.IsValid();

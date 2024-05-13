@@ -46,7 +46,7 @@
         public bool IsDoNothing()
             => Code == DoNothingErrorCode;
 
-        public string ParseDCSProductMessage(int productId)
+        public string ParseDCSProductMessage()
         {
             if (IsValidXml())
             {

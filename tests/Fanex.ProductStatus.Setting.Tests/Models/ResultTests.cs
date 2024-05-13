@@ -5,7 +5,6 @@
     using NSubstitute;
     using Setting.Models;
     using Setting.Services;
-    using Setting.Shared;
     using Xunit;
 
     [Trait("Models", "Result")]
@@ -72,7 +71,7 @@
 
             // Act
             var result = new Result(outputParams);
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.NumberGame);
+            var actualResult = result.ParseDCSProductMessage();
 
             // Assert
             Assert.True(
@@ -94,7 +93,7 @@
 
             // Act
             var result = new Result(outputParams);
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino);
+            var actualResult = result.ParseDCSProductMessage();
 
             // Assert
             Assert.True(

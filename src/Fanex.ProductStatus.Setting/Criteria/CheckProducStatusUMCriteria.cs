@@ -1,26 +1,29 @@
 ﻿namespace Fanex.ProductStatus.Setting.Criteria
 {
     using Fanex.NAP.Framework.Data;
-    using Fanex.ProductStatus.Setting.Shared;
 
     internal class CheckProducStatusUMCriteria : CriteriaBase
     {
-        public CheckProducStatusUMCriteria(int productId, int custId)
-            : this(productId, custId.ToString())
+        public CheckProducStatusUMCriteria(int custId, int productId = 0, int groupId = 0, byte settingStatus = 0)
+            : this(custId.ToString(), productId, groupId, settingStatus)
         {
         }
 
-        public CheckProducStatusUMCriteria(int productId, string custIds)
+        public CheckProducStatusUMCriteria(string custIds, int productId = 0, int groupId = 0, byte settingStatus = 0)
         {
-            ProductId = productId == ProductIdentity.NumberGame
-                ? ProductIdentity.Sportsbook
-                : productId;
+            ProductId = productId;
             CustIds = custIds;
+            GroupId = groupId;
+            SettingStatus = settingStatus;
         }
 
         public int ProductId { get; }
 
         public string CustIds { get; }
+
+        public int GroupId { get; }
+
+        public byte SettingStatus { get; }
 
         public override string GetSettingKey()
             => "Acc_CheckUM_MultipleCustProductStatus";

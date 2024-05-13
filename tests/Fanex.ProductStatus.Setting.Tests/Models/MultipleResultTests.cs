@@ -33,7 +33,7 @@
             var expectedCode = 500;
 
             // Act
-            var actualResult = new MultipleResult(new Result(outputParams:null), 1176070, "SuperTest1");
+            var actualResult = new MultipleResult(new Result(outputParams: null), 1176070, "SuperTest1");
 
             // Assert
             Assert.True(
@@ -71,7 +71,7 @@
 
             // Act
             var actual = new MultipleResult(new Result(outputParams), 1176070, "SuperTest1");
-            var actualResult = actual.ParseDCSProductMessage(ProductIdentity.NumberGame);
+            var actualResult = actual.ParseDCSProductMessage();
 
             // Assert
             Assert.True(
@@ -93,7 +93,7 @@
 
             // Act
             var result = new MultipleResult(new Result(outputParams), 1176070, "SuperTest1");
-            var actualResult = result.ParseDCSProductMessage(ProductIdentity.LiveCasino);
+            var actualResult = result.ParseDCSProductMessage();
 
             // Assert
             Assert.True(

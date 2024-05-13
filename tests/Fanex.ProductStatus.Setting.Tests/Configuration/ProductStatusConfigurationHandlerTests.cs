@@ -79,7 +79,7 @@
                 .UseAuthorizeService(new ProductStatusAuthorizeServiceForTesting())
                 .UseProductStatusActor(new ProductStatusActorForTesting())
                 .SetUnAuthorizedUrl("~/Error/UnAuthorized")
-                .UseCustomerProductList(() => new List<KeyValuePair<int, string>> { new KeyValuePair<int, string>(3, "Number Game") });
+                .UseCustomerProductList(() => new List<Product> { new Product(3, "Number Game", false) });
 
             // Act
             ProductStatusConfigurationHandler.UseConfig(configuration);

@@ -44,7 +44,7 @@
             };
             productStatusService
                 .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
-                .Returns(Enumerable.Empty<ProductStatusModel>());          
+                .Returns(Enumerable.Empty<ProductStatusModel>());
 
             // Assert
             Assert.False(queryViewModel.ProductStatus.Any());
@@ -135,6 +135,7 @@
                 CustRole = 3
             };
             productStatusService.UpdateProductStatus(
+                updateViewModel.IsGroup,
                 updateViewModel.ProductId,
                 updateViewModel.CustId,
                 updateViewModel.CustRole,
@@ -159,7 +160,7 @@
         {
             // Arrange
             var viewModel = new MultipleQueryViewModel(
-                Enumerable.Empty<KeyValuePair<int, string>>(),
+                Enumerable.Empty<Product>(),
                 new ProductStatusActorForTesting());
             string expectedView = "~/Areas/ProductStatusSetting/Views/Multiple/Index.cshtml";
 
@@ -272,6 +273,7 @@
                 CustRole = RoleIdentity.Super
             };
             productStatusService.MultipleUpdateProductStatus(
+                updateViewModel.IsGroup,
                 updateViewModel.ProductId,
                 updateViewModel.CustRole,
                 updateViewModel.CustomerIds,
@@ -389,6 +391,7 @@
                 CustRole = 3
             };
             productStatusService.UpdateProductStatus(
+                viewModel.IsGroup,
                 viewModel.ProductId,
                 viewModel.CustId,
                 viewModel.CustRole,

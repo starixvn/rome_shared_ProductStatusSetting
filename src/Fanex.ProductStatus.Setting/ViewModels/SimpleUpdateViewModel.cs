@@ -21,6 +21,8 @@
             this.productStatusActor = productStatusActor ?? ProductStatusConfigurationHandler.Actor;
         }
 
+        public bool IsGroup { get; set; }
+
         public int ProductId { get; set; }
 
         public int CustId { get; set; }

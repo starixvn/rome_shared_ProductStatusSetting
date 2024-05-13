@@ -12,7 +12,7 @@
 
         internal string UnAuthorizedUrl { get; private set; }
 
-        internal Func<IEnumerable<KeyValuePair<int, string>>> CustomerProductListGetter { get; private set; }
+        internal Func<IEnumerable<Product>> CustomerProductListGetter { get; private set; }
 
         public ProductStatusConfiguration UseAuthorizeService(IProductStatusAuthorizeService authorizeService)
         {
@@ -32,7 +32,7 @@
             return this;
         }
 
-        public ProductStatusConfiguration UseCustomerProductList(Func<IEnumerable<KeyValuePair<int, string>>> customerProductListGetter)
+        public ProductStatusConfiguration UseCustomerProductList(Func<IEnumerable<Product>> customerProductListGetter)
         {
             CustomerProductListGetter = customerProductListGetter;
             return this;

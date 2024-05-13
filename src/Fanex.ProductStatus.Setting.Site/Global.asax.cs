@@ -15,25 +15,20 @@ namespace Fanex.ProductStatus.Setting.Site
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public static IEnumerable<KeyValuePair<int, string>> Products
+        public static IEnumerable<Product> Products
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             get
             {
-                return new List<KeyValuePair<int, string>>
+                return new List<Product>
                 {
-                    new KeyValuePair<int, string>(3, "Number Game"),
-                    new KeyValuePair<int, string>(6, "Casino"),
-                    new KeyValuePair<int, string>(8, "Keno"),
-                    new KeyValuePair<int, string>(12, "Gold Deluxe"),
-                    new KeyValuePair<int, string>(21, "Allbets"),
-                    new KeyValuePair<int, string>(22, "Macau Games"),
-                    new KeyValuePair<int, string>(23, "NG2"),
-                    new KeyValuePair<int, string>(5, "Virtual Sports"),
-                    new KeyValuePair<int, string>(28, "Lottery"),
-                    new KeyValuePair<int, string>(41, "Live Casino"),
-                    new KeyValuePair<int, string>(44, "RNG Lottery"),
-                    new KeyValuePair<int, string>(38, "Virtual Games")
+                    new Product(3, "Number Game",false),
+                    new Product(12, "Gold Deluxe",false),
+                    new Product(21, "Allbets",false),
+                    new Product(22, "Macau Games",false),
+                    new Product(28, "Lottery",false),
+                    new Product(44, "RNG Lottery",false),
+                    new Product(38, "Virtual Games",false)
                 };
             }
         }
