@@ -234,16 +234,20 @@
                     successResult = result;
                     successCustName.Add(customerName);
                 }
-                else
+
+                if (!result.IsSuccess() && !result.IsDoNothing())
                 {
                     errorResult = result;
                     errorCustName.Add(customerName);
                 }
             }
 
-            multipleResults.Add(successResult != null && successCustName.Count > 0
-                ? new MultipleResult(successResult, 0, string.Join(", ", successCustName))
-                : new MultipleResult(errorResult, 0, string.Join(", ", errorCustName)));
+            if (successResult != null || errorResult != null)
+            {
+                multipleResults.Add(successResult != null && successCustName.Count > 0
+                    ? new MultipleResult(successResult, 0, string.Join(", ", successCustName))
+                    : new MultipleResult(errorResult, 0, string.Join(", ", errorCustName)));
+            }
 
             GetUMMessageForEditMultiple(isGroup, productId, custIds, custNameHash, systemId, commands, settingStatus)
                 .GroupBy(r => r.Message).ToList().ForEach(group =>
@@ -284,20 +288,23 @@
 
         private string BuildUMMessages(IEnumerable<ProductStatusUM> productStatusUM, byte settingLevel, IEnumerable<ProductStatusCommand> commands)
         {
-            var allProductOrSportType = productStatusUM.SingleOrDefault(m => m.ProductId == 0 || m.SportType == 0);
-
-            if (allProductOrSportType != null)
-            {
-                return $"{Resources.UMProductStatus}<br/>{BuildUMMessage(allProductOrSportType, 0)}";
-            }
-
+            var allProductOrSportType = productStatusUM.Where(m => m.ProductId == 0 || m.SportType == 0);
             var umMessages = new List<string>();
-
-            foreach (var message in productStatusUM)
+            if (allProductOrSportType != null && allProductOrSportType.Any())
             {
-                if (commands.Any(p => p.SportType == message.SportType))
+                foreach (var product in allProductOrSportType)
                 {
-                    umMessages.Add(BuildUMMessage(message, settingLevel));
+                    umMessages.Add(BuildUMMessage(product, 0));
+                }
+            }
+            else
+            {
+                foreach (var message in productStatusUM)
+                {
+                    if (commands.Any(p => p.SportType == message.SportType))
+                    {
+                        umMessages.Add(BuildUMMessage(message, settingLevel));
+                    }
                 }
             }
 
