@@ -81,7 +81,7 @@
 
         public IEnumerable<ProductStatusModel> GetProductStatusByGroup(int groupId, int custId, int system, byte settingStatus)
         {
-            var criteria = new GetProductStatusByGroupIdCriteria(custId, groupId, settingStatus);
+            var criteria = new GetProductStatusByGroupIdCriteria(custId, groupId, settingStatus, system);
             var rawData = statusDataAccess.GetProductStatus(criteria).ToList();
             foreach (var item in rawData)
             {
