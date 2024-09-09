@@ -15,9 +15,9 @@
 
     public class ProductProfileByGroupService : IProductProfileByGroupService
     {
-
         private static IEnumerable<ProductGroupProfile> DCSProductSetting = new List<ProductGroupProfile>
         {
+            new ProductGroupProfile(2, 160),
             new ProductGroupProfile(3, 160)
         };
 
