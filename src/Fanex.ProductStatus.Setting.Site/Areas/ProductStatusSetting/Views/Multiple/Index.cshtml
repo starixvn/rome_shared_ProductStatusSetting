@@ -39,6 +39,7 @@
             @Html.Hidden("custId", Model.CustIds.Split(',')[0])
             @Html.Hidden("groupId", HttpContext.Current.Request["groupid"])
             @Html.Hidden("isGroup", Model.IsGroup)
+            @Html.Hidden("recommend", Model.Recommend)
         }
     </div>
 

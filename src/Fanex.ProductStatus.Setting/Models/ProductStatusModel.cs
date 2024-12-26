@@ -2,6 +2,7 @@
 {
     public class ProductStatusModel
     {
+#pragma warning disable S107 // Methods should not have too many parameters
         public ProductStatusModel(
             int sportType,
             int parentSportType,
@@ -14,7 +15,12 @@
             int totalDisabledAgents,
             int totalEnabledAgents,
             int totalDisabledMembers,
-            int totalEnabledMembers) : this(sportType, betType)
+            int totalEnabledMembers,
+            int totalDisabledSuperDirectMembers,
+            int totalEnabledSuperDirectMembers,
+            int totalDisabledMasterDirectMembers,
+            int totalEnabledMasterDirectMembers) : this(sportType, betType)
+#pragma warning restore S107 // Methods should not have too many parameters
         {
             IsDisabled = isDisabled;
             IsDisabledUpline = isDisabledUpline;
@@ -27,6 +33,12 @@
 
             TotalDisabledMembers = totalDisabledMembers;
             TotalEnabledMembers = totalEnabledMembers;
+
+            TotalDisabledSuperDirectMembers = totalDisabledSuperDirectMembers;
+            TotalEnabledSuperDirectMembers = totalEnabledSuperDirectMembers;
+
+            TotalDisabledMasterDirectMembers = totalDisabledMasterDirectMembers;
+            TotalEnabledMasterDirectMembers = totalEnabledMasterDirectMembers;
 
             ParentSportType = parentSportType;
             ParentBetType = parentBetType;
@@ -61,6 +73,14 @@
         public int TotalDisabledMembers { get; }
 
         public int TotalEnabledMembers { get; }
+
+        public int TotalDisabledSuperDirectMembers { get; }
+
+        public int TotalEnabledSuperDirectMembers { get; }
+
+        public int TotalDisabledMasterDirectMembers { get; }
+
+        public int TotalEnabledMasterDirectMembers { get; }
 
         public string Name { get; set; }
     }

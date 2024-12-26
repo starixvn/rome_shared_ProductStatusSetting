@@ -24,6 +24,10 @@
                 0,
                 0,
                 0,
+                0,
+                0,
+                0,
+                0,
                 0);
 
             // Act
@@ -51,6 +55,10 @@
                 0,
                 0,
                 0,
+                0,
+                0,
+                0,
+                0,
                 0);
 
             // Act
@@ -71,6 +79,10 @@
                 0,
                 false,
                 false,
+                0,
+                0,
+                0,
+                0,
                 0,
                 0,
                 0,
@@ -104,7 +116,11 @@
                 0,
                 0,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Agent);
@@ -131,7 +147,11 @@
                 20,
                 200,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Master);
@@ -156,7 +176,11 @@
                 20,
                 0,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Master);
@@ -181,7 +205,11 @@
                 20,
                 200,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
             model.Name = "Number Game";
 
             // Act
@@ -218,7 +246,11 @@
                 20,
                 200,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Super);
@@ -243,7 +275,11 @@
                 20,
                 0,
                 10,
-                100);
+                100,
+                12,
+                13,
+                43,
+                43);
 
             // Act
             var actualResult = new ProductStatusViewModel(model, RoleIdentity.Super);

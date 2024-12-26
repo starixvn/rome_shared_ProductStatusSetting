@@ -19,7 +19,8 @@
         this.$("#productIds").change(() => {
             var productId = this.$("#productIds").val();
             this.$("#productId").val(productId);
-            var isGroup = this.$products.filter(x => x.Id == productId && x.IsGroup)?.length > 0;
+            var productsFilter = this.$products.filter(x => x.Id == productId && x.IsGroup);
+            var isGroup = productsFilter != null && productsFilter.length > 0;
             this.$("#isGroup").val(isGroup.toString())
             this.$("#product-form").submit();
         });
@@ -123,7 +124,6 @@
             let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
-            let isMacauGames = this.$("#productId").val() == "18";
             this.watchHeader(roleId, false);
 
             if (roleId > 1) {
@@ -132,7 +132,7 @@
                 this.toogleStatusDownline(downlineToggle, enable);
             }
 
-            if (isMacauGames && this.isParentRow(toogle)) {
+            if (this.isParentRow(toogle)) {
                 let parentSportType = this.getParentSportType(toogle);
                 let parentBettype = this.getParentBetType(toogle);
                 let childToggles = this.getTogglesByParentSportTypeBetType(this.$toggleArray, roleId, sportType, bettype);
@@ -169,6 +169,15 @@
             let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
+
+            if (roleId == 3) {
+                this.toogleStatusDownline(this.getToggleElements(this.$toggleArray, -4, sportType, bettype), enable);
+            }
+
+            if (roleId == 2) {
+                this.toogleStatusDownline(this.getToggleElements(this.$toggleArray, -3, sportType, bettype), enable);
+            }
+
             let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
 
             this.toogleStatusDownline(downlineToggle, enable);
@@ -263,8 +272,12 @@
                     sportType: this.getSportType(firstCheckbox),
                     betType: this.getBetType(firstCheckbox),
                     disable: !this.isChecked(firstCheckbox),
+                    updateAllSuperDirectMembers: false,
+                    disableAllSuperDirectMembers: null,
                     updateAllMasters: false,
                     disableAllMasters: null,
+                    updateAllMasterDirectMembers: false,
+                    disableAllMasterDirectMembers: null,
                     updateAllAgents: false,
                     disableAllAgents: null,
                     updateAllMembers: false,
@@ -292,9 +305,17 @@
         let disableAll = !this.isEnabledElement(toggle);
 
         switch (this.getRoleId(toggle)) {
+            case -4:
+                model.updateAllSuperDirectMembers = true;
+                model.disableAllSuperDirectMembers = disableAll;
+                break;
             case 3:
                 model.updateAllMasters = true;
                 model.disableAllMasters = disableAll;
+                break;
+            case -3:
+                model.updateAllMasterDirectMembers = true;
+                model.disableAllMasterDirectMembers = disableAll;
                 break;
             case 2:
                 model.updateAllAgents = true;

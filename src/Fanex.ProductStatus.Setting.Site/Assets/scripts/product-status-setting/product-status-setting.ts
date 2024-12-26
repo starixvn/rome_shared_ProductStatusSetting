@@ -70,6 +70,8 @@
         for (let roleId = this.$custRole; roleId > 0; roleId--) {
             this.watchHeader(roleId);
         }
+        this.watchHeader(-4);
+        this.watchHeader(-3);
     }
 
     toggleStatusAll = (toggleAll: HTMLElement, status: boolean) => {
@@ -100,7 +102,9 @@
         if (this.isEnablebUpline(toggle)) {
             let enable = this.isChecked(toggle);
             let labelElement = this.getNextLabel(toggle);
-
+            let roleId = this.getRoleId(toggle);
+            let betType = this.getBetType(toggle);
+            let sportType = this.getSportType(toggle);
             let tooltip = this.getTooltip(labelElement, enable);
             let labelText = enable ? this.$resources.enabled : this.$resources.disabled;
 
@@ -109,7 +113,14 @@
                 .attr('class', labelText.toLowerCase())
                 .text(labelText);
 
-            this.toggleStatusDownlines(this.getRoleId(toggle) - 1, enable, this.getSportType(toggle), this.getBetType(toggle));
+            this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            if (roleId == 4) {
+                this.toggleStatusDownlines(-4, enable, sportType, betType);
+            }
+
+            if (roleId == 3) {
+                this.toggleStatusDownlines(-3, enable, sportType, betType);
+            }
         }
     }
 
@@ -128,8 +139,15 @@
                 oppositeStatusSpan.text("0");
                 this.$(toggle).text(this.getTotalStatus(toggle, "total"));
             }
-             
+
             this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            if (roleId == 4) {
+                this.toggleStatusDownlines(-4, enable, sportType, betType);
+            }
+
+            if (roleId == 3) {
+                this.toggleStatusDownlines(-3, enable, sportType, betType);
+            }
         }
     }
 
@@ -138,7 +156,7 @@
             this.toogleHeader(roleId);
         }
     }
-    
+
     isDisableHeader = (toggles: HTMLElement[], isUplineCheckbox: boolean): boolean =>
         toggles.every((toggle) => {
             if (isUplineCheckbox) {
@@ -166,9 +184,9 @@
     }
 
     toggleStatusDownlines = (downlineRoleId: number, enable: boolean, sportType: number, betType: number, totalDisabledUpline: number = 0) => {
-        if (downlineRoleId > 0) {
+        if (this.downlineRoleIds.find((item) => item == downlineRoleId) != null) {
             let enabledToggle = this.getDownlineElement(this.$enableToggles, downlineRoleId, sportType, betType);
-            let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId,sportType, betType);
+            let disabledToggle = this.getDownlineElement(this.$disableToggles, downlineRoleId, sportType, betType);
             let total = this.getTotalStatus(enabledToggle, "total");
 
             if (enable && total > 0) {
@@ -187,8 +205,13 @@
             let currentTotalEnabled = this.$(enabledToggle).text();
             let enableDownline = enable ? (this.parseInt(currentTotalEnabled) > 0) : false;
             let currentTotalDisabled = this.parseInt(this.$(disabledToggle).text());
+            if (downlineRoleId > 0) {
+                this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, sportType, betType, currentTotalDisabled);
+            }
 
-            this.toggleStatusDownlines(downlineRoleId - 1, enableDownline, sportType, betType, currentTotalDisabled);
+            if (downlineRoleId == 3) {
+                this.toggleStatusDownlines(-3, enableDownline, sportType, betType, currentTotalDisabled);
+            }
         }
     }
 
@@ -208,8 +231,7 @@
         return viewModel;
     }
 
-    getProductStatus()
-    {
+    getProductStatus() {
         return this.$('#tbl-product > tbody  > tr').map((index, row) => {
             let customerElement = (this.$(row).find('input:checkbox:first').toArray() as HTMLElement[])[0];
 
@@ -225,8 +247,12 @@
                     sportType: sporttype,
                     betType: bettype,
                     disable: disableCustomer,
+                    updateAllSuperDirectMembers: false,
+                    disableAllSuperDirectMembers: false,
                     updateAllMasters: false,
                     disableAllMasters: false,
+                    updateAllMasterDirectMembers: false,
+                    disableAllMasterDirectMembers: false,
                     updateAllAgents: false,
                     disableAllAgents: false,
                     updateAllMembers: false,
@@ -239,7 +265,9 @@
                 });
 
                 if (data.disable != originDisableCustomer
+                    || data.updateAllSuperDirectMembers
                     || data.updateAllMasters
+                    || data.updateAllMasterDirectMembers
                     || data.updateAllAgents
                     || data.updateAllMembers) {
                     return data;
@@ -250,10 +278,22 @@
 
     getDownlineStatus(toggle: HTMLElement, data: any) {
         switch (this.getRoleId(toggle)) {
+            case -4:
+                let superDirectMemberStatus = this.getLevelStatus(toggle, data.disable);
+                data.updateAllSuperDirectMembers = superDirectMemberStatus.UpdateAll;
+                data.disableAllSuperDirectMembers = superDirectMemberStatus.DisableAll;
+                break;
+
             case 3:
                 let masterStatus = this.getLevelStatus(toggle, data.disable);
                 data.updateAllMasters = masterStatus.UpdateAll;
                 data.disableAllMasters = masterStatus.DisableAll;
+                break;
+
+            case -3:
+                let masterDirectMemberStatus = this.getLevelStatus(toggle, data.disable);
+                data.updateAllMasterDirectMembers = masterDirectMemberStatus.UpdateAll;
+                data.disableAllMasterDirectMembers = masterDirectMemberStatus.DisableAll;
                 break;
 
             case 2:
@@ -275,8 +315,7 @@
     getTotalStatus = (toggle: HTMLElement, customData: string): number => this.$(toggle).data(customData);
 
     getLevelStatus(toggle: HTMLElement, disabledUpline: boolean) {
-        if (disabledUpline)
-        {
+        if (disabledUpline) {
             return {
                 UpdateAll: true,
                 DisableAll: true

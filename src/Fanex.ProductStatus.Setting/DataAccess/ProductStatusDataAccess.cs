@@ -57,7 +57,11 @@
                 Convert.ToInt32(reader["totaldisabledagents"]),
                 Convert.ToInt32(reader["totalenabledagents"]),
                 Convert.ToInt32(reader["totaldisabledmembers"]),
-                Convert.ToInt32(reader["totalenabledmembers"]));
+                Convert.ToInt32(reader["totalenabledmembers"]),
+                Convert.ToInt32(reader["totaldisabledsuperdirectmembers"]),
+                Convert.ToInt32(reader["totalenabledsuperdirectmembers"]),
+                Convert.ToInt32(reader["totaldisabledmasterdirectmembers"]),
+                Convert.ToInt32(reader["totalenabledmasterdirectmembers"]));
 
         public IEnumerable<ProductStatusUM> GetProductStatusUM(ICriteria criteria)
         {

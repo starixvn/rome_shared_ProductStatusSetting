@@ -75,7 +75,11 @@
                     totalDisabledAgents: 0,
                     totalEnabledAgents: 200,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 300)
+                    totalEnabledMembers: 300,
+                    totalDisabledSuperDirectMembers: 0,
+                    totalEnabledSuperDirectMembers: 400,
+                    totalDisabledMasterDirectMembers: 0,
+                    totalEnabledMasterDirectMembers: 500)
             };
             productStatusService
                 .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
@@ -212,7 +216,11 @@
                     totalDisabledAgents: 0,
                     totalEnabledAgents: 200,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 300)
+                    totalEnabledMembers: 300,
+                    totalDisabledSuperDirectMembers: 0,
+                    totalEnabledSuperDirectMembers: 400,
+                    totalDisabledMasterDirectMembers: 0,
+                    totalEnabledMasterDirectMembers: 500)
             };
             productStatusService
                 .GetProductStatus(queryViewModel.ProductId, queryViewModel.CustId, queryViewModel.SportTypeId, queryViewModel.SystemId, queryViewModel.SettingStatus)
@@ -336,7 +344,11 @@
                     totalDisabledAgents: 0,
                     totalEnabledAgents: 200,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 300)
+                    totalEnabledMembers: 300,
+                    totalDisabledSuperDirectMembers: 0,
+                    totalEnabledSuperDirectMembers: 400,
+                    totalDisabledMasterDirectMembers: 0,
+                    totalEnabledMasterDirectMembers: 500)
             };
             productStatusService
                 .GetProductStatus(viewModel.ProductId, viewModel.CustId, viewModel.SportTypeId, viewModel.SystemId, viewModel.SettingStatus)
