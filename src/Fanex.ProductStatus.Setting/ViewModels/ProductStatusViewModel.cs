@@ -20,7 +20,7 @@
                 case RoleIdentity.Super:
                     DirectSuperMember = new DownlineStatusViewModel(IsDisabled, model.TotalDisabledSuperDirectMembers, model.TotalEnabledSuperDirectMembers);
                     Master = new DownlineStatusViewModel(IsDisabled, model.TotalDisabledMasters, model.TotalEnabledMasters);
-                    DirectMasterMember = new DownlineStatusViewModel(IsDisabled, model.TotalDisabledMasterDirectMembers, model.TotalEnabledMasterDirectMembers);
+                    DirectMasterMember = new DownlineStatusViewModel(IsDisabled || model.TotalEnabledMasters == 0, model.TotalDisabledMasterDirectMembers, model.TotalEnabledMasterDirectMembers);
                     Agent = new DownlineStatusViewModel(IsDisabled || model.TotalEnabledMasters == 0, model.TotalDisabledAgents, model.TotalEnabledAgents);
                     Member = new DownlineStatusViewModel(IsDisabled || model.TotalEnabledAgents == 0, model.TotalDisabledMembers, model.TotalEnabledMembers);
                     break;

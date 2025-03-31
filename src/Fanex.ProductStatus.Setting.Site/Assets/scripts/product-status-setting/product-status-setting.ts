@@ -291,7 +291,7 @@
                 break;
 
             case -3:
-                let masterDirectMemberStatus = this.getLevelStatus(toggle, data.disable);
+                let masterDirectMemberStatus = this.getLevelStatus(toggle, this.$custRole == 3 ? data.disable : data.disableAllMasters);
                 data.updateAllMasterDirectMembers = masterDirectMemberStatus.UpdateAll;
                 data.disableAllMasterDirectMembers = masterDirectMemberStatus.DisableAll;
                 break;
