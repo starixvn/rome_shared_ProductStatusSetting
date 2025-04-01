@@ -113,7 +113,9 @@
                 .attr('class', labelText.toLowerCase())
                 .text(labelText);
 
-            this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            if (roleId > 0) {
+                this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            }
             if (roleId == 4) {
                 this.toggleStatusDownlines(-4, enable, sportType, betType);
             }
@@ -140,7 +142,9 @@
                 this.$(toggle).text(this.getTotalStatus(toggle, "total"));
             }
 
-            this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            if (roleId > 0) {
+                this.toggleStatusDownlines(roleId - 1, enable, sportType, betType);
+            }
             if (roleId == 4) {
                 this.toggleStatusDownlines(-4, enable, sportType, betType);
             }
