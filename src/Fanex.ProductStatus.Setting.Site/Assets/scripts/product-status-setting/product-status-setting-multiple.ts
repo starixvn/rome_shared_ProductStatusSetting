@@ -19,8 +19,7 @@
         this.$("#productIds").change(() => {
             var productId = this.$("#productIds").val();
             this.$("#productId").val(productId);
-            var productsFilter = this.$products.filter(x => x.Id == productId && x.IsGroup);
-            var isGroup = productsFilter != null && productsFilter.length > 0;
+            var isGroup = this.$products.some(x => x.Id == productId && x.IsGroup);
             this.$("#isGroup").val(isGroup.toString())
             this.$("#product-form").submit();
         });
@@ -125,13 +124,10 @@
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
             this.watchHeader(roleId, false);
-
             if (roleId > 1) {
                 let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
-
                 this.toogleStatusDownline(downlineToggle, enable);
             }
-
             if (this.isParentRow(toogle)) {
                 let parentSportType = this.getParentSportType(toogle);
                 let parentBettype = this.getParentBetType(toogle);
@@ -144,7 +140,7 @@
                     }
                     else {
                         if (roleId < 4) {
-                            let uplineToggle = this.getToggleElements(this.$toggleArray, roleId + 1, this.getSportType(childToogle), this.getBetType(childToogle));
+                            let uplineToggle = this.getToggleElements(this.$toggleArray, this.getUplineRoleId(roleId), this.getSportType(childToogle), this.getBetType(childToogle));
                             let uplineEnable = this.isChecked(uplineToggle);
                             if (uplineEnable) {
                                 this.enableElement(childToogle);
@@ -260,6 +256,14 @@
     isEnabledElement(toggle: HTMLElement): boolean {
         let nextLabel = this.getNextLabel(toggle);
         return super.isEnabledElement(nextLabel);
+    }
+
+    getUplineRoleId(roleId: number): number {
+        if (roleId === -3)
+            return 3;
+        if (roleId === -4)
+            return 4;
+        return roleId++;
     }
 
     getUpdateViewModel() {
