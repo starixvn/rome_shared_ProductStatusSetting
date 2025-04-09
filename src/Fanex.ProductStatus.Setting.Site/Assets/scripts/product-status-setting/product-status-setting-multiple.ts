@@ -127,6 +127,15 @@
             if (roleId > 1) {
                 let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
                 this.toogleStatusDownline(downlineToggle, enable);
+                if (roleId === 4) {
+                    let superDirectMemberToggle = this.getToggleElements(this.$toggleArray, -4, sportType, bettype);
+                    this.toogleStatusDownline(superDirectMemberToggle, enable);
+                }
+
+                if (roleId === 3) {
+                    let masterDirectMemberToggle = this.getToggleElements(this.$toggleArray, -3, sportType, bettype);
+                    this.toogleStatusDownline(masterDirectMemberToggle, enable);
+                }
             }
             if (this.isParentRow(toogle)) {
                 let parentSportType = this.getParentSportType(toogle);
