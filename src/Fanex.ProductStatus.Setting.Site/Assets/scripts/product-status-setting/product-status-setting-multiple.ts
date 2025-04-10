@@ -123,6 +123,7 @@
             let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
+            let isMacauGames = this.$("#productId").val() == "18";
             this.watchHeader(roleId, false);
             if (roleId > 1) {
                 let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
@@ -137,7 +138,7 @@
                     this.toogleStatusDownline(masterDirectMemberToggle, enable);
                 }
             }
-            if (this.isParentRow(toogle)) {
+            if (isMacauGames && this.isParentRow(toogle)) {
                 let parentSportType = this.getParentSportType(toogle);
                 let parentBettype = this.getParentBetType(toogle);
                 let childToggles = this.getTogglesByParentSportTypeBetType(this.$toggleArray, roleId, sportType, bettype);
