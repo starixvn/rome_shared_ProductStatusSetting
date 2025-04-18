@@ -1,7 +1,7 @@
 ﻿@using Fanex.ProductStatus.Setting.Site
 @{
     Layout = null;
-    var productIdsForMultiple = string.Join(",", ProductListConsts.Products.Select(p => p.Key));
+    var productIdsForMultiple = string.Join(",", ProductListConsts.Products.Select(p => p.Id));
 }
 <!DOCTYPE html>
 <html>
@@ -18,8 +18,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Key + "&custId=1176070&custRole=4&custName=supertest1")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Id + "&custId=1176070&custRole=4&custName=supertest1")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -31,8 +31,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Key + "&custId=1176083&custRole=3&custName=master1")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Id + "&custId=1176083&custRole=3&custName=master1")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -44,8 +44,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Key + "&custId=1176086&custRole=2&custName=agent01")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Id + "&custId=1176086&custRole=2&custName=agent01")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -57,8 +57,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Key + "&custId=1176092&custRole=1&custName=member01")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Index?productId=" + item.Id + "&custId=1176092&custRole=1&custName=member01")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -69,8 +69,8 @@
         <div style="width:20%;display:inline-block">
             <h3>Supers: supertest1,supertest2,supertest5</h3>
             <form action="/ProductStatusSetting/MultipleView" method="post" target="_blank">
-                <input type="hidden" name="custIds" value="1176070,576313,18106958" />
-                <input type="hidden" name="custNames" value="supertest1,supertest2,supertest5" />
+                <input type="hidden" name="custIds" value="148695117,179806995,179806994" />
+                <input type="hidden" name="custNames" value="supertest0A,Supertest04,Supertest03" />
                 <input type="hidden" name="CustRole" value="4" />
                 <button type="submit">Submit</button>
             </form>
@@ -79,8 +79,8 @@
             <h3>Masters: master1,masterbl,masterkz00</h3>
             <form action="/ProductStatusSetting/MultipleView" method="post" target="_blank">
                 <input type="hidden" name="productids" value="@productIdsForMultiple" />
-                <input type="hidden" name="custIds" value="1176083,27851214,14373624" />
-                <input type="hidden" name="custNames" value="master1,masterbl,masterkz00" />
+                <input type="hidden" name="custIds" value="148695117,179806995,179806994" />
+                <input type="hidden" name="custNames" value="supertest0A,Supertest04,Supertest03" />
                 <input type="hidden" name="CustRole" value="3" />
                 <button type="submit">Submit</button>
             </form>
@@ -114,8 +114,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Key + "&custId=1176070&custRole=4&custName=supertest1")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Id + "&custId=1176070&custRole=4&custName=supertest1")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -127,8 +127,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Key + "&custId=1176083&custRole=3&custName=master1")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Id + "&custId=1176083&custRole=3&custName=master1")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -140,8 +140,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Key + "&custId=1176086&custRole=2&custName=agent01")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Id + "&custId=1176086&custRole=2&custName=agent01")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>
@@ -153,8 +153,8 @@
                 @foreach (var item in ProductListConsts.Products)
                 {
                     <li>
-                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Key + "&custId=1176092&custRole=1&custName=member01")"
-                           target="_blank">@item.Value</a>
+                        <a href="@Url.Content("~/ProductStatusSetting/Simple?productId=" + item.Id + "&custId=1176092&custRole=1&custName=member01")"
+                           target="_blank">@item.Name</a>
                     </li>
                 }
             </ol>

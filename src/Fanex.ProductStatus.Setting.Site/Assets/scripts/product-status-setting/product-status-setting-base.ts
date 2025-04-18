@@ -17,6 +17,7 @@
     $isMultipleBetTypes: boolean;
     $isReloadLeftPanel: boolean;
     $isGroup: boolean;
+    downlineRoleIds: number[] = [1, 2, -3, 3, -4, 4];
 
     constructor($: JQueryStatic, topWindow: any) {
         this.$ = $;

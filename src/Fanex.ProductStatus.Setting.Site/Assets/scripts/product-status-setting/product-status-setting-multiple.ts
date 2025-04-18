@@ -19,7 +19,7 @@
         this.$("#productIds").change(() => {
             var productId = this.$("#productIds").val();
             this.$("#productId").val(productId);
-            var isGroup = this.$products.filter(x => x.Id == productId && x.IsGroup)?.length > 0;
+            var isGroup = this.$products.some(x => x.Id == productId && x.IsGroup);
             this.$("#isGroup").val(isGroup.toString())
             this.$("#product-form").submit();
         });
@@ -125,13 +125,19 @@
             let enable = this.isChecked(toogle);
             let isMacauGames = this.$("#productId").val() == "18";
             this.watchHeader(roleId, false);
-
             if (roleId > 1) {
                 let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
-
                 this.toogleStatusDownline(downlineToggle, enable);
-            }
+                if (roleId === 4) {
+                    let superDirectMemberToggle = this.getToggleElements(this.$toggleArray, -4, sportType, bettype);
+                    this.toogleStatusDownline(superDirectMemberToggle, enable);
+                }
 
+                if (roleId === 3) {
+                    let masterDirectMemberToggle = this.getToggleElements(this.$toggleArray, -3, sportType, bettype);
+                    this.toogleStatusDownline(masterDirectMemberToggle, enable);
+                }
+            }
             if (isMacauGames && this.isParentRow(toogle)) {
                 let parentSportType = this.getParentSportType(toogle);
                 let parentBettype = this.getParentBetType(toogle);
@@ -144,7 +150,7 @@
                     }
                     else {
                         if (roleId < 4) {
-                            let uplineToggle = this.getToggleElements(this.$toggleArray, roleId + 1, this.getSportType(childToogle), this.getBetType(childToogle));
+                            let uplineToggle = this.getToggleElements(this.$toggleArray, this.getUplineRoleId(roleId), this.getSportType(childToogle), this.getBetType(childToogle));
                             let uplineEnable = this.isChecked(uplineToggle);
                             if (uplineEnable) {
                                 this.enableElement(childToogle);
@@ -169,6 +175,15 @@
             let sportType = this.getSportType(toogle);
             let bettype = this.getBetType(toogle);
             let enable = this.isChecked(toogle);
+
+            if (roleId == 3) {
+                this.toogleStatusDownline(this.getToggleElements(this.$toggleArray, -4, sportType, bettype), enable);
+            }
+
+            if (roleId == 2) {
+                this.toogleStatusDownline(this.getToggleElements(this.$toggleArray, -3, sportType, bettype), enable);
+            }
+
             let downlineToggle = this.getToggleElements(this.$toggleArray, roleId - 1, sportType, bettype);
 
             this.toogleStatusDownline(downlineToggle, enable);
@@ -253,6 +268,14 @@
         return super.isEnabledElement(nextLabel);
     }
 
+    getUplineRoleId(roleId: number): number {
+        if (roleId === -3)
+            return 3;
+        if (roleId === -4)
+            return 4;
+        return roleId++;
+    }
+
     getUpdateViewModel() {
         let viewModel = super.getUpdateViewModel();
 
@@ -263,8 +286,12 @@
                     sportType: this.getSportType(firstCheckbox),
                     betType: this.getBetType(firstCheckbox),
                     disable: !this.isChecked(firstCheckbox),
+                    updateAllSuperDirectMembers: false,
+                    disableAllSuperDirectMembers: null,
                     updateAllMasters: false,
                     disableAllMasters: null,
+                    updateAllMasterDirectMembers: false,
+                    disableAllMasterDirectMembers: null,
                     updateAllAgents: false,
                     disableAllAgents: null,
                     updateAllMembers: false,
@@ -292,9 +319,17 @@
         let disableAll = !this.isEnabledElement(toggle);
 
         switch (this.getRoleId(toggle)) {
+            case -4:
+                model.updateAllSuperDirectMembers = true;
+                model.disableAllSuperDirectMembers = disableAll;
+                break;
             case 3:
                 model.updateAllMasters = true;
                 model.disableAllMasters = disableAll;
+                break;
+            case -3:
+                model.updateAllMasterDirectMembers = true;
+                model.disableAllMasterDirectMembers = disableAll;
                 break;
             case 2:
                 model.updateAllAgents = true;

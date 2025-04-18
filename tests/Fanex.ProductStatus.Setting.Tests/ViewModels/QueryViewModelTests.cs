@@ -14,7 +14,7 @@
         private const int ProductIdTest = ProductIdentity.NumberGame;
         private const int CustIdTest = 1176083;
         private const string CustNameTest = "supertest1";
-        private const byte CustRoleTest = RoleIdentity.Super;
+        private const short CustRoleTest = RoleIdentity.Super;
 
         [Fact]
         public void New_Always_AssignsCorrectProperties()
@@ -84,7 +84,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46),
+                    totalEnabledMembers: 46,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42),
                 new ProductStatusModel(
                     sportType: 5,
                     parentSportType: 0,
@@ -97,7 +101,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 0,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 0),
+                    totalEnabledMembers: 0,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42),
                   new ProductStatusModel(
                     sportType: 5,
                     parentSportType: 0,
@@ -110,7 +118,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 0)
+                    totalEnabledMembers: 0,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42)
             };
 
             // Act
@@ -150,7 +162,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 46),
+                    totalEnabledMembers: 46,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42),
                 new ProductStatusModel(
                     sportType: 5,
                     parentSportType: 0,
@@ -163,7 +179,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 0,
                     totalDisabledMembers: 36,
-                    totalEnabledMembers: 0),
+                    totalEnabledMembers: 0,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42),
                   new ProductStatusModel(
                     sportType: 5,
                     parentSportType: 0,
@@ -176,7 +196,11 @@
                     totalDisabledAgents: 33,
                     totalEnabledAgents: 37,
                     totalDisabledMembers: 0,
-                    totalEnabledMembers: 0)
+                    totalEnabledMembers: 0,
+                    totalDisabledSuperDirectMembers: 43,
+                    totalEnabledSuperDirectMembers: 4324,
+                    totalDisabledMasterDirectMembers: 543,
+                    totalEnabledMasterDirectMembers: 42)
             };
 
             // Act

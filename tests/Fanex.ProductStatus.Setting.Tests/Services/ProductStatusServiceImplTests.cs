@@ -55,6 +55,10 @@
                     20,
                     200,
                     30,
+                    300,
+                    20,
+                    200,
+                    30,
                     300)
             };
             var criteria = new SelectProductStatusCriteria(productId, CustIdTest, 0);
@@ -99,6 +103,10 @@
                     20,
                     200,
                     30,
+                    300,
+                    20,
+                    200,
+                    30,
                     300),
                 new ProductStatusModel(
                     202,
@@ -109,6 +117,10 @@
                     false,
                     10,
                     100,
+                    20,
+                    200,
+                    30,
+                    300,
                     20,
                     200,
                     30,

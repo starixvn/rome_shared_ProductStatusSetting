@@ -24,7 +24,7 @@
         public Result UpdateProductStatus(
             int productId,
             int custId,
-            byte custRole,
+            short custRole,
             int actorId,
             string actorName,
             string ip,

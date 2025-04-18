@@ -22,13 +22,8 @@ namespace Fanex.ProductStatus.Setting.Site
             {
                 return new List<Product>
                 {
-                    new Product(3, "Number Game",false),
-                    new Product(12, "Gold Deluxe",false),
-                    new Product(21, "Allbets",false),
-                    new Product(22, "Macau Games",false),
-                    new Product(28, "Lottery",false),
-                    new Product(44, "RNG Lottery",false),
-                    new Product(38, "Virtual Games",false)
+                    new Product(2, "RNG Games", true),
+                    new Product(3, "Live & RNG Casino", true)
                 };
             }
         }
@@ -103,7 +98,7 @@ namespace Fanex.ProductStatus.Setting.Site
         // 0: Production
         // 1: UAT
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public byte SettingStatus { get; } = 1;
+        public byte SettingStatus { get; } = 0;
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }
