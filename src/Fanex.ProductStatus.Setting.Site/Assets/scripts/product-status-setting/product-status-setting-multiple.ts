@@ -302,7 +302,7 @@
                     return this.getproductStatus(toggle, data);
                 });
 
-                if (data.updateAllMasters || data.updateAllAgents || data.updateAllMembers) {
+                if (data.updateAllMasters || data.updateAllAgents || data.updateAllMembers || data.updateAllSuperDirectMembers || data.updateAllMasterDirectMembers) {
                     return data;
                 }
             }
