@@ -1,0 +1,36 @@
+﻿[
+  {
+    "outputFileName": "Areas/ProductStatusSetting/Styles/product-status-setting-multiple.css",
+    "inputFiles": [
+      "Assets/scripts/libs/jquery/jquery-ui-1.9.2.css",
+      "Areas/ProductStatusSetting/Styles/product-status-setting.css"
+    ]
+  },
+  {
+    "outputFileName": "Areas/ProductStatusSetting/Scripts/product-status-setting.js",
+    "inputFiles": [
+      "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
+      "Assets/scripts/libs/jQuery/blockUI.js",
+      "Assets/scripts/product-status-setting/product-status-setting-base.js",
+      "Assets/scripts/product-status-setting/product-status-setting.js"
+    ]
+  },
+  {
+    "outputFileName": "Areas/ProductStatusSetting/Scripts/product-status-setting-multiple.js",
+    "inputFiles": [
+      "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
+      "Assets/scripts/libs/jQuery/blockUI.js",
+      "Assets/scripts/libs/jQuery/jquery-ui-1.9.2.js",
+      "Assets/scripts/product-status-setting/product-status-setting-base.js",
+      "Assets/scripts/product-status-setting/product-status-setting-multiple.js"
+    ]
+  },
+  {
+    "outputFileName": "Areas/ProductStatusSetting/Scripts/simple-product-status-setting.js",
+    "inputFiles": [
+      "Assets/scripts/libs/jQuery/jquery-1.11.3.js",
+      "Assets/scripts/libs/jQuery/blockUI.js",
+      "Assets/scripts/product-status-setting/simple-product-status-setting.js"
+    ]
+  }
+]

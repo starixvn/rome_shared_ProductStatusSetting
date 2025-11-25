@@ -1,0 +1,40 @@
+﻿{
+  "Framework": "jasmine",
+  "EnableCodeCoverage": "true",
+  "Compile": {
+    "Mode": "External",
+    "Extensions": [ ".ts" ],
+    "ExtensionsWithNoOutput": [".d.ts"]
+  },
+  "CodeCoverageExcludes": [
+    "*\\libs\\*"
+  ],
+  "CodeCoverageIgnores": [
+    "*\\tests\\*"
+  ],
+  
+  "CodeCoverageExecutionMode": "Manual",
+  "References": [
+    //{ "Path": "../../../typings/globals/jasmine/index.d.ts" },
+    //{ "Path": "../../../typings/globals/jasmine-jquery/index.d.ts" },
+    //{ "Path": "../../../typings/globals/jquery/index.d.ts" },
+
+    { "Path": "../libs/jquery/jquery-1.11.3.js" },
+    { "Path": "../libs/jasmine/jasmine.js" },
+    { "Path": "../libs/jasmine/jasmine-jquery.js" },
+
+    { "Path": "../product-status-setting/product-status-setting-base.ts" },
+    { "Path": "../product-status-setting/product-status-setting.ts" }
+
+  ],
+  "Tests": [
+    {
+      "Path": "apps/product-status-setting",
+      "Excludes": [ "**.js.map" ]
+    },
+     {
+      "Path": "apps/product-status-base-setting",
+      "Excludes": [ "**.js.map" ]
+    }
+  ]
+}

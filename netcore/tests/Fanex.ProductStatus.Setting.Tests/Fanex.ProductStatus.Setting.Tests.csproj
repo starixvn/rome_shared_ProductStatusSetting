@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>Fanex.ProductStatus.Setting.Tests</RootNamespace>
+    <AssemblyName>Fanex.ProductStatus.Setting.Tests</AssemblyName>
+    <IsTestProject>true</IsTestProject>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="CompareNETObjects" Version="4.83.0" />
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <PackageReference Include="MessagePack" Version="2.5.192" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Fanex.ProductStatus.Setting\Fanex.ProductStatus.Setting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference to local Fanex packages -->
+    <Reference Include="..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Data.0.5.404.59\lib\net40\Fanex.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.NAP.Framework.1.0.0.2\lib\net40\Fanex.NAP.Framework.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll">
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AppReadme\Compare-NET-Objects-Help.txt" />
+  </ItemGroup>
+
+</Project>

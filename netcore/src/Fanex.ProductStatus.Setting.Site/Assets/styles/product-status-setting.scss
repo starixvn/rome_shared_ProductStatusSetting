@@ -1,0 +1,71 @@
+﻿@import '_common.scss';
+@import '_dialog.scss';
+
+.checkbox-hide, hide { display: none; }
+
+.enabled, .disabled, .gray {
+  border-radius: 3px;
+  display: inline-block;
+  font-weight: normal;
+  padding: 3px 4px;
+  min-width: 55px;
+}
+
+.enabled { 
+    background-color: $enable-background-color;
+    color: $button-color;
+      &:hover {
+        cursor: pointer;
+    }
+}
+
+.disabled { 
+    background-color: $disable-background-color; 
+    color: $button-color;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.gray {
+  background-color: $background-gray-color !important;
+  color: $gray-color !important;
+  &:hover {
+       cursor: default;
+      }
+}
+
+.current-role {
+  position: relative;
+  top: 3px;
+}
+
+.all-status { 
+    white-space: nowrap;
+    margin-top: 12px; 
+    .label{
+        margin: 0 2px; 
+    }
+}
+
+.btn-reset { 
+    background: $button-reset-background-color;
+   &:hover { 
+       background: $button-reset-hover-background-color; 
+    }
+}
+
+.filter {
+    background-color: $msg-background-color;
+    border: 1px solid $border-color;
+    margin-top: 5px;
+    padding: 5px;
+    font-weight: bold;
+    max-height: 500px;
+    overflow-x: auto;
+    .alerterror{
+        font-weight: bold;
+        margin-left: 10px;
+        color: $msg-error-color;
+    }
+}

@@ -1,0 +1,87 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Fanex.ProductStatus.Setting</RootNamespace>
+    <AssemblyName>Fanex.ProductStatus.Setting</AssemblyName>
+    <EnableDefaultCompileItems>true</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="10.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="MessagePack" Version="2.5.192" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference to local Fanex packages - will need to be updated or converted -->
+    <Reference Include="..\..\packages\Fanex.Common.1.0.404.97\lib\net40\Fanex.Common.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Data.0.5.404.59\lib\net40\Fanex.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Logging.Extensions.1.0.5\lib\net40\Fanex.Logging.Extensions.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Logging.Extensions.Web.1.0.6\lib\net40\Fanex.Logging.Extensions.Web.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.NAP.Framework.1.0.0.2\lib\net40\Fanex.NAP.Framework.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\IBCCrypt.1.1.0.0\lib\IBCCrypt.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Sunplus.Libraries.AOP.1.0.4218.28561\lib\net40\Sunplus.Libraries.AOP.dll">
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="AppResources\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="AppResources\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

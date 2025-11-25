@@ -1,0 +1,140 @@
+﻿@import '_variables.scss';
+
+@font-face {
+  font-family: 'AlphaAdmin';
+  src:  url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/AlphaAdmin.ttf?ov9kl0');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+    font-family: 'Tahoma Custom';
+    src: url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/Tahoma Regular font.ttf?3d71m2#iefix') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMA_0.ttf?3d71m2') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMAB0.ttf?3d71m2') format('truetype'), url('../../Areas/ProductStatusSetting/Styles/font/AlphaAdmin/TAHOMABD.ttf?3d71m2') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 4 corners */
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br {
+    border-bottom-right-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl {
+    border-bottom-left-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr {
+    border-top-right-radius: 0px !important;
+}
+
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl {
+    border-top-left-radius: 0px !important;
+}
+
+.ui-dialog {
+    border-color: #aaa;
+    padding: 0;
+
+    @media all and (max-device-width: 768px) {
+        max-width: 100% !important;
+        max-height: 100% !important;
+
+        .ui-dialog-content {
+            width: 100% !important;
+        }
+    }
+
+    .ui-dialog-content {
+        padding: 0;
+        -webkit-overflow-scrolling: touch;
+
+        p {
+            color: $popup-text-color;
+            font-size: 1.1em;
+            line-height: 18px;
+            padding: 0 8px;
+        }
+    }
+
+    .ui-dialog-buttonpane {
+        padding: 2px 16px;
+        margin-top: 0;
+        height: 40px;
+        box-sizing: content-box;
+
+        .ui-button {
+            background: $button-background-color;
+            border: 0;
+            border-radius: 2px;
+            -moz-border-radius: 2px;
+            -webkit-border-radius: 2px;
+            color: $button-color;
+            font-size: 12px;
+        }
+
+        .btn.-submit {
+            background: $button-background-color !important;
+
+            &:hover {
+                background: darken($button-background-color, 5%) !important;
+            }
+        }
+
+        .btn.-normal {
+            background: $button-normal-background-color !important;
+            color: $popup-text-color;
+
+            &:hover {
+                background: darken($button-normal-background-color, 5%) !important;
+            }
+        }
+    }
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    border: none;
+    background: $popup-header-bg;
+    color: $popup-header-color;
+    text-indent: 5px;
+    padding: 5px;
+    font-weight: normal;
+    font-size: 13px;
+    height: 20px;
+    position: relative;
+    .ui-icon {
+        background: none !important;
+        font-size: 0;
+        text-indent: unset;
+        overflow: unset;
+        &:before {
+            font-family: 'AlphaAdmin' !important;
+            content: '\e909';
+            color: #fff;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            display: inline-block;
+        }
+    }
+    .ui-dialog-titlebar-close {
+        background: transparent;
+        border: none;
+        margin: unset;
+        padding: unset;
+        top: unset;
+        height: 30px;
+        width: 30px;
+        &.ui-state-hover {
+            background: transparent;
+            border: none;
+        }
+    }
+}
+
+iframe.ui-dialog-content body {
+    overflow: auto;
+}
+
+.ui-widget-content {
+    border-top: 0;
+}

@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Areas/ProductStatusSetting/Styles/product-status-setting.css",
+    "inputFile": "assets/styles/product-status-setting.scss"
+  },
+  {
+    "outputFile": "Areas/ProductStatusSetting/Styles/simple-product-status-setting.css",
+    "inputFile": "assets/styles/simple-product-status-setting.scss"
+  }
+]

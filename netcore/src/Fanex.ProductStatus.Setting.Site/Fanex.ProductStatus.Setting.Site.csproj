@@ -1,0 +1,122 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Fanex.ProductStatus.Setting.Site</RootNamespace>
+    <AssemblyName>Fanex.ProductStatus.Setting.Site</AssemblyName>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- TODO: Razor compilation enabled but specific views with @helper excluded (not supported in ASP.NET Core) -->
+    <EnableDefaultRazorGenerateItems>true</EnableDefaultRazorGenerateItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MessagePack" Version="2.5.192" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="10.0.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.7.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.ProductStatus.Setting\Fanex.ProductStatus.Setting.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Reference to local Fanex packages -->
+    <Reference Include="..\..\packages\Fanex.Data.0.5.404.59\lib\net40\Fanex.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.Logging.1.0.4\lib\net40\Fanex.Logging.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\Fanex.RemotingRef.1.1.1\lib\net461\Fanex.RemotingRef.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\IBCCrypt.1.1.0.0\lib\IBCCrypt.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\ILogger.1.0.0.0\lib\net40\ILogger.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Common.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Common.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Data.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Data.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Logging.5.0.414.0\lib\net40\Microsoft.Practices.EnterpriseLibrary.Logging.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.ServiceLocation.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.dll">
+      <Private>true</Private>
+    </Reference>
+    <Reference Include="..\..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll">
+      <Private>true</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- TODO: Exclude views with @helper directives from Razor compilation (not supported in ASP.NET Core) -->
+    <!-- These views need to be converted to use Tag Helpers, Partial Views, or HTML Helpers instead -->
+    <Content Update="Areas\ProductStatusSetting\Views\Single\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Areas\ProductStatusSetting\Views\Multiple\MultiplePartialView.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <RazorCompile Remove="Areas\ProductStatusSetting\Views\Single\Index.cshtml" />
+    <RazorCompile Remove="Areas\ProductStatusSetting\Views\Multiple\MultiplePartialView.cshtml" />
+    
+    <Content Include="Areas\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Assets\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Views\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Content\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Scripts\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="App_Data\**\*.*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="bundleconfig.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="compilerconfig.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Controllers\*.cs" />
+    <Compile Include="ProductListConsts.cs" />
+    <!-- TODO: Global.asax.cs uses System.Web types not available in ASP.NET Core - needs migration -->
+    <!-- <Compile Include="Global.asax.cs"><DependentUpon>Global.asax</DependentUpon></Compile> -->
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\simple-product-status-setting.js" />
+    <Content Include="Areas\ProductStatusSetting\Scripts\simple-product-status-setting.min.js">
+      <DependentUpon>simple-product-status-setting.js</DependentUpon>
+    </Content>
+    <Content Include="Areas\ProductStatusSetting\Styles\font\AlphaAdmin\AlphaAdmin.ttf" />
+    <Content Include="Areas\ProductStatusSetting\Styles\images\copy-icon.png" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting-multiple.css" />
+    <Content Include="Areas\ProductStatusSetting\Styles\product-status-setting-multiple.min.css">
+      <DependentUpon>product-status-setting-multiple.css</DependentUpon>
+    </Content>
+    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.2.css" />
+    <Content Include="Assets\scripts\libs\jquery\jquery-ui-1.9.2.js" />
+    <Content Include="Assets\styles\_common.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="Assets\**\*.ts" />
+    <TypeScriptCompile Include="typings\**\*.ts" />
+  </ItemGroup>
+
+</Project>
